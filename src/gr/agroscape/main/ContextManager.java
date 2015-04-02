@@ -1,19 +1,38 @@
 package gr.agroscape.main;
 
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import gr.agroscape.agents.Farmer;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
+import gr.agroscape.crops.Crop;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ISimulationDataLoader;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
+
+/**
+ * This is the "main" class. 
+ * <br />Everything is loaded here through Overriding {@link #build()} method.
+ * This is directly related to the definition of Agroscape.rs/
+ * <br />Also the workflow of the AgroScape simulation is defined here, in the {@link #step()} method.
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class ContextManager implements ContextBuilder<Object> {
 	
 	
-	private MainContext parentContext;
+	private MainContext mainContext;
 	
 
 	/**
@@ -27,21 +46,23 @@ public class ContextManager implements ContextBuilder<Object> {
 	@Override
 	public Context<Object> build(Context<Object> context) {
 		
-		//step 1. keep a reference
-		this.parentContext=MainContext.getInstance();
+		//step 1. keep a reference		
+		this.mainContext=MainContext.getInstance();
+		
+		
 
 		
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
-		this.parentContext.addSubContext(plots);
+		this.mainContext.addSubContext(plots);
 		//this.parentContext.add(plots);
 		
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
-		this.parentContext.addSubContext(farmers);
+		this.mainContext.addSubContext(farmers);
 		//this.parentContext.add(farmers);
 		
 		CropsContext crops = new CropsContext(); //create crops' context
-		this.parentContext.addSubContext(crops);	
+		this.mainContext.addSubContext(crops);	
 		//this.parentContext.add(crops);
 		
 		//step 3, create dataLoader
@@ -50,24 +71,40 @@ public class ContextManager implements ContextBuilder<Object> {
 		dataLoader.loadCropsContext(crops);
 		dataLoader.loadFarmersContext(farmers);
 		dataLoader.loadPlotsContext(plots);
-		dataLoader.loadCropSuitabilityMap(this.parentContext.getCropSuitability(),this.parentContext);
-		dataLoader.initLandPropertyRegistry(this.parentContext.getLandPropertyRegistry());
-		dataLoader.initPaymentAuthority(this.parentContext.getPaymentAuthority());
+		dataLoader.loadCropSuitabilityMap(this.mainContext.getCropSuitability(),this.mainContext);
+		dataLoader.initLandPropertyRegistry(this.mainContext.getLandPropertyRegistry());
+		dataLoader.initPaymentAuthority(this.mainContext.getPaymentAuthority());
 			
 		
-		return this.parentContext;
+		//step 1.5 add schedule methods
+		ScheduleParameters params = ScheduleParameters.createRepeating(1, 1) ;
+		RunEnvironment.getInstance().getCurrentSchedule().schedule (params , this , "step");
+		
+		System.err.println("Everything is Loaded");
+		
+		return this.mainContext;
 	}
 
 	
 	/**
 	 * This is the algorithm of simulation. The following actions are taken:<br />
 	 * <ol>
-	 * <li>The {</li>
+	 * <li><strong>Production stage: </strong>For all {@link Farmer} objects, decide the production</li>
 	 * </ol>
 	 */
-	@ScheduledMethod(start = 1, interval = 1)
 	public void step() {
+		System.err.println("Do Step");
+		//1. Production Stage
+		Iterable<Farmer> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
+		for (Farmer f : fi) {
+			this.mainContext.handleProductionDecision(f, f.makeProductionDecision());
+			System.err.println(f.toString() + " | ProductionDecision: " + f.getThisStepProduction());
+		}
 		
+		System.err.println(this.mainContext.get_gvlProductionDecisions().toString());
+		
+		
+		//System.err.println(this.mainContext.get_gvlProductionDecisions().toString());
 	}
 	
 

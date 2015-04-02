@@ -5,6 +5,7 @@
  */
 package gr.agroscape.agents;
 
+import repast.simphony.engine.schedule.ScheduledMethod;
 import gr.agroscape.contexts.MainContext;
 
 
@@ -12,7 +13,7 @@ import gr.agroscape.contexts.MainContext;
  * ShortName: A
  * @author jkr
  */
-public class Agent {
+public abstract class Agent {
     
     private static int next_id;
     private int myId;
@@ -45,7 +46,8 @@ public class Agent {
 		return this.myId;
 	}
     
-      
+
+ 
     
     
 }

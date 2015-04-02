@@ -1,19 +1,22 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.agents.expectations.AbstractExpectation;
 import gr.agroscape.crops.Crop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 public abstract class Farmer extends Agent implements ICropProducer {
 	
     /**
-     * The liquidity at the current moment (€cents)
+     * The liquidity at the current moment (ï¿½cents)
      */
     protected long liquidity;
     
     protected ArrayList<Crop> potentialCrops = new ArrayList<Crop>();
+    
+    protected HashMap<Crop,Float> thisStepProduction = new HashMap<Crop, Float>();
     
 	
 	/**
@@ -87,6 +90,30 @@ public abstract class Farmer extends Agent implements ICropProducer {
 	
 	
 	
+	
+	/**
+	 * Getter for this Step's Production. It is an aggregate over all farmer's plots.
+	 * @return
+	 */
+	public HashMap<Crop, Float> getThisStepProduction() {
+		return thisStepProduction;
+	}
+	
+	/**
+	 * Add the given production HashMap to the total (current step's) production
+	 * @param pr
+	 */
+	protected void aggregateProduction(HashMap<Crop, Float> pr) {
+
+		for (Entry<Crop, Float> entry : pr.entrySet()) {
+			Crop key = entry.getKey();
+			Float value = entry.getValue();
+			if(! this.thisStepProduction.containsKey(key)) this.thisStepProduction.put(key,0f);
+			this.thisStepProduction.put(key,this.thisStepProduction.get(key)+value);
+		}
+			
+	}
+
 	abstract void calculateExpectations();
 	
 

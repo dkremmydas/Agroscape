@@ -1,17 +1,22 @@
 package gr.agroscape.contexts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.ICropProducer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.crops.Crop;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
+import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -50,7 +55,11 @@ public class MainContext extends DefaultContext<Object> {
 	private GridValueLayer gvl_Cultivators;
 	
 	//The ValueLayer of the Cultivator_id
-	private GridValueLayer gvl_Tenants;
+	//private GridValueLayer gvl_Tenants;
+	
+	//The ValueLayer showing the production decisions of the farmers
+	private GridValueLayer gvl_ProductionDecisions;
+	
 	
 	/**
 	 * Only one instance of MainContext exists. 
@@ -59,6 +68,7 @@ public class MainContext extends DefaultContext<Object> {
 	 */
 	public static MainContext getInstance() {
 		if (MainContext.instance==null) {MainContext.instance=new MainContext();}
+		MainContext.instance.setId("MainContext");
 		return MainContext.instance;
 	}
 	
@@ -79,8 +89,20 @@ public class MainContext extends DefaultContext<Object> {
 		
 		this.gvl_Cultivators = new GridValueLayer("Cultivators",true,new StrictBorders(), gridWidth, gridHeight);
 		this.addValueLayer( gvl_Cultivators );
+		
+		this.gvl_ProductionDecisions = new GridValueLayer("ProductionDecisions",true,new StrictBorders(), gridWidth, gridHeight);
+		this.addValueLayer( gvl_ProductionDecisions );
 	}
 	
+	
+	/**
+	 * Getter for {@link #gvl_ProductionDecisions}
+	 * @return
+	 */
+	public GridValueLayer get_gvlProductionDecisions() {
+		return gvl_ProductionDecisions;
+	}
+
 	/**
 	 * Getter for LandPropertyRegistry
 	 * @return
@@ -149,9 +171,29 @@ public class MainContext extends DefaultContext<Object> {
 	
 	public FarmersContext getFarmersContext() {
 		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (FarmersContext) this.getSubContext("FarmersContext");
-	}
+		return ((FarmersContext) this.getSubContext("FarmersContext"));
+	}	
 	
+	/**
+	 * It takes all required actions to update MainContext with the {@link ICropProducer} decision.<br />
+	 * Currently, this is:
+	 * <ul>
+	 * <li>Update {@link #gvl_ProductionDecisions} gridValueLayer, i.e. set the gridpoints of the corresponding Plot to the id of the Crop</li>
+	 * </ul>
+	 * @param f
+	 * @param p
+	 */
+	public void handleProductionDecision(ICropProducer f, HashMap<Plot, Crop> pr)	{		
+		
+		//1. Update gvl_ProductionDecisions
+		for (Iterator<Plot> iterator = pr.keySet().iterator(); iterator.hasNext();) {
+			Plot p = iterator.next();
+			for(GridPoint gp: p.getGridPoints()) {
+				this.gvl_ProductionDecisions.set(pr.get(p).getId(), gp.getX(),gp.getY());
+			}
+		}
+		
+	}
 	
 	
 }

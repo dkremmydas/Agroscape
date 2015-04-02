@@ -7,11 +7,9 @@ import gr.agroscape.exceptions.NoSuchAgentException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.math3.linear.BlockRealMatrix;
-import org.apache.commons.math3.linear.SparseFieldMatrix;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -25,7 +23,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * <li>To give information on a {@link Farmer} for the {@link Plot} he cultivates</li>
  * </ul>
  * 
- * @author jkr
+ * @author Dimitris Kremmydas
  */
 public class LandPropertyRegistry {
 	

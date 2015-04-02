@@ -1,6 +1,7 @@
 package gr.agroscape.authorities;
 
 
+import gr.agroscape.agents.ICropProducer;
 import gr.agroscape.crops.Crop;
 
 import java.util.HashMap;
@@ -13,8 +14,9 @@ import java.util.HashMap;
  * <li>it provides the Single Payment Value for a farmer</li>
  * <li>it provides the couple payments per crop</li>
  * <li>it keeps records on the subsidies per farmer</li>
+ * <li>//TODO it keeps records of the history of production decisions of {@link ICropProducer}s</li>
  * </ul>
- * @author jkr
+ * @author Dimitris Kremmydas
  *
  */
 public class PaymentAuthority {

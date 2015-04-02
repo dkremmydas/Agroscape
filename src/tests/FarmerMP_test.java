@@ -1,22 +1,32 @@
 package tests;
 
 import gr.agroscape.agents.Farmer_MP;
+import gr.agroscape.agents.Plot;
 import gr.agroscape.contexts.MainContext;
+import gr.agroscape.crops.Crop;
 import gr.agroscape.main.ContextManager;
+
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import repast.simphony.context.DefaultContext;
+import repast.simphony.engine.environment.DefaultScheduleRunner;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.Schedule;
+import repast.simphony.parameter.DefaultParameters;
 
 public class FarmerMP_test {
 	
 	private ContextManager builder;
 	private MainContext mainContext;
+	
 
 	@Before
 	public void setUp() throws Exception {
 		
+		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), new DefaultParameters(), false);
 		builder = new ContextManager ();
 		this.mainContext = (MainContext) builder.build(new DefaultContext<Object> ());
 		
@@ -46,7 +56,10 @@ public class FarmerMP_test {
 		
 		System.out.println("His MP production decision tableau is:\n" + f.getMPtablaeu());
 		
-		System.out.println("He makes a production decision: " + f.makeProductionDecision());
+		HashMap<Plot, Crop> pr = f.makeProductionDecision();
+		System.out.println("He makes a production decision: " + pr);
+		System.out.println("The aggregate production is: " + f.getThisStepProduction());
+		
 	}
 
 }

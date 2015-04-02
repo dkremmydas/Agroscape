@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-
-@SuppressWarnings("hiding")
+/**
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class ExpectedCropPrices extends AbstractExpectation<Crop, Long> {
 
 	

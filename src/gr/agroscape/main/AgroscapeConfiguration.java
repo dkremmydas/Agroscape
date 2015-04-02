@@ -1,8 +1,5 @@
 package gr.agroscape.main;
 
-import gr.agroscape.crops.Crop;
-
-import java.util.ArrayList;
 
 public final class AgroscapeConfiguration {
 	

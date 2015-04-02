@@ -17,6 +17,10 @@ public class FarmersContext extends DefaultContext<Farmer> {
 	
 	
 
+	/**
+	 * Gets an ArrayList of all Farmers within context
+	 * @return
+	 */
 	public ArrayList<Farmer> getFarmers() {
 		
 		ArrayList<Farmer> r = new ArrayList<Farmer>();
@@ -26,6 +30,8 @@ public class FarmersContext extends DefaultContext<Farmer> {
 		}
 		return r;
 	}
+	
+	
 	
 	
 	

@@ -20,7 +20,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * </ul>
  * 
  * 
- * @author jkr
+ * @author Dimitris Kremmydas
  *
  */
 
@@ -111,8 +111,8 @@ public class Plot {
 	public double getAverage(GridValueLayer data) {
 		
 		double r = 0d;
-		for (Iterator iterator = this.gridPoints.iterator(); iterator.hasNext();) {
-			GridPoint gridPoint = (GridPoint) iterator.next();
+		for (Iterator<GridPoint> iterator = this.gridPoints.iterator(); iterator.hasNext();) {
+			GridPoint gridPoint = iterator.next();
 			r = (r + data.get(gridPoint.getX(),gridPoint.getY()));
 		}
 		return r/this.gridPoints.size();

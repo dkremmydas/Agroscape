@@ -2,7 +2,6 @@ package gr.agroscape.agents.expectations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * An abstract class for an Expectation. <br />

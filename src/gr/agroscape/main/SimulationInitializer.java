@@ -7,7 +7,6 @@ import repast.simphony.engine.environment.GUIRegistryType;
 import repast.simphony.engine.environment.RunEnvironmentBuilder;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.IAction;
-import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.NonModelAction;
 import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.parameter.Parameters;
@@ -17,7 +16,11 @@ import repast.simphony.visualization.IDisplay;
 
 
 
-
+/**
+ * This class makes certain displays
+ * @author Dimitris Kremmydas
+ *
+ */
 public class SimulationInitializer implements ModelInitializer {
 
 	  private IDisplay display;

@@ -3,10 +3,7 @@ package gr.agroscape.agents;
 import gr.agroscape.agents.expectations.ExpectedCropPrices;
 import gr.agroscape.agents.expectations.ExpectedPlotCropVarCost;
 import gr.agroscape.agents.expectations.ExpectedPlotCropYield;
-import gr.agroscape.contexts.MainContext;
-import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.crops.Crop;
-import gr.agroscape.main.ContextManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +11,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import org.apache.commons.math3.optim.*;
-import org.apache.commons.math3.optim.linear.*;
+import org.apache.commons.math3.optim.PointValuePair;
+import org.apache.commons.math3.optim.linear.LinearConstraint;
+import org.apache.commons.math3.optim.linear.LinearConstraintSet;
+import org.apache.commons.math3.optim.linear.LinearObjectiveFunction;
+import org.apache.commons.math3.optim.linear.NonNegativeConstraint;
+import org.apache.commons.math3.optim.linear.Relationship;
+import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -35,7 +37,7 @@ public class Farmer_MP extends Farmer{
     static SimplexSolver ss = new SimplexSolver();
     
     /**
-     * The Decoupled Payment Rights (€cent/h)
+     * The Decoupled Payment Rights (ï¿½cent/h)
      */
     private long singlePaymentValue; // 
     
@@ -45,17 +47,17 @@ public class Farmer_MP extends Farmer{
     private ExpectedPlotCropYield expectedPlotCropYields;
     
     /**
-     * The expected prices for each Crop (Crop->€cent)
+     * The expected prices for each Crop (Crop->ï¿½cent)
      */
     private ExpectedCropPrices expectedCropPrices ;
     
     /**
-     * The amount of coupled payment (Crop->€cent/h)
+     * The amount of coupled payment (Crop->ï¿½cent/h)
      */
     private HashMap<Crop,Long> coupledPayments = new HashMap<Crop,Long>();  
     
     /**
-     * The expected variable cost of cultivating Crop to a Plot (Crop->€cent/h)
+     * The expected variable cost of cultivating Crop to a Plot (Crop->ï¿½cent/h)
      */
     private ExpectedPlotCropVarCost expectedPlotCropVarCost;
     
@@ -126,6 +128,7 @@ public class Farmer_MP extends Farmer{
 	@Override
 	public HashMap<Plot, Crop> makeProductionDecision() {
 		
+		this.thisStepProduction.clear();
 		this.calculateExpectations();
 		
 		//calculate objective function coefficients
@@ -190,6 +193,13 @@ public class Farmer_MP extends Farmer{
 			e.printStackTrace();
 		}
 
+		//update Farmer's total production
+		for (Iterator<Plot> iterator = r.keySet().iterator(); iterator.hasNext();) {
+			Plot p = iterator.next();
+			HashMap<Crop,Float> tmp = new HashMap<Crop, Float>();
+			tmp.put(r.get(p), (float)p.getGridPoints().size());		
+			this.aggregateProduction(tmp);
+		}
 		
 	    return r;		
 	
@@ -237,7 +247,8 @@ public class Farmer_MP extends Farmer{
 	public ExpectedPlotCropVarCost getExpectedPlotCropVarCost() {
 		return expectedPlotCropVarCost;
 	}
-	
+
+
 	
 	
     

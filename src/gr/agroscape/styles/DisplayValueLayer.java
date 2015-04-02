@@ -2,14 +2,19 @@ package gr.agroscape.styles;
 
 
 
-	import repast.simphony.context.Context;
-	import repast.simphony.query.PropertyEquals;
-	import repast.simphony.render.RenderListener;
-	import repast.simphony.render.RendererListenerSupport;
-	import repast.simphony.visualization.*;
+	import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
 
-	import javax.swing.*;
-	import java.awt.*;
+import repast.simphony.context.Context;
+import repast.simphony.render.RenderListener;
+import repast.simphony.render.RendererListenerSupport;
+import repast.simphony.visualization.DisplayEditorLifecycle;
+import repast.simphony.visualization.DisplayListener;
+import repast.simphony.visualization.IDisplay;
+import repast.simphony.visualization.Layout;
+import repast.simphony.visualization.ProbeListener;
 
 	/**
 	 * @author Nick Collier

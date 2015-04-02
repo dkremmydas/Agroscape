@@ -1,12 +1,12 @@
 package gr.agroscape.agents.expectations;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-
 import gr.agroscape.agents.Plot;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.crops.Crop;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 /**
  * The expectation regarding the variable cost for each Crop in each Plot (Euro/h)

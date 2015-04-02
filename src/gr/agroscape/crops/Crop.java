@@ -4,6 +4,13 @@ import java.util.HashMap;
 
 public class  Crop {
 
+	private static int next_id=1;
+	
+	/**
+	 * A number identifying uniquely the Crop. It is assigned implicitly.
+	 */
+	private int myId;
+	
 	/**
 	 * Keep an array of name->Crop, so it is handy to get a {@link Crop} object by name
 	 */
@@ -15,6 +22,8 @@ public class  Crop {
 	private String name;
 	
 	
+	
+	
 
 	/**
 	 * Constructor
@@ -22,16 +31,28 @@ public class  Crop {
 	 */
 	public Crop(String name) {
 		super();
+
+		this.myId = Crop.next_id++;
+		
 		this.name = name;
 		availableCrops.put(name, this);
 	}
 
 
+	/**
+	 * Getter of name
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
 	
+	/**
+	 * Get a Crop object by its name
+	 * @param n
+	 * @return
+	 */
 	public static Crop getCropByName(String n) {
 		return Crop.availableCrops.get(n);
 	}
@@ -39,7 +60,16 @@ public class  Crop {
 
 	@Override
 	public String toString() {
-		return "Crop::" + this.getName() + " [" + super.toString() + "]";
+		return "Crop::" + this.getName() + " [id=" + this.myId + "]";
+	}
+	
+	
+	/**
+	 * Getter for myId
+	 * @return
+	 */
+	public int getId() {
+		return this.myId;
 	}
 	
 }
