@@ -1,23 +1,15 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>New Display</name>
+  <name>Production Decisions</name>
   <type>2D</type>
   <styles>
     <entry>
       <string>gr.agroscape.agents.Plot</string>
-      <string>gr.agroscape.styles.PlotStyle2D</string>
-    </entry>
-    <entry>
-      <string>gr.agroscape.agents.Agent</string>
       <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
       <string>gr.agroscape.agents.Plot</string>
-      <null/>
-    </entry>
-    <entry>
-      <string>gr.agroscape.agents.Agent</string>
       <null/>
     </entry>
   </editedStyles>
@@ -31,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>154700220</hashCode>
+    <hashCode>1611667271</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>grid</layoutProjection>
@@ -39,10 +31,6 @@
   <layerOrder>
     <entry>
       <string>gr.agroscape.agents.Plot</string>
-      <int>1</int>
-    </entry>
-    <entry>
-      <string>gr.agroscape.agents.Agent</string>
       <int>0</int>
     </entry>
   </layerOrder>
@@ -90,5 +78,9 @@
     <blue>204</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayers/>
+  <valueLayerStyleName>repast.simphony.visualization.editedStyle.EditedValueLayerStyle2D</valueLayerStyleName>
+  <valueLayerEditedStyleName>ProductionDecisions.style_0.xml</valueLayerEditedStyleName>
+  <valueLayers>
+    <string>ProductionDecisions</string>
+  </valueLayers>
 </repast.simphony.visualization.engine.CartesianDisplayDescriptor>

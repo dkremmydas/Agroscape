@@ -12,12 +12,19 @@ import java.util.HashMap;
 
 import repast.simphony.valueLayer.GridValueLayer;
 
-
+/**
+ * This class loads agents and initial data from an excel file.
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public abstract class ExcelDataLoader implements ISimulationDataLoader {
+	
+	private String excel_location;
 
 	@Override
 	public void loadCropsContext(CropsContext context) {
-		// TODO Auto-generated method stub
+		// TODO Auto-ge nerated method stub
 		
 	}
 

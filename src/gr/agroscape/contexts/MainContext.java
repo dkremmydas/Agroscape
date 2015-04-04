@@ -14,6 +14,7 @@ import java.util.Iterator;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
@@ -77,6 +78,15 @@ public class MainContext extends DefaultContext<Object> {
 	 */
 	private MainContext() {
 		super("MainContext");
+		
+		//set grid width and height
+		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
+		if(w > 0) this.gridWidth = w;
+		
+		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHight");
+		if(h > 0) this.gridHeight = h;
+		
+		
 		//add Projections
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 		grid = gridFactory.createGrid("grid", this,

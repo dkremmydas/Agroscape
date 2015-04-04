@@ -5,13 +5,18 @@
  */
 package gr.agroscape.agents;
 
-import repast.simphony.engine.schedule.ScheduledMethod;
 import gr.agroscape.contexts.MainContext;
 
 
 /**
- * ShortName: A
- * @author jkr
+ * A human agent of AgroScape.
+ * <p>This abstract class defines the basic operations shared by all implemented classes: 
+ * <ul>
+ * <li>Automatic assignment of ID to each agent (see static {@link #myId})</li>
+ * <li>Having a reference to the MainContext (see {@link #mainContext})
+ * </ul>
+ * </p> 
+ * @author Dimitris Kremmydas
  */
 public abstract class Agent {
     
@@ -21,8 +26,8 @@ public abstract class Agent {
     
     
     /**
-     * Constructor
-     * @param id
+     * Constructor with a numeric id as a parameter
+     * @param int id, the numeric id to assign
      */
 	public Agent(int id)  {
 		super();
@@ -31,6 +36,9 @@ public abstract class Agent {
 		this.mainContext=MainContext.getInstance();
 	}
 	
+	/**
+	 * Constructor
+	 */
 	public Agent()  {
 		this(Agent.next_id++);
 	}
@@ -41,7 +49,10 @@ public abstract class Agent {
 		return "["+super.toString()+"]" + " ID="+this.myId;
 	}
     
-	
+	/**
+	 * Getter for Id of agent
+	 * @return
+	 */
 	public Integer getID() {
 		return this.myId;
 	}

@@ -1,23 +1,16 @@
 package gr.agroscape.main;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.crops.Crop;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ISimulationDataLoader;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
-import repast.simphony.engine.schedule.ScheduledMethod;
 
 
 /**

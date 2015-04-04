@@ -25,7 +25,15 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 
 
 
-
+/**
+ * Farmer_MP = Farmer Mathematical Programming. <br />
+ * This is an implementation of a Farmer that uses Mathematical Programming to make his ProductionDecision. 
+ * <p>
+ * The objective function is: 
+ * </p>
+ * 
+ * @author Dimitris Kremmydas
+ */
 public class Farmer_MP extends Farmer{
 	
 

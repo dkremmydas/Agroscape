@@ -42,13 +42,13 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 
 	@Override
 	public void loadPlotsContext(PlotsContext context) {
-		this.avplots.add(new Plot(new GridPoint(new int[] {1,1}),context,1));
-		this.avplots.add(new Plot(new int[][] {{1,2},{1,3}},context,2));
-		this.avplots.add(new Plot(new int[][] {{1,4},{1,5},{1,6},{1,7}},context,3));
-		this.avplots.add(new Plot(new int[][] {{0,8},{1,8},{1,9},{1,10}},context,4));
-		this.avplots.add(new Plot(new int[][] {{2,1},{2,2},{2,3},{3,1},{3,2},{3,3}},context,5));
-		this.avplots.add(new Plot(new int[][] {{4,1},{4,2},{4,3},{5,1},{5,2},{5,3},{6,1},{6,2},{6,3},{7,1},{7,2},{7,3}},context,6));
-		this.avplots.add(new Plot(new int[][] {{4,4},{4,4},{4,5},{5,4},{5,5},{5,6},{6,4},{6,5},{6,6},{7,4},{7,5},{7,6}},context,7));
+		this.avplots.add(new Plot(new GridPoint(new int[] {1,1}),1));
+		this.avplots.add(new Plot(new int[][] {{1,2},{1,3}},2));
+		this.avplots.add(new Plot(new int[][] {{1,4},{1,5},{1,6},{1,7}},3));
+		this.avplots.add(new Plot(new int[][] {{0,8},{1,8},{1,9},{1,10}},4));
+		this.avplots.add(new Plot(new int[][] {{2,1},{2,2},{2,3},{3,1},{3,2},{3,3}},5));
+		this.avplots.add(new Plot(new int[][] {{4,1},{4,2},{4,3},{5,1},{5,2},{5,3},{6,1},{6,2},{6,3},{7,1},{7,2},{7,3}},6));
+		this.avplots.add(new Plot(new int[][] {{4,4},{4,4},{4,5},{5,4},{5,5},{5,6},{6,4},{6,5},{6,6},{7,4},{7,5},{7,6}},7));
 		context.addAll(this.avplots);
 	}
 

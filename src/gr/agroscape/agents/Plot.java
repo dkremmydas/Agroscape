@@ -1,7 +1,6 @@
 package gr.agroscape.agents;
 
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.crops.Crop;
 import gr.agroscape.main.AgroscapeConfiguration;
 
@@ -29,16 +28,17 @@ public class Plot {
 	private static int next_id=0;
 	private int myId;
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
-    private PlotsContext space;
+    private MainContext mainContext;
 
     /**
-     * 
+     * Create a new Plot from an ArrayList of GridPoints. <br />
+     * <strong>Does not</strong> check for duplicate GidPoints in the ArrayList.
      * @param points
      * @param id
      */
-    public Plot(ArrayList<GridPoint> points, PlotsContext sp, int id) {
+    public Plot(ArrayList<GridPoint> points,  int id) {
 		super();
-		this.space=sp;
+		this.mainContext=MainContext.getInstance();
 		this.myId=id; Plot.next_id=id++;
 		this.gridPoints = points;
 	}
@@ -47,16 +47,16 @@ public class Plot {
      * 
      * @param points
      */
-    public Plot(ArrayList<GridPoint> points, PlotsContext sp) {
-		this(points,sp,Plot.next_id);
+    public Plot(ArrayList<GridPoint> points) {
+		this(points,Plot.next_id);
 	}
     
     /**
      * 
      * @param point
      */
-    public Plot(GridPoint point,PlotsContext sp) {
-		this(new ArrayList<GridPoint>(Arrays.asList(point)),sp);
+    public Plot(GridPoint point) {
+		this(new ArrayList<GridPoint>(Arrays.asList(point)));
 	}
     
     /**
@@ -64,8 +64,8 @@ public class Plot {
      * @param point
      * @param id
      */
-    public Plot(GridPoint point,PlotsContext sp, int id) {
-    	this(new ArrayList<GridPoint>(Arrays.asList(point)),sp,id);
+    public Plot(GridPoint point, int id) {
+    	this(new ArrayList<GridPoint>(Arrays.asList(point)),id);
 	}
     
     /**
@@ -73,9 +73,9 @@ public class Plot {
      * @param points
      * @param id
      */
-    public Plot(int[][] points,PlotsContext sp, int id) {
+    public Plot(int[][] points, int id) {
     	super();
-    	this.space=sp;
+    	this.mainContext=MainContext.getInstance();
     	this.myId=id; Plot.next_id=id++;
 		for(int i=0;i<points.length;i++) {
 			int[] gp = new int[2]; gp[0]=points[i][0];gp[1]=points[i][1];
@@ -88,8 +88,8 @@ public class Plot {
      * 
      * @param points
      */
-    public Plot(int[][] points,PlotsContext sp) {
-    	this(points,sp,Plot.next_id);	
+    public Plot(int[][] points) {
+    	this(points,Plot.next_id);	
 	}
 
     /**
@@ -142,9 +142,10 @@ public class Plot {
 	}
 
 	private void addGridPoint(GridPoint p) {
+		if(! this.gridPoints.contains(p))
 		this.gridPoints.add(p);
 	}
-
+	
 	@Override
 	public String toString() {
 		String r = "["+super.toString()+"]";
@@ -155,8 +156,15 @@ public class Plot {
 	}
 	
 	
-	
-   
-
+	/**
+	 * Clones a Plot
+	 */	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Plot clone() throws CloneNotSupportedException {
+		ArrayList<GridPoint> gps = (ArrayList<GridPoint>) this.gridPoints.clone();
+		Plot p = new Plot(gps);
+		return p;
+	}
 	
 }
