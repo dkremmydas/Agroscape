@@ -14,12 +14,19 @@ import gr.agroscape.crops.Crop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.apache.commons.math3.random.HaltonSequenceGenerator;
+import org.apache.commons.math3.random.MersenneTwister;
 
+import cern.jet.random.Uniform;
+import cern.jet.random.engine.RandomGenerator;
+import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.StrictBorders;
+import repast.simphony.util.SimUtilities;
 import repast.simphony.valueLayer.GridValueLayer;
+import repast.simphony.visualization.visualization2D.Random2DLayout;
 
 public class DefaultDataLoader implements ISimulationDataLoader {
 	
@@ -69,7 +76,7 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 	@Override
 	public void initLandPropertyRegistry(LandPropertyRegistry lpr) {
 		//load owners
-		if(this.avcrops.isEmpty()) throw new NullPointerException("loadPlotsContext should be called before");
+		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
 		if(this.avplots.isEmpty())throw new NullPointerException("loadPlotsContext should be called before");
 		if(this.avfarmers.isEmpty())throw new NullPointerException("loadFarmersContext should be called before");
 		
@@ -94,6 +101,8 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 
 	@Override
 	public void initPaymentAuthority(PaymentAuthority pa) {
+		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
+
 		HashMap<Crop, Long> coupledPayments=new HashMap<Crop, Long>();
 		coupledPayments.put(Crop.getCropByName("maize"), 0l);
 		coupledPayments.put(Crop.getCropByName("durum wheat"), 0l);
@@ -112,13 +121,14 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 	 * This implementation assigns random suitability for each {Crop->(x,y)}
 	 */
 	public void loadCropSuitabilityMap(HashMap<Crop, GridValueLayer> csmap,MainContext cm) {
+		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
 
-		HaltonSequenceGenerator rnd=new HaltonSequenceGenerator(cm.getGridHeight());
+		double[] d = new double[cm.getGridHeight()];
 		
 		for (Crop c : this.avcrops) {
 			csmap.put(c, new GridValueLayer("Yield"+c.getName(),true,new StrictBorders(), cm.getGridWidth(), cm.getGridHeight()));
 			for (int i = 0; i < cm.getGridWidth(); i++) {
-				double[] d = rnd.nextVector();
+				SimUtilities.shuffle(d, new Uniform(0.1, 1, RandomHelper.getGenerator()));
 				for (int j = 0; j < d.length; j++) {
 					double vs = 200*d[j];
 					if(vs<100) vs=100;

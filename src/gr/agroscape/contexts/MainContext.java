@@ -83,7 +83,7 @@ public class MainContext extends DefaultContext<Object> {
 		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
 		if(w > 0) this.gridWidth = w;
 		
-		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHight");
+		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
 		if(h > 0) this.gridHeight = h;
 		
 		

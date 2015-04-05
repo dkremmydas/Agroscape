@@ -21,6 +21,10 @@ import gr.agroscape.contexts.MainContext;
 public abstract class Agent {
     
     private static int next_id;
+    
+    /**
+     * An incrementing integer, identified uniquely the Agent
+     */
     private int myId;
     protected MainContext mainContext ;
     

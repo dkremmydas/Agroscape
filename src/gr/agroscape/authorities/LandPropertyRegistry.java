@@ -19,9 +19,11 @@ import repast.simphony.valueLayer.GridValueLayer;
  * The concern of this class is 
  * <ul>
  * <li>to keep information regarding which {@link Agent} owns which {@link Plot}</li>
- * <li>which {@link Farmer} cultivates which {@link Plot}</li>
+ * <li>which {@link Farmer} cultivates which {@link Plot}, i.e. owns+rents</li>
  * <li>To give information on a {@link Farmer} for the {@link Plot} he cultivates</li>
  * </ul>
+ * <p>The implementation is based on {@link org.apache.commons.math3.linear.BlockRealMatrix BlockRealMatrix} use. 
+ * For example for keeping record of the Plot owners, see {@link #ownerRegistry}.</p>
  * 
  * @author Dimitris Kremmydas
  */
@@ -36,7 +38,7 @@ public class LandPropertyRegistry {
 	
 	/**
 	 * The owner's registry.  <br />
-	 * Row dimension is for agents and it holds the agent_num. <br />
+	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.agents.Agent#myID}. <br />
 	 * Column dimension is for Plots and it holds the plot_num. <br />
 	 * If the value of (i,j) element equals to 1, then Agent_num=i owns Plot_num=j. <br />
 	 */
