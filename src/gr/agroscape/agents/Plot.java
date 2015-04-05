@@ -151,7 +151,8 @@ public class Plot {
 		String r = "["+super.toString()+"]";
 		r += " ID=" + this.myId
 			 + " / Gridpoints: "
-			+ Arrays.toString(this.gridPoints.toArray(new GridPoint[this.gridPoints.size()]));
+			+ Arrays.toString(this.gridPoints.toArray(new GridPoint[this.gridPoints.size()]))
+			+ "\n";
 		return r;
 	}
 	

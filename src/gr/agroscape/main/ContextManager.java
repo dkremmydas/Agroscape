@@ -1,11 +1,16 @@
 package gr.agroscape.main;
 
+import java.io.IOException;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
+import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ISimulationDataLoader;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -59,15 +64,21 @@ public class ContextManager implements ContextBuilder<Object> {
 		//this.parentContext.add(crops);
 		
 		//step 3, create dataLoader
-		ISimulationDataLoader dataLoader = new DefaultDataLoader();
-
-		dataLoader.loadCropsContext(crops);
-		dataLoader.loadFarmersContext(farmers);
-		dataLoader.loadPlotsContext(plots);
-		dataLoader.loadCropSuitabilityMap(this.mainContext.getCropSuitability(),this.mainContext);
-		dataLoader.initLandPropertyRegistry(this.mainContext.getLandPropertyRegistry());
-		dataLoader.initPaymentAuthority(this.mainContext.getPaymentAuthority());
+		//ISimulationDataLoader dataLoader = new DefaultDataLoader();
+		ISimulationDataLoader dataLoader;
+		try {
+			dataLoader = new ExcelDataLoader("C:\\Users\\Dimitris\\workspace\\AgroScape\\freezedried_data\\dataToLoad.xlsx");
+			dataLoader.loadCropsContext(crops);
+			dataLoader.loadFarmersContext(farmers);
+			dataLoader.loadPlotsContext(plots);
+			dataLoader.loadCropSuitabilityMap(this.mainContext.getCropSuitability(),this.mainContext);
+			dataLoader.initLandPropertyRegistry(this.mainContext.getLandPropertyRegistry());
+			dataLoader.initPaymentAuthority(this.mainContext.getPaymentAuthority());
 			
+		} catch (InvalidFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//step 1.5 add schedule methods
 		ScheduleParameters params = ScheduleParameters.createRepeating(1, 1) ;

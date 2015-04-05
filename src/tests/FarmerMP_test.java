@@ -25,8 +25,11 @@ public class FarmerMP_test {
 
 	@Before
 	public void setUp() throws Exception {
-		
+		DefaultParameters p = new DefaultParameters();
+		p.addParameter("gridWidth", "gridWidth", Integer.class, 31, false);
+		p.addParameter("gridHeight", "gridHeight", Integer.class, 31, false);
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), new DefaultParameters(), false);
+		
 		builder = new ContextManager ();
 		this.mainContext = (MainContext) builder.build(new DefaultContext<Object> ());
 		

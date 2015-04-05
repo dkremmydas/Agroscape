@@ -30,10 +30,14 @@ public class  Crop {
 	 * @param name
 	 */
 	public Crop(String name) {
-		super();
+		this(name,Crop.next_id++);
 
-		this.myId = Crop.next_id++;
 		
+	}
+	
+	public Crop(String name, int id) {
+		super();
+		this.myId = id;
 		this.name = name;
 		availableCrops.put(name, this);
 	}
