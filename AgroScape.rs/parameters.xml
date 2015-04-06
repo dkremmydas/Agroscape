@@ -24,6 +24,12 @@
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
+				<parameter name="ExcelDataFile" displayName="Excel Data File Location" type="java.lang.String" 
+						defaultValue="freezedried_data\\dataToLoad.xlsx" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+		/>
+		
 		</parameters>
 
 

@@ -1,16 +1,16 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>Production Decisions</name>
+  <name>ProductionDecisions</name>
   <type>2D</type>
   <styles>
     <entry>
       <string>gr.agroscape.agents.Plot</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
       <string>gr.agroscape.agents.Plot</string>
-      <null/>
+      <string>gr.agroscape.agents.Plot.style_2.xml</string>
     </entry>
   </editedStyles>
   <netStyles/>
@@ -23,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1611667271</hashCode>
+    <hashCode>-1136327644</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>grid</layoutProjection>
@@ -55,7 +55,7 @@
             <map>
               <entry>
                 <string>COLOR</string>
-                <int>-16777216</int>
+                <int>-10066330</int>
               </entry>
               <entry>
                 <string>UNIT_SIZE</string>
@@ -79,7 +79,6 @@
     <alpha>255</alpha>
   </backgroundColor>
   <valueLayerStyleName>repast.simphony.visualization.editedStyle.EditedValueLayerStyle2D</valueLayerStyleName>
-  <valueLayerEditedStyleName>ProductionDecisions.style_0.xml</valueLayerEditedStyleName>
   <valueLayers>
     <string>ProductionDecisions</string>
   </valueLayers>

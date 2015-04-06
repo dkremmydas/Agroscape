@@ -67,7 +67,8 @@ public class ContextManager implements ContextBuilder<Object> {
 		//ISimulationDataLoader dataLoader = new DefaultDataLoader();
 		ISimulationDataLoader dataLoader;
 		try {
-			dataLoader = new ExcelDataLoader("C:\\Users\\Dimitris\\workspace\\AgroScape\\freezedried_data\\dataToLoad.xlsx");
+			String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
+			dataLoader = new ExcelDataLoader(excelFileLocation);
 			dataLoader.loadCropsContext(crops);
 			dataLoader.loadFarmersContext(farmers);
 			dataLoader.loadPlotsContext(plots);
