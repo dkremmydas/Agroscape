@@ -10,6 +10,7 @@ import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.crops.Crop;
+import gr.agroscape.utilities.ValueLayers;
 
 import java.io.File;
 import java.io.IOException;
@@ -215,6 +216,7 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 				}
 			} //end if no such sheet
 			csmap.put(c, gv);
+			//System.err.println("ExcelDataLoader:: Printing CropSuitabilityValueLayer for Crop " + c + "\n" + ValueLayers.getValueLayerAsPrintedMatrix(gv));
 			
 		} //end loop for crops
 		

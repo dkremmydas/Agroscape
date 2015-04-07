@@ -5,8 +5,10 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 import gr.agroscape.contexts.MainContext;
+import gr.agroscape.crops.Crop;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.main.ContextManager;
+import gr.agroscape.utilities.ValueLayers;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Before;
@@ -45,8 +47,13 @@ public class MainContextTest {
 	@Test
 	public void test_gvl_CropSuitability() throws InvalidFormatException, IOException {
 		//ExcelDataLoader x = new ExcelDataLoader("C:\\Users\\Dimitris\\workspace\\AgroScape\\freezedried_data\\dataToLoad.xlsx") ;
+		builder.step();
+		this.mainContext.updateValueLayers();
 		
-		System.err.println(MainContext.getInstance().getActiveDisplaySuitabilityCrop());
+		Crop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
+		
+		System.err.println(activeC);
+		System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(this.mainContext.getValueLayer("CropSuitability")));
 		
 	}
 

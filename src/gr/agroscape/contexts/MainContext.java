@@ -6,6 +6,7 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.crops.Crop;
+import gr.agroscape.utilities.ValueLayers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -224,7 +225,8 @@ public class MainContext extends DefaultContext<Object> {
 		this.landPropertyRegistry.updateOwnerValueLayer(gvl_Owners);
 		
 		this.gvl_CropSuitability = this.cropSuitability.get(this.activeDisplaySuitabilityCrop);
-		System.err.println(this.gvl_CropSuitability.toString());
+		System.err.println("MainContext::updateValueLayers Printing CropSuitabilityValueLayer for Crop " + this.getActiveDisplaySuitabilityCrop() + "\n" +
+							ValueLayers.getValueLayerAsPrintedMatrix(this.gvl_CropSuitability));
 		
 	}
 
