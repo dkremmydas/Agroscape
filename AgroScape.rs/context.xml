@@ -4,6 +4,7 @@
 	
 	<projection id="Owners" type="value layer" />
 	<projection id="ProductionDecisions" type="value layer" />
+	<projection id="CropSuitability" type="value layer" />
 	
 	<context id="CropsContext">
 		

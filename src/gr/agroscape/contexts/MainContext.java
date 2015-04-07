@@ -46,6 +46,11 @@ public class MainContext extends DefaultContext<Object> {
 	private int gridWidth=11;
 	private int gridHeight=11;
 	
+	/**
+	 * What Crop should we show in {@link gvl_CropSuitability} ?
+	 */
+	private Crop activeDisplaySuitabilityCrop;
+	
 	private Grid<Object> grid;
 	
 
@@ -60,6 +65,9 @@ public class MainContext extends DefaultContext<Object> {
 	
 	//The ValueLayer showing the production decisions of the farmers
 	private GridValueLayer gvl_ProductionDecisions;
+	
+	//The ValueLayer showing the production decisions of the farmers
+	private GridValueLayer gvl_CropSuitability;
 	
 	
 	/**
@@ -102,6 +110,10 @@ public class MainContext extends DefaultContext<Object> {
 		
 		this.gvl_ProductionDecisions = new GridValueLayer("ProductionDecisions",true,new StrictBorders(), gridWidth, gridHeight);
 		this.addValueLayer( gvl_ProductionDecisions );
+		
+		this.gvl_CropSuitability = new GridValueLayer("CropSuitability",true,new StrictBorders(), gridWidth, gridHeight);
+		this.addValueLayer( gvl_CropSuitability );
+		
 	}
 	
 	
@@ -204,6 +216,34 @@ public class MainContext extends DefaultContext<Object> {
 		}
 		
 	}
+	
+	/**
+	 * Update Value Layers
+	 */
+	public void updateValueLayers() {
+		this.landPropertyRegistry.updateOwnerValueLayer(gvl_Owners);
+		
+		this.gvl_CropSuitability = this.cropSuitability.get(this.activeDisplaySuitabilityCrop);
+		System.err.println(this.gvl_CropSuitability.toString());
+		
+	}
+
+	/**
+	 * Getter
+	 * @return
+	 */
+	public Crop getActiveDisplaySuitabilityCrop() {
+		return activeDisplaySuitabilityCrop;
+	}
+
+	/**
+	 * Setter
+	 * @param activeDisplaySuitabilityCrop
+	 */
+	public void setActiveDisplaySuitabilityCrop(Crop activeDisplaySuitabilityCrop) {
+		this.activeDisplaySuitabilityCrop = activeDisplaySuitabilityCrop;
+	}
+	
 	
 	
 }

@@ -9,6 +9,7 @@ import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
+import gr.agroscape.crops.Crop;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ISimulationDataLoader;
@@ -63,6 +64,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		this.mainContext.addSubContext(crops);	
 		//this.parentContext.add(crops);
 		
+		
 		//step 3, create dataLoader
 		//ISimulationDataLoader dataLoader = new DefaultDataLoader();
 		ISimulationDataLoader dataLoader;
@@ -85,6 +87,12 @@ public class ContextManager implements ContextBuilder<Object> {
 		ScheduleParameters params = ScheduleParameters.createRepeating(1, 1) ;
 		RunEnvironment.getInstance().getCurrentSchedule().schedule (params , this , "step");
 		
+		
+		//step 4
+		this.mainContext.setActiveDisplaySuitabilityCrop(Crop.getCropByName("maize"));
+		
+		
+		
 		System.err.println("Everything is Loaded");
 		
 		return this.mainContext;
@@ -105,6 +113,7 @@ public class ContextManager implements ContextBuilder<Object> {
 			this.mainContext.handleProductionDecision(f, f.makeProductionDecision());
 			System.err.println(f.toString() + " | ProductionDecision: " + f.getThisStepProduction());
 		}
+		this.mainContext.updateValueLayers();
 		
 		System.err.println(this.mainContext.get_gvlProductionDecisions().toString());
 		

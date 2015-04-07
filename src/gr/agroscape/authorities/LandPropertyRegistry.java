@@ -293,7 +293,7 @@ public class LandPropertyRegistry {
 	 * For each GridPoint, its value is set as the ID of the owner.
 	 * @param vl
 	 */
-	public GridValueLayer updateOwnerValueLayer(GridValueLayer vl) {
+	public void updateOwnerValueLayer(GridValueLayer vl) {
 		for (int j = 0; j < this.ownerRegistry.getColumnDimension(); j++) {
 			for (int i = 0; i < this.ownerRegistry.getRowDimension(); i++) {
 				if(this.ownerRegistry.getEntry(i, j)>0d) {
@@ -304,7 +304,7 @@ public class LandPropertyRegistry {
 				}
 			}			
 		}
-		return vl;
+		
 	}
 	
 	/**
@@ -312,7 +312,7 @@ public class LandPropertyRegistry {
 	 * For each GridPoint, its value is set as the ID of the owner.
 	 * @param vl
 	 */
-	public GridValueLayer updateTenantValueLayer(GridValueLayer vl) {
+	public void updateTenantValueLayer(GridValueLayer vl) {
 		for (int j = 0; j < this.tenantRegistry.getColumnDimension(); j++) {
 			for (int i = 0; i < this.tenantRegistry.getRowDimension(); i++) {
 				if(this.tenantRegistry.getEntry(i, j)>0d) {
@@ -324,7 +324,7 @@ public class LandPropertyRegistry {
 				break;
 			}			
 		}
-		return vl;
+		
 	}
 	
 	/**
@@ -332,7 +332,7 @@ public class LandPropertyRegistry {
 	 * For each GridPoint, its value is set as the ID of the owner.
 	 * @param vl
 	 */
-	public GridValueLayer updateCultivatorValueLayer(GridValueLayer vl) {
+	public void updateCultivatorValueLayer(GridValueLayer vl) {
 		for (Plot p : this.plots) {
 			//double v = this.g
 		}
@@ -348,7 +348,7 @@ public class LandPropertyRegistry {
 				break;
 			}			
 		}
-		return vl;
+		
 	}
 	
 	

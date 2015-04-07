@@ -30,6 +30,20 @@ public class CropsContext extends DefaultContext<Crop> {
 		return r;
 	}
 	
+	/**
+	 * Get a Crop object by its name (Case insensitive). <br />
+	 * @param n String Name of Crop
+	 * @return if a crop with that name exists returns a {@link Crop}. Otherwise returns null.
+	 */
+	public Crop getCropByName(String n) {
+		ArrayList<Crop> crops = this.getAvailableCrops();
+		for (Crop crop : crops) {
+			if(crop.getName().equalsIgnoreCase(n)) return crop;
+		}
+		return null;
+	}
+	
+	
 	
 	
 }
