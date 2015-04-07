@@ -3,12 +3,13 @@ import static org.junit.Assert.*;
 
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Iterator;
 
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.crops.Crop;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.main.ContextManager;
-import gr.agroscape.utilities.ValueLayers;
+import gr.agroscape.utilities.ValueLayersUtilities;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Before;
@@ -21,6 +22,8 @@ import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
 import repast.simphony.parameter.Parameters;
 import repast.simphony.parameter.Schema;
+import repast.simphony.valueLayer.GridValueLayer;
+import repast.simphony.valueLayer.ValueLayer;
 
 
 public class MainContextTest {
@@ -46,14 +49,39 @@ public class MainContextTest {
 	
 	@Test
 	public void test_gvl_CropSuitability() throws InvalidFormatException, IOException {
+		
+		
+		
 		//ExcelDataLoader x = new ExcelDataLoader("C:\\Users\\Dimitris\\workspace\\AgroScape\\freezedried_data\\dataToLoad.xlsx") ;
 		builder.step();
 		this.mainContext.updateValueLayers();
 		
-		Crop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
 		
+		//System.err.println("getCropSuitability() works ?");
+		//GridValueLayer vl = this.mainContext.getCropSuitability().get(this.mainContext.getCropsContext().getCropByName("maize"));
+		//System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(vl));
+		
+		System.err.println("gvl_CropSuitability works ?");
+		
+		Crop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
 		System.err.println(activeC);
-		System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(this.mainContext.getValueLayer("CropSuitability")));
+		ValueLayer vl2 = this.mainContext.getValueLayer("CropSuitability");
+		System.err.println("this.mainContext.getValueLayer('CropSuitability')" + " \n" + ValueLayersUtilities.getValueLayerAsPrintedMatrix(vl2));
+		
+		/*for (Iterator<ValueLayer> iterator = this.mainContext.getValueLayers().iterator(); iterator.hasNext();) {
+			ValueLayer type =  iterator.next();
+			System.err.println(type.getName());
+			System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(type));
+		}*/
+		
+		//System.err.println(this.mainContext.getValueLayer("CropSuitability"));
+		
+		
+		//Crop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
+		
+		//System.err.println(activeC);
+		//ValueLayer t = this.mainContext.getValueLayer("CropSuitability");
+		//System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(t));
 		
 	}
 

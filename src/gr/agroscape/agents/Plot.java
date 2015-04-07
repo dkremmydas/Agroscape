@@ -124,7 +124,7 @@ public class Plot {
 	 * @return
 	 */
 	public double getSuitability(Crop c) {
-		GridValueLayer gvl = (GridValueLayer) (MainContext.getInstance().getCropSuitability()).get(c);
+		GridValueLayer gvl = (GridValueLayer) (MainContext.getInstance().getCropsContext().getCropSuitability()).get(c);
 		ArrayList<GridPoint> gps = this.getGridPoints();
 		double mean = 0d;
 		for (GridPoint gp : gps) {

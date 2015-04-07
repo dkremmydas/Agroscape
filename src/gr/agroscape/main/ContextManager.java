@@ -1,22 +1,24 @@
 package gr.agroscape.main;
 
-import java.io.IOException;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.crops.Crop;
-import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ISimulationDataLoader;
+import gr.agroscape.utilities.ValueLayersUtilities;
+
+import java.io.IOException;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduleParameters;
+import repast.simphony.valueLayer.GridValueLayer;
 
 
 /**
@@ -74,7 +76,14 @@ public class ContextManager implements ContextBuilder<Object> {
 			dataLoader.loadCropsContext(crops);
 			dataLoader.loadFarmersContext(farmers);
 			dataLoader.loadPlotsContext(plots);
-			dataLoader.loadCropSuitabilityMap(this.mainContext.getCropSuitability(),this.mainContext);
+			dataLoader.loadCropSuitabilityMap(this.mainContext.getCropsContext().getCropSuitability(),this.mainContext);
+
+			//GridValueLayer vl = this.mainContext.getCropSuitability().get(this.mainContext.getCropsContext().getCropByName("maize"));
+			//System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(vl));
+			this.mainContext.setActiveDisplaySuitabilityCrop(this.mainContext.getCropsContext().getCropByName("maize"));
+			
+			
+			
 			dataLoader.initLandPropertyRegistry(this.mainContext.getLandPropertyRegistry());
 			dataLoader.initPaymentAuthority(this.mainContext.getPaymentAuthority());
 			

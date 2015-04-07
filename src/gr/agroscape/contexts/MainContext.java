@@ -6,7 +6,7 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.crops.Crop;
-import gr.agroscape.utilities.ValueLayers;
+import gr.agroscape.utilities.ValueLayersUtilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,9 +42,19 @@ public class MainContext extends DefaultContext<Object> {
 	private static MainContext instance=null;
 
 	private LandPropertyRegistry landPropertyRegistry=new LandPropertyRegistry();
+	
 	private PaymentAuthority paymentAuthority=new PaymentAuthority();
-	private HashMap<Crop, GridValueLayer> cropSuitability=new HashMap<Crop, GridValueLayer>();
+	
+	
+	
+	/**
+	 * The Grid default Width. It is usually altered in the Constructor.
+	 */
 	private int gridWidth=11;
+	
+	/**
+	 * The Grid default Height. It is usually altered in the Constructor.
+	 */
 	private int gridHeight=11;
 	
 	/**
@@ -52,6 +62,9 @@ public class MainContext extends DefaultContext<Object> {
 	 */
 	private Crop activeDisplaySuitabilityCrop;
 	
+	/**
+	 * The Grid layer of space
+	 */
 	private Grid<Object> grid;
 	
 
@@ -161,10 +174,6 @@ public class MainContext extends DefaultContext<Object> {
 		return gridHeight;
 	}
 
-	public HashMap<Crop, GridValueLayer> getCropSuitability() {
-		return cropSuitability;
-	}
-	
 
 	public Grid<Object> getGrid() {
 		return grid;
@@ -224,9 +233,9 @@ public class MainContext extends DefaultContext<Object> {
 	public void updateValueLayers() {
 		this.landPropertyRegistry.updateOwnerValueLayer(gvl_Owners);
 		
-		this.gvl_CropSuitability = this.cropSuitability.get(this.activeDisplaySuitabilityCrop);
-		System.err.println("MainContext::updateValueLayers Printing CropSuitabilityValueLayer for Crop " + this.getActiveDisplaySuitabilityCrop() + "\n" +
-							ValueLayers.getValueLayerAsPrintedMatrix(this.gvl_CropSuitability));
+		//copy CropSuitability Value Layers
+		GridValueLayer from = this.getCropsContext().getCropSuitability().get(this.activeDisplaySuitabilityCrop);
+		ValueLayersUtilities.copyGridValueLayers(from, this.gvl_CropSuitability);
 		
 	}
 

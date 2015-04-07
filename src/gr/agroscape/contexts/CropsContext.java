@@ -6,19 +6,34 @@ package gr.agroscape.contexts;
 import gr.agroscape.crops.Crop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import repast.simphony.context.DefaultContext;
+import repast.simphony.valueLayer.GridValueLayer;
 
 
-
+/**
+ * It contains information regarding Crops
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class CropsContext extends DefaultContext<Crop> {
 
+	/**
+	 * For each available Crop, the true Crop biophysical Suitability
+	 */
+	private HashMap<Crop, GridValueLayer> cropSuitability=new HashMap<Crop, GridValueLayer>();
+	
 	
 	public CropsContext() {
 		super("CropsContext");
 	}
 	
-	
+	/**
+	 * Get all available Crops
+	 * @return
+	 */
 	public ArrayList<Crop> getAvailableCrops() {
 		ArrayList<Crop> r = new ArrayList<Crop>();
 		
@@ -43,6 +58,13 @@ public class CropsContext extends DefaultContext<Crop> {
 		return null;
 	}
 	
+	/**
+	 * Getter for {@link #cropSuitability}
+	 * @return
+	 */
+	public HashMap<Crop, GridValueLayer> getCropSuitability() {
+		return cropSuitability;
+	}
 	
 	
 	
