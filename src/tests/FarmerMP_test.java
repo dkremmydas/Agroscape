@@ -28,8 +28,10 @@ public class FarmerMP_test {
 		DefaultParameters p = new DefaultParameters();
 		p.addParameter("gridWidth", "gridWidth", Integer.class, 31, false);
 		p.addParameter("gridHeight", "gridHeight", Integer.class, 31, false);
-		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), new DefaultParameters(), false);
+		p.addParameter("ExcelDataFile", "ExcelDataFile", String.class, "freezedried_data\\dataToLoad.xlsx", false);
 		
+		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
+
 		builder = new ContextManager ();
 		this.mainContext = (MainContext) builder.build(new DefaultContext<Object> ());
 		

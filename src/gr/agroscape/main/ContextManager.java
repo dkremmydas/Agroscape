@@ -1,6 +1,8 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.ICropProducer;
+import gr.agroscape.agents.Plot;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
@@ -11,6 +13,7 @@ import gr.agroscape.dataLoaders.ISimulationDataLoader;
 import gr.agroscape.utilities.ValueLayersUtilities;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -117,10 +120,11 @@ public class ContextManager implements ContextBuilder<Object> {
 	public void step() {
 		System.err.println("Do Step");
 		//1. Production Stage
-		Iterable<Farmer> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
-		for (Farmer f : fi) {
-			this.mainContext.handleProductionDecision(f, f.makeProductionDecision());
-			System.err.println(f.toString() + " | ProductionDecision: " + f.getThisStepProduction());
+		Iterable<ICropProducer> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
+		for (ICropProducer f : fi) {
+			HashMap<Plot,Crop> pc = f.makeProductionDecision();
+			this.mainContext.handleProductionDecision(f, pc);
+			System.err.println(f.toString() + " | ProductpcionDecision: " + pc);
 		}
 		this.mainContext.updateValueLayers();
 		
