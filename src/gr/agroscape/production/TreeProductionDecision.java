@@ -2,6 +2,9 @@ package gr.agroscape.production;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
+import gr.agroscape.products.Product;
+
+import java.util.Map;
 
 public class TreeProductionDecision extends AProductionDecision {
 	
@@ -32,6 +35,12 @@ public class TreeProductionDecision extends AProductionDecision {
 	@Override
 	public void feedbackToPlot(Plot p) {
 		// do something here		
+	}
+
+	@Override
+	public Map<Product, Float> productionRealization(IWeatherSuitability w) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

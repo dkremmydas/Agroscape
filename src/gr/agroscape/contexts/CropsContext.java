@@ -3,7 +3,7 @@ package gr.agroscape.contexts;
 
 
 
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +18,12 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class CropsContext extends DefaultContext<ArableCrop> {
+public class CropsContext extends DefaultContext<ArableCropCultivation> {
 
 	/**
 	 * For each available Crop, the true Crop biophysical Suitability
 	 */
-	private HashMap<ArableCrop, GridValueLayer> cropSuitability=new HashMap<ArableCrop, GridValueLayer>();
+	private HashMap<ArableCropCultivation, GridValueLayer> cropSuitability=new HashMap<ArableCropCultivation, GridValueLayer>();
 	
 	
 	public CropsContext() {
@@ -34,11 +34,11 @@ public class CropsContext extends DefaultContext<ArableCrop> {
 	 * Get all available Crops
 	 * @return
 	 */
-	public ArrayList<ArableCrop> getAvailableCrops() {
-		ArrayList<ArableCrop> r = new ArrayList<ArableCrop>();
+	public ArrayList<ArableCropCultivation> getAvailableCrops() {
+		ArrayList<ArableCropCultivation> r = new ArrayList<ArableCropCultivation>();
 		
-		Iterable<ArableCrop> crops = this.getAgentLayer(ArableCrop.class);
-		for (ArableCrop crop : crops) {
+		Iterable<ArableCropCultivation> crops = this.getAgentLayer(ArableCropCultivation.class);
+		for (ArableCropCultivation crop : crops) {
 			r.add(crop);
 		}
 		
@@ -48,11 +48,11 @@ public class CropsContext extends DefaultContext<ArableCrop> {
 	/**
 	 * Get a Crop object by its name (Case insensitive). <br />
 	 * @param n String Name of Crop
-	 * @return if a crop with that name exists returns a {@link ArableCrop}. Otherwise returns null.
+	 * @return if a crop with that name exists returns a {@link ArableCropCultivation}. Otherwise returns null.
 	 */
-	public ArableCrop getCropByName(String n) {
-		ArrayList<ArableCrop> crops = this.getAvailableCrops();
-		for (ArableCrop crop : crops) {
+	public ArableCropCultivation getCropByName(String n) {
+		ArrayList<ArableCropCultivation> crops = this.getAvailableCrops();
+		for (ArableCropCultivation crop : crops) {
 			if(crop.getName().equalsIgnoreCase(n)) return crop;
 		}
 		return null;
@@ -62,7 +62,7 @@ public class CropsContext extends DefaultContext<ArableCrop> {
 	 * Getter for {@link #cropSuitability}
 	 * @return
 	 */
-	public HashMap<ArableCrop, GridValueLayer> getCropSuitability() {
+	public HashMap<ArableCropCultivation, GridValueLayer> getCropSuitability() {
 		return cropSuitability;
 	}
 	

@@ -1,7 +1,7 @@
 package gr.agroscape.agents.expectations;
 
 
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,16 +12,16 @@ import java.util.Random;
  * @author Dimitris Kremmydas
  *
  */
-public class ExpectedCropPrices extends AbstractExpectation<ArableCrop, Long> {
+public class ExpectedCropPrices extends AbstractExpectation<ArableCropCultivation, Long> {
 
 	
 
-	public ExpectedCropPrices(HashMap<ArableCrop, Long> values) {
+	public ExpectedCropPrices(HashMap<ArableCropCultivation, Long> values) {
 		super(values);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ExpectedCropPrices(ArrayList<ArableCrop> keys) {
+	public ExpectedCropPrices(ArrayList<ArableCropCultivation> keys) {
 		super(keys);
 		// TODO Auto-generated constructor stub
 	}
@@ -31,11 +31,11 @@ public class ExpectedCropPrices extends AbstractExpectation<ArableCrop, Long> {
 	 * For each Crop, there is a random assignment (from a uniform distribution), from 1 to 151 eurocents
 	 */
 	@Override
-	public HashMap<ArableCrop, Long> getDefaultValues(ArrayList<ArableCrop> keys) {
-		HashMap<ArableCrop,Long> v = new HashMap<ArableCrop,Long>();
+	public HashMap<ArableCropCultivation, Long> getDefaultValues(ArrayList<ArableCropCultivation> keys) {
+		HashMap<ArableCropCultivation,Long> v = new HashMap<ArableCropCultivation,Long>();
 		Random r = new Random();
 		
-		for (ArableCrop c : keys) {
+		for (ArableCropCultivation c : keys) {
 			v.put(c, (long)(1+r.nextInt(150)));
 		}
 		

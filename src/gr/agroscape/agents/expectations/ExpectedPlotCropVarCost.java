@@ -1,8 +1,8 @@
 package gr.agroscape.agents.expectations;
 
 import gr.agroscape.agents.Plot;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.landUse.ArableCrop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import java.util.Random;
  * @author jkr
  *
  */
-public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<ArableCrop,Long>> {
+public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<ArableCropCultivation,Long>> {
 
 	
-	public ExpectedPlotCropVarCost(HashMap<Plot, HashMap<ArableCrop,Long>> values) {
+	public ExpectedPlotCropVarCost(HashMap<Plot, HashMap<ArableCropCultivation,Long>> values) {
 		super(values);
 	}
 	
@@ -28,18 +28,18 @@ public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<A
 	 * For each Plot and Crop the default VarCost is 50*(1+random(50))
 	 */
 	@Override
-	HashMap<Plot, HashMap<ArableCrop, Long>> getDefaultValues(ArrayList<Plot> plots) {
+	HashMap<Plot, HashMap<ArableCropCultivation, Long>> getDefaultValues(ArrayList<Plot> plots) {
 		
 		MainContext mc = MainContext.getInstance();
-		ArrayList<ArableCrop> crops = mc.getCropsContext().getAvailableCrops();
+		ArrayList<ArableCropCultivation> crops = mc.getCropsContext().getAvailableCrops();
 		
-		HashMap<Plot, HashMap<ArableCrop,Long>> v=new HashMap<Plot, HashMap<ArableCrop,Long>>();
+		HashMap<Plot, HashMap<ArableCropCultivation,Long>> v=new HashMap<Plot, HashMap<ArableCropCultivation,Long>>();
 		Random r = new Random();
 		
 		for (Plot p: plots) {
-			HashMap<ArableCrop,Long> tmp=new HashMap<ArableCrop, Long>();
-       		for(ArableCrop c: crops) {
-       			tmp.put(c, (long)(50*(1+r.nextInt(50))));
+			HashMap<ArableCropCultivation,Long> tmp=new HashMap<ArableCropCultivation, Long>();
+       		for(ArableCropCultivation c: crops) {
+       			tmp.put(c, (long)(1*(1+r.nextInt(50))));
        			//tmp.put(c, 50l);
        		}
        		v.put(p, tmp);

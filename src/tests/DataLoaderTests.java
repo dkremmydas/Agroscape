@@ -1,4 +1,5 @@
 package tests;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.ContextManager;
 
@@ -23,10 +24,10 @@ public class DataLoaderTests {
 
 	@Before
 	public void setUp() throws Exception {
-		
 		DefaultParameters p = new DefaultParameters();
 		p.addParameter("gridWidth", "gridWidth", Integer.class, 31, false);
 		p.addParameter("gridHeight", "gridHeight", Integer.class, 31, false);
+		p.addParameter("ExcelDataFile", "ExcelDataFile", String.class, "freezedried_data\\dataToLoad.xlsx", false);
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
 
@@ -40,6 +41,9 @@ public class DataLoaderTests {
 		//ExcelDataLoader x = new ExcelDataLoader("C:\\Users\\Dimitris\\workspace\\AgroScape\\freezedried_data\\dataToLoad.xlsx") ;
 		
 		System.err.println(MainContext.getInstance().getPlotsContext().getAvailablePlots());
+		System.err.println(ArableCropCultivation.getAvailableCrops());
+		
+		
 		
 	}
 

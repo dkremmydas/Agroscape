@@ -2,11 +2,14 @@ package gr.agroscape.production;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.products.Product;
+
+import java.util.Map;
 
 public class ArableCropProductionDecision extends AProductionDecision {
 	
-	private ArableCrop decision;
+	private ArableCropCultivation decision;
 	
 	
 	private ArableCropProductionDecision(Plot p) {
@@ -14,7 +17,7 @@ public class ArableCropProductionDecision extends AProductionDecision {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ArableCropProductionDecision(Plot p, ArableCrop c) {
+	public ArableCropProductionDecision(Plot p, ArableCropCultivation c) {
 		this(p);
 		this.decision = c;
 	}
@@ -29,13 +32,20 @@ public class ArableCropProductionDecision extends AProductionDecision {
 
 	@Override
 	public void feedbackToPlot(Plot p) {
-		p.setLanduse(this.decision);		
+		p.setAgriculturalLandUse(this.decision);		
 	}
 
 	@Override
 	public String toString() {
 		return super.toString() + ": Crop=" + this.decision.toString();
 	}
+
+	@Override
+	public Map<Product, Float> productionRealization(IWeatherSuitability w) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

@@ -387,6 +387,14 @@ public class LandPropertyRegistry {
 		m2.setSubMatrix(m.getData(), 0,0);
 		return m2;			
 	}
+
+	/**
+	 * Get all plots that are registered
+	 * @return
+	 */
+	public ArrayList<Plot> getAllPlots() {
+		return plots;
+	}
 	
 	
 	

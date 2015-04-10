@@ -1,8 +1,8 @@
 package gr.agroscape.agents;
 
+import gr.agroscape.agriculturalActivity.AAgriculturalActivity;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.landUse.ALandUse;
-import gr.agroscape.landUse.ArableCrop;
 import gr.agroscape.main.AgroscapeConfiguration;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class Plot {
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     private MainContext mainContext;
     
-    private ALandUse landuse;
+    private AAgriculturalActivity agriculturalLandUse;
 
     /**
      * Create a new Plot from an ArrayList of GridPoints. <br />
@@ -127,7 +127,7 @@ public class Plot {
 	 * @param c
 	 * @return
 	 */
-	public double getSuitability(ArableCrop c) {
+	public double getSuitability(ArableCropCultivation c) {
 		GridValueLayer gvl = (GridValueLayer) (MainContext.getInstance().getCropsContext().getCropSuitability()).get(c);
 		return this.getAverage(gvl);
 	}
@@ -149,8 +149,9 @@ public class Plot {
 	public String toString() {
 		String r = "["+super.toString()+"]";
 		r += " ID=" + this.myId
-			 + " / Gridpoints: "
-			+ Arrays.toString(this.gridPoints.toArray(new GridPoint[this.gridPoints.size()]))
+			// + " / Gridpoints: "
+			//+ Arrays.toString(this.gridPoints.toArray(new GridPoint[this.gridPoints.size()]))
+			+ " / Num of GridPoints: " + this.gridPoints.size()
 			+ "\n";
 		return r;
 	}
@@ -179,12 +180,12 @@ public class Plot {
 		
 	}
 
-	public ALandUse getLanduse() {
-		return landuse;
+	public AAgriculturalActivity getAgriculturalLandUse() {
+		return agriculturalLandUse;
 	}
 
-	public void setLanduse(ALandUse landuse) {
-		this.landuse = landuse;
+	public void setAgriculturalLandUse(AAgriculturalActivity landuse) {
+		this.agriculturalLandUse = landuse;
 	}
 	
 	

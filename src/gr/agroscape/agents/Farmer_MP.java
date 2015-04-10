@@ -3,7 +3,7 @@ package gr.agroscape.agents;
 import gr.agroscape.agents.expectations.ExpectedCropPrices;
 import gr.agroscape.agents.expectations.ExpectedPlotCropVarCost;
 import gr.agroscape.agents.expectations.ExpectedPlotCropYield;
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.production.AProductionDecision;
 import gr.agroscape.production.ArableCropProductionDecision;
 
@@ -61,7 +61,7 @@ public class Farmer_MP extends Farmer{
     /**
      * The amount of coupled payment (Crop->�cent/h)
      */
-    private HashMap<ArableCrop,Long> coupledPayments = new HashMap<ArableCrop,Long>();  
+    private HashMap<ArableCropCultivation,Long> coupledPayments = new HashMap<ArableCropCultivation,Long>();  
     
     /**
      * The expected variable cost of cultivating Crop to a Plot (Crop->�cent/h)
@@ -70,12 +70,12 @@ public class Farmer_MP extends Farmer{
     
     
     
-    public Farmer_MP(long liquidity,ArrayList<ArableCrop> pC)  {
+    public Farmer_MP(long liquidity,ArrayList<ArableCropCultivation> pC)  {
 		super(pC);
 		this.liquidity = liquidity;
 	}
     
-    public Farmer_MP(long liquidity,ArrayList<ArableCrop> pC,int id) {
+    public Farmer_MP(long liquidity,ArrayList<ArableCropCultivation> pC,int id) {
 		super(pC,id);
 		this.liquidity = liquidity;
 	}
@@ -174,6 +174,8 @@ public class Farmer_MP extends Farmer{
 		}
 		constraints.add(new LinearConstraint(ca, Relationship.LEQ, this.liquidity));
 		//end constraints
+		
+		System.err.println(this.getMPtablaeu());
 		
 		//solve
 	

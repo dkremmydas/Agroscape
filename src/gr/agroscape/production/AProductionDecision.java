@@ -8,7 +8,7 @@ import gr.agroscape.agents.Plot;
  *  
  * @author Dimitris Kremmydas
  */
- public abstract class AProductionDecision  implements IhasImpactOnFarmer,IhasImpactOnPlot {
+ public abstract class AProductionDecision  implements IProductionDecisionImpacts {
 	
 	 private Plot plot;
 	

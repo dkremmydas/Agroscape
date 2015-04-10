@@ -3,13 +3,14 @@ package gr.agroscape.dataLoaders;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Farmer_MP;
 import gr.agroscape.agents.Plot;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.products.Product;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +25,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -43,14 +43,14 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class ExcelDataLoader implements ISimulationDataLoader {
+public class ExcelDataLoader implements ICanLoadAgroscapeData {
 	
 	//private XSSFWorkbook excelWB; 
 	private Workbook excelWB; 
 	
 	private ArrayList<Plot> avplots = new ArrayList<Plot>();
 	private ArrayList<Farmer> avfarmers = new ArrayList<Farmer>();
-	private ArrayList<ArableCrop> avcrops = new ArrayList<ArableCrop>();
+	private ArrayList<ArableCropCultivation> avcrops = new ArrayList<ArableCropCultivation>();
 	
 	
 	/**
@@ -68,10 +68,6 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 		this.excelWB=wb;
 	}
 	
-	private boolean isXLSX() {
-		if(this.excelWB instanceof XSSFWorkbook) return true;
-		else return false;
-	}
 
 	/**
 	 * Load all simulation Crops.<br />
@@ -88,9 +84,24 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 		rowItr.next(); //skip first row
 		while(rowItr.hasNext()) {
 			Row row = rowItr.next();
-			int crop_id = (int)row.getCell(0).getNumericCellValue();
-			String crop_name = row.getCell(1).getStringCellValue();
-			this.avcrops.add(new ArableCrop(crop_name,crop_id));
+			Iterator<Cell> cellItr = row.cellIterator();
+			
+			int crop_id = (int)cellItr.next().getNumericCellValue();
+			//System.err.println("ExcelDataLoader::loadCropsContext,  " + crop_id );
+			String crop_name = cellItr.next().getStringCellValue();
+			ArrayList<Product> possOuts = new ArrayList<>();
+			//iterate columns where product are
+			while (cellItr.hasNext()) {
+				String productName = cellItr.next().getStringCellValue();
+				if(! Product.getAvailableProducts().containsKey(productName)) {
+					possOuts.add(new Product(productName));
+				}
+				else {
+					possOuts.add(Product.getByName(productName));
+				}
+			}
+			
+			this.avcrops.add(new ArableCropCultivation(crop_name,crop_id,possOuts));
 		}
 		context.addAll(this.avcrops);
 		
@@ -172,10 +183,10 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 	 * If no such worksheet exists, the suitability of every (x,y) is set to 1 for that Crop.
 	 */
 	@Override
-	public void loadCropSuitabilityMap(HashMap<ArableCrop, GridValueLayer> csmap,	MainContext context) {
+	public void loadCropSuitabilityMap(HashMap<ArableCropCultivation, GridValueLayer> csmap,	MainContext context) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
 		
-		for(ArableCrop c : this.avcrops) {
+		for(ArableCropCultivation c : this.avcrops) {
 			//check if worksheet exists
 			String Sname = "CropSuitability_" + c.getName();
 			GridValueLayer gv = new GridValueLayer(Sname, true, MainContext.getInstance().getGridWidth(),MainContext.getInstance().getGridHeight());
@@ -255,11 +266,13 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 	@Override
 	public void initPaymentAuthority(PaymentAuthority pa) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
-		HashMap<ArableCrop, Long> coupledPayments=new HashMap<ArableCrop, Long>();
-		coupledPayments.put(ArableCrop.getCropByName("maize"), 0l);
-		coupledPayments.put(ArableCrop.getCropByName("wheat"), 0l);
-		coupledPayments.put(ArableCrop.getCropByName("cotton"), 0l);
-		coupledPayments.put(ArableCrop.getCropByName("nothing"), 0l);
+		HashMap<ArableCropCultivation, Long> coupledPayments=new HashMap<ArableCropCultivation, Long>();
+		coupledPayments.put(ArableCropCultivation.getCropByName("maize"), 0l);
+		coupledPayments.put(ArableCropCultivation.getCropByName("durum wheat"), 0l);
+		coupledPayments.put(ArableCropCultivation.getCropByName("cotton"), 0l);
+		coupledPayments.put(ArableCropCultivation.getCropByName("tobbaco"), 0l);
+
+
 		
 		pa.setCoupledPayments(coupledPayments);		
 		

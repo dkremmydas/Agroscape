@@ -1,15 +1,15 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
-import gr.agroscape.dataLoaders.ISimulationDataLoader;
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 import gr.agroscape.production.AProductionDecision;
-import gr.agroscape.production.IhasProductionAbility;
+import gr.agroscape.production.IHasProductionAbility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class ContextManager implements ContextBuilder<Object> {
 	 * The steps that this method does, are: <br />
 	 * 1. Create the MainContext as the parentContext <br />
 	 * 2. Create empty SubContexts and load them to parentContext <br />
-	 * 3. Create {@link ISimulationDataLoader dataLoader} and load data
+	 * 3. Create {@link ICanLoadAgroscapeData dataLoader} and load data
 	 * 
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		//step 3, create dataLoader
 		//ISimulationDataLoader dataLoader = new DefaultDataLoader();
-		ISimulationDataLoader dataLoader;
+		ICanLoadAgroscapeData dataLoader;
 		try {
 			String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
 			dataLoader = new ExcelDataLoader(excelFileLocation);
@@ -101,7 +101,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4
-		this.mainContext.setActiveDisplaySuitabilityCrop(ArableCrop.getCropByName("maize"));
+		this.mainContext.setActiveDisplaySuitabilityCrop(ArableCropCultivation.getCropByName("maize"));
 		
 		
 		
@@ -126,8 +126,8 @@ public class ContextManager implements ContextBuilder<Object> {
 		HashMap<Farmer,ArrayList<AProductionDecision>> all_decisions = new HashMap<>();
 				
 		//1.2 select farmers (randomly) and force them to make decisions
-		Iterable<IhasProductionAbility> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
-		for (IhasProductionAbility f : fi) {
+		Iterable<IHasProductionAbility> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
+		for (IHasProductionAbility f : fi) {
 			if (f instanceof Farmer) {
 				Farmer ff = (Farmer) f;
 				all_decisions.put(ff, (ArrayList<AProductionDecision>) ff.makeProductionDecision(ff.getCultivatingPlots()));

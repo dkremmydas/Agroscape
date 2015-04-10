@@ -4,13 +4,14 @@ import gr.agroscape.agents.Agent;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Farmer_MP;
 import gr.agroscape.agents.Plot;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.products.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +23,11 @@ import repast.simphony.util.SimUtilities;
 import repast.simphony.valueLayer.GridValueLayer;
 import cern.jet.random.Uniform;
 
-public class DefaultDataLoader implements ISimulationDataLoader {
+public class DefaultDataLoader implements ICanLoadAgroscapeData {
 	
 	private ArrayList<Plot> avplots = new ArrayList<Plot>();
 	private ArrayList<Farmer> avfarmers = new ArrayList<Farmer>();
-	private ArrayList<ArableCrop> avcrops = new ArrayList<ArableCrop>();
+	private ArrayList<ArableCropCultivation> avcrops = new ArrayList<ArableCropCultivation>();
 	
 	
 	public DefaultDataLoader() {
@@ -35,8 +36,11 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 
 	@Override
 	public void loadCropsContext(CropsContext context) {
-		this.avcrops.add(new ArableCrop("maize"));
-		this.avcrops.add(new ArableCrop("durum wheat"));	
+		Product p1 = new Product("maize Product");
+		Product p2 = new Product("durum wheat Product");
+		
+		this.avcrops.add(new ArableCropCultivation("maize",p1));
+		this.avcrops.add(new ArableCropCultivation("durum wheat",p2));	
 		context.addAll(this.avcrops);
 	}
 
@@ -97,9 +101,9 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 	public void initPaymentAuthority(PaymentAuthority pa) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
 
-		HashMap<ArableCrop, Long> coupledPayments=new HashMap<ArableCrop, Long>();
-		coupledPayments.put(ArableCrop.getCropByName("maize"), 0l);
-		coupledPayments.put(ArableCrop.getCropByName("durum wheat"), 0l);
+		HashMap<ArableCropCultivation, Long> coupledPayments=new HashMap<ArableCropCultivation, Long>();
+		coupledPayments.put(ArableCropCultivation.getCropByName("maize"), 0l);
+		coupledPayments.put(ArableCropCultivation.getCropByName("durum wheat"), 0l);
 		
 		pa.setCoupledPayments(coupledPayments);		
 	}
@@ -114,12 +118,12 @@ public class DefaultDataLoader implements ISimulationDataLoader {
 	/**
 	 * This implementation assigns random suitability for each {Crop->(x,y)}
 	 */
-	public void loadCropSuitabilityMap(HashMap<ArableCrop, GridValueLayer> csmap,MainContext cm) {
+	public void loadCropSuitabilityMap(HashMap<ArableCropCultivation, GridValueLayer> csmap,MainContext cm) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
 
 		double[] d = new double[cm.getGridHeight()];
 		
-		for (ArableCrop c : this.avcrops) {
+		for (ArableCropCultivation c : this.avcrops) {
 			csmap.put(c, new GridValueLayer("Yield"+c.getName(),true,new StrictBorders(), cm.getGridWidth(), cm.getGridHeight()));
 			for (int i = 0; i < cm.getGridWidth(); i++) {
 				SimUtilities.shuffle(d, new Uniform(0.1, 1, RandomHelper.getGenerator()));

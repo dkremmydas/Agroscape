@@ -1,12 +1,12 @@
 package gr.agroscape.dataLoaders;
 
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.landUse.ArableCrop;
 import gr.agroscape.main.ContextManager;
 
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public interface ISimulationDataLoader {
+public interface ICanLoadAgroscapeData {
 
 	/**
 	 * Load available Crops into {@link CropsContext}
@@ -45,7 +45,7 @@ public interface ISimulationDataLoader {
 	 * Load the Crop Suitability map. {@link ContextManager.cropSuitability}
 	 * @param HashMap<Crop, GridValueLayer> csmap
 	 */
-	void loadCropSuitabilityMap(HashMap<ArableCrop, GridValueLayer> csmap,MainContext context);
+	void loadCropSuitabilityMap(HashMap<ArableCropCultivation, GridValueLayer> csmap,MainContext context);
 	
 	/**
 	 * Initialize a {@link LandPropertyRegistry}. <br />

@@ -1,6 +1,6 @@
 package tests;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.landUse.ArableCrop;
 import gr.agroscape.main.ContextManager;
 import gr.agroscape.utilities.ValueLayersUtilities;
 
@@ -55,7 +55,7 @@ public class MainContextTest {
 		
 		System.err.println("gvl_CropSuitability works ?");
 		
-		ArableCrop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
+		ArableCropCultivation activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
 		System.err.println(activeC);
 		ValueLayer vl2 = this.mainContext.getValueLayer("CropSuitability");
 		System.err.println("this.mainContext.getValueLayer('CropSuitability')" + " \n" + ValueLayersUtilities.getValueLayerAsPrintedMatrix(vl2));

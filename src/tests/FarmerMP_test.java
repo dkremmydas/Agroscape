@@ -38,7 +38,7 @@ public class FarmerMP_test {
 
 	@Test
 	public void test() {
-		System.out.println("Height: " + this.mainContext.getGridHeight() + ", Width:"+this.mainContext.getGridWidth());
+		System.out.println("\nHeight: " + this.mainContext.getGridHeight() + ", Width:"+this.mainContext.getGridWidth());
 		System.out.println((this.mainContext.getCropsContext().getAvailableCrops()).toString());
 		
 		System.out.println("Payment Authority: " + this.mainContext.getPaymentAuthority().toString());

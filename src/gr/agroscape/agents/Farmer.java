@@ -1,7 +1,7 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.landUse.ArableCrop;
-import gr.agroscape.production.IhasProductionAbility;
+import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.production.IHasProductionAbility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,14 +36,14 @@ import java.util.Iterator;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class Farmer extends Agent implements IhasProductionAbility {
+public abstract class Farmer extends Agent implements IHasProductionAbility {
 	
     /**
      * The liquidity at the current moment (�cents)
      */
     protected long liquidity;
     
-    protected ArrayList<ArableCrop> potentialCrops = new ArrayList<ArableCrop>();
+    protected ArrayList<ArableCropCultivation> potentialCrops = new ArrayList<ArableCropCultivation>();
     
    
 	
@@ -52,12 +52,12 @@ public abstract class Farmer extends Agent implements IhasProductionAbility {
 	 * @param id
 	 * @param grid
 	 */	
-	public Farmer(ArrayList<ArableCrop> pC, int id) {
+	public Farmer(ArrayList<ArableCropCultivation> pC, int id) {
 		super(id);	
 		this.potentialCrops=pC;
 	}
  
-	public Farmer(ArrayList<ArableCrop> pC) {
+	public Farmer(ArrayList<ArableCropCultivation> pC) {
 		super();	
 		this.potentialCrops=pC;
 	}
@@ -79,7 +79,7 @@ public abstract class Farmer extends Agent implements IhasProductionAbility {
 	 * 
 	 * @return
 	 */
-	public ArrayList<ArableCrop> getPotentialCrops() {
+	public ArrayList<ArableCropCultivation> getPotentialCrops() {
 		return potentialCrops;
 	}
 
@@ -87,7 +87,7 @@ public abstract class Farmer extends Agent implements IhasProductionAbility {
 	 * 
 	 * @param potentialCrops
 	 */
-	public void setPotentialCrops(ArrayList<ArableCrop> potentialCrops) {
+	public void setPotentialCrops(ArrayList<ArableCropCultivation> potentialCrops) {
 		this.potentialCrops = potentialCrops;
 	}
 	
