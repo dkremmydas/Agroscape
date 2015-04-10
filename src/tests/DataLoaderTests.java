@@ -1,12 +1,8 @@
 package tests;
-import static org.junit.Assert.*;
-
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.main.ContextManager;
+
+import java.io.IOException;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Before;
@@ -17,8 +13,6 @@ import repast.simphony.engine.environment.DefaultScheduleRunner;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
-import repast.simphony.parameter.Parameters;
-import repast.simphony.parameter.Schema;
 
 
 public class DataLoaderTests {

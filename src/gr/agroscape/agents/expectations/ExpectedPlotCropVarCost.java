@@ -2,7 +2,7 @@ package gr.agroscape.agents.expectations;
 
 import gr.agroscape.agents.Plot;
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import java.util.Random;
  * @author jkr
  *
  */
-public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<Crop,Long>> {
+public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<ArableCrop,Long>> {
 
 	
-	public ExpectedPlotCropVarCost(HashMap<Plot, HashMap<Crop,Long>> values) {
+	public ExpectedPlotCropVarCost(HashMap<Plot, HashMap<ArableCrop,Long>> values) {
 		super(values);
 	}
 	
@@ -28,17 +28,17 @@ public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<C
 	 * For each Plot and Crop the default VarCost is 50*(1+random(50))
 	 */
 	@Override
-	HashMap<Plot, HashMap<Crop, Long>> getDefaultValues(ArrayList<Plot> plots) {
+	HashMap<Plot, HashMap<ArableCrop, Long>> getDefaultValues(ArrayList<Plot> plots) {
 		
 		MainContext mc = MainContext.getInstance();
-		ArrayList<Crop> crops = mc.getCropsContext().getAvailableCrops();
+		ArrayList<ArableCrop> crops = mc.getCropsContext().getAvailableCrops();
 		
-		HashMap<Plot, HashMap<Crop,Long>> v=new HashMap<Plot, HashMap<Crop,Long>>();
+		HashMap<Plot, HashMap<ArableCrop,Long>> v=new HashMap<Plot, HashMap<ArableCrop,Long>>();
 		Random r = new Random();
 		
 		for (Plot p: plots) {
-			HashMap<Crop,Long> tmp=new HashMap<Crop, Long>();
-       		for(Crop c: crops) {
+			HashMap<ArableCrop,Long> tmp=new HashMap<ArableCrop, Long>();
+       		for(ArableCrop c: crops) {
        			tmp.put(c, (long)(50*(1+r.nextInt(50))));
        			//tmp.put(c, 50l);
        		}

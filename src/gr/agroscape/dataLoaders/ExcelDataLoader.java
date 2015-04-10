@@ -9,8 +9,7 @@ import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.crops.Crop;
-import gr.agroscape.utilities.ValueLayersUtilities;
+import gr.agroscape.landUse.ArableCrop;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,14 +18,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import repast.simphony.space.grid.GridPoint;
@@ -53,7 +50,7 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 	
 	private ArrayList<Plot> avplots = new ArrayList<Plot>();
 	private ArrayList<Farmer> avfarmers = new ArrayList<Farmer>();
-	private ArrayList<Crop> avcrops = new ArrayList<Crop>();
+	private ArrayList<ArableCrop> avcrops = new ArrayList<ArableCrop>();
 	
 	
 	/**
@@ -93,7 +90,7 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 			Row row = rowItr.next();
 			int crop_id = (int)row.getCell(0).getNumericCellValue();
 			String crop_name = row.getCell(1).getStringCellValue();
-			this.avcrops.add(new Crop(crop_name,crop_id));
+			this.avcrops.add(new ArableCrop(crop_name,crop_id));
 		}
 		context.addAll(this.avcrops);
 		
@@ -175,10 +172,10 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 	 * If no such worksheet exists, the suitability of every (x,y) is set to 1 for that Crop.
 	 */
 	@Override
-	public void loadCropSuitabilityMap(HashMap<Crop, GridValueLayer> csmap,	MainContext context) {
+	public void loadCropSuitabilityMap(HashMap<ArableCrop, GridValueLayer> csmap,	MainContext context) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
 		
-		for(Crop c : this.avcrops) {
+		for(ArableCrop c : this.avcrops) {
 			//check if worksheet exists
 			String Sname = "CropSuitability_" + c.getName();
 			GridValueLayer gv = new GridValueLayer(Sname, true, MainContext.getInstance().getGridWidth(),MainContext.getInstance().getGridHeight());
@@ -258,11 +255,11 @@ public class ExcelDataLoader implements ISimulationDataLoader {
 	@Override
 	public void initPaymentAuthority(PaymentAuthority pa) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
-		HashMap<Crop, Long> coupledPayments=new HashMap<Crop, Long>();
-		coupledPayments.put(Crop.getCropByName("maize"), 0l);
-		coupledPayments.put(Crop.getCropByName("wheat"), 0l);
-		coupledPayments.put(Crop.getCropByName("cotton"), 0l);
-		coupledPayments.put(Crop.getCropByName("nothing"), 0l);
+		HashMap<ArableCrop, Long> coupledPayments=new HashMap<ArableCrop, Long>();
+		coupledPayments.put(ArableCrop.getCropByName("maize"), 0l);
+		coupledPayments.put(ArableCrop.getCropByName("wheat"), 0l);
+		coupledPayments.put(ArableCrop.getCropByName("cotton"), 0l);
+		coupledPayments.put(ArableCrop.getCropByName("nothing"), 0l);
 		
 		pa.setCoupledPayments(coupledPayments);		
 		

@@ -1,7 +1,5 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.contexts.PlotsContext;
-
 import java.util.ArrayList;
 
 import repast.simphony.space.grid.GridPoint;

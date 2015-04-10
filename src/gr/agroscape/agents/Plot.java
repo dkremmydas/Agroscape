@@ -1,11 +1,13 @@
 package gr.agroscape.agents;
 
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ALandUse;
+import gr.agroscape.landUse.ArableCrop;
 import gr.agroscape.main.AgroscapeConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 
 import repast.simphony.space.grid.GridPoint;
@@ -29,6 +31,8 @@ public class Plot {
 	private int myId;
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     private MainContext mainContext;
+    
+    private ALandUse landuse;
 
     /**
      * Create a new Plot from an ArrayList of GridPoints. <br />
@@ -123,14 +127,9 @@ public class Plot {
 	 * @param c
 	 * @return
 	 */
-	public double getSuitability(Crop c) {
+	public double getSuitability(ArableCrop c) {
 		GridValueLayer gvl = (GridValueLayer) (MainContext.getInstance().getCropsContext().getCropSuitability()).get(c);
-		ArrayList<GridPoint> gps = this.getGridPoints();
-		double mean = 0d;
-		for (GridPoint gp : gps) {
-			mean = (mean + gvl.get(gp.getX(),gp.getY()))/2; 
-		}
-		return mean;
+		return this.getAverage(gvl);
 	}
 	
 	/**
@@ -167,5 +166,27 @@ public class Plot {
 		Plot p = new Plot(gps);
 		return p;
 	}
+	
+	/**
+	 * Get the neighboring plots in a radius of r.
+	 * //TODO implement this method
+	 * @param r the radius (units ?)
+	 * @return
+	 */
+	public Collection<Plot> getNeighboringPlots(int r)
+	{
+		return null;
+		
+	}
+
+	public ALandUse getLanduse() {
+		return landuse;
+	}
+
+	public void setLanduse(ALandUse landuse) {
+		this.landuse = landuse;
+	}
+	
+	
 	
 }

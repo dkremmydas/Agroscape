@@ -3,7 +3,7 @@ package gr.agroscape.contexts;
 
 
 
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +18,12 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class CropsContext extends DefaultContext<Crop> {
+public class CropsContext extends DefaultContext<ArableCrop> {
 
 	/**
 	 * For each available Crop, the true Crop biophysical Suitability
 	 */
-	private HashMap<Crop, GridValueLayer> cropSuitability=new HashMap<Crop, GridValueLayer>();
+	private HashMap<ArableCrop, GridValueLayer> cropSuitability=new HashMap<ArableCrop, GridValueLayer>();
 	
 	
 	public CropsContext() {
@@ -34,11 +34,11 @@ public class CropsContext extends DefaultContext<Crop> {
 	 * Get all available Crops
 	 * @return
 	 */
-	public ArrayList<Crop> getAvailableCrops() {
-		ArrayList<Crop> r = new ArrayList<Crop>();
+	public ArrayList<ArableCrop> getAvailableCrops() {
+		ArrayList<ArableCrop> r = new ArrayList<ArableCrop>();
 		
-		Iterable<Crop> crops = this.getAgentLayer(Crop.class);
-		for (Crop crop : crops) {
+		Iterable<ArableCrop> crops = this.getAgentLayer(ArableCrop.class);
+		for (ArableCrop crop : crops) {
 			r.add(crop);
 		}
 		
@@ -48,11 +48,11 @@ public class CropsContext extends DefaultContext<Crop> {
 	/**
 	 * Get a Crop object by its name (Case insensitive). <br />
 	 * @param n String Name of Crop
-	 * @return if a crop with that name exists returns a {@link Crop}. Otherwise returns null.
+	 * @return if a crop with that name exists returns a {@link ArableCrop}. Otherwise returns null.
 	 */
-	public Crop getCropByName(String n) {
-		ArrayList<Crop> crops = this.getAvailableCrops();
-		for (Crop crop : crops) {
+	public ArableCrop getCropByName(String n) {
+		ArrayList<ArableCrop> crops = this.getAvailableCrops();
+		for (ArableCrop crop : crops) {
 			if(crop.getName().equalsIgnoreCase(n)) return crop;
 		}
 		return null;
@@ -62,7 +62,7 @@ public class CropsContext extends DefaultContext<Crop> {
 	 * Getter for {@link #cropSuitability}
 	 * @return
 	 */
-	public HashMap<Crop, GridValueLayer> getCropSuitability() {
+	public HashMap<ArableCrop, GridValueLayer> getCropSuitability() {
 		return cropSuitability;
 	}
 	

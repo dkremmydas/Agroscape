@@ -6,7 +6,7 @@ import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
 import gr.agroscape.main.ContextManager;
 
 import java.util.HashMap;
@@ -45,7 +45,7 @@ public interface ISimulationDataLoader {
 	 * Load the Crop Suitability map. {@link ContextManager.cropSuitability}
 	 * @param HashMap<Crop, GridValueLayer> csmap
 	 */
-	void loadCropSuitabilityMap(HashMap<Crop, GridValueLayer> csmap,MainContext context);
+	void loadCropSuitabilityMap(HashMap<ArableCrop, GridValueLayer> csmap,MainContext context);
 	
 	/**
 	 * Initialize a {@link LandPropertyRegistry}. <br />

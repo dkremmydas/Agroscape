@@ -1,12 +1,11 @@
 package tests;
 
 import gr.agroscape.agents.Farmer_MP;
-import gr.agroscape.agents.Plot;
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.crops.Crop;
 import gr.agroscape.main.ContextManager;
+import gr.agroscape.production.AProductionDecision;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,9 +60,9 @@ public class FarmerMP_test {
 		
 		System.out.println("His MP production decision tableau is:\n" + f.getMPtablaeu());
 		
-		HashMap<Plot, Crop> pr = f.makeProductionDecision();
+		ArrayList<AProductionDecision> pr = (ArrayList<AProductionDecision>) f.makeProductionDecision(f.getCultivatingPlots());
 		System.out.println("He makes a production decision: " + pr);
-		System.out.println("The aggregate production is: " + f.getThisStepProduction());
+		//System.out.println("The aggregate production is: " + f.getThisStepProduction());
 		
 	}
 

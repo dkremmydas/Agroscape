@@ -1,14 +1,13 @@
 package gr.agroscape.contexts;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.ICropProducer;
+import gr.agroscape.production.IhasProductionAbility;
 
 import java.util.ArrayList;
 
 import repast.simphony.context.DefaultContext;
 
 
-public class FarmersContext extends DefaultContext<ICropProducer> {
+public class FarmersContext extends DefaultContext<IhasProductionAbility> {
 
 		
 
@@ -22,11 +21,11 @@ public class FarmersContext extends DefaultContext<ICropProducer> {
 	 * Gets an ArrayList of all {@link ICropProducer} within context
 	 * @return
 	 */
-	public ArrayList<ICropProducer> getCropProducers() {
+	public ArrayList<IhasProductionAbility> getCropProducers() {
 		
-		ArrayList<ICropProducer> r = new ArrayList<ICropProducer>();
-		Iterable<ICropProducer> list = this.getAgentLayer(ICropProducer.class);
-		for (ICropProducer f : list) {
+		ArrayList<IhasProductionAbility> r = new ArrayList<IhasProductionAbility>();
+		Iterable<IhasProductionAbility> list = this.getAgentLayer(IhasProductionAbility.class);
+		for (IhasProductionAbility f : list) {
 			r.add(f);
 		}
 		return r;

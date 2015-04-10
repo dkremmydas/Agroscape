@@ -1,15 +1,10 @@
 package tests;
-import static org.junit.Assert.*;
-
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Iterator;
-
 import gr.agroscape.contexts.MainContext;
-import gr.agroscape.crops.Crop;
-import gr.agroscape.dataLoaders.ExcelDataLoader;
+import gr.agroscape.landUse.ArableCrop;
 import gr.agroscape.main.ContextManager;
 import gr.agroscape.utilities.ValueLayersUtilities;
+
+import java.io.IOException;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Before;
@@ -20,9 +15,6 @@ import repast.simphony.engine.environment.DefaultScheduleRunner;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
-import repast.simphony.parameter.Parameters;
-import repast.simphony.parameter.Schema;
-import repast.simphony.valueLayer.GridValueLayer;
 import repast.simphony.valueLayer.ValueLayer;
 
 
@@ -63,7 +55,7 @@ public class MainContextTest {
 		
 		System.err.println("gvl_CropSuitability works ?");
 		
-		Crop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
+		ArableCrop activeC = MainContext.getInstance().getActiveDisplaySuitabilityCrop();
 		System.err.println(activeC);
 		ValueLayer vl2 = this.mainContext.getValueLayer("CropSuitability");
 		System.err.println("this.mainContext.getValueLayer('CropSuitability')" + " \n" + ValueLayersUtilities.getValueLayerAsPrintedMatrix(vl2));

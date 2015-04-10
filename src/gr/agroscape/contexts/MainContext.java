@@ -1,11 +1,11 @@
 package gr.agroscape.contexts;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.ICropProducer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.production.IhasProductionAbility;
 import gr.agroscape.utilities.ValueLayersUtilities;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * This is the MainContext. Everything is included here. <br />
  * It contains:
  * <ul>
- * <li>The {@link Crop crops} that are available within Agroscape. They are inside the {@link CropsContext}. The Crops Collection can directly be accessed by callling the static {@link #getAvailableCrops()}</li>
+ * <li>The {@link ArableCrop crops} that are available within Agroscape. They are inside the {@link CropsContext}. The Crops Collection can directly be accessed by callling the static {@link #getAvailableCrops()}</li>
  * <li>The {@link Plot plots} that are available. They are inside the {@link PlotsContext}. The Plots Collection can directly be accessed by callling the static {@link #getAvailablePlots()}</li>
  * <li>The available {@link Farmer farmers}. They are inside the {@link FarmersContext}.</li>
  * <li>The {@link LandPropertyRegistry}. It is available through {@link #getLandPropertyRegistry()}.</li>
@@ -60,7 +60,7 @@ public class MainContext extends DefaultContext<Object> {
 	/**
 	 * What Crop should we show in {@link gvl_CropSuitability} ?
 	 */
-	private Crop activeDisplaySuitabilityCrop;
+	private ArableCrop activeDisplaySuitabilityCrop;
 	
 	/**
 	 * The Grid layer of space
@@ -191,9 +191,9 @@ public class MainContext extends DefaultContext<Object> {
 	}
 	
 	
-	public static ArrayList<Crop> getAvailableCrops() {
+	public static ArrayList<ArableCrop> getAvailableCrops() {
 		if(! MainContext.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (ArrayList<Crop>)MainContext.getInstance().getCropsContext().getAvailableCrops();
+		return (ArrayList<ArableCrop>)MainContext.getInstance().getCropsContext().getAvailableCrops();
 	}
 	
 	public static ArrayList<Plot> getAvailablePlots() {
@@ -215,7 +215,7 @@ public class MainContext extends DefaultContext<Object> {
 	 * @param f
 	 * @param p
 	 */
-	public void handleProductionDecision(ICropProducer f, HashMap<Plot, Crop> pr)	{		
+	public void handleProductionDecision(IhasProductionAbility f, HashMap<Plot, ArableCrop> pr)	{		
 		
 		//1. Update gvl_ProductionDecisions
 		for (Iterator<Plot> iterator = pr.keySet().iterator(); iterator.hasNext();) {
@@ -243,7 +243,7 @@ public class MainContext extends DefaultContext<Object> {
 	 * Getter
 	 * @return
 	 */
-	public Crop getActiveDisplaySuitabilityCrop() {
+	public ArableCrop getActiveDisplaySuitabilityCrop() {
 		return activeDisplaySuitabilityCrop;
 	}
 
@@ -251,7 +251,7 @@ public class MainContext extends DefaultContext<Object> {
 	 * Setter
 	 * @param activeDisplaySuitabilityCrop
 	 */
-	public void setActiveDisplaySuitabilityCrop(Crop activeDisplaySuitabilityCrop) {
+	public void setActiveDisplaySuitabilityCrop(ArableCrop activeDisplaySuitabilityCrop) {
 		this.activeDisplaySuitabilityCrop = activeDisplaySuitabilityCrop;
 	}
 	

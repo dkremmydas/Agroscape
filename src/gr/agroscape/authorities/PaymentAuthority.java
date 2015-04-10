@@ -1,8 +1,7 @@
 package gr.agroscape.authorities;
 
 
-import gr.agroscape.agents.ICropProducer;
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
 
 import java.util.HashMap;
 
@@ -24,7 +23,7 @@ public class PaymentAuthority {
 	//In euro/h
 	private long singlePaymentValue = 2000;
 	
-	private HashMap<Crop,Long> coupledPayments = new HashMap<Crop, Long>();
+	private HashMap<ArableCrop,Long> coupledPayments = new HashMap<ArableCrop, Long>();
 	
 	
 	public long getSinglePaymentValue() {
@@ -32,12 +31,12 @@ public class PaymentAuthority {
 	}
 
 
-	public HashMap<Crop, Long> getCoupledPayments() {
+	public HashMap<ArableCrop, Long> getCoupledPayments() {
 		return coupledPayments;
 	}
 
 
-	public void setCoupledPayments(HashMap<Crop, Long> coupledPayments) {
+	public void setCoupledPayments(HashMap<ArableCrop, Long> coupledPayments) {
 		this.coupledPayments = coupledPayments;
 	}
 	

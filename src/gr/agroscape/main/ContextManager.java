@@ -1,19 +1,20 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.ICropProducer;
-import gr.agroscape.agents.Plot;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.crops.Crop;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ISimulationDataLoader;
-import gr.agroscape.utilities.ValueLayersUtilities;
+import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.production.AProductionDecision;
+import gr.agroscape.production.IhasProductionAbility;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -21,7 +22,6 @@ import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduleParameters;
-import repast.simphony.valueLayer.GridValueLayer;
 
 
 /**
@@ -101,7 +101,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4
-		this.mainContext.setActiveDisplaySuitabilityCrop(Crop.getCropByName("maize"));
+		this.mainContext.setActiveDisplaySuitabilityCrop(ArableCrop.getCropByName("maize"));
 		
 		
 		
@@ -119,13 +119,34 @@ public class ContextManager implements ContextBuilder<Object> {
 	 */
 	public void step() {
 		System.err.println("Do Step");
+		
 		//1. Production Stage
-		Iterable<ICropProducer> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
-		for (ICropProducer f : fi) {
-			HashMap<Plot,Crop> pc = f.makeProductionDecision();
-			this.mainContext.handleProductionDecision(f, pc);
-			System.err.println(f.toString() + " | ProductpcionDecision: " + pc);
+		
+		//1.1 keep decisions of farmers
+		HashMap<Farmer,ArrayList<AProductionDecision>> all_decisions = new HashMap<>();
+				
+		//1.2 select farmers (randomly) and force them to make decisions
+		Iterable<IhasProductionAbility> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
+		for (IhasProductionAbility f : fi) {
+			if (f instanceof Farmer) {
+				Farmer ff = (Farmer) f;
+				all_decisions.put(ff, (ArrayList<AProductionDecision>) ff.makeProductionDecision(ff.getCultivatingPlots()));
+			}
+			//System.err.println(f.toString() + " | ProductpcionDecision: " + pc);
 		}
+		
+		//1.3 given their decision, apply the feedback to Plots and Farmers
+		for (Entry<Farmer, ArrayList<AProductionDecision>> entry : all_decisions.entrySet()) {
+			Farmer f = entry.getKey();
+			ArrayList<AProductionDecision> decs = entry.getValue();
+		    for(AProductionDecision dec : decs) {
+		    	dec.feedbackToPlot(dec.getPlot());
+		    	dec.feedbackToFarmer(f);
+		    }
+		}
+		
+		
+		
 		this.mainContext.updateValueLayers();
 		
 		System.err.println(this.mainContext.get_gvlProductionDecisions().toString());

@@ -3,13 +3,14 @@ package gr.agroscape.agents;
 import gr.agroscape.agents.expectations.ExpectedCropPrices;
 import gr.agroscape.agents.expectations.ExpectedPlotCropVarCost;
 import gr.agroscape.agents.expectations.ExpectedPlotCropYield;
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.production.AProductionDecision;
+import gr.agroscape.production.ArableCropProductionDecision;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
@@ -19,8 +20,6 @@ import org.apache.commons.math3.optim.linear.NonNegativeConstraint;
 import org.apache.commons.math3.optim.linear.Relationship;
 import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
-
-import repast.simphony.engine.schedule.ScheduledMethod;
 
 
 
@@ -62,7 +61,7 @@ public class Farmer_MP extends Farmer{
     /**
      * The amount of coupled payment (Crop->�cent/h)
      */
-    private HashMap<Crop,Long> coupledPayments = new HashMap<Crop,Long>();  
+    private HashMap<ArableCrop,Long> coupledPayments = new HashMap<ArableCrop,Long>();  
     
     /**
      * The expected variable cost of cultivating Crop to a Plot (Crop->�cent/h)
@@ -71,12 +70,12 @@ public class Farmer_MP extends Farmer{
     
     
     
-    public Farmer_MP(long liquidity,ArrayList<Crop> pC)  {
+    public Farmer_MP(long liquidity,ArrayList<ArableCrop> pC)  {
 		super(pC);
 		this.liquidity = liquidity;
 	}
     
-    public Farmer_MP(long liquidity,ArrayList<Crop> pC,int id) {
+    public Farmer_MP(long liquidity,ArrayList<ArableCrop> pC,int id) {
 		super(pC,id);
 		this.liquidity = liquidity;
 	}
@@ -134,13 +133,13 @@ public class Farmer_MP extends Farmer{
 	 * TODO: complete documentation
 	 */    
 	@Override
-	public HashMap<Plot, Crop> makeProductionDecision() {
+	public Collection<AProductionDecision> makeProductionDecision(Collection<Plot> plots) {
 		
-		this.thisStepProduction.clear();
 		this.calculateExpectations();
 		
+		ArrayList<Plot> myPlots = (ArrayList<Plot>) plots;
+		
 		//calculate objective function coefficients
-		ArrayList<Plot> myPlots = this.getCultivatingPlots();
 		double[] c = new double[this.potentialCrops.size()*myPlots.size()];
 		
 		for (int i = 0,n=0; i < this.potentialCrops.size(); i++) {
@@ -179,7 +178,8 @@ public class Farmer_MP extends Farmer{
 		//solve
 	
 		PointValuePair optSolution;
-		HashMap<Plot, Crop> r=new HashMap<Plot, Crop>(); 
+		ArrayList<AProductionDecision> r=new ArrayList<AProductionDecision>(); 
+		
 		try {
 			optSolution = Farmer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
 			
@@ -194,21 +194,13 @@ public class Farmer_MP extends Farmer{
 					xc[i] = solution[n++];
 				}
 		    	int maxindex = this.findMaxIndex(xc);
-		    	r.put(pp,this.potentialCrops.get(maxindex) );
+		    	r.add(new ArableCropProductionDecision(pp, this.potentialCrops.get(maxindex)) );
 		    }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		//update Farmer's total production
-		for (Iterator<Plot> iterator = r.keySet().iterator(); iterator.hasNext();) {
-			Plot p = iterator.next();
-			HashMap<Crop,Float> tmp = new HashMap<Crop, Float>();
-			tmp.put(r.get(p), (float)p.getGridPoints().size());		
-			this.aggregateProduction(tmp);
-		}
-		
 	    return r;		
 	
 	}

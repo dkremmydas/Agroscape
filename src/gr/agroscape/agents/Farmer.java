@@ -1,11 +1,11 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.crops.Crop;
+import gr.agroscape.landUse.ArableCrop;
+import gr.agroscape.production.IhasProductionAbility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map.Entry;
 
 
 /**
@@ -36,32 +36,28 @@ import java.util.Map.Entry;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class Farmer extends Agent implements ICropProducer {
+public abstract class Farmer extends Agent implements IhasProductionAbility {
 	
     /**
      * The liquidity at the current moment (�cents)
      */
     protected long liquidity;
     
-    protected ArrayList<Crop> potentialCrops = new ArrayList<Crop>();
+    protected ArrayList<ArableCrop> potentialCrops = new ArrayList<ArableCrop>();
     
-    protected HashMap<Crop,Float> thisStepProduction = new HashMap<Crop, Float>();
-    
+   
 	
 	/**
 	 * Constructor
 	 * @param id
 	 * @param grid
-	 */
-
-	
-	
-	public Farmer(ArrayList<Crop> pC, int id) {
+	 */	
+	public Farmer(ArrayList<ArableCrop> pC, int id) {
 		super(id);	
 		this.potentialCrops=pC;
 	}
  
-	public Farmer(ArrayList<Crop> pC) {
+	public Farmer(ArrayList<ArableCrop> pC) {
 		super();	
 		this.potentialCrops=pC;
 	}
@@ -83,7 +79,7 @@ public abstract class Farmer extends Agent implements ICropProducer {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Crop> getPotentialCrops() {
+	public ArrayList<ArableCrop> getPotentialCrops() {
 		return potentialCrops;
 	}
 
@@ -91,7 +87,7 @@ public abstract class Farmer extends Agent implements ICropProducer {
 	 * 
 	 * @param potentialCrops
 	 */
-	public void setPotentialCrops(ArrayList<Crop> potentialCrops) {
+	public void setPotentialCrops(ArrayList<ArableCrop> potentialCrops) {
 		this.potentialCrops = potentialCrops;
 	}
 	
@@ -117,43 +113,8 @@ public abstract class Farmer extends Agent implements ICropProducer {
 		return r;
 	}
 	
-	
-	
-	
-	/**
-	 * Getter for this Step's Production. It is an aggregate over all farmer's plots.
-	 * @return
-	 */
-	public HashMap<Crop, Float> getThisStepProduction() {
-		return thisStepProduction;
-	}
-	
-	/**
-	 * Add the given production HashMap to the total (current step's) production
-	 * @param pr
-	 */
-	protected void aggregateProduction(HashMap<Crop, Float> pr) {
 
-		for (Entry<Crop, Float> entry : pr.entrySet()) {
-			Crop key = entry.getKey();
-			Float value = entry.getValue();
-			if(! this.thisStepProduction.containsKey(key)) this.thisStepProduction.put(key,0f);
-			this.thisStepProduction.put(key,this.thisStepProduction.get(key)+value);
-		}
-			
-	}
-
-	abstract void calculateExpectations();
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
+	abstract void calculateExpectations();	
 	
 	
 
