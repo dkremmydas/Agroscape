@@ -15,10 +15,11 @@ public interface IProductionDecisionImpacts {
 
 	
 	/**
-	 * How does the ProductionDecision affect the Plots ?
-	 * @param plots
+	 * How does the ProductionDecision affect the Plots ? <br />
+	 * Mainly dedicated to biophysical feedback
+	 * @param plot
 	 */
-	public void feedbackToPlot(Plot plots);
+	public void feedbackToPlot(Plot plot);
 	
 	
 	/**
@@ -27,11 +28,5 @@ public interface IProductionDecisionImpacts {
 	 */
 	public void feedbackToFarmer(Farmer producers);
 	
-	
-	/**
-	 * How does a farmer is affected
-	 * @param producers
-	 */
-	public Map<Product,Float> productionRealization(IWeatherSuitability w);
-	
+
 }

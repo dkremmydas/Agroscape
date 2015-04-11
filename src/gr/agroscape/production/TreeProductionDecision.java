@@ -37,11 +37,11 @@ public class TreeProductionDecision extends AProductionDecision {
 		// do something here		
 	}
 
-	@Override
-	public Map<Product, Float> productionRealization(IWeatherSuitability w) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//@Override
+	//public Map<Product, Float> productionRealization(IWeatherSuitability w) {
+	//	// TODO Auto-generated method stub
+	//	return null;
+	//}
 
 	
 	

@@ -43,7 +43,7 @@ public abstract class Farmer extends Agent implements IHasProductionAbility {
      */
     protected long liquidity;
     
-    protected ArrayList<ArableCropCultivation> potentialCrops = new ArrayList<ArableCropCultivation>();
+    protected ArrayList<ArableCropCultivation> potentialAgriculturalActivity = new ArrayList<ArableCropCultivation>();
     
    
 	
@@ -54,12 +54,12 @@ public abstract class Farmer extends Agent implements IHasProductionAbility {
 	 */	
 	public Farmer(ArrayList<ArableCropCultivation> pC, int id) {
 		super(id);	
-		this.potentialCrops=pC;
+		this.potentialAgriculturalActivity=pC;
 	}
  
 	public Farmer(ArrayList<ArableCropCultivation> pC) {
 		super();	
-		this.potentialCrops=pC;
+		this.potentialAgriculturalActivity=pC;
 	}
 
 	
@@ -79,16 +79,16 @@ public abstract class Farmer extends Agent implements IHasProductionAbility {
 	 * 
 	 * @return
 	 */
-	public ArrayList<ArableCropCultivation> getPotentialCrops() {
-		return potentialCrops;
+	public ArrayList<ArableCropCultivation> getPotentialAgriculturalActivity() {
+		return potentialAgriculturalActivity;
 	}
 
 	/**
 	 * 
 	 * @param potentialCrops
 	 */
-	public void setPotentialCrops(ArrayList<ArableCropCultivation> potentialCrops) {
-		this.potentialCrops = potentialCrops;
+	public void setPotentialAgriculturalActivity(ArrayList<ArableCropCultivation> potentialCrops) {
+		this.potentialAgriculturalActivity = potentialCrops;
 	}
 	
 	/**

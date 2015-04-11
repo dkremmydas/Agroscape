@@ -40,11 +40,11 @@ public class ArableCropProductionDecision extends AProductionDecision {
 		return super.toString() + ": Crop=" + this.decision.toString();
 	}
 
-	@Override
-	public Map<Product, Float> productionRealization(IWeatherSuitability w) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//@Override
+	//public Map<Product, Float> productionRealization(IWeatherSuitability w) {
+	//	// TODO Auto-generated method stub
+	//	return null;
+	//}
 
 	
 	

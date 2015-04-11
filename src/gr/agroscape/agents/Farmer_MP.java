@@ -92,14 +92,14 @@ public class Farmer_MP extends Farmer{
     	
     	//calculate objective function coefficients
 		ArrayList<Plot> myPlots = this.getCultivatingPlots();
-		double[] c = new double[this.potentialCrops.size()*myPlots.size()];
+		double[] c = new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		
-		for (int i = 0,n=0; i < this.potentialCrops.size(); i++) {
+		for (int i = 0,n=0; i < this.potentialAgriculturalActivity.size(); i++) {
 			for (int j = 0; j < myPlots.size(); j++) {
-					double yield=this.expectedPlotCropYields.get(myPlots.get(j)).get(this.potentialCrops.get(i));
-					double price=this.expectedCropPrices.get(this.potentialCrops.get(i));
-					double coupled_subsidy = this.coupledPayments.get(this.potentialCrops.get(i));
-					double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialCrops.get(i));
+					double yield=this.expectedPlotCropYields.get(myPlots.get(j)).get(this.potentialAgriculturalActivity.get(i));
+					double price=this.expectedCropPrices.get(this.potentialAgriculturalActivity.get(i));
+					double coupled_subsidy = this.coupledPayments.get(this.potentialAgriculturalActivity.get(i));
+					double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialAgriculturalActivity.get(i));
 					c[n++]= ((yield*price)+coupled_subsidy-varcost);						
 			}
 			
@@ -108,15 +108,15 @@ public class Farmer_MP extends Farmer{
     	r += "obj:  " + Arrays.toString(c) + "\n";
 
     	//create land constraint
-		double[] la = new double[this.potentialCrops.size()*myPlots.size()] ;
+		double[] la = new double[this.potentialAgriculturalActivity.size()*myPlots.size()] ;
 		Arrays.fill(la, 1);		
 		r +="land: " + Arrays.toString(la) + " <= " + this.getCultivatingPlotArea() + "\n";
 		
 		//create liquidity constraint
-		double[] ca = new double[this.potentialCrops.size()*myPlots.size()] ;
-		for (int i = 0,n=0; i < this.potentialCrops.size(); i++) {
+		double[] ca = new double[this.potentialAgriculturalActivity.size()*myPlots.size()] ;
+		for (int i = 0,n=0; i < this.potentialAgriculturalActivity.size(); i++) {
 			for (int j = 0; j < myPlots.size(); j++) {
-				double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialCrops.get(i));
+				double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialAgriculturalActivity.get(i));
 				ca[n++]=varcost;
 			}
 		}
@@ -140,14 +140,14 @@ public class Farmer_MP extends Farmer{
 		ArrayList<Plot> myPlots = (ArrayList<Plot>) plots;
 		
 		//calculate objective function coefficients
-		double[] c = new double[this.potentialCrops.size()*myPlots.size()];
+		double[] c = new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		
-		for (int i = 0,n=0; i < this.potentialCrops.size(); i++) {
+		for (int i = 0,n=0; i < this.potentialAgriculturalActivity.size(); i++) {
 			for (int j = 0; j < myPlots.size(); j++) {
-					double yield=this.expectedPlotCropYields.get(myPlots.get(j)).get(this.potentialCrops.get(i));
-					double price=this.expectedCropPrices.get(this.potentialCrops.get(i));
-					double coupled_subsidy = this.coupledPayments.get(this.potentialCrops.get(i));
-					double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialCrops.get(i));
+					double yield=this.expectedPlotCropYields.get(myPlots.get(j)).get(this.potentialAgriculturalActivity.get(i));
+					double price=this.expectedCropPrices.get(this.potentialAgriculturalActivity.get(i));
+					double coupled_subsidy = this.coupledPayments.get(this.potentialAgriculturalActivity.get(i));
+					double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialAgriculturalActivity.get(i));
 					c[n++]= ((yield*price)+coupled_subsidy-varcost);						
 			}
 			
@@ -160,15 +160,15 @@ public class Farmer_MP extends Farmer{
                 ArrayList<LinearConstraint>();
 		
 		//create land constraint
-		double[] la = new double[this.potentialCrops.size()*myPlots.size()] ;
+		double[] la = new double[this.potentialAgriculturalActivity.size()*myPlots.size()] ;
 		Arrays.fill(la, 1);		
 		constraints.add(new LinearConstraint(la, Relationship.LEQ, this.getCultivatingPlotArea()));
 		
 		//create liquidity constraint
-		double[] ca = new double[this.potentialCrops.size()*myPlots.size()] ;
-		for (int i = 0,n=0; i < this.potentialCrops.size(); i++) {
+		double[] ca = new double[this.potentialAgriculturalActivity.size()*myPlots.size()] ;
+		for (int i = 0,n=0; i < this.potentialAgriculturalActivity.size(); i++) {
 			for (int j = 0; j < myPlots.size(); j++) {
-				double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialCrops.get(i));
+				double varcost = this.expectedPlotCropVarCost.get(myPlots.get(j)).get(this.potentialAgriculturalActivity.get(i));
 				ca[n++]=varcost;
 			}
 		}
@@ -185,18 +185,18 @@ public class Farmer_MP extends Farmer{
 		try {
 			optSolution = Farmer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
 			
-		    double[] solution= new double[this.potentialCrops.size()*myPlots.size()];
+		    double[] solution= new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		    solution = optSolution.getPoint();
 			
 		    for (int j = 0,n=0; j < myPlots.size(); j++) {
 		    	Plot pp = myPlots.get(j);
-		    	double[] xc = new double[this.potentialCrops.size()];
+		    	double[] xc = new double[this.potentialAgriculturalActivity.size()];
 		    	
-		    	for (int i = 0; i < this.potentialCrops.size(); i++) {
+		    	for (int i = 0; i < this.potentialAgriculturalActivity.size(); i++) {
 					xc[i] = solution[n++];
 				}
 		    	int maxindex = this.findMaxIndex(xc);
-		    	r.add(new ArableCropProductionDecision(pp, this.potentialCrops.get(maxindex)) );
+		    	r.add(new ArableCropProductionDecision(pp, this.potentialAgriculturalActivity.get(maxindex)) );
 		    }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -228,7 +228,7 @@ public class Farmer_MP extends Farmer{
 		this.singlePaymentValue = this.mainContext.getPaymentAuthority().getSinglePaymentValue(); 
 		
 		//load Expected Crop Prices
-		this.expectedCropPrices = new ExpectedCropPrices(this.potentialCrops);		
+		this.expectedCropPrices = new ExpectedCropPrices(this.potentialAgriculturalActivity);		
 		
 		//Load Expected Plot-Crop Yield
 		this.expectedPlotCropYields = new ExpectedPlotCropYield(this.getCultivatingPlots());

@@ -56,7 +56,7 @@ public class FarmerMP_test {
 		
 		System.out.println("Get cultivated plots: " + f.getCultivatingPlots().toString());
 		System.out.println("Cultivated plots Area: " + f.getCultivatingPlotArea());
-		System.out.println("He can cultivate the following crops: " + f.getPotentialCrops().toString());
+		System.out.println("He can cultivate the following crops: " + f.getPotentialAgriculturalActivity().toString());
 		
 		System.out.println("His MP production decision tableau is:\n" + f.getMPtablaeu());
 		
