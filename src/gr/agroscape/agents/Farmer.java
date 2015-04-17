@@ -41,7 +41,7 @@ import org.apache.commons.collections.map.HashedMap;
 public class Farmer extends HumanAgent  {
 	
 	
-   
+    
 	
 	/**
 	 * Constructor

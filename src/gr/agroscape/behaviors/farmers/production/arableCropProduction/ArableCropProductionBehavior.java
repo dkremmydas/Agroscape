@@ -1,16 +1,17 @@
-package gr.agroscape.behaviors.farmers.production;
+package gr.agroscape.behaviors.farmers.production.arableCropProduction;
+
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.HumanAgentProperty;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.expectations.ExpectedCropPrices;
-import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropVarCost;
-import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropYield;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ArableCropProductionBehavior extends AFarmerBehavior {
+	
+	
+	
 
 	
 	public ArableCropProductionBehavior(Farmer owner) {
@@ -29,7 +30,8 @@ public class ArableCropProductionBehavior extends AFarmerBehavior {
 		/**
 		 * Potential Arable Crops
 		 */
-		owner_properties.put(new String("potentialCrops"), new ArrayList<ArableCropCultivation>());
+o		owner_properties.put("potentialCrops", 
+			new HumanAgentProperty<ArrayList<ArableCropCultivation>>(new ArableCropProductionBehavior(owner)) );
 		
 		 /**
 	     * The Decoupled Payment Rights (�cent/h)

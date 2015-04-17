@@ -1,7 +1,5 @@
 package gr.agroscape.behaviors.farmers;
 
-import org.apache.commons.collections4.map.HashedMap;
-
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ScheduledBehavior;
 
@@ -18,7 +16,6 @@ public abstract class AFarmerBehavior implements ScheduledBehavior {
 	 */
 	protected Farmer owner;
 	
-	protected HashedMap<String,Object> owner_properties;
 
 	/**
 	 * Constructor
@@ -27,7 +24,6 @@ public abstract class AFarmerBehavior implements ScheduledBehavior {
 	public AFarmerBehavior(Farmer owner) {
 		super();
 		this.owner = owner;
-		owner_properties = this.owner.getProperties();
 	}
 
 	

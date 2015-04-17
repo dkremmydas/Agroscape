@@ -1,6 +1,6 @@
 package tests;
 
-import gr.agroscape.behaviors.farmers.production.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.Farmer_MP;
 import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.ContextManager;

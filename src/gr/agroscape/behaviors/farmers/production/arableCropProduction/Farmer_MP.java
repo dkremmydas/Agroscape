@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.farmers.production;
+package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
@@ -35,7 +35,7 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
  * 
  * @author Dimitris Kremmydas
  */
-public class Farmer_MP extends Farmer{
+public class Farmer_MP {
 	
 
 	

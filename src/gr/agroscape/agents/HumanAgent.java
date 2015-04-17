@@ -5,6 +5,9 @@
  */
 package gr.agroscape.agents;
 
+import java.util.ArrayList;
+
+import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.contexts.MainContext;
 
 import org.apache.commons.collections4.map.HashedMap;;
@@ -39,7 +42,7 @@ public abstract class HumanAgent {
     /**
 	 * The properties of the agent
 	 */
-    protected HashedMap<String,HumanAgentProperty<Object>> properties = new HashedMap<>();
+    protected ArrayList<AFarmerBehavior> behaviors = new ArrayList<>();
     
     
     /**
@@ -74,13 +77,15 @@ public abstract class HumanAgent {
 		return this.myId;
 	}
 
+	
+
 	/**
-	 * A getter of properties. It returns a reference to the {@link HashedMap}, 
-	 * so new objects can be added
+	 * A getter of behaviors. It returns a reference to the {@link AFarmerBehavior}.<br /> 
+	 * New {@link AFarmerBehavior} can be added using the returned reference.
 	 * @return
 	 */
-	public HashedMap<String,HumanAgentProperty<Object>> getProperties() {
-		return properties;
+	public ArrayList<AFarmerBehavior> getBehaviors() {
+		return behaviors;
 	}
     
 
