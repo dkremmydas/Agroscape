@@ -1,8 +1,8 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;

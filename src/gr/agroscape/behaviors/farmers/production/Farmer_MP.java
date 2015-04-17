@@ -1,11 +1,13 @@
-package gr.agroscape.agents;
+package gr.agroscape.behaviors.farmers.production;
 
-import gr.agroscape.agents.expectations.ExpectedCropPrices;
-import gr.agroscape.agents.expectations.ExpectedPlotCropVarCost;
-import gr.agroscape.agents.expectations.ExpectedPlotCropYield;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
-import gr.agroscape.production.AProductionDecision;
-import gr.agroscape.production.ArableCropProductionDecision;
+import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.Plot;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.expectations.ExpectedCropPrices;
+import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropVarCost;
+import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropYield;
+import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
+import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 
 import java.util.ArrayList;
 import java.util.Arrays;

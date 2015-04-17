@@ -1,7 +1,7 @@
-package gr.agroscape.agents.expectations;
+package gr.agroscape.behaviors.farmers.production.expectations;
 
 
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 
 import java.util.ArrayList;
 import java.util.HashMap;

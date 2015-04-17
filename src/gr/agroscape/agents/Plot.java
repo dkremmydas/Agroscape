@@ -1,7 +1,7 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.agriculturalActivity.AAgriculturalActivity;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.AAgriculturalActivity;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.AgroscapeConfiguration;
 

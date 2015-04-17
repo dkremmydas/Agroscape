@@ -1,4 +1,4 @@
-package gr.agroscape.production;
+package gr.agroscape.behaviors.farmers.production.interfaces;
 
 /**
  * Returns a number from [0,1] giving the suitability of the period 

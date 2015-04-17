@@ -3,7 +3,7 @@ package gr.agroscape.contexts;
 
 
 
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 
 import java.util.ArrayList;
 import java.util.HashMap;

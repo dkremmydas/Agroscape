@@ -1,5 +1,5 @@
 package tests;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.ContextManager;
 import gr.agroscape.utilities.ValueLayersUtilities;

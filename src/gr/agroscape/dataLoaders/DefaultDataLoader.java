@@ -1,17 +1,17 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.agents.Agent;
+import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.Farmer_MP;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
+import gr.agroscape.behaviors.farmers.production.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.products.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +78,7 @@ public class DefaultDataLoader implements ICanLoadAgroscapeData {
 		if(this.avplots.isEmpty())throw new NullPointerException("loadPlotsContext should be called before");
 		if(this.avfarmers.isEmpty())throw new NullPointerException("loadFarmersContext should be called before");
 		
-		HashMap<Plot,Agent> r = new HashMap<Plot, Agent>();
+		HashMap<Plot,HumanAgent> r = new HashMap<Plot, HumanAgent>();
 		r.put(this.avplots.get(0), this.avfarmers.get(0));
 		r.put(this.avplots.get(1), this.avfarmers.get(0));
 		r.put(this.avplots.get(2), this.avfarmers.get(1));

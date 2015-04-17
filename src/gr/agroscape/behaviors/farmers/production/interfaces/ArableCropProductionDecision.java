@@ -1,9 +1,9 @@
-package gr.agroscape.production;
+package gr.agroscape.behaviors.farmers.production.interfaces;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
-import gr.agroscape.products.Product;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.products.Product;
 
 import java.util.Map;
 

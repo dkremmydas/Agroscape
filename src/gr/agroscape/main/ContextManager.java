@@ -1,15 +1,15 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
+import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
-import gr.agroscape.production.AProductionDecision;
-import gr.agroscape.production.IHasProductionAbility;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package gr.agroscape.agents.expectations;
+package gr.agroscape.behaviors.farmers.production.expectations;
 
 import java.util.ArrayList;
 import java.util.HashMap;

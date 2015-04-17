@@ -1,6 +1,6 @@
 package gr.agroscape.contexts;
 
-import gr.agroscape.production.IHasProductionAbility;
+import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
 import java.util.ArrayList;
 

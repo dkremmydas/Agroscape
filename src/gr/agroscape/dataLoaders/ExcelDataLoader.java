@@ -1,16 +1,16 @@
 package gr.agroscape.dataLoaders;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.Farmer_MP;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
+import gr.agroscape.behaviors.farmers.production.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.products.Product;
 
 import java.io.File;
 import java.io.IOException;

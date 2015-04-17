@@ -1,9 +1,9 @@
 package tests;
 
-import gr.agroscape.agents.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.ContextManager;
-import gr.agroscape.production.AProductionDecision;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package gr.agroscape.products;
+package gr.agroscape.behaviors.farmers.production.products;
 
 import java.util.HashMap;
 

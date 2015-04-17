@@ -1,6 +1,6 @@
-package gr.agroscape.agriculturalActivity;
+package gr.agroscape.behaviors.farmers.production.agriculturalActivities;
 
-import gr.agroscape.products.Product;
+import gr.agroscape.behaviors.farmers.production.products.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;

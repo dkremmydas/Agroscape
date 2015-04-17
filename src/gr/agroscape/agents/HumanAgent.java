@@ -7,44 +7,57 @@ package gr.agroscape.agents;
 
 import gr.agroscape.contexts.MainContext;
 
+import org.apache.commons.collections4.map.HashedMap;;
+
 
 /**
  * A human agent of AgroScape.
- * <p>This abstract class defines the basic operations shared by all implemented classes: 
+ * <p>This abstract class defines the data shared by all implemented classes: 
  * <ul>
  * <li>Automatic assignment of ID to each agent (see static {@link #myId})</li>
  * <li>Having a reference to the MainContext (see {@link #mainContext})
+ * <li>A {@link HashedMap} of properties</li>
  * </ul>
  * </p> 
  * @author Dimitris Kremmydas
  */
-public abstract class Agent {
+public abstract class HumanAgent {
     
     private static int next_id;
     
     /**
      * An incrementing integer, identified uniquely the Agent
      */
-    private int myId;
+    protected int myId;
+    
+    /**
+     * A reference to the mainContext. 
+     */
     protected MainContext mainContext ;
+
+    
+    /**
+	 * The properties of the agent
+	 */
+    protected HashedMap<String,HumanAgentProperty<Object>> properties = new HashedMap<>();
     
     
     /**
      * Constructor with a numeric id as a parameter
      * @param int id, the numeric id to assign
      */
-	public Agent(int id)  {
+	public HumanAgent(int id)  {
 		super();
 		this.myId = id;
-		Agent.next_id=id++;
+		HumanAgent.next_id=id++;
 		this.mainContext=MainContext.getInstance();
 	}
 	
 	/**
 	 * Constructor
 	 */
-	public Agent()  {
-		this(Agent.next_id++);
+	public HumanAgent()  {
+		this(HumanAgent.next_id++);
 	}
 	
 
@@ -60,8 +73,18 @@ public abstract class Agent {
 	public Integer getID() {
 		return this.myId;
 	}
+
+	/**
+	 * A getter of properties. It returns a reference to the {@link HashedMap}, 
+	 * so new objects can be added
+	 * @return
+	 */
+	public HashedMap<String,HumanAgentProperty<Object>> getProperties() {
+		return properties;
+	}
     
 
+	
  
     
     

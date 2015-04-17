@@ -1,11 +1,13 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.agriculturalActivity.ArableCropCultivation;
-import gr.agroscape.production.IHasProductionAbility;
+import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import org.apache.commons.collections.map.HashedMap;
 
 
 /**
@@ -36,15 +38,9 @@ import java.util.Iterator;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class Farmer extends Agent implements IHasProductionAbility {
+public class Farmer extends HumanAgent  {
 	
-    /**
-     * The liquidity at the current moment (�cents)
-     */
-    protected long liquidity;
-    
-    protected ArrayList<ArableCropCultivation> potentialAgriculturalActivity = new ArrayList<ArableCropCultivation>();
-    
+	
    
 	
 	/**

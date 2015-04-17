@@ -1,6 +1,6 @@
 package gr.agroscape.authorities;
 
-import gr.agroscape.agents.Agent;
+import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.exceptions.NoSuchAgentException;
@@ -18,7 +18,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * The Land Property Registry of the simulation </br>
  * The concern of this class is 
  * <ul>
- * <li>to keep information regarding which {@link Agent} owns which {@link Plot}</li>
+ * <li>to keep information regarding which {@link HumanAgent} owns which {@link Plot}</li>
  * <li>which {@link Farmer} cultivates which {@link Plot}, i.e. owns+rents</li>
  * <li>To give information on a {@link Farmer} for the {@link Plot} he cultivates</li>
  * </ul>
@@ -34,11 +34,11 @@ public class LandPropertyRegistry {
 	
 	private ArrayList<Plot> plots;
 	private ArrayList<Farmer> tenants;
-	private ArrayList<Agent> owners;
+	private ArrayList<HumanAgent> owners;
 	
 	/**
 	 * The owner's registry.  <br />
-	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.agents.Agent#myID}. <br />
+	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.agents.HumanAgent#myID}. <br />
 	 * Column dimension is for Plots and it holds the plot_num. <br />
 	 * If the value of (i,j) element equals to 1, then Agent_num=i owns Plot_num=j. <br />
 	 */
@@ -66,7 +66,7 @@ public class LandPropertyRegistry {
 		tenantRegistry = new BlockRealMatrix(numOfAgents,numOfPlots);
 		plots = new ArrayList<Plot>(numOfPlots);
 		tenants = new ArrayList<Farmer>(numOfAgents);
-		owners = new ArrayList<Agent>(numOfAgents);
+		owners = new ArrayList<HumanAgent>(numOfAgents);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class LandPropertyRegistry {
 	 * @param p Plot
 	 * @param a Agent
 	 */
-	public void setOwnerEntry(Plot p, Agent a) {
+	public void setOwnerEntry(Plot p, HumanAgent a) {
 		//check if p in plots
 		if(! this.plots.contains(p)) this.plots.add(p);
 		
@@ -135,7 +135,7 @@ public class LandPropertyRegistry {
 	 * @param a
 	 * @return
 	 */
-	public  ArrayList<Plot> getOwnedPlots(Agent a) {
+	public  ArrayList<Plot> getOwnedPlots(HumanAgent a) {
 		ArrayList<Plot>r = new ArrayList<Plot>();
 		
 		int agent_num = this.owners.indexOf(a);
@@ -217,8 +217,8 @@ public class LandPropertyRegistry {
 	 * 
 	 * @param or
 	 */
-	public  void setOwnerRegistry(HashMap<Plot, Agent> or) {
-		for (Map.Entry<Plot, Agent> entry : or.entrySet()) {
+	public  void setOwnerRegistry(HashMap<Plot, HumanAgent> or) {
+		for (Map.Entry<Plot, HumanAgent> entry : or.entrySet()) {
 			this.setOwnerEntry(entry.getKey(), entry.getValue());
 		}
 		
@@ -239,7 +239,7 @@ public class LandPropertyRegistry {
 	 * We assume that ownerRegistry secures that one Plot belongs only to one Agent.
 	 * @param p
 	 */
-	public Agent getOwner(Plot p) throws NullPointerException {
+	public HumanAgent getOwner(Plot p) throws NullPointerException {
 
 		if (this.plots.contains(p)) {
 			int plot_num = this.plots.indexOf(p);
@@ -275,7 +275,7 @@ public class LandPropertyRegistry {
 	 * We assume that tenantRegistry secures that one Plot is rented by only one Agent.
 	 * @param p
 	 */
-	public Agent getCultivator(Plot p) {
+	public HumanAgent getCultivator(Plot p) {
 
 		if (this.plots.contains(p)) {
 			int plot_num = this.plots.indexOf(p);
