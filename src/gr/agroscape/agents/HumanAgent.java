@@ -5,12 +5,12 @@
  */
 package gr.agroscape.agents;
 
-import java.util.ArrayList;
-
-import gr.agroscape.behaviors.farmers.AFarmerBehavior;
+import gr.agroscape.behaviors.farmers.AFarmerAction;
 import gr.agroscape.contexts.MainContext;
 
-import org.apache.commons.collections4.map.HashedMap;;
+import java.util.ArrayList;
+
+import org.apache.commons.collections4.map.HashedMap;
 
 
 /**
@@ -42,7 +42,7 @@ public abstract class HumanAgent {
     /**
 	 * The properties of the agent
 	 */
-    protected ArrayList<AFarmerBehavior> behaviors = new ArrayList<>();
+    protected ArrayList<AFarmerAction> actions = new ArrayList<>();
     
     
     /**
@@ -80,12 +80,20 @@ public abstract class HumanAgent {
 	
 
 	/**
-	 * A getter of behaviors. It returns a reference to the {@link AFarmerBehavior}.<br /> 
-	 * New {@link AFarmerBehavior} can be added using the returned reference.
+	 * A getter of behaviors. It returns a reference to the {@link AFarmerAction}.<br /> 
+	 * New {@link AFarmerAction} can be added using the returned reference.
 	 * @return
 	 */
-	public ArrayList<AFarmerBehavior> getBehaviors() {
-		return behaviors;
+	public ArrayList<AFarmerAction> getBehaviors() {
+		return actions;
+	}
+
+	/**
+	 * Get {@link MainContext} object
+	 * @return
+	 */
+	public MainContext getMainContext() {
+		return mainContext;
 	}
     
 

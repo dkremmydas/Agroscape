@@ -1,12 +1,12 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.FarmerArableCropProducer_MP;
 import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
@@ -62,10 +62,10 @@ public class DefaultDataLoader implements ICanLoadAgroscapeData {
 	public void loadFarmersContext(FarmersContext context) {
 		if(this.avcrops.isEmpty()) throw new NullPointerException("loadPlotsContext should be called before");
 
-		this.avfarmers.add(new Farmer_MP(100000l,this.avcrops,1));
-		this.avfarmers.add(new Farmer_MP(100000l,this.avcrops,2));
-		this.avfarmers.add(new Farmer_MP(100000l,this.avcrops,3));
-		this.avfarmers.add(new Farmer_MP(100000l,this.avcrops,4));
+		this.avfarmers.add(new FarmerArableCropProducer_MP(100000l,this.avcrops,1));
+		this.avfarmers.add(new FarmerArableCropProducer_MP(100000l,this.avcrops,2));
+		this.avfarmers.add(new FarmerArableCropProducer_MP(100000l,this.avcrops,3));
+		this.avfarmers.add(new FarmerArableCropProducer_MP(100000l,this.avcrops,4));
 		
 		context.addAll(this.avfarmers);
 	}

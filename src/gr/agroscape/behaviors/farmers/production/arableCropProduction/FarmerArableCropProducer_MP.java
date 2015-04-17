@@ -35,10 +35,18 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
  * 
  * @author Dimitris Kremmydas
  */
-public class Farmer_MP {
+public class FarmerArableCropProducer_MP extends FarmerArableCropProducer {
 	
 
 	
+	public FarmerArableCropProducer_MP(ArrayList<ArableCropCultivation> pC,
+			Farmer f) {
+		super(pC, f);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	/**
      * The Solver that will attack the LP problem (Apache Commons Math 3)
      */
@@ -71,17 +79,7 @@ public class Farmer_MP {
     private ExpectedPlotCropVarCost expectedPlotCropVarCost;
     
     
-    
-    public Farmer_MP(long liquidity,ArrayList<ArableCropCultivation> pC)  {
-		super(pC);
-		this.liquidity = liquidity;
-	}
-    
-    public Farmer_MP(long liquidity,ArrayList<ArableCropCultivation> pC,int id) {
-		super(pC,id);
-		this.liquidity = liquidity;
-	}
-    
+      
     
     /**
      * Returns the mathematical programming Tableau of the potential decision. <br />
@@ -185,7 +183,7 @@ public class Farmer_MP {
 		ArrayList<AProductionDecision> r=new ArrayList<AProductionDecision>(); 
 		
 		try {
-			optSolution = Farmer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
+			optSolution = FarmerArableCropProducer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
 			
 		    double[] solution= new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		    solution = optSolution.getPoint();
@@ -226,8 +224,8 @@ public class Farmer_MP {
 	@Override
 	public void calculateExpectations() {
 		
-		this.coupledPayments = this.mainContext.getPaymentAuthority().getCoupledPayments();
-		this.singlePaymentValue = this.mainContext.getPaymentAuthority().getSinglePaymentValue(); 
+		this.coupledPayments = this.owner.getMainContext().getPaymentAuthority().getCoupledPayments();
+		this.singlePaymentValue = this.owner.getMainContext().getPaymentAuthority().getSinglePaymentValue(); 
 		
 		//load Expected Crop Prices
 		this.expectedCropPrices = new ExpectedCropPrices(this.potentialAgriculturalActivity);		

@@ -2,9 +2,6 @@ package gr.agroscape.behaviors.farmers.production.interfaces;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.behaviors.farmers.production.products.Product;
-
-import java.util.Map;
 
 /**
  * Any class that affects a farmer should respect this interface

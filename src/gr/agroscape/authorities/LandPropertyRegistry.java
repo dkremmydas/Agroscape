@@ -1,7 +1,7 @@
 package gr.agroscape.authorities;
 
-import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.exceptions.NoSuchAgentException;
 

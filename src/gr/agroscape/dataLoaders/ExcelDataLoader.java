@@ -5,7 +5,7 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.Farmer_MP;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.FarmerArableCropProducer_MP;
 import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
@@ -172,7 +172,7 @@ public class ExcelDataLoader implements ICanLoadAgroscapeData {
 			int isFarmer = (int)row.getCell(1).getNumericCellValue();
 			long liquidity = (long)row.getCell(2).getNumericCellValue();
 			
-			if(isFarmer==1) {this.avfarmers.add(new Farmer_MP(liquidity,this.avcrops,agent_id));}
+			if(isFarmer==1) {this.avfarmers.add(new FarmerArableCropProducer_MP(liquidity,this.avcrops,agent_id));}
 		}
 		context.addAll(this.avfarmers);
 	}

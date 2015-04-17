@@ -1,7 +1,9 @@
 package gr.agroscape.agents;
 
+import gr.agroscape.behaviors.farmers.AFarmerAction;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.AAgriculturalActivity;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.plots.APlotAction;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.AgroscapeConfiguration;
 
@@ -32,7 +34,10 @@ public class Plot {
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     private MainContext mainContext;
     
-    private AAgriculturalActivity agriculturalLandUse;
+    /**
+	 * The properties of the agent
+	 */
+    protected ArrayList<APlotAction> actions = new ArrayList<>();
 
     /**
      * Create a new Plot from an ArrayList of GridPoints. <br />

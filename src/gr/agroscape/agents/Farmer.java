@@ -1,13 +1,6 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import org.apache.commons.collections.map.HashedMap;
 
 
 /**
@@ -41,76 +34,17 @@ import org.apache.commons.collections.map.HashedMap;
 public class Farmer extends HumanAgent  {
 	
 	
-    
 	
 	/**
 	 * Constructor
 	 * @param id
 	 * @param grid
 	 */	
-	public Farmer(ArrayList<ArableCropCultivation> pC, int id) {
-		super(id);	
-		this.potentialAgriculturalActivity=pC;
+	public Farmer(int id) {
+		super(id);			
 	}
  
-	public Farmer(ArrayList<ArableCropCultivation> pC) {
-		super();	
-		this.potentialAgriculturalActivity=pC;
-	}
 
-	
-	/**
-	 * 
-	 * @return float (hectares)
-	 */
-	public  float getTotalArableLand() {
-		   float r=0;
-	       ArrayList<Plot> myCultivationPlots = this.mainContext.getLandPropertyRegistry().getRentedPlots(this);
-	       for(Plot v: myCultivationPlots) {r+=v.getArea();}
-	       return r;
-	}
-
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ArrayList<ArableCropCultivation> getPotentialAgriculturalActivity() {
-		return potentialAgriculturalActivity;
-	}
-
-	/**
-	 * 
-	 * @param potentialCrops
-	 */
-	public void setPotentialAgriculturalActivity(ArrayList<ArableCropCultivation> potentialCrops) {
-		this.potentialAgriculturalActivity = potentialCrops;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ArrayList<Plot> getCultivatingPlots() {
-		return this.mainContext.getLandPropertyRegistry().getCultivatingPlots(this);
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public double getCultivatingPlotArea() {
-		double r= 0d;
-		ArrayList<Plot> ps = this.getCultivatingPlots();
-		for (Iterator<Plot> iterator = ps.iterator(); iterator.hasNext();) {
-			Plot plot = iterator.next();
-			r += plot.getArea();
-		}
-		return r;
-	}
-	
-
-	abstract void calculateExpectations();	
 	
 	
 

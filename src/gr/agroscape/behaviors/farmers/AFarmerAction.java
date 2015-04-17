@@ -9,7 +9,7 @@ import gr.agroscape.behaviors.ScheduledBehavior;
  * @author Dimitris Kremmydas
  *
  */
-public abstract class AFarmerBehavior implements ScheduledBehavior {
+public abstract class AFarmerAction implements ScheduledBehavior {
 
 	/**
 	 * The owner of the behavior
@@ -21,7 +21,7 @@ public abstract class AFarmerBehavior implements ScheduledBehavior {
 	 * Constructor
 	 * @param owner
 	 */
-	public AFarmerBehavior(Farmer owner) {
+	public AFarmerAction(Farmer owner) {
 		super();
 		this.owner = owner;
 	}
