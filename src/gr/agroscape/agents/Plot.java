@@ -185,13 +185,7 @@ public class Plot {
 		
 	}
 
-	public AAgriculturalActivity getAgriculturalLandUse() {
-		return agriculturalLandUse;
-	}
 
-	public void setAgriculturalLandUse(AAgriculturalActivity landuse) {
-		this.agriculturalLandUse = landuse;
-	}
 	
 	
 	

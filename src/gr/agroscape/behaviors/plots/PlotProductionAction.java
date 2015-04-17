@@ -29,4 +29,11 @@ public class PlotProductionAction extends APlotAction {
 		return null;
 	}
 
+	public AAgriculturalActivity getAgriculturalLandUse() {
+		return agriculturalLandUse;
+	}
+
+	public void setAgriculturalLandUse(AAgriculturalActivity landuse) {
+		this.agriculturalLandUse = landuse;
+	}
 }
