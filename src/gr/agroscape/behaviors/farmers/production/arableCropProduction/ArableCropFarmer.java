@@ -19,7 +19,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 
 
 /**
- * A Farmer agent of Agroscape. <p />
+ * The behavior of a {@link Farmer} that produces arable crops <p />
  * <p>This is the abstract class that gives some basic functionality:
  *  <ul>
  *  <li>Every farmer has some common properties:
@@ -63,7 +63,7 @@ public abstract class ArableCropFarmer extends AFarmerBehavior implements IHasPr
     /**
 	 * The data loader. by default is a \n excel data loader
 	 */
-    protected IScheduledBehaviorDataLoader<Farmer> dl = new ExcelDataLoader();
+    protected static IScheduledBehaviorDataLoader<Farmer> dl = new ExcelDataLoader();
 	
 	
     
