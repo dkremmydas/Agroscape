@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors.plots;
 
 import gr.agroscape.agents.Plot;
-import gr.agroscape.behaviors.ScheduledBehavior;
+import gr.agroscape.behaviors.IScheduledBehavior;
 
 /**
  * An abstract class defining basic properties for an implementation of a PlotBehavior 
@@ -9,7 +9,7 @@ import gr.agroscape.behaviors.ScheduledBehavior;
  * @author Dimitris Kremmydas
  *
  */
-public abstract class APlotAction implements ScheduledBehavior {
+public abstract class APlotBehavior implements IScheduledBehavior<Plot> {
 
 	/**
 	 * The owner of the behavior
@@ -21,7 +21,7 @@ public abstract class APlotAction implements ScheduledBehavior {
 	 * Constructor
 	 * @param owner
 	 */
-	public APlotAction(Plot owner) {
+	public APlotBehavior(Plot owner) {
 		super();
 		this.owner = owner;
 	}

@@ -18,6 +18,6 @@ public interface IHasProductionAbility {
 	 * 
 	 * @return
 	 */
-	Collection<AProductionDecision> makeProductionDecision(Collection<Plot> plots);
+	Collection<? extends AProductionDecision> makeProductionDecision(Collection<Plot> plots);
 	
 }

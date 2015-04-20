@@ -29,7 +29,7 @@ public class ArableCropProductionDecision extends AProductionDecision {
 
 	@Override
 	public void feedbackToPlot(Plot p) {
-		p.setAgriculturalLandUse(this.decision);		
+		//p.setAgriculturalLandUse(this.decision);		
 	}
 
 	@Override

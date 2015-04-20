@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors.farmers;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ScheduledBehavior;
+import gr.agroscape.behaviors.IScheduledBehavior;
 
 /**
  * An abstract class defining basic properties for an implementation of a FarmerBehavior 
@@ -9,7 +9,7 @@ import gr.agroscape.behaviors.ScheduledBehavior;
  * @author Dimitris Kremmydas
  *
  */
-public abstract class AFarmerAction implements ScheduledBehavior {
+public abstract class AFarmerBehavior implements IScheduledBehavior<Farmer> {
 
 	/**
 	 * The owner of the behavior
@@ -21,7 +21,7 @@ public abstract class AFarmerAction implements ScheduledBehavior {
 	 * Constructor
 	 * @param owner
 	 */
-	public AFarmerAction(Farmer owner) {
+	public AFarmerBehavior(Farmer owner) {
 		super();
 		this.owner = owner;
 	}

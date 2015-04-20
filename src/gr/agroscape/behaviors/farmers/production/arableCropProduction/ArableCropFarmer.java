@@ -2,11 +2,20 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
+import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
+import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
+import gr.agroscape.contexts.Space;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+
+import repast.simphony.engine.schedule.ScheduledMethod;
 
 
 /**
@@ -37,12 +46,8 @@ import java.util.Iterator;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class FarmerArableCropProducer  implements IHasProductionAbility {
+public abstract class ArableCropFarmer extends AFarmerBehavior implements IHasProductionAbility {
 	
-	/**
-	 * The {@link Farmer} object that owns this 
-	 */
-	protected Farmer owner;
 	
     /**
      * The liquidity at the current moment (�cents)
@@ -55,15 +60,23 @@ public abstract class FarmerArableCropProducer  implements IHasProductionAbility
     protected ArrayList<ArableCropCultivation> potentialAgriculturalActivity = new ArrayList<ArableCropCultivation>();
 
    
+    /**
+	 * The data loader. by default is a \n excel data loader
+	 */
+    protected IScheduledBehaviorDataLoader<Farmer> dl = new ExcelDataLoader();
 	
+	
+    
+    
 	/**
 	 * Constructor
 	 * @param id
 	 * @param grid
 	 */	
-	public FarmerArableCropProducer(ArrayList<ArableCropCultivation> pC, Farmer f) {
-		this.owner = f;
+	public ArableCropFarmer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f) {
+		super(f);
 		this.potentialAgriculturalActivity=pC;
+		this.liquidity = liquidity;
 	}
  
 	
@@ -78,6 +91,20 @@ public abstract class FarmerArableCropProducer  implements IHasProductionAbility
 	       return r;
 	}
 
+	
+	@Override
+	public Object getAnnotatedClass() {
+		return this.getClass();
+	}
+	
+	@ScheduledMethod(interval = 1)
+	public void handleProduction() {
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
+		
+		
+	}
 	
 	/**
 	 * 
@@ -122,4 +149,49 @@ public abstract class FarmerArableCropProducer  implements IHasProductionAbility
 	
 	
 
-} //end class
+
+	@Override
+	public IScheduledBehaviorDataLoader<Farmer> getDataLoader() {
+		return this.dl;
+	}
+
+}
+
+
+/**
+ * Nested class to load data
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
+class ExcelDataLoader implements IScheduledBehaviorDataLoader<Farmer>{
+
+
+	@Override
+	public void setup(Collection<Farmer> owners, Space space, Path dataFile) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void s() {
+/*		this.containerFarmer = new FarmerArableCropProducer_MP (
+				this.owner.getMainContext().getCropsContext().getAvailableCrops(),
+				this.owner
+	);
+	
+	
+	//add CropSuitability Value Layer
+	this.owner.getMainContext().addValueLayer(  
+			new GridValueLayer("CropSuitability",
+			true,
+			new StrictBorders(),
+			this.owner.getMainContext().getGridWidth(), 
+			this.owner.getMainContext().getGridHeight())
+	);
+	*/
+	
+	
+	}
+	
+}
+

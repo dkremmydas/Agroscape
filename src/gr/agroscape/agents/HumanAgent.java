@@ -5,10 +5,10 @@
  */
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.farmers.AFarmerAction;
-import gr.agroscape.contexts.MainContext;
+import gr.agroscape.behaviors.farmers.AFarmerBehavior;
+import gr.agroscape.contexts.Space;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -36,13 +36,13 @@ public abstract class HumanAgent {
     /**
      * A reference to the mainContext. 
      */
-    protected MainContext mainContext ;
+    protected Space mainContext ;
 
     
     /**
 	 * The properties of the agent
 	 */
-    protected ArrayList<AFarmerAction> actions = new ArrayList<>();
+    protected HashedMap<Class<? extends AFarmerBehavior>,AFarmerBehavior> behaviors = new HashedMap<>();
     
     
     /**
@@ -53,7 +53,7 @@ public abstract class HumanAgent {
 		super();
 		this.myId = id;
 		HumanAgent.next_id=id++;
-		this.mainContext=MainContext.getInstance();
+		this.mainContext=Space.getInstance();
 	}
 	
 	/**
@@ -80,20 +80,38 @@ public abstract class HumanAgent {
 	
 
 	/**
-	 * A getter of behaviors. It returns a reference to the {@link AFarmerAction}.<br /> 
-	 * New {@link AFarmerAction} can be added using the returned reference.
+	 * A getter of behaviors. It returns a reference to the {@link AFarmerBehavior}.<br /> 
+	 * New {@link AFarmerBehavior} can be added using the returned reference.
 	 * @return
 	 */
-	public ArrayList<AFarmerAction> getBehaviors() {
-		return actions;
+	public HashedMap<Class<? extends AFarmerBehavior>,AFarmerBehavior> getBehaviors() {
+		return this.behaviors;
 	}
 
+	/**
+	 * Get a Behavior of a specific Class
+	 * @param c
+	 * @return
+	 */
+	public AFarmerBehavior getBehavior(Class<? extends AFarmerBehavior> c) {
+		
+		for (Map.Entry<Class<? extends AFarmerBehavior>, AFarmerBehavior> entry : this.behaviors.entrySet()) {
+	    	if(entry.getKey().equals(c)) {
+	    		return entry.getValue();
+	    	}
+		}
+		
+		return null;
+		
+	}
+	
+	
 	/**
 	 * Get {@link MainContext} object
 	 * @return
 	 */
-	public MainContext getMainContext() {
-		return mainContext;
+	public Space getMainContext() {
+		return this.mainContext;
 	}
     
 

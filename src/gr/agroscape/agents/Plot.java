@@ -1,16 +1,17 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.farmers.AFarmerAction;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.AAgriculturalActivity;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.plots.APlotAction;
-import gr.agroscape.contexts.MainContext;
+import gr.agroscape.behaviors.plots.APlotBehavior;
+import gr.agroscape.contexts.Space;
 import gr.agroscape.main.AgroscapeConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
+
+import org.apache.commons.collections4.map.HashedMap;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -30,14 +31,18 @@ import repast.simphony.valueLayer.GridValueLayer;
 public class Plot {
 
 	private static int next_id=0;
+	
 	private int myId;
+	
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
-    private MainContext mainContext;
+    
+    private Space mainContext;
+    
     
     /**
 	 * The properties of the agent
 	 */
-    protected ArrayList<APlotAction> actions = new ArrayList<>();
+    protected HashedMap<Class<? extends APlotBehavior>,APlotBehavior> behaviors = new HashedMap<>();
 
     /**
      * Create a new Plot from an ArrayList of GridPoints. <br />
@@ -47,7 +52,7 @@ public class Plot {
      */
     public Plot(ArrayList<GridPoint> points,  int id) {
 		super();
-		this.mainContext=MainContext.getInstance();
+		this.mainContext=Space.getInstance();
 		this.myId=id; Plot.next_id=id++;
 		this.gridPoints = points;
 	}
@@ -84,7 +89,7 @@ public class Plot {
      */
     public Plot(int[][] points, int id) {
     	super();
-    	this.mainContext=MainContext.getInstance();
+    	this.mainContext=Space.getInstance();
     	this.myId=id; Plot.next_id=id++;
 		for(int i=0;i<points.length;i++) {
 			int[] gp = new int[2]; gp[0]=points[i][0];gp[1]=points[i][1];
@@ -133,7 +138,7 @@ public class Plot {
 	 * @return
 	 */
 	public double getSuitability(ArableCropCultivation c) {
-		GridValueLayer gvl = (GridValueLayer) (MainContext.getInstance().getCropsContext().getCropSuitability()).get(c);
+		GridValueLayer gvl = (GridValueLayer) (Space.getInstance().getCropsContext().getCropSuitability()).get(c);
 		return this.getAverage(gvl);
 	}
 	
@@ -185,8 +190,33 @@ public class Plot {
 		
 	}
 
-
 	
+	/**
+	 * A getter of behaviors. It returns a reference to the {@link APlotBehavior}.<br /> 
+	 * New {@link APlotBehavior} can be added using the returned reference.
+	 * @return
+	 */
+	public HashedMap<Class<? extends APlotBehavior>,APlotBehavior> getAllBehaviors() {
+		return this.behaviors;
+	}
+	
+	
+	/**
+	 * Get a Behavior of a specific Class
+	 * @param c
+	 * @return
+	 */
+	public APlotBehavior getBehavior(Class<? extends APlotBehavior> c) {
+		
+		for (Map.Entry<Class<? extends APlotBehavior>, APlotBehavior> entry : this.behaviors.entrySet()) {
+	    	if(entry.getKey().equals(c)) {
+	    		return entry.getValue();
+	    	}
+		}
+		
+		return null;
+		
+	}
 	
 	
 }

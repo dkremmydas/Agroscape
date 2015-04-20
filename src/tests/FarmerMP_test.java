@@ -1,6 +1,6 @@
 package tests;
 
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.FarmerArableCropProducer_MP;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropFarmer_MP;
 import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
 import gr.agroscape.contexts.MainContext;
 import gr.agroscape.main.ContextManager;
@@ -45,7 +45,7 @@ public class FarmerMP_test {
 		
 		System.out.println("Is FarmersContext empty ? " + this.mainContext.getFarmersContext().isEmpty());
 		
-		FarmerArableCropProducer_MP f = (FarmerArableCropProducer_MP) this.mainContext.getFarmersContext().getRandomObject();
+		ArableCropFarmer_MP f = (ArableCropFarmer_MP) this.mainContext.getFarmersContext().getRandomObject();
 		System.out.println("Get a random farmer: " + f.toString());		
 		
 		f.calculateExpectations();

@@ -6,7 +6,6 @@ import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCr
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedCropPrices;
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropVarCost;
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropYield;
-import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 
 import java.util.ArrayList;
@@ -35,11 +34,11 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
  * 
  * @author Dimitris Kremmydas
  */
-public class FarmerArableCropProducer_MP extends FarmerArableCropProducer {
+public class ArableCropFarmer_MP extends ArableCropFarmer {
 	
 
 	
-	public FarmerArableCropProducer_MP(ArrayList<ArableCropCultivation> pC,
+	public ArableCropFarmer_MP(ArrayList<ArableCropCultivation> pC,
 			Farmer f) {
 		super(pC, f);
 		// TODO Auto-generated constructor stub
@@ -133,7 +132,7 @@ public class FarmerArableCropProducer_MP extends FarmerArableCropProducer {
 	 * TODO: complete documentation
 	 */    
 	@Override
-	public Collection<AProductionDecision> makeProductionDecision(Collection<Plot> plots) {
+	public Collection<ArableCropProductionDecision> makeProductionDecision(Collection<Plot> plots) {
 		
 		this.calculateExpectations();
 		
@@ -180,10 +179,10 @@ public class FarmerArableCropProducer_MP extends FarmerArableCropProducer {
 		//solve
 	
 		PointValuePair optSolution;
-		ArrayList<AProductionDecision> r=new ArrayList<AProductionDecision>(); 
+		ArrayList<ArableCropProductionDecision> r=new ArrayList<ArableCropProductionDecision>(); 
 		
 		try {
-			optSolution = FarmerArableCropProducer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
+			optSolution = ArableCropFarmer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
 			
 		    double[] solution= new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		    solution = optSolution.getPoint();

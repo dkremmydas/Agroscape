@@ -1,5 +1,6 @@
 package gr.agroscape.behaviors;
 
+import gr.agroscape.contexts.Space;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
@@ -8,14 +9,16 @@ import repast.simphony.engine.schedule.ScheduledMethod;
  * @author jkr
  *
  */
-public interface ScheduledBehavior {
+public interface IScheduledBehavior<T> {
+	
 	
 	/**
-	 * Make any necessary actions to setup owner of behavior (e.g. add properties). <br />
-	 * A pre-condition is that there is an owner field set in the implementing class.
-	 * 
+	 * Make requires setup of the {@link Space} environment. <br />
+	 * One should ensure that this will run only once, and not for every agent that will apply the behavior. 
+	 * @param s
 	 */
-	void setUpOwner(); 
+	IScheduledBehaviorDataLoader<T> getDataLoader();
+	
 	
 	/**
 	 * Returns the class that have {@link ScheduledMethod} Annotations and will be added

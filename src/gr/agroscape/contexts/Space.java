@@ -35,9 +35,9 @@ import repast.simphony.valueLayer.GridValueLayer;
  *
  * @param <Object>
  */
-public class MainContext extends DefaultContext<Object> {
+public class Space extends DefaultContext<Object> {
 	
-	private static MainContext instance=null;
+	private static Space instance=null;
 
 	private LandPropertyRegistry landPropertyRegistry=new LandPropertyRegistry();
 	
@@ -78,8 +78,7 @@ public class MainContext extends DefaultContext<Object> {
 	//The ValueLayer showing the production decisions of the farmers
 	private GridValueLayer gvl_ProductionDecisions;
 	
-	//The ValueLayer showing the production decisions of the farmers
-	private GridValueLayer gvl_CropSuitability;
+	
 	
 	
 	/**
@@ -87,16 +86,16 @@ public class MainContext extends DefaultContext<Object> {
 	 * <br />Singleton Design Pattern (?)
 	 * @return
 	 */
-	public static MainContext getInstance() {
-		if (MainContext.instance==null) {MainContext.instance=new MainContext();}
-		MainContext.instance.setId("MainContext");
-		return MainContext.instance;
+	public static Space getInstance() {
+		if (Space.instance==null) {Space.instance=new Space();}
+		Space.instance.setId("MainContext");
+		return Space.instance;
 	}
 	
 	/**
 	 * Private Constructor, so the existence of a unique instance of MainContext is enforced. 
 	 */
-	private MainContext() {
+	private Space() {
 		super("MainContext");
 		
 		//set grid width and height
@@ -123,8 +122,7 @@ public class MainContext extends DefaultContext<Object> {
 		this.gvl_ProductionDecisions = new GridValueLayer("ProductionDecisions",true,new StrictBorders(), gridWidth, gridHeight);
 		this.addValueLayer( gvl_ProductionDecisions );
 		
-		this.gvl_CropSuitability = new GridValueLayer("CropSuitability",true,new StrictBorders(), gridWidth, gridHeight);
-		this.addValueLayer( gvl_CropSuitability );
+	
 		
 	}
 	
@@ -190,13 +188,13 @@ public class MainContext extends DefaultContext<Object> {
 	
 	
 	public static ArrayList<ArableCropCultivation> getAvailableCrops() {
-		if(! MainContext.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (ArrayList<ArableCropCultivation>)MainContext.getInstance().getCropsContext().getAvailableCrops();
+		if(! Space.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
+		return (ArrayList<ArableCropCultivation>)Space.getInstance().getCropsContext().getAvailableCrops();
 	}
 	
 	public static ArrayList<Plot> getAvailablePlots() {
-		if(! MainContext.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (ArrayList<Plot>)MainContext.getInstance().getPlotsContext().getAvailablePlots();
+		if(! Space.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
+		return (ArrayList<Plot>)Space.getInstance().getPlotsContext().getAvailablePlots();
 	}
 	
 	public FarmersContext getFarmersContext() {
@@ -215,6 +213,8 @@ public class MainContext extends DefaultContext<Object> {
 		ValueLayersUtilities.copyGridValueLayers(from, this.gvl_CropSuitability);
 		
 		//update cultivation valuelayer
+		//APlot
+		
 		for (Iterator<Plot> iterator = landPropertyRegistry.getAllPlots().iterator(); iterator.hasNext();) {
 			Plot p = iterator.next();
 			for(GridPoint gp: p.getGridPoints()) {
@@ -223,21 +223,6 @@ public class MainContext extends DefaultContext<Object> {
 		}
 	}
 
-	/**
-	 * Getter
-	 * @return
-	 */
-	public ArableCropCultivation getActiveDisplaySuitabilityCrop() {
-		return activeDisplaySuitabilityCrop;
-	}
-
-	/**
-	 * Setter
-	 * @param activeDisplaySuitabilityCrop
-	 */
-	public void setActiveDisplaySuitabilityCrop(ArableCropCultivation activeDisplaySuitabilityCrop) {
-		this.activeDisplaySuitabilityCrop = activeDisplaySuitabilityCrop;
-	}
 	
 	
 	
