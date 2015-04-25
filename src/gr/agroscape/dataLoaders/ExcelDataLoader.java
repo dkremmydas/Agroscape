@@ -9,7 +9,6 @@ import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCrop
 import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 
 import java.io.File;

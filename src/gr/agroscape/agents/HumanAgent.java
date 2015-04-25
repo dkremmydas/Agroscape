@@ -5,6 +5,7 @@
  */
 package gr.agroscape.agents;
 
+import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.contexts.Space;
 
@@ -39,11 +40,7 @@ public abstract class HumanAgent {
     protected Space mainContext ;
 
     
-    /**
-	 * The properties of the agent
-	 */
-    protected HashedMap<Class<? extends AFarmerBehavior>,AFarmerBehavior> behaviors = new HashedMap<>();
-    
+  
     
     /**
      * Constructor with a numeric id as a parameter
@@ -86,6 +83,18 @@ public abstract class HumanAgent {
 	 */
 	public HashedMap<Class<? extends AFarmerBehavior>,AFarmerBehavior> getBehaviors() {
 		return this.behaviors;
+	}
+	
+	/**
+	 * Attach a 
+	 * @param name
+	 * @param beh
+	 * @param loader
+	 */
+	public void attachBehavior(String name, Class<? extends AFarmerBehavior> beh, 
+			Class<? extends IScheduledBehaviorDataLoader<AFarmerBehavior>> loader ) {
+		
+		
 	}
 
 	/**

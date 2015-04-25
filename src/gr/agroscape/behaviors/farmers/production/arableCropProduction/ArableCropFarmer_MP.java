@@ -38,13 +38,12 @@ public class ArableCropFarmer_MP extends ArableCropFarmer {
 	
 
 	
+	
 	public ArableCropFarmer_MP(ArrayList<ArableCropCultivation> pC,
-			Farmer f) {
-		super(pC, f);
-		// TODO Auto-generated constructor stub
+			long liquidity, Farmer f) {
+		super(pC, liquidity, f);
+		
 	}
-
-
 
 	/**
      * The Solver that will attack the LP problem (Apache Commons Math 3)

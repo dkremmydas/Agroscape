@@ -63,7 +63,7 @@ public abstract class ArableCropFarmer extends AFarmerBehavior implements IHasPr
     /**
 	 * The data loader. by default is a \n excel data loader
 	 */
-    protected IScheduledBehaviorDataLoader<Farmer> dl = new ExcelDataLoader();
+    protected static IScheduledBehaviorDataLoader<Farmer> dl = new ExcelDataLoader();
 	
 	
     
@@ -152,7 +152,7 @@ public abstract class ArableCropFarmer extends AFarmerBehavior implements IHasPr
 
 	@Override
 	public IScheduledBehaviorDataLoader<Farmer> getDataLoader() {
-		return this.dl;
+		return ArableCropFarmer.dl;
 	}
 
 }

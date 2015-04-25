@@ -2,7 +2,7 @@ package gr.agroscape.behaviors.farmers.production.expectations;
 
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.contexts.MainContext;
+import gr.agroscape.contexts.Space;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<A
 	@Override
 	HashMap<Plot, HashMap<ArableCropCultivation, Long>> getDefaultValues(ArrayList<Plot> plots) {
 		
-		MainContext mc = MainContext.getInstance();
+		Space mc = Space.getInstance();
 		ArrayList<ArableCropCultivation> crops = mc.getCropsContext().getAvailableCrops();
 		
 		HashMap<Plot, HashMap<ArableCropCultivation,Long>> v=new HashMap<Plot, HashMap<ArableCropCultivation,Long>>();

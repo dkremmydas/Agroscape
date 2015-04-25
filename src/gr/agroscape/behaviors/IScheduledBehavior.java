@@ -12,13 +12,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 public interface IScheduledBehavior<T> {
 	
 	
-	/**
-	 * Make requires setup of the {@link Space} environment. <br />
-	 * One should ensure that this will run only once, and not for every agent that will apply the behavior. 
-	 * @param s
-	 */
-	IScheduledBehaviorDataLoader<T> getDataLoader();
-	
+
 	
 	/**
 	 * Returns the class that have {@link ScheduledMethod} Annotations and will be added

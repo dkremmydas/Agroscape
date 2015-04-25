@@ -1,20 +1,13 @@
 package gr.agroscape.main;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
-import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
+import gr.agroscape.contexts.Space;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -36,7 +29,7 @@ import repast.simphony.engine.schedule.ScheduleParameters;
 public class ContextManager implements ContextBuilder<Object> {
 	
 	
-	private MainContext mainContext;
+	private Space space;
 	
 
 	/**
@@ -51,22 +44,22 @@ public class ContextManager implements ContextBuilder<Object> {
 	public Context<Object> build(Context<Object> context) {
 		
 		//step 1. keep a reference		
-		this.mainContext=MainContext.getInstance();
+		this.space=Space.getInstance();
 		
 		
 
 		
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
-		this.mainContext.addSubContext(plots);
+		this.space.addSubContext(plots);
 		//this.parentContext.add(plots);
 		
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
-		this.mainContext.addSubContext(farmers);
+		this.space.addSubContext(farmers);
 		//this.parentContext.add(farmers);
 		
 		CropsContext crops = new CropsContext(); //create crops' context
-		this.mainContext.addSubContext(crops);	
+		this.space.addSubContext(crops);	
 		//this.parentContext.add(crops);
 		
 		
@@ -76,19 +69,19 @@ public class ContextManager implements ContextBuilder<Object> {
 		try {
 			String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
 			dataLoader = new ExcelDataLoader(excelFileLocation);
-			dataLoader.loadCropsContext(crops);
+			//dataLoader.loadCropsContext(crops);
 			dataLoader.loadFarmersContext(farmers);
 			dataLoader.loadPlotsContext(plots);
-			dataLoader.loadCropSuitabilityMap(this.mainContext.getCropsContext().getCropSuitability(),this.mainContext);
+			//dataLoader.loadCropSuitabilityMap(this.space.getCropsContext().getCropSuitability(),this.space);
 
 			//GridValueLayer vl = this.mainContext.getCropSuitability().get(this.mainContext.getCropsContext().getCropByName("maize"));
 			//System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(vl));
-			this.mainContext.setActiveDisplaySuitabilityCrop(this.mainContext.getCropsContext().getCropByName("maize"));
+			//this.space.setActiveDisplaySuitabilityCrop(this.space.getCropsContext().getCropByName("maize"));
 			
 			
 			
-			dataLoader.initLandPropertyRegistry(this.mainContext.getLandPropertyRegistry());
-			dataLoader.initPaymentAuthority(this.mainContext.getPaymentAuthority());
+			dataLoader.initLandPropertyRegistry(this.space.getLandPropertyRegistry());
+			dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 			
 		} catch (InvalidFormatException | IOException e) {
 			// TODO Auto-generated catch block
@@ -101,13 +94,13 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4
-		this.mainContext.setActiveDisplaySuitabilityCrop(ArableCropCultivation.getCropByName("maize"));
+		//this.space.setActiveDisplaySuitabilityCrop(ArableCropCultivation.getCropByName("maize"));
 		
 		
 		
 		System.err.println("Everything is Loaded");
 		
-		return this.mainContext;
+		return this.space;
 	}
 
 	
@@ -117,6 +110,7 @@ public class ContextManager implements ContextBuilder<Object> {
 	 * <li><strong>Production stage: </strong>For all {@link Farmer} objects, decide the production</li>
 	 * </ol>
 	 */
+	/*
 	public void step() {
 		System.err.println("Do Step");
 		
@@ -126,7 +120,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		HashMap<Farmer,ArrayList<AProductionDecision>> all_decisions = new HashMap<>();
 				
 		//1.2 select farmers (randomly) and force them to make decisions
-		Iterable<IHasProductionAbility> fi = this.mainContext.getFarmersContext().getRandomObjects(Farmer.class, this.mainContext.getFarmersContext().size());
+		Iterable<IHasProductionAbility> fi = this.space.getFarmersContext().getRandomObjects(Farmer.class, this.space.getFarmersContext().size());
 		for (IHasProductionAbility f : fi) {
 			if (f instanceof Farmer) {
 				Farmer ff = (Farmer) f;
@@ -147,13 +141,14 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		
-		this.mainContext.updateValueLayers();
+		this.space.updateValueLayers();
 		
-		System.err.println(this.mainContext.get_gvlProductionDecisions().toString());
+		System.err.println(this.space.get_gvlProductionDecisions().toString());
 		
 		
 		//System.err.println(this.mainContext.get_gvlProductionDecisions().toString());
 	}
+	*/
 	
 
 	
