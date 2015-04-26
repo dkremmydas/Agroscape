@@ -1,21 +1,13 @@
 package gr.agroscape.dataLoaders;
 
 import gr.agroscape.authorities.LandPropertyRegistry;
-import gr.agroscape.authorities.PaymentAuthority;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.main.ContextManager;
-
-import java.util.HashMap;
-
-import repast.simphony.valueLayer.GridValueLayer;
 
 /**
- * The interface, defining what is needed to load data 
- * and initialize Agroscape. 
+ * The interface, defining what is needed to load minimal data 
+ * and initialize Agroscape. <br />
+ * This data is Plots, Farmers and LandPropertyRegistry.
  * <br />See {@link DefaultDataLoader}.
  * 
  * @author Dimitris Kremmydas
@@ -23,12 +15,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  */
 public interface ICanLoadAgroscapeData {
 
-	/**
-	 * Load available Crops into {@link CropsContext}
-	 * @param {@link CropsContext} context
-	 */
-	void loadCropsContext(CropsContext context);
-	
+		
 	/**
 	 * Load Plots into a {@link PlotsContext}
 	 * @param {@link PlotsContext} context
@@ -41,12 +28,7 @@ public interface ICanLoadAgroscapeData {
 	 */
 	void loadFarmersContext(FarmersContext context);
 	
-	/**
-	 * Load the Crop Suitability map. {@link ContextManager.cropSuitability}
-	 * @param HashMap<Crop, GridValueLayer> csmap
-	 */
-	void loadCropSuitabilityMap(HashMap<ArableCropCultivation, GridValueLayer> csmap,MainContext context);
-	
+		
 	/**
 	 * Initialize a {@link LandPropertyRegistry}. <br />
 	 * It deletes all existing data;
@@ -58,5 +40,5 @@ public interface ICanLoadAgroscapeData {
 	 * 
 	 * @param pa
 	 */
-	void initPaymentAuthority(PaymentAuthority pa);
+	//void initPaymentAuthority(PaymentAuthority pa);
 }

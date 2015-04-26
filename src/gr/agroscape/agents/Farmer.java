@@ -43,6 +43,10 @@ public class Farmer extends HumanAgent  {
 	public Farmer(int id) {
 		super(id);			
 	}
+	
+	public Farmer() {
+		super();			
+	}
  
 
 	

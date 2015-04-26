@@ -210,7 +210,7 @@ public class Space extends DefaultContext<Object> {
 		
 		//copy CropSuitability Value Layers
 		GridValueLayer from = this.getCropsContext().getCropSuitability().get(this.activeDisplaySuitabilityCrop);
-		ValueLayersUtilities.copyGridValueLayers(from, this.gvl_CropSuitability);
+		//ValueLayersUtilities.copyGridValueLayers(from, this.gvl_CropSuitability);
 		
 		//update cultivation valuelayer
 		//APlot
@@ -218,7 +218,7 @@ public class Space extends DefaultContext<Object> {
 		for (Iterator<Plot> iterator = landPropertyRegistry.getAllPlots().iterator(); iterator.hasNext();) {
 			Plot p = iterator.next();
 			for(GridPoint gp: p.getGridPoints()) {
-				this.gvl_ProductionDecisions.set(p.getAgriculturalLandUse().getId(), gp.getX(),gp.getY());
+				//this.gvl_ProductionDecisions.set(p.getAgriculturalLandUse().getId(), gp.getX(),gp.getY());
 			}
 		}
 	}

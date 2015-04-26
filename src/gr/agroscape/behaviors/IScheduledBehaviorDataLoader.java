@@ -18,7 +18,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * 
 	 * @param df
 	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<T> owners, Space space, Path dataFile);
+	public Collection<? extends ABehavedObject<T>> setup(Collection<T> owners, Space space, Path dataFile);
 
 
 }

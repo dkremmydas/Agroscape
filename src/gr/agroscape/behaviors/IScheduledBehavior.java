@@ -1,6 +1,5 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.contexts.Space;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
@@ -11,8 +10,6 @@ import repast.simphony.engine.schedule.ScheduledMethod;
  */
 public interface IScheduledBehavior<T> {
 	
-	
-
 	
 	/**
 	 * Returns the class that have {@link ScheduledMethod} Annotations and will be added

@@ -1,13 +1,17 @@
 package gr.agroscape.main;
 
+import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.farmers.stupido.StupidoFarmersContainer;
 import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.Space;
+import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -52,23 +56,16 @@ public class ContextManager implements ContextBuilder<Object> {
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
 		this.space.addSubContext(plots);
-		//this.parentContext.add(plots);
 		
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
 		this.space.addSubContext(farmers);
-		//this.parentContext.add(farmers);
-		
-		CropsContext crops = new CropsContext(); //create crops' context
-		this.space.addSubContext(crops);	
-		//this.parentContext.add(crops);
 		
 		
 		//step 3, create dataLoader
-		//ISimulationDataLoader dataLoader = new DefaultDataLoader();
-		ICanLoadAgroscapeData dataLoader;
-		try {
-			String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
-			dataLoader = new ExcelDataLoader(excelFileLocation);
+		ICanLoadAgroscapeData dataLoader = new DefaultDataLoader();
+//		try {
+			//String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
+			//dataLoader = new ExcelDataLoader(excelFileLocation);
 			//dataLoader.loadCropsContext(crops);
 			dataLoader.loadFarmersContext(farmers);
 			dataLoader.loadPlotsContext(plots);
@@ -77,24 +74,24 @@ public class ContextManager implements ContextBuilder<Object> {
 			//GridValueLayer vl = this.mainContext.getCropSuitability().get(this.mainContext.getCropsContext().getCropByName("maize"));
 			//System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(vl));
 			//this.space.setActiveDisplaySuitabilityCrop(this.space.getCropsContext().getCropByName("maize"));
-			
-			
-			
 			dataLoader.initLandPropertyRegistry(this.space.getLandPropertyRegistry());
-			dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
+			//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 			
-		} catch (InvalidFormatException | IOException e) {
+//		} catch (InvalidFormatException | IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//step 1.5 add schedule methods
-		ScheduleParameters params = ScheduleParameters.createRepeating(1, 1) ;
-		RunEnvironment.getInstance().getCurrentSchedule().schedule (params , this , "step");
+//			e.printStackTrace();
+//		}
 		
 		
-		//step 4
-		//this.space.setActiveDisplaySuitabilityCrop(ArableCropCultivation.getCropByName("maize"));
+		//step 4, Attach Behavior
+		farmers.attachBehavior(new StupidoFarmersContainer());	
+		
+		ArrayList<Farmer> ff=new ArrayList<Farmer>();
+		ff.add(farmers.getRandomObject());ff.add(farmers.getRandomObject());
+		farmers.initializeBehavior("stupidoBehavior", ff, null);	
+			
+			
+		
 		
 		
 		

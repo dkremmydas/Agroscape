@@ -4,44 +4,22 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.HumanAgent;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
-import gr.agroscape.authorities.PaymentAuthority;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropFarmer_MP;
-import gr.agroscape.behaviors.farmers.production.products.Product;
-import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.MainContext;
 import gr.agroscape.contexts.PlotsContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
-import repast.simphony.space.grid.StrictBorders;
-import repast.simphony.util.SimUtilities;
-import repast.simphony.valueLayer.GridValueLayer;
-import cern.jet.random.Uniform;
 
 public class DefaultDataLoader implements ICanLoadAgroscapeData {
 	
 	private ArrayList<Plot> avplots = new ArrayList<Plot>();
 	private ArrayList<Farmer> avfarmers = new ArrayList<Farmer>();
-	private ArrayList<ArableCropCultivation> avcrops = new ArrayList<ArableCropCultivation>();
-	
-	
+
+
 	public DefaultDataLoader() {
 		super();	
-	}
-
-	@Override
-	public void loadCropsContext(CropsContext context) {
-		Product p1 = new Product("maize Product");
-		Product p2 = new Product("durum wheat Product");
-		
-		this.avcrops.add(new ArableCropCultivation("maize",p1));
-		this.avcrops.add(new ArableCropCultivation("durum wheat",p2));	
-		context.addAll(this.avcrops);
 	}
 
 
@@ -60,21 +38,18 @@ public class DefaultDataLoader implements ICanLoadAgroscapeData {
 
 	@Override
 	public void loadFarmersContext(FarmersContext context) {
-		if(this.avcrops.isEmpty()) throw new NullPointerException("loadPlotsContext should be called before");
 
-		this.avfarmers.add(new ArableCropFarmer_MP(100000l,this.avcrops,1));
-		this.avfarmers.add(new ArableCropFarmer_MP(100000l,this.avcrops,2));
-		this.avfarmers.add(new ArableCropFarmer_MP(100000l,this.avcrops,3));
-		this.avfarmers.add(new ArableCropFarmer_MP(100000l,this.avcrops,4));
-		
+		this.avfarmers.add(new Farmer(1));
+		this.avfarmers.add(new Farmer(2));
+		this.avfarmers.add(new Farmer(3));
+		this.avfarmers.add(new Farmer(4));
 		context.addAll(this.avfarmers);
 	}
 
 
 	@Override
 	public void initLandPropertyRegistry(LandPropertyRegistry lpr) {
-		//load owners
-		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
+		//prerequisute
 		if(this.avplots.isEmpty())throw new NullPointerException("loadPlotsContext should be called before");
 		if(this.avfarmers.isEmpty())throw new NullPointerException("loadFarmersContext should be called before");
 		
@@ -96,49 +71,6 @@ public class DefaultDataLoader implements ICanLoadAgroscapeData {
 	}
 
 
-
-	@Override
-	public void initPaymentAuthority(PaymentAuthority pa) {
-		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
-
-		HashMap<ArableCropCultivation, Long> coupledPayments=new HashMap<ArableCropCultivation, Long>();
-		coupledPayments.put(ArableCropCultivation.getCropByName("maize"), 0l);
-		coupledPayments.put(ArableCropCultivation.getCropByName("durum wheat"), 0l);
-		
-		pa.setCoupledPayments(coupledPayments);		
-	}
-
-
-
-
-	
-
-
-	@Override
-	/**
-	 * This implementation assigns random suitability for each {Crop->(x,y)}
-	 */
-	public void loadCropSuitabilityMap(HashMap<ArableCropCultivation, GridValueLayer> csmap,MainContext cm) {
-		if(this.avcrops.isEmpty()) throw new NullPointerException("loadCropsContext should be called before");
-
-		double[] d = new double[cm.getGridHeight()];
-		
-		for (ArableCropCultivation c : this.avcrops) {
-			csmap.put(c, new GridValueLayer("Yield"+c.getName(),true,new StrictBorders(), cm.getGridWidth(), cm.getGridHeight()));
-			for (int i = 0; i < cm.getGridWidth(); i++) {
-				SimUtilities.shuffle(d, new Uniform(0.1, 1, RandomHelper.getGenerator()));
-				for (int j = 0; j < d.length; j++) {
-					double vs = 200*d[j];
-					if(vs<100) vs=100;
-					csmap.get(c).set(vs, i,j);
-				}					
-			}
-		} //end loop crops
-		
-
-	}
-
-	
 	
 	
 

@@ -5,11 +5,7 @@
  */
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
-import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.contexts.Space;
-
-import java.util.Map;
 
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -76,44 +72,6 @@ public abstract class HumanAgent {
 
 	
 
-	/**
-	 * A getter of behaviors. It returns a reference to the {@link AFarmerBehavior}.<br /> 
-	 * New {@link AFarmerBehavior} can be added using the returned reference.
-	 * @return
-	 */
-	public HashedMap<Class<? extends AFarmerBehavior>,AFarmerBehavior> getBehaviors() {
-		return this.behaviors;
-	}
-	
-	/**
-	 * Attach a 
-	 * @param name
-	 * @param beh
-	 * @param loader
-	 */
-	public void attachBehavior(String name, Class<? extends AFarmerBehavior> beh, 
-			Class<? extends IScheduledBehaviorDataLoader<AFarmerBehavior>> loader ) {
-		
-		
-	}
-
-	/**
-	 * Get a Behavior of a specific Class
-	 * @param c
-	 * @return
-	 */
-	public AFarmerBehavior getBehavior(Class<? extends AFarmerBehavior> c) {
-		
-		for (Map.Entry<Class<? extends AFarmerBehavior>, AFarmerBehavior> entry : this.behaviors.entrySet()) {
-	    	if(entry.getKey().equals(c)) {
-	    		return entry.getValue();
-	    	}
-		}
-		
-		return null;
-		
-	}
-	
 	
 	/**
 	 * Get {@link MainContext} object
