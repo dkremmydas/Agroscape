@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * An interface declaring actions for a BehaviorDataLoader
  * 
- * @author jkr
+ * @author Dimitris Kremmydas
  *
  */
 public interface IScheduledBehaviorDataLoader<T> {
@@ -18,7 +18,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * 
 	 * @param df
 	 */
-	public Collection<? extends ABehavedObject<T>> setup(Collection<T> owners, Space space, Path dataFile);
+	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space, Path dataFile);
 
 
 }

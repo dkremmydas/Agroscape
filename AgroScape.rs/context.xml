@@ -1,14 +1,15 @@
-<context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context" id="MainContext">
+<context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context" id="Space">
 	
 	<projection type="grid" id="grid"></projection>
 	
-	<projection id="Owners" type="value layer" />
+	<!-- <projection id="Owners" type="value layer" />
 	<projection id="ProductionDecisions" type="value layer" />
 	<projection id="CropSuitability" type="value layer" />
 	
 	<context id="CropsContext">
 		
 	</context>
+	-->
 	<context id="FarmersContext">
 		
 	</context>

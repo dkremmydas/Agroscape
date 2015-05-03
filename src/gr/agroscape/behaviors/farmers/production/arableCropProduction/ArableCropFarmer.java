@@ -2,7 +2,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.behaviors.ABehavedObject;
+import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
@@ -42,7 +42,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class ArableCropFarmer extends ABehavedObject<Farmer> implements IHasProductionAbility {
+public abstract class ArableCropFarmer extends ABehavingFarmer<Farmer> implements IHasProductionAbility {
 	
 	
     /**

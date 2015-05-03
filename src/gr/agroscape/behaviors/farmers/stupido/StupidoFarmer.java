@@ -4,9 +4,9 @@ import java.util.Random;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehavedObject;
+import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 
-public class StupidoFarmer extends ABehavedObject<Farmer> {
+public class StupidoFarmer extends ABehavingFarmer {
 
 	private static Random random = new Random();
 	private int stupidoProperty;

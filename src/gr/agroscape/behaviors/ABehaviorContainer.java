@@ -16,7 +16,7 @@ public class ABehaviorContainer<T> {
 	
 	protected String name;
 	
-	protected Collection<IScheduledBehavior<T>> behavingObject;
+	protected Collection<IScheduledBehavior<T>> behavingObjects;
 	
 	protected IScheduledBehaviorDataLoader<T> objectLoader;
 
@@ -25,7 +25,7 @@ public class ABehaviorContainer<T> {
 	 * Constructor.
 	 * Ensures unique names of a behaviors. 
 	 * @param name
-	 * @param behavingObject
+	 * @param behavingObjects
 	 * @param objectLoader
 	 */
 	public ABehaviorContainer(String name, IScheduledBehaviorDataLoader<T> objectLoader) {
@@ -48,10 +48,10 @@ public class ABehaviorContainer<T> {
 	final public void loadBehavingObjects(Collection<T> owners, Path dataFile, Space space) {
 		
 		//get container objects, i.e. behavingObjects
-		this.behavingObject = (Collection<IScheduledBehavior<T>>) this.objectLoader.setup(owners, space, dataFile);
+		this.behavingObjects = this.objectLoader.setup(owners, space, dataFile);
 		
 		//add their scheduled behavior to the current schedule
-		for (IScheduledBehavior<T> object : this.behavingObject) {
+		for (IScheduledBehavior<T> object : this.behavingObjects) {
 			RunEnvironment.getInstance().getCurrentSchedule().schedule(object.getAnnotatedClass());			
 		}
 	}

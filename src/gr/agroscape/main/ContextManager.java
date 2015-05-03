@@ -2,23 +2,16 @@ package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.stupido.StupidoFarmersContainer;
-import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
-import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
-import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ScheduleParameters;
 
 
 /**
@@ -89,14 +82,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
 		ff.add(farmers.getRandomObject());ff.add(farmers.getRandomObject());
 		farmers.initializeBehavior("stupidoBehavior", ff, null);	
-			
-			
-		
-		
-		
-		
-		System.err.println("Everything is Loaded");
-		
+
 		return this.space;
 	}
 

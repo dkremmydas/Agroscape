@@ -2,9 +2,9 @@ package gr.agroscape.contexts;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContainer;
-import gr.agroscape.behaviors.ABehavedObject;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
+import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
 import java.nio.file.Path;

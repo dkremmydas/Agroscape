@@ -1,12 +1,7 @@
 package tests;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.main.ContextManager;
-import gr.agroscape.utilities.ValueLayersUtilities;
 
-import java.io.IOException;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +10,6 @@ import repast.simphony.engine.environment.DefaultScheduleRunner;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
-import repast.simphony.valueLayer.ValueLayer;
 
 
 public class MainContextTest {
@@ -41,7 +35,16 @@ public class MainContextTest {
 	
 	@Test
 	public void testContextManager()  {
-		System.out.println("Everything is loaded");
+		System.err.println("Everything is loaded");
+		System.err.println("Number of loaded farmers: " + space.getFarmersContext().size());
+	}
+	
+	@Test
+	public void testStep()  {
+		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
+		System.err.println("Current Schedule: " + RunEnvironment.getInstance().getCurrentSchedule().toString());
+		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
+				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 	}
 
 }
