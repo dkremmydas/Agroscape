@@ -5,7 +5,6 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.utilities.ValueLayersUtilities;
 
 import java.util.ArrayList;
 import java.util.Iterator;

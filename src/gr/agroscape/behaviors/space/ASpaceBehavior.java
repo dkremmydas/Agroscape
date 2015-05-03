@@ -1,6 +1,5 @@
 package gr.agroscape.behaviors.space;
 
-import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.contexts.Space;
 

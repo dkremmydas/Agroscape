@@ -2,13 +2,8 @@ package gr.agroscape.contexts;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContainer;
-import gr.agroscape.behaviors.IScheduledBehavior;
-import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
-import gr.agroscape.behaviors.farmers.ABehavingFarmer;
-import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.collections4.map.HashedMap;
@@ -20,7 +15,8 @@ public class FarmersContext extends DefaultContext<Farmer> {
 
 	private Space space;
 	
-	private HashedMap<String,ABehaviorContainer<Farmer>> behaviors = new HashedMap<String, ABehaviorContainer<Farmer>>();
+	private HashedMap<String,ABehaviorContainer<? extends Farmer>> behaviors = 
+			new HashedMap<>();
 	
 	
 	    
@@ -31,13 +27,13 @@ public class FarmersContext extends DefaultContext<Farmer> {
 	}
 	
 	
-	public void attachBehavior(ABehaviorContainer<Farmer> behaviorContainer) {
+	public void attachBehavior(ABehaviorContainer<? extends Farmer> behaviorContainer) {
 		this.behaviors.put(behaviorContainer.getName(),behaviorContainer);
 	}
 	
 	
 	//Initialize behavior
-	public void initializeBehavior(ABehaviorContainer<Farmer> behavior, Collection<Farmer> farmers,Path dataFile) {
+	public void initializeBehavior(ABehaviorContainer<? extends Farmer> behavior, Collection<Farmer> farmers,Path dataFile) {
 		this.initializeBehavior(behavior.getName(), farmers, dataFile);
 	}
 	
@@ -45,7 +41,9 @@ public class FarmersContext extends DefaultContext<Farmer> {
 		this.behaviors.get(behaviorName).loadBehavingObjects(farmers, dataFile, this.space);
 	}
 
-
+	public ABehaviorContainer<? extends Farmer> getBehavior(String name) {
+		return this.behaviors.get(name);
+	}
 
 	
 }

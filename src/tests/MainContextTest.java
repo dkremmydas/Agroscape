@@ -1,4 +1,5 @@
 package tests;
+import gr.agroscape.behaviors.farmers.stupido.StupidoFarmer;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.main.ContextManager;
 
@@ -41,10 +42,22 @@ public class MainContextTest {
 	
 	@Test
 	public void testStep()  {
+		//schdule should by now be loaded
+		System.err.println("ContextBuilder Shecdule");
 		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
 		System.err.println("Current Schedule: " + RunEnvironment.getInstance().getCurrentSchedule().toString());
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		
+		StupidoFarmer f = (StupidoFarmer) space.getFarmersContext().getBehavior("stupidoBehavior").getBehavingObject(0);
+		System.err.println("Got stupidofarmer: " + f.toString());
+
+		System.err.println("Advanced step");
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		
 	}
 
 }

@@ -5,7 +5,6 @@ import gr.agroscape.contexts.Space;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import repast.simphony.engine.environment.RunEnvironment;
 
@@ -16,7 +15,7 @@ public class ABehaviorContainer<T> {
 	
 	protected String name;
 	
-	protected Collection<IScheduledBehavior<T>> behavingObjects;
+	protected ArrayList<IScheduledBehavior<T>> behavingObjects;
 	
 	protected IScheduledBehaviorDataLoader<T> objectLoader;
 
@@ -45,10 +44,10 @@ public class ABehaviorContainer<T> {
 	 * @param dataFile
 	 * @param space
 	 */
-	final public void loadBehavingObjects(Collection<T> owners, Path dataFile, Space space) {
+	final public void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
 		
 		//get container objects, i.e. behavingObjects
-		this.behavingObjects = this.objectLoader.setup(owners, space, dataFile);
+		this.behavingObjects = (ArrayList<IScheduledBehavior<T>>) this.objectLoader.setup(owners, space, dataFile);
 		
 		//add their scheduled behavior to the current schedule
 		for (IScheduledBehavior<T> object : this.behavingObjects) {
@@ -65,6 +64,10 @@ public class ABehaviorContainer<T> {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public T getBehavingObject(int index) {
+		return (T) this.behavingObjects.get(index);
+	}
 	
 	
 

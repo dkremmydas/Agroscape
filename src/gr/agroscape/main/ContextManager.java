@@ -77,7 +77,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4, Attach Behavior
-		farmers.attachBehavior(new StupidoFarmersContainer());	
+		farmers.attachBehavior(new StupidoFarmersContainer());
 		
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
 		ff.add(farmers.getRandomObject());ff.add(farmers.getRandomObject());
