@@ -2,7 +2,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.behaviors.farmers.ABehavingFarmer;
+import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
@@ -42,7 +42,12 @@ import repast.simphony.engine.schedule.ScheduledMethod;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class ArableCropFarmer extends ABehavingFarmer<Farmer> implements IHasProductionAbility {
+public abstract class AArableCropProducer extends Farmer implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
+	
+	/**
+	 * The Farmer object that is the owner
+	 */
+	Farmer owner;
 	
 	
     /**
@@ -62,12 +67,12 @@ public abstract class ArableCropFarmer extends ABehavingFarmer<Farmer> implement
 	 * @param id
 	 * @param grid
 	 */	
-	public ArableCropFarmer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f) {
-		super(f);
+	public AArableCropProducer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f) {
+		this.owner = owner;
 		this.potentialAgriculturalActivity=pC;
 		this.liquidity = liquidity;
 	}
- 
+
 	
 	/**
 	 * 
@@ -86,14 +91,7 @@ public abstract class ArableCropFarmer extends ABehavingFarmer<Farmer> implement
 		return this.getClass();
 	}
 	
-	@ScheduledMethod(interval = 1)
-	public void handleProduction() {
-		
-		@SuppressWarnings("unchecked")
-		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
-		
-		
-	}
+	
 	
 	/**
 	 * 

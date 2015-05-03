@@ -56,7 +56,7 @@ public class  Product {
 	}
 	
 	/**
-	 * Get a Crop object by its name
+	 * Get a Product object by its name
 	 * @param n
 	 * @return
 	 */

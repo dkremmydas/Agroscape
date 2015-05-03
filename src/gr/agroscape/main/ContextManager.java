@@ -1,6 +1,7 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducerContainer;
 import gr.agroscape.behaviors.farmers.stupido.StupidoFarmersContainer;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
@@ -9,6 +10,8 @@ import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 
 import java.util.ArrayList;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -76,12 +79,19 @@ public class ContextManager implements ContextBuilder<Object> {
 //		}
 		
 		
-		//step 4, Attach Behavior
-		farmers.attachBehavior(new StupidoFarmersContainer());
+		//step 4, Attach Behavior (Stupido)
+		//farmers.attachBehavior(new StupidoFarmersContainer());
+		//ArrayList<Farmer> ff=new ArrayList<Farmer>();
+		//CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
+		//farmers.initializeBehavior("stupidoBehavior", ff, null);	
 		
-		ArrayList<Farmer> ff=new ArrayList<Farmer>();
-		ff.add(farmers.getRandomObject());ff.add(farmers.getRandomObject());
-		farmers.initializeBehavior("stupidoBehavior", ff, null);	
+		
+		//step 4, Attach Behavior (ArableCropFarmer_MP)
+		farmers.attachBehavior(new ArableCropProducerContainer("arableCropProducerBehavior"));
+		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
+		CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,3));
+		farmers.initializeBehavior("arableCropProducerBehavior", ff2, null);	
+		
 
 		return this.space;
 	}

@@ -4,6 +4,7 @@ import gr.agroscape.behaviors.farmers.production.products.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ArableCropCultivation extends AAgriculturalActivity {
 
@@ -69,8 +70,12 @@ public class ArableCropCultivation extends AAgriculturalActivity {
 	 * Getter
 	 * @return
 	 */
-	public static HashMap<String, ArableCropCultivation> getAvailableCrops() {
-		return availableCrops;
+	public static ArrayList<ArableCropCultivation> getAvailableCrops() {
+		ArrayList<ArableCropCultivation> r = new ArrayList<>();
+		for(Map.Entry<String,ArableCropCultivation> map : availableCrops.entrySet()){
+		     r.add(map.getValue());
+		}
+		return r;
 	}
 
 	@Override

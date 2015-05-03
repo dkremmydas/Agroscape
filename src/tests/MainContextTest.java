@@ -1,4 +1,5 @@
 package tests;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducer_MP;
 import gr.agroscape.behaviors.farmers.stupido.StupidoFarmer;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.main.ContextManager;
@@ -49,14 +50,16 @@ public class MainContextTest {
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
-		StupidoFarmer f = (StupidoFarmer) space.getFarmersContext().getBehavior("stupidoBehavior").getBehavingObject(0);
-		System.err.println("Got stupidofarmer: " + f.toString());
+		//StupidoFarmer f = (StupidoFarmer) space.getFarmersContext().getBehavior("stupidoBehavior").getBehavingObject(0);
+		//System.err.println("Got stupidofarmer: " + f.toString());
+		
+
+		ArableCropProducer_MP f2 = (ArableCropProducer_MP) space.getFarmersContext().getBehavior("arableCropProducerBehavior").getBehavingObject(1);
+		System.err.println("Got ArableCropProducer: " + f2.toString());
 
 		System.err.println("Advanced step");
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
-		RunEnvironment.getInstance().getCurrentSchedule().execute();
-		RunEnvironment.getInstance().getCurrentSchedule().execute();
-		RunEnvironment.getInstance().getCurrentSchedule().execute();
+
 		
 	}
 

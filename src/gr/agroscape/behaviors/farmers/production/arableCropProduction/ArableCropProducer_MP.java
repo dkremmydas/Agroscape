@@ -22,6 +22,8 @@ import org.apache.commons.math3.optim.linear.Relationship;
 import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
+import repast.simphony.engine.schedule.ScheduledMethod;
+
 
 
 
@@ -34,12 +36,12 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
  * 
  * @author Dimitris Kremmydas
  */
-public class ArableCropFarmer_MP extends ArableCropFarmer {
+public class ArableCropProducer_MP extends AArableCropProducer {
 	
 
 	
 	
-	public ArableCropFarmer_MP(ArrayList<ArableCropCultivation> pC,
+	public ArableCropProducer_MP(ArrayList<ArableCropCultivation> pC,
 			long liquidity, Farmer f) {
 		super(pC, liquidity, f);
 		
@@ -181,7 +183,7 @@ public class ArableCropFarmer_MP extends ArableCropFarmer {
 		ArrayList<ArableCropProductionDecision> r=new ArrayList<ArableCropProductionDecision>(); 
 		
 		try {
-			optSolution = ArableCropFarmer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
+			optSolution = ArableCropProducer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
 			
 		    double[] solution= new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		    solution = optSolution.getPoint();
@@ -249,7 +251,14 @@ public class ArableCropFarmer_MP extends ArableCropFarmer {
 	}
 
 
-
+	@ScheduledMethod(start =1,interval = 1)
+	public void handleProduction() {
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
+		
+		System.err.println(pd.toString());
+	}
 	
 	
     

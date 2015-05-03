@@ -8,7 +8,16 @@ import java.util.Collection;
 
 import repast.simphony.engine.environment.RunEnvironment;
 
-
+/**
+ * A Behavior is actually a Container that has many {@link IScheduledBehavior} objects
+ * and one {@link IScheduledBehaviorDataLoader} object.
+ * 
+ * 
+ * 
+ * @author Dimitris Kremmydas
+ *
+ * @param <T>
+ */
 public class ABehaviorContainer<T> {
 	
 	static ArrayList<String> behaviorNames = new ArrayList<>();
