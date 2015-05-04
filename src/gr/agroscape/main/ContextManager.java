@@ -80,17 +80,17 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4, Attach Behavior (Stupido)
-		//farmers.attachBehavior(new StupidoFarmersContainer());
-		//ArrayList<Farmer> ff=new ArrayList<Farmer>();
-		//CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
-		//farmers.initializeBehavior("stupidoBehavior", ff, null);	
+		farmers.attachBehavior(new StupidoFarmersContainer());
+		ArrayList<Farmer> ff=new ArrayList<Farmer>();
+		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
+		farmers.initializeBehavior("stupidoBehavior", ff, null);	
 		
 		
 		//step 4, Attach Behavior (ArableCropFarmer_MP)
-		farmers.attachBehavior(new ArableCropProducerContainer("arableCropProducerBehavior"));
-		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,3));
-		farmers.initializeBehavior("arableCropProducerBehavior", ff2, null);	
+		//farmers.attachBehavior(new ArableCropProducerContainer("arableCropProducerBehavior"));
+		//ArrayList<Farmer> ff2=new ArrayList<Farmer>();
+		//CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,3));
+		//farmers.initializeBehavior("arableCropProducerBehavior", ff2, null);	
 		
 
 		return this.space;

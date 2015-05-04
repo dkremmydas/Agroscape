@@ -6,11 +6,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import repast.simphony.context.DefaultContext;
 import repast.simphony.engine.environment.RunEnvironment;
 
 /**
- * A Behavior is actually a Container that has many {@link IScheduledBehavior} objects
- * and one {@link IScheduledBehaviorDataLoader} object.
+ * A Behavior is actually a Context<IScheduledBehavior<T>> containing 
+ * one {@link IScheduledBehaviorDataLoader} object.
  * 
  * 
  * 
@@ -18,14 +19,9 @@ import repast.simphony.engine.environment.RunEnvironment;
  *
  * @param <T>
  */
-public class ABehaviorContainer<T> {
-	
-	static ArrayList<String> behaviorNames = new ArrayList<>();
-	
-	protected String name;
-	
-	protected ArrayList<IScheduledBehavior<T>> behavingObjects;
-	
+public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBehavior<T>>{
+
+
 	protected IScheduledBehaviorDataLoader<T> objectLoader;
 
 	
@@ -36,15 +32,12 @@ public class ABehaviorContainer<T> {
 	 * @param behavingObjects
 	 * @param objectLoader
 	 */
-	public ABehaviorContainer(String name, IScheduledBehaviorDataLoader<T> objectLoader) {
-		super();
-		if(ABehaviorContainer.behaviorNames.contains(name)) {
-			throw new IllegalArgumentException("The name of the proposed behavior exists !");
-		}else {
-			this.name = name;
-			this.objectLoader = objectLoader;
-		}
-		
+	public ABehaviorContainer(String name, IScheduledBehaviorDataLoader<T> objectLoader,
+								Collection<? super T> owners, Path dataFile, Space space) {
+		super(name);
+		this.setId(name);
+		this.objectLoader = objectLoader;
+		this.loadBehavingObjects(owners, dataFile, space);
 	}
 	
 	/**
@@ -53,31 +46,21 @@ public class ABehaviorContainer<T> {
 	 * @param dataFile
 	 * @param space
 	 */
-	final public void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
+	private void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
 		
 		//get container objects, i.e. behavingObjects
-		this.behavingObjects = (ArrayList<IScheduledBehavior<T>>) this.objectLoader.setup(owners, space, dataFile);
+		this.addAll(this.objectLoader.setup(owners, space, dataFile));
+		
 		
 		//add their scheduled behavior to the current schedule
-		for (IScheduledBehavior<T> object : this.behavingObjects) {
+		@SuppressWarnings("unchecked")
+		final Class<? super T> clazz = (Class<? super T>) IScheduledBehavior.class;
+		
+		for (IScheduledBehavior<T> object : this.getObjects(clazz)) {
 			RunEnvironment.getInstance().getCurrentSchedule().schedule(object.getAnnotatedClass());			
 		}
 	}
 
-	/**
-	 * Getter of name
-	 * @return
-	 */
-	final public String getName() {
-		return name;
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public T getBehavingObject(int index) {
-		return (T) this.behavingObjects.get(index);
-	}
-	
 	
 
 }
