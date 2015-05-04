@@ -22,10 +22,7 @@ public class StupidoFarmersContainer extends ABehaviorContainer<StupidoFarmer> {
 	public StupidoFarmersContainer(Collection<? super StupidoFarmer> owners) {
 		super("stupidoBehavior", new DefaultStupidoDataLoader(),owners,null,Space.getInstance());
 	}
-
 }
-
-
 
 
 /**

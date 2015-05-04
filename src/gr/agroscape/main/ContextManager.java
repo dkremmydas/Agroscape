@@ -1,6 +1,7 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducerContainer;
 import gr.agroscape.behaviors.farmers.stupido.StupidoFarmersContainer;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
@@ -80,17 +81,17 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		//step 4, Attach Behavior (Stupido)
 		
-		ArrayList<Farmer> ff=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,3));
-		farmers.attachBehavior(new StupidoFarmersContainer(ff));
+		//ArrayList<Farmer> ff=new ArrayList<Farmer>();
+		//CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,3));
+		//farmers.attachBehavior(new StupidoFarmersContainer(ff));
 
 		
 		
 		//step 4, Attach Behavior (ArableCropFarmer_MP)
-		//farmers.attachBehavior(new ArableCropProducerContainer("arableCropProducerBehavior"));
-		//ArrayList<Farmer> ff2=new ArrayList<Farmer>();
-		//CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,3));
-		//farmers.initializeBehavior("arableCropProducerBehavior", ff2, null);	
+		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
+		CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,3));
+		farmers.attachBehavior(new ArableCropProducerContainer(ff2));
+		
 		
 
 		return this.space;

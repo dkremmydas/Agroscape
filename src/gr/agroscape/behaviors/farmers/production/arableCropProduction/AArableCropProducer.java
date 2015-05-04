@@ -3,6 +3,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.IScheduledBehavior;
+import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
@@ -39,14 +40,9 @@ import java.util.Iterator;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class AArableCropProducer extends Farmer implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
+public abstract class AArableCropProducer extends ABehavingFarmer<AArableCropProducer> implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
 	
-	/**
-	 * The Farmer object that is the owner
-	 */
-	Farmer owner;
-	
-	
+		
     /**
      * The liquidity at the current moment (�cents)
      */
@@ -64,8 +60,12 @@ public abstract class AArableCropProducer extends Farmer implements IHasProducti
 	 * @param id
 	 * @param grid
 	 */	
+    private AArableCropProducer(Farmer f) {
+    	super(f);
+    }
+    
 	public AArableCropProducer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f) {
-		this.owner = owner;
+		this(f);
 		this.potentialAgriculturalActivity=pC;
 		this.liquidity = liquidity;
 	}
@@ -82,14 +82,7 @@ public abstract class AArableCropProducer extends Farmer implements IHasProducti
 	       return r;
 	}
 
-	
-	@Override
-	public Object getAnnotatedClass() {
-		return this.getClass();
-	}
-	
-	
-	
+
 	/**
 	 * 
 	 * @return
@@ -128,6 +121,13 @@ public abstract class AArableCropProducer extends Farmer implements IHasProducti
 		return r;
 	}
 	
+	
+	
+	@Override
+	public Object getAnnotatedClass() {
+		return this;
+	}    
+
 
 	abstract void calculateExpectations();	
 	

@@ -50,7 +50,7 @@ public class MainContextTest {
 	
 	@Test
 	public void testStep()  {
-		//schdule should by now be loaded
+		//schedule should by now be loaded
 		System.err.println("testStep");
 		System.err.println("ContextBuilder Shecdule");
 		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
@@ -76,8 +76,6 @@ public class MainContextTest {
 		
 		System.err.println("Advanced 4th step");
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
-
-		
 	}
 
 }

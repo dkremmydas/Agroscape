@@ -6,6 +6,7 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.products.Product;
+import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.Space;
 
 import java.nio.file.Path;
@@ -14,16 +15,14 @@ import java.util.Collection;
 
 public class ArableCropProducerContainer extends ABehaviorContainer<AArableCropProducer> {
 
-	public ArableCropProducerContainer(String name,
-			IScheduledBehaviorDataLoader<AArableCropProducer> objectLoader) {
-		super(name, objectLoader);
-		// TODO Auto-generated constructor stub
+	public ArableCropProducerContainer(Collection<? super AArableCropProducer> owners) {
+				super("ArableCropProductionBehavior",new DefaultArableProducerLoader(),owners,null,Space.getInstance());
 	}
 	
-	public ArableCropProducerContainer(String name) {
-		super(name, new DefaultArableProducerLoader());
-		// TODO Auto-generated constructor stub
+	public ArableCropProducerContainer(Collection<? super AArableCropProducer> owners,IScheduledBehaviorDataLoader<AArableCropProducer> objectLoader) {
+		super("ArableCropProductionBehavior",objectLoader,owners,null,Space.getInstance());
 	}
+
 
 } //end class
 
@@ -47,6 +46,10 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 		ArableCropCultivation c2 = new ArableCropCultivation("wheat", new Product("wheat product"));
 		ArableCropCultivation c3 = new ArableCropCultivation("cotton", new Product("cotton product"));
 		
+		//add a crop context
+		CropsContext cc= new CropsContext();
+		space.addSubContext(cc);
+		cc.add(c1);cc.add(c2);cc.add(c3);
 		
 		Collection<IScheduledBehavior<AArableCropProducer>> r = new ArrayList<IScheduledBehavior<AArableCropProducer>>();
 			

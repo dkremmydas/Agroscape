@@ -251,17 +251,13 @@ public class ArableCropProducer_MP extends AArableCropProducer {
 	}
 
 
-	@ScheduledMethod(start =1,interval = 1)
+	@ScheduledMethod (start=0,interval = 1)
 	public void handleProduction() {
 		
-		@SuppressWarnings("unchecked")
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		
 		System.err.println(pd.toString());
 	}
 	
-	
-    
-    
 	
 }

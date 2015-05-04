@@ -55,8 +55,9 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 		//add their scheduled behavior to the current schedule
 		@SuppressWarnings("unchecked")
 		final Class<? super T> clazz = (Class<? super T>) IScheduledBehavior.class;
-		
+//System.err.println("# this.getObjects(clazz) objects found " + this.getObjects(clazz).size());		
 		for (IScheduledBehavior<T> object : this.getObjects(clazz)) {
+//System.err.println("Object " + object.toString() + " / annotadedClass: " + object.getAnnotatedClass().toString());
 			RunEnvironment.getInstance().getCurrentSchedule().schedule(object.getAnnotatedClass());			
 		}
 	}
