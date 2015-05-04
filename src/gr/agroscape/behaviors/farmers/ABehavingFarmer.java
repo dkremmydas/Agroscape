@@ -7,6 +7,7 @@ public abstract class ABehavingFarmer<T extends Farmer> extends Farmer implement
 	
 	protected Farmer owner;	
 	
+	@SuppressWarnings("unchecked")
 	public ABehavingFarmer(Farmer owner) {
 		this.owner = owner;
 	}

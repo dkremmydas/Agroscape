@@ -12,10 +12,12 @@ public class StupidoFarmer extends ABehavingFarmer<StupidoFarmer> implements ISc
 
 	
 	
+
 	public StupidoFarmer(Farmer owner) {
 		super(owner);
 		this.setRandom();
 	}
+
 
 	private static Random random = new Random();
 	private int stupidoProperty;

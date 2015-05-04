@@ -2,7 +2,6 @@ package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducerContainer;
-import gr.agroscape.behaviors.farmers.stupido.StupidoFarmersContainer;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.Space;
