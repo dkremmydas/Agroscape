@@ -21,6 +21,7 @@ public class PlotsContext extends DefaultContext<Plot> {
 	 */
 	public PlotsContext() {
 		super("PlotsContext");
+		this.setId("PlotsContext");
 	}
 	
 	

@@ -4,14 +4,11 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import repast.simphony.engine.schedule.ScheduledMethod;
 
 
 /**

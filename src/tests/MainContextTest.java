@@ -1,5 +1,6 @@
 package tests;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducer_MP;
+import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 import gr.agroscape.behaviors.farmers.stupido.StupidoFarmer;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.main.ContextManager;
@@ -37,13 +38,20 @@ public class MainContextTest {
 	
 	@Test
 	public void testContextManager()  {
+		System.err.println("testContextManager");
 		System.err.println("Everything is loaded");
-		System.err.println("Number of loaded farmers: " + space.getFarmersContext().size());
+		System.err.println("Number of loaded objects: " + space.getFarmersContext().size());
+		
+		System.err.println("Number of Farmers: " + space.getFarmersContext().getObjects(Farmer.class).size());
+		System.err.println("Number of Stupido Farmers: " + space.getFarmersContext().getObjects(StupidoFarmer.class).size());
+		System.err.println("Number of ABehavingFarmers: " + space.getFarmersContext().getObjects(ABehavingFarmer.class).size());
+		
 	}
 	
 	@Test
 	public void testStep()  {
 		//schdule should by now be loaded
+		System.err.println("testStep");
 		System.err.println("ContextBuilder Shecdule");
 		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
 		System.err.println("Current Schedule: " + RunEnvironment.getInstance().getCurrentSchedule().toString());
@@ -54,10 +62,19 @@ public class MainContextTest {
 		//System.err.println("Got stupidofarmer: " + f.toString());
 		
 
-		ArableCropProducer_MP f2 = (ArableCropProducer_MP) space.getFarmersContext().getBehavior("arableCropProducerBehavior").getBehavingObject(1);
-		System.err.println("Got ArableCropProducer: " + f2.toString());
+		//ArableCropProducer_MP f2 = (ArableCropProducer_MP) space.getFarmersContext().getBehavior("arableCropProducerBehavior").getBehavingObject(1);
+		//System.err.println("Got ArableCropProducer: " + f2.toString());
 
-		System.err.println("Advanced step");
+		System.err.println("Advanced 1st step");		
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		
+		System.err.println("Advanced 2nd step");
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		
+		System.err.println("Advanced 3nd step");
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		
+		System.err.println("Advanced 4th step");
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 
 		

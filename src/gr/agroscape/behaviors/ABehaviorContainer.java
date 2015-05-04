@@ -3,7 +3,6 @@ package gr.agroscape.behaviors;
 import gr.agroscape.contexts.Space;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import repast.simphony.context.DefaultContext;
@@ -11,8 +10,9 @@ import repast.simphony.engine.environment.RunEnvironment;
 
 /**
  * A Behavior is actually a Context<IScheduledBehavior<T>> containing 
- * one {@link IScheduledBehaviorDataLoader} object.
- * 
+ * one {@link IScheduledBehaviorDataLoader} object.<br />
+ * During the constructor call, the {@link IScheduledBehaviorDataLoader} is used
+ * in order to load all objects* 
  * 
  * 
  * @author Dimitris Kremmydas

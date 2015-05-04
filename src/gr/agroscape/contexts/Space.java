@@ -87,7 +87,6 @@ public class Space extends DefaultContext<Object> {
 	 */
 	public static Space getInstance() {
 		if (Space.instance==null) {Space.instance=new Space();}
-		Space.instance.setId("MainContext");
 		return Space.instance;
 	}
 	
@@ -95,7 +94,8 @@ public class Space extends DefaultContext<Object> {
 	 * Private Constructor, so the existence of a unique instance of MainContext is enforced. 
 	 */
 	private Space() {
-		super("MainContext");
+		super("SpaceContext");
+		this.setId("SpaceContext");
 		
 		//set grid width and height
 		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");

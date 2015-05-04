@@ -5,7 +5,11 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 
 public abstract class ABehavingFarmer<T extends Farmer> extends Farmer implements IScheduledBehavior<T> {
 	
+	protected Farmer owner;	
 	
+	public ABehavingFarmer(Farmer owner) {
+		this.owner = owner;
+	}
 	
 	
 

@@ -1,7 +1,6 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducerContainer;
 import gr.agroscape.behaviors.farmers.stupido.StupidoFarmersContainer;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
@@ -80,10 +79,11 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4, Attach Behavior (Stupido)
-		farmers.attachBehavior(new StupidoFarmersContainer());
+		
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
-		farmers.initializeBehavior("stupidoBehavior", ff, null);	
+		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,3));
+		farmers.attachBehavior(new StupidoFarmersContainer(ff));
+
 		
 		
 		//step 4, Attach Behavior (ArableCropFarmer_MP)

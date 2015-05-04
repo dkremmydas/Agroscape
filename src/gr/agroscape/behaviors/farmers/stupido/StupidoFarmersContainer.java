@@ -20,7 +20,7 @@ public class StupidoFarmersContainer extends ABehaviorContainer<StupidoFarmer> {
 	
 
 	public StupidoFarmersContainer(Collection<? super StupidoFarmer> owners) {
-		super("stupidoBehavior", new DefaultStupidoDataLoader(),owners,Space.getInstance());
+		super("stupidoBehavior", new DefaultStupidoDataLoader(),owners,null,Space.getInstance());
 	}
 
 }
@@ -39,14 +39,11 @@ class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoFa
 
 	@Override
 	public Collection<IScheduledBehavior<StupidoFarmer>> setup(Collection<? super StupidoFarmer> owners, Space space) {
-			
 		Collection<IScheduledBehavior<StupidoFarmer>> r = new ArrayList<IScheduledBehavior<StupidoFarmer>>();
-			
 			for (Object f : owners) {
 				StupidoFarmer toadd = new StupidoFarmer((Farmer)f);
 				r.add(toadd);
 			}
-			
 			return r;
 	}
 	
