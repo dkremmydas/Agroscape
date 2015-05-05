@@ -7,7 +7,6 @@ import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
@@ -15,7 +14,6 @@ import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
-import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
 import repast.simphony.valueLayer.GridValueLayer;

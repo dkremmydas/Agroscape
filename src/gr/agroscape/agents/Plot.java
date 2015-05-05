@@ -1,8 +1,6 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.plots.APlotBehavior;
-import gr.agroscape.contexts.Space;
 import gr.agroscape.main.AgroscapeConfiguration;
 
 import java.util.ArrayList;
@@ -36,8 +34,6 @@ public class Plot {
 	
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     
-    private Space mainContext;
-    
     
     /**
 	 * The properties of the agent
@@ -52,7 +48,6 @@ public class Plot {
      */
     public Plot(ArrayList<GridPoint> points,  int id) {
 		super();
-		this.mainContext=Space.getInstance();
 		this.myId=id; Plot.next_id=id++;
 		this.gridPoints = points;
 	}
@@ -89,7 +84,6 @@ public class Plot {
      */
     public Plot(int[][] points, int id) {
     	super();
-    	this.mainContext=Space.getInstance();
     	this.myId=id; Plot.next_id=id++;
 		for(int i=0;i<points.length;i++) {
 			int[] gp = new int[2]; gp[0]=points[i][0];gp[1]=points[i][1];
@@ -123,6 +117,7 @@ public class Plot {
 	 * @return
 	 */
 	public double getAverage(GridValueLayer data) {
+		if(data==null) return 0d;
 		
 		double r = 0d;
 		for (Iterator<GridPoint> iterator = this.gridPoints.iterator(); iterator.hasNext();) {
@@ -132,15 +127,6 @@ public class Plot {
 		return r/this.gridPoints.size();
 	}
 	
-	/**
-	 * Get the expected yield for the plot for a specified {@link Plot}.
-	 * @param c
-	 * @return
-	 */
-	public double getSuitability(ArableCropCultivation c) {
-		GridValueLayer gvl = (GridValueLayer) (Space.getInstance().getCropsContext().getCropSuitability()).get(c);
-		return this.getAverage(gvl);
-	}
 	
 	/**
 	 * Get the GridPoints of the Plot

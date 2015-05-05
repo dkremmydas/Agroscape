@@ -1,12 +1,12 @@
 package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.ABehaviorContainer;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.products.Product;
-import gr.agroscape.contexts.CropsContext;
 import gr.agroscape.contexts.Space;
 
 import java.nio.file.Path;
@@ -14,77 +14,31 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import repast.simphony.context.DefaultContext;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class ArableCropProducerContainer extends ABehaviorContainer<AArableCropProducer> {
 
-	private CropsContext availableCrops;
+	
+	private ArrayList<ArableCropCultivation> availableCrops;
+	
+	private HashMap<ArableCropCultivation, GridValueLayer> cropSuitabilities=new HashMap<ArableCropCultivation, GridValueLayer>();
 	
 	
 	public ArableCropProducerContainer(Collection<? super AArableCropProducer> owners) {
-				super("ArableCropProductionBehavior",new DefaultArableProducerLoader(),owners,null,Space.getInstance());
-				this.loadBehavingObjects(owners, dataFile, space);
-				
+				this(owners,new DefaultArableProducerLoader());	
 	}
 	
 	public ArableCropProducerContainer(Collection<? super AArableCropProducer> owners,IScheduledBehaviorDataLoader<AArableCropProducer> objectLoader) {
-		super("ArableCropProductionBehavior",objectLoader,owners,null,Space.getInstance());
-		this.loadBehavingObjects(owners, dataFile, space);
-		
+		super("ArableCropProductionBehavior",objectLoader);
+		this.availableCrops =new ArrayList<>();
+		this.loadBehavingObjects(owners, null,  Space.getInstance());
 	}
 	
 
-	public CropsContext getCropsContext() {
-		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
+	public ArrayList<ArableCropCultivation> getAvailableCrops() {
 		return this.availableCrops;
 	}
 	
-	
-
-
-} //end class
-
-
-
-/**
-* It contains information regarding Crops
-* 
-* @author Dimitris Kremmydas
-*
-*/
-class CropsContext extends DefaultContext<ArableCropCultivation> {
-
-	/**
-	 * For each available Crop, the true Crop biophysical Suitability
-	 */
-	private HashMap<ArableCropCultivation, GridValueLayer> cropSuitability=new HashMap<ArableCropCultivation, GridValueLayer>();
-	
-	
-	public CropsContext() {
-		super("CropsContext");
-	}
-	
-	/**
-	 * Get all available Crops
-	 * @return
-	 */
-	public ArrayList<ArableCropCultivation> getAvailableCrops() {
-		ArrayList<ArableCropCultivation> r = new ArrayList<ArableCropCultivation>();
-		
-		Iterable<ArableCropCultivation> crops = this.getAgentLayer(ArableCropCultivation.class);
-		for (ArableCropCultivation crop : crops) {
-			r.add(crop);
-		}
-		
-		return r;
-	}
-	
-	/**
-	 * Get a Crop object by its name (Case insensitive). <br />
-	 * @param n String Name of Crop
-	 * @return if a crop with that name exists returns a {@link ArableCropCultivation}. Otherwise returns null.
-	 */
 	public ArableCropCultivation getCropByName(String n) {
 		ArrayList<ArableCropCultivation> crops = this.getAvailableCrops();
 		for (ArableCropCultivation crop : crops) {
@@ -94,16 +48,25 @@ class CropsContext extends DefaultContext<ArableCropCultivation> {
 	}
 	
 	/**
-	 * Getter for {@link #cropSuitability}
+	 * Getter for {@link #cropSuitabilities}
 	 * @return
 	 */
-	public HashMap<ArableCropCultivation, GridValueLayer> getCropSuitability() {
-		return cropSuitability;
+	public HashMap<ArableCropCultivation, GridValueLayer> getCropSuitabilities() {
+		return cropSuitabilities;
 	}
 	
+	/**
+	 * Get the average suitability ofr a crop and a {@link Plot}.
+	 * @param c
+	 * @return
+	 */
+	public double getAverageCropPlotSuitability(ArableCropCultivation c, Plot p) {
+		GridValueLayer gvl = this.getCropSuitabilities().get(c);
+		return p.getAverage(gvl);
+	}
 	
-	
-}
+
+} //end class
 
 
 
@@ -124,15 +87,32 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 		ArableCropCultivation c2 = new ArableCropCultivation("wheat", new Product("wheat product"));
 		ArableCropCultivation c3 = new ArableCropCultivation("cotton", new Product("cotton product"));
 		
-		//add a crop context
-		CropsContext cc= new CropsContext();
-		space.addSubContext(cc);
-		cc.add(c1);cc.add(c2);cc.add(c3);
+		//add those crops
+		((ArableCropProducerContainer)container).getAvailableCrops().add(c1);
+		((ArableCropProducerContainer)container).getAvailableCrops().add(c2);
+		((ArableCropProducerContainer)container).getAvailableCrops().add(c3);
+		
+		
+		//load crop suitability, all value equals to 1		
+		for (ArableCropCultivation c : ((ArableCropProducerContainer)container).getAvailableCrops()) {
+			GridValueLayer gv = new GridValueLayer("CropSuitability_"+c.getName(), true, space.getGridWidth(),space.getGridHeight());
+			for (int i = 0; i < gv.getDimensions().getWidth(); i++) {
+				for (int j = 0; j <  gv.getDimensions().getHeight(); j++) {
+					gv.set(1d, i,j);
+				}
+			}
+			((ArableCropProducerContainer)container).getCropSuitabilities().put(c, gv);
+		}
+		
+		
+		//load PaymentAuthority
+		
+		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 		
 		Collection<IScheduledBehavior<AArableCropProducer>> r = new ArrayList<IScheduledBehavior<AArableCropProducer>>();
 			
 			for (Object f : owners) {
-				ArableCropProducer_MP toadd = new ArableCropProducer_MP(ArableCropCultivation.getAvailableCrops(),1000,(Farmer)f,(ArableCropProducerContainer) container);
+				ArableCropProducer_MP toadd = new ArableCropProducer_MP(((ArableCropProducerContainer)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProducerContainer) container);
 				r.add(toadd);
 			}
 			

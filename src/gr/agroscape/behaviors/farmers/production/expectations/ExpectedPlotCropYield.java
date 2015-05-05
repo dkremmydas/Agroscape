@@ -2,6 +2,7 @@ package gr.agroscape.behaviors.farmers.production.expectations;
 
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducerContainer;
 import gr.agroscape.contexts.Space;
 
 import java.util.ArrayList;
@@ -22,11 +23,16 @@ public class ExpectedPlotCropYield extends AbstractExpectation<Plot, HashMap<Ara
 
 	@Override
 	HashMap<Plot, HashMap<ArableCropCultivation, Float>> getDefaultValues(ArrayList<Plot> plots) {
+		
+		
+		ArableCropProducerContainer acpc = (ArableCropProducerContainer) Space.getInstance().findContext("ArableCropProductionBehavior");
+		ArrayList<ArableCropCultivation> availableCrops = acpc.getAvailableCrops();
+		
 		HashMap<Plot, HashMap<ArableCropCultivation,Float>> v=new HashMap<Plot, HashMap<ArableCropCultivation,Float>>();
 		for (Plot p: plots) {
        		HashMap<ArableCropCultivation,Float> tmp=new HashMap<ArableCropCultivation, Float>();
-       		for(ArableCropCultivation c: Space.getAvailableCrops()) {
-       			tmp.put(c, (float)p.getSuitability(c));
+       		for(ArableCropCultivation c: availableCrops) {
+       			tmp.put(c, (float)acpc.getAverageCropPlotSuitability(c, p));
        			//tmp.put(c,1f);
        		}
        		v.put(p, tmp);
