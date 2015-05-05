@@ -21,9 +21,9 @@ public class StupidoBhvContext extends ABehaviorContext<StupidoBhv> {
 	protected Random randomGenerator ;
 
 	public StupidoBhvContext(Collection<? super Farmer> owners) {
-		super("stupidoBehavior", new DefaultStupidoDataLoader());
+		super("stupidoBehavior", new DefaultStupidoDataLoader(owners));
 		this.randomGenerator = new Random(System.currentTimeMillis());
-		this.loadBehavingObjects(owners, null, Space.getInstance());		
+		this.loadBehavingObjects();		
 	}
 	
 	
@@ -41,24 +41,27 @@ public class StupidoBhvContext extends ABehaviorContext<StupidoBhv> {
  */
 class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoBhv> {
 
+	private Collection<? super Farmer> owners;
 	
+	
+	
+	public DefaultStupidoDataLoader(Collection<? super Farmer> owners) {
+		super();
+		this.owners = owners;
+	}
+
+
 
 	@Override
-	public Collection<IScheduledBehavior<StupidoBhv>> setup(Collection<? super Farmer> owners, 
-							Space space, ABehaviorContext<StupidoBhv> container) {
+	public void setup( ABehaviorContext<StupidoBhv> container) {
 		Collection<IScheduledBehavior<StupidoBhv>> r = new ArrayList<IScheduledBehavior<StupidoBhv>>();
 			for (Object f : owners) {
 				StupidoBhv toadd = new StupidoBhv((Farmer)f,(StupidoBhvContext)container);
 				r.add(toadd);
 			}
-			return r;
+			container.addAll(r);
 	}
 	
-
-	@Override
-	public Collection<IScheduledBehavior<StupidoBhv>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<StupidoBhv> container, Path dataFile) {
-			return this.setup(owners,space,container);	
-	}
 
 
 

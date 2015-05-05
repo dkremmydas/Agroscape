@@ -1,15 +1,13 @@
 package gr.agroscape.behaviors.farmers.socialNetworking;
 
+import java.util.Collection;
+
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
-import gr.agroscape.contexts.Space;
-
-import java.nio.file.Path;
-import java.util.Collection;
-
 import repast.simphony.space.graph.Network;
+import repast.simphony.space.projection.Projection;
 
 
 /**
@@ -21,55 +19,53 @@ import repast.simphony.space.graph.Network;
 public class SocialNetworkingBhvContext extends ABehaviorContext<Farmer> {
 
 	
-	private Network<Farmer> socialNetwork;
+	private Network<? extends DefaultSocialNetworkingBhv> socialNetwork;
 	
 	
-	public SocialNetworkingBhvContext(Network<Farmer> network) {
-		super("SocialNetworking", new SocialNetworkingBhvLoader());
-		this.socialNetwork = network;
+	public SocialNetworkingBhvContext(Collection<? super Farmer> owners) {
+		super("SocialNetworking", new DefaultSocialNetworkingBhvLoader(owners));
+		this.loadBehavingObjects();
 	}
 
 
-	public Network<Farmer> getSocialNetwork() {
+	public Network<? extends DefaultSocialNetworkingBhv> getSocialNetwork() {
 		return socialNetwork;
 	}
-
-
-	@Override
-	protected void loadBehavingObjects(Collection<? super Farmer> owners,
-			Path dataFile, Space space) {
-		throw new UnsupportedOperationException();
-	}
 	
-	
-
-
 
 }
 
 
 /**
  * 
- * Default Data Loader
+ * Default Data Loader. It takes a bunch of farmers and create a network between the first 2 of them. 
  * 
  * @author Dimitris Kremmydas
  *
  */
-class SocialNetworkingBhvLoader implements IScheduledBehaviorDataLoader<Farmer> {
+class DefaultSocialNetworkingBhvLoader implements IScheduledBehaviorDataLoader<DefaultSocialNetworkingBhv> {
 
-	@Override
-	public Collection<IScheduledBehavior<Farmer>> setup(
-			Collection<? super Farmer> owners, Space space,
-			ABehaviorContext<Farmer> container, Path dataFile) {
-		throw new UnsupportedOperationException();
+	private Collection<? super Farmer> owners;
+	private Projection<DefaultSocialNetworkingBhv> network;
+
+	public DefaultSocialNetworkingBhvLoader(Collection<? super Farmer> owners) {
+		super();
+		this.owners = owners;
 	}
 
+
+
 	@Override
-	public Collection<IScheduledBehavior<Farmer>> setup(
-			Collection<? super Farmer> owners, Space space,
-			ABehaviorContext<Farmer> container) {
-		throw new UnsupportedOperationException();
+	public void setup(ABehaviorContext<DefaultSocialNetworkingBhv> container) {
+		container.addProjection(network);		
 	}
+
+	
+	private void fillNetwork() {
+		//make the first three connected
+		
+	}
+
 
 	
 }

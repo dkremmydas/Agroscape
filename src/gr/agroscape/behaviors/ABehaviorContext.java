@@ -47,10 +47,10 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 	 * @param dataFile
 	 * @param space
 	 */
-	protected void loadBehavingObjects(Collection<? super Farmer> owners, Path dataFile, Space space) {
+	protected void loadBehavingObjects() {
 		
 		//get container objects, i.e. behavingObjects
-		this.addAll(this.objectLoader.setup(owners, space, this, dataFile));
+		this.objectLoader.setup(this);
 		
 		
 		//add their scheduled behavior to the current schedule

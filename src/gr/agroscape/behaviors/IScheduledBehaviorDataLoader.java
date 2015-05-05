@@ -8,11 +8,8 @@ import java.util.Collection;
 
 /**
  * An interface declaring actions for a BehaviorDataLoader.<br />
- * It accepts (at minimum) a {@link Collection} of objects, the {@link Space} object
- * and returns a {@link Collection} of objects (possibly subclassing the accepted objects)
- * that implement {@link IScheduledBehavior} interface.
- * 
- *  //TODO make it more flexible. Functor or Command pattern
+ * It takes as an argument the {@link ABehaviorContext} and should make any changes to it accordingly.<br />
+ * It follows the Functor design pattern
  * 
  * @author Dimitris Kremmydas
  *
@@ -24,15 +21,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * 
 	 * @param df
 	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<T> container,Path dataFile);
+	public void setup(ABehaviorContext<T> container);
 	
-	/**
-	 * Load without data file
-	 * @param owners
-	 * @param space
-	 * @return
-	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<T> container);
-
 
 }

@@ -9,7 +9,6 @@ import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCr
 import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.Space;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,13 +24,13 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	
 	
 	public ArableCropProductionBhvContext(Collection<? super Farmer> owners) {
-				this(owners,new DefaultArableProductionBhvContextLoader());	
+				this(owners,new DefaultArableProductionBhvContextLoader(owners,Space.getInstance()));	
 	}
 	
 	public ArableCropProductionBhvContext(Collection<? super Farmer> owners,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
-		this.loadBehavingObjects(owners, null,  Space.getInstance());
+		this.loadBehavingObjects();
 	}
 	
 
@@ -77,10 +76,21 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
  */
 class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataLoader<AArableCropProductionBhv> {
 
+	private Collection<? super Farmer> owners;
+	private Space space;
 	
+	
+	
+	public DefaultArableProductionBhvContextLoader(Collection<? super Farmer> owners, Space space) {
+		super();
+		this.owners = owners;
+		this.space = space;
+	}
+
+
 
 	@Override
-	public Collection<IScheduledBehavior<AArableCropProductionBhv>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<AArableCropProductionBhv> container) {
+	public void setup(ABehaviorContext<AArableCropProductionBhv> container) {
 			
 		//create crops
 		ArableCropCultivation c1 = new ArableCropCultivation("maize", new Product("maize product"));
@@ -118,15 +128,9 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 				r.add(toadd);
 			}
 			
-			return r;
+			container.addAll(r);
 	}
 	
-
-	@Override
-	public Collection<IScheduledBehavior<AArableCropProductionBhv>> setup(Collection<? super Farmer> owners, 
-			Space space, ABehaviorContext<AArableCropProductionBhv> container, Path dataFile) {
-			return this.setup(owners,space,container);	
-	}
 
 
 	
