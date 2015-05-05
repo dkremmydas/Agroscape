@@ -32,13 +32,10 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 	 * @param behavingObjects
 	 * @param objectLoader
 	 */
-	public ABehaviorContainer(String name, IScheduledBehaviorDataLoader<T> objectLoader,
-								Collection<? super T> owners, Path dataFile, Space space) {
+	public ABehaviorContainer(String name, IScheduledBehaviorDataLoader<T> objectLoader) {
 		super(name);
 		this.setId(name);
-		space.addSubContext(this);
 		this.objectLoader = objectLoader;
-		this.loadBehavingObjects(owners, dataFile, space);
 	}
 	
 	/**
@@ -47,7 +44,7 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 	 * @param dataFile
 	 * @param space
 	 */
-	private void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
+	protected void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
 		
 		//get container objects, i.e. behavingObjects
 		this.addAll(this.objectLoader.setup(owners, space, this, dataFile));

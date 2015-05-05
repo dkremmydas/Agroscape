@@ -175,22 +175,12 @@ public class Space extends DefaultContext<Object> {
 	}
 	
 	
-	public CropsContext getCropsContext() {
-		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (CropsContext) this.getSubContext("CropsContext");
-	}
 	
 	public PlotsContext getPlotsContext() {
 		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
 		return (PlotsContext) this.getSubContext("PlotsContext");
 	}
-	
-	
-	public static ArrayList<ArableCropCultivation> getAvailableCrops() {
-		if(! Space.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (ArrayList<ArableCropCultivation>)Space.getInstance().getCropsContext().getAvailableCrops();
-	}
-	
+		
 	public static ArrayList<Plot> getAvailablePlots() {
 		if(! Space.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
 		return (ArrayList<Plot>)Space.getInstance().getPlotsContext().getAvailablePlots();
@@ -205,7 +195,7 @@ public class Space extends DefaultContext<Object> {
 	 * Update Value Layers
 	 */
 	public void updateValueLayers() {
-		this.landPropertyRegistry.updateOwnerValueLayer(gvl_Owners);
+	/*	this.landPropertyRegistry.updateOwnerValueLayer(gvl_Owners);
 		
 		//copy CropSuitability Value Layers
 		GridValueLayer from = this.getCropsContext().getCropSuitability().get(this.activeDisplaySuitabilityCrop);
@@ -220,6 +210,7 @@ public class Space extends DefaultContext<Object> {
 				//this.gvl_ProductionDecisions.set(p.getAgriculturalLandUse().getId(), gp.getX(),gp.getY());
 			}
 		}
+		*/
 	}
 
 	

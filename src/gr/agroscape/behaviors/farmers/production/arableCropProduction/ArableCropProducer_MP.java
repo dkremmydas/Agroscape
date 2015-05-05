@@ -42,8 +42,8 @@ public class ArableCropProducer_MP extends AArableCropProducer {
 	
 	
 	public ArableCropProducer_MP(ArrayList<ArableCropCultivation> pC,
-			long liquidity, Farmer f) {
-		super(pC, liquidity, f);
+			long liquidity, Farmer f, ArableCropProducerContainer c) {
+		super(pC, liquidity, f,c);
 		
 	}
 

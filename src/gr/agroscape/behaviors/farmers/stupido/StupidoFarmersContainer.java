@@ -18,11 +18,12 @@ import java.util.Random;
  */
 public class StupidoFarmersContainer extends ABehaviorContainer<StupidoFarmer> {
 	
-	protected Random randomGenerator = new Random(System.currentTimeMillis());
+	protected Random randomGenerator ;
 
 	public StupidoFarmersContainer(Collection<? super StupidoFarmer> owners) {
-		super("stupidoBehavior", new DefaultStupidoDataLoader(),owners,null,Space.getInstance());
-		//this.randomGenerator = new Random(System.currentTimeMillis());
+		super("stupidoBehavior", new DefaultStupidoDataLoader());
+		this.randomGenerator = new Random(System.currentTimeMillis());
+		this.loadBehavingObjects(owners, null, Space.getInstance());		
 	}
 	
 	

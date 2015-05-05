@@ -6,7 +6,6 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
-import gr.agroscape.contexts.Space;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,13 +64,13 @@ public abstract class AArableCropProducer extends ABehavingFarmer<AArableCropPro
 	 * @param id
 	 * @param grid
 	 */	
-    private AArableCropProducer(Farmer f) {
+    private AArableCropProducer(Farmer f,ArableCropProducerContainer container) {
     	super(f);
-    	this.container = (ArableCropProducerContainer) Space.getInstance().findContext("ArableCropProductionBehavior");
+    	this.container = container;
     }
     
-	public AArableCropProducer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f) {
-		this(f);
+	public AArableCropProducer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f,ArableCropProducerContainer container) {
+		this(f,container);
 		this.potentialAgriculturalActivity=pC;
 		this.liquidity = liquidity;
 	}
