@@ -5,9 +5,12 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 
 public abstract class ABehavingFarmer<T extends Farmer> extends Farmer implements IScheduledBehavior<T> {
 	
+	/**
+	 * A reference to the owner Farmer
+	 */
 	protected Farmer owner;	
 	
-	@SuppressWarnings("unchecked")
+
 	public ABehavingFarmer(Farmer owner) {
 		this.owner = owner;
 	}

@@ -21,7 +21,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * 
 	 * @param df
 	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space, Path dataFile);
+	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space, ABehaviorContainer<T> container,Path dataFile);
 	
 	/**
 	 * Load without data file
@@ -29,7 +29,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * @param space
 	 * @return
 	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space);
+	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space, ABehaviorContainer<T> container);
 
 
 }

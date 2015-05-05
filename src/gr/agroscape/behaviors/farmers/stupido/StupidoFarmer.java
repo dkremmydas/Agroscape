@@ -3,33 +3,31 @@ package gr.agroscape.behaviors.farmers.stupido;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.ABehavingFarmer;
-
-import java.util.Random;
-
 import repast.simphony.engine.schedule.ScheduledMethod;
 
 public class StupidoFarmer extends ABehavingFarmer<StupidoFarmer> implements IScheduledBehavior<StupidoFarmer>   {
 
-	
+	/**
+	 * A reference to the container context
+	 */
+	protected StupidoFarmersContainer container;
 	
 
-	public StupidoFarmer(Farmer owner) {
+	public StupidoFarmer(Farmer owner, StupidoFarmersContainer c) {
 		super(owner);
-		this.setRandom();
+		this.container=c;
 	}
 
-
-	private static Random random = new Random();
 	private int stupidoProperty;
 	
 
 	
-	@ScheduledMethod (start=0,interval = 2)
+	@ScheduledMethod (start=2,interval = 2)
 	public void setRandom() {
-		this.stupidoProperty =  random.nextInt();
+		this.stupidoProperty =  this.container.getRandom();
 	}
 	
-	@ScheduledMethod (start=0,interval = 1)
+	@ScheduledMethod (start=2,interval = 1)
 	public void print() {
 		System.err.println("Farmer, id="+this.owner.getID() + ", stupido random=" + this.stupidoProperty);
 	}

@@ -6,6 +6,7 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.ABehavingFarmer;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
+import gr.agroscape.contexts.Space;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +43,11 @@ import java.util.Iterator;
   */
 public abstract class AArableCropProducer extends ABehavingFarmer<AArableCropProducer> implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
 	
-		
+	/**
+	 * A reference to the container context
+	 */
+	protected ArableCropProducerContainer container;
+	
     /**
      * The liquidity at the current moment (�cents)
      */
@@ -62,6 +67,7 @@ public abstract class AArableCropProducer extends ABehavingFarmer<AArableCropPro
 	 */	
     private AArableCropProducer(Farmer f) {
     	super(f);
+    	this.container = (ArableCropProducerContainer) Space.getInstance().findContext("ArableCropProductionBehavior");
     }
     
 	public AArableCropProducer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f) {

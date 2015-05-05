@@ -65,16 +65,22 @@ public class MainContextTest {
 		//ArableCropProducer_MP f2 = (ArableCropProducer_MP) space.getFarmersContext().getBehavior("arableCropProducerBehavior").getBehavingObject(1);
 		//System.err.println("Got ArableCropProducer: " + f2.toString());
 
-		System.err.println("Advanced 1st step");		
+		System.err.println("Advanced 1st step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 		
-		System.err.println("Advanced 2nd step");
+		System.err.println("Advanced 2nd step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 		
-		System.err.println("Advanced 3nd step");
+		System.err.println("Advanced 3nd step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 		
-		System.err.println("Advanced 4th step");
+		System.err.println("Advanced 4th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		
+		System.err.println("Advanced 5th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		
+		System.err.println("Advanced 6th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 	}
 

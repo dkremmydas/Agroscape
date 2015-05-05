@@ -36,6 +36,7 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 								Collection<? super T> owners, Path dataFile, Space space) {
 		super(name);
 		this.setId(name);
+		space.addSubContext(this);
 		this.objectLoader = objectLoader;
 		this.loadBehavingObjects(owners, dataFile, space);
 	}
@@ -49,7 +50,7 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 	private void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
 		
 		//get container objects, i.e. behavingObjects
-		this.addAll(this.objectLoader.setup(owners, space, dataFile));
+		this.addAll(this.objectLoader.setup(owners, space, this, dataFile));
 		
 		
 		//add their scheduled behavior to the current schedule

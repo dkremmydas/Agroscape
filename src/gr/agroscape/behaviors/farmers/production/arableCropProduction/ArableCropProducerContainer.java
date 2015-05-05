@@ -13,10 +13,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import repast.simphony.context.Context;
-import repast.simphony.context.DefaultContext;
-import repast.simphony.util.ContextUtils;
-
 public class ArableCropProducerContainer extends ABehaviorContainer<AArableCropProducer> {
 
 	
@@ -31,6 +27,8 @@ public class ArableCropProducerContainer extends ABehaviorContainer<AArableCropP
 		super("ArableCropProductionBehavior",objectLoader,owners,null,Space.getInstance());
 		
 	}
+	
+	
 
 
 } //end class
