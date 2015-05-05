@@ -6,9 +6,9 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 /**
  * Every "Behavior" object contains a reference to the "Farmer" object that contains it.<br />
  * In this way, the Farmer does not need to know anything about the behaviors that he owns,
- * but the {@link ABehavior} objects know for him, and so have access to his attributes.<br />
+ * but the {@link AFarmerBehavior} objects know for him, and so have access to his attributes.<br />
  * Bhv is a shortcut for "Behavior". So all classes that end with "Bhv" are actually extending 
- * {@link ABehavior}.
+ * {@link AFarmerBehavior}.
  * 
  *   //TODO int he FarmersContext, have a Map of Farmer->ArrayList<ABehavior>
  *   
@@ -17,7 +17,7 @@ import gr.agroscape.behaviors.IScheduledBehavior;
  *
  * @param <T>
  */
-public abstract class ABehavior<T> implements IScheduledBehavior<T> {
+public abstract class AFarmerBehavior<T> implements IScheduledBehavior<T> {
 	
 	/**
 	 * A reference to the owner Farmer
@@ -29,7 +29,7 @@ public abstract class ABehavior<T> implements IScheduledBehavior<T> {
 	 * Constructor
 	 * @param owner
 	 */
-	public ABehavior(Farmer owner) {
+	public AFarmerBehavior(Farmer owner) {
 		this.owner = owner;
 	}
 

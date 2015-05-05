@@ -1,8 +1,8 @@
 package gr.agroscape.behaviors;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.farmers.ABehavior;
-import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContainer;
+import gr.agroscape.behaviors.farmers.AFarmerBehavior;
+import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.Space;
 
 import java.nio.file.Path;
@@ -13,10 +13,10 @@ import repast.simphony.engine.environment.RunEnvironment;
 
 /**
  * This class is the context of the behavior, enclosing at least a {@link IScheduledBehaviorDataLoader}
- * and all the {@link ABehavior} objects. <br />
+ * and all the {@link AFarmerBehavior} objects. <br />
  * It can also have other attributes and methods that are useful for the operation
- * of the contained individual {@link ABehavior} objects.<br />
- * For a simple example see {@link StupidoBhvContainer}. 
+ * of the contained individual {@link AFarmerBehavior} objects.<br />
+ * For a simple example see {@link StupidoBhvContext}. 
  *  
  * @author Dimitris Kremmydas
  *

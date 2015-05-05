@@ -2,7 +2,7 @@ package gr.agroscape.behaviors.farmers.production.expectations;
 
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProducerContainer;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
 import gr.agroscape.contexts.Space;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class ExpectedPlotCropVarCost extends AbstractExpectation<Plot, HashMap<A
 	@Override
 	HashMap<Plot, HashMap<ArableCropCultivation, Long>> getDefaultValues(ArrayList<Plot> plots) {
 		
-		ArableCropProducerContainer acpc = (ArableCropProducerContainer) Space.getInstance().findContext("ArableCropProductionBehavior");
+		ArableCropProductionBhvContext acpc = (ArableCropProductionBhvContext) Space.getInstance().findContext("ArableCropProductionBehavior");
 		ArrayList<ArableCropCultivation> availableCrops = acpc.getAvailableCrops();
 		
 		

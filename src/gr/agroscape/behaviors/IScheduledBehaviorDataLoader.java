@@ -12,6 +12,8 @@ import java.util.Collection;
  * and returns a {@link Collection} of objects (possibly subclassing the accepted objects)
  * that implement {@link IScheduledBehavior} interface.
  * 
+ *  //TODO make it more flexible. Functor or Command pattern
+ * 
  * @author Dimitris Kremmydas
  *
  */

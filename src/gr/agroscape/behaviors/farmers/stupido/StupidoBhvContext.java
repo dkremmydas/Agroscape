@@ -16,11 +16,11 @@ import java.util.Random;
  * @author Dimitris Kremmydas
  *
  */
-public class StupidoBhvContainer extends ABehaviorContext<StupidoBhv> {
+public class StupidoBhvContext extends ABehaviorContext<StupidoBhv> {
 	
 	protected Random randomGenerator ;
 
-	public StupidoBhvContainer(Collection<? super Farmer> owners) {
+	public StupidoBhvContext(Collection<? super Farmer> owners) {
 		super("stupidoBehavior", new DefaultStupidoDataLoader());
 		this.randomGenerator = new Random(System.currentTimeMillis());
 		this.loadBehavingObjects(owners, null, Space.getInstance());		
@@ -48,7 +48,7 @@ class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoBh
 							Space space, ABehaviorContext<StupidoBhv> container) {
 		Collection<IScheduledBehavior<StupidoBhv>> r = new ArrayList<IScheduledBehavior<StupidoBhv>>();
 			for (Object f : owners) {
-				StupidoBhv toadd = new StupidoBhv((Farmer)f,(StupidoBhvContainer)container);
+				StupidoBhv toadd = new StupidoBhv((Farmer)f,(StupidoBhvContext)container);
 				r.add(toadd);
 			}
 			return r;

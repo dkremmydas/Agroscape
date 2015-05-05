@@ -36,13 +36,13 @@ import repast.simphony.engine.schedule.ScheduledMethod;
  * 
  * @author Dimitris Kremmydas
  */
-public class ArableCropProducer_MP extends AArableCropProducer {
+public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 	
 
 	
 	
-	public ArableCropProducer_MP(ArrayList<ArableCropCultivation> pC,
-			long liquidity, Farmer f, ArableCropProducerContainer c) {
+	public ArableCropProductionBhv_MP(ArrayList<ArableCropCultivation> pC,
+			long liquidity, Farmer f, ArableCropProductionBhvContext c) {
 		super(pC, liquidity, f,c);
 		
 	}
@@ -183,7 +183,7 @@ public class ArableCropProducer_MP extends AArableCropProducer {
 		ArrayList<ArableCropProductionDecision> r=new ArrayList<ArableCropProductionDecision>(); 
 		
 		try {
-			optSolution = ArableCropProducer_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
+			optSolution = ArableCropProductionBhv_MP.ss.optimize( f,new LinearConstraintSet(constraints),GoalType.MAXIMIZE,new NonNegativeConstraint(true));
 			
 		    double[] solution= new double[this.potentialAgriculturalActivity.size()*myPlots.size()];
 		    solution = optSolution.getPoint();

@@ -1,7 +1,8 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContainer;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
+import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.Space;
@@ -79,79 +80,27 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4, Attach Behavior (Stupido)
-		///*
+		
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,3));
-		StupidoBhvContainer sfc = new StupidoBhvContainer(ff);
+		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
+		StupidoBhvContext sfc = new StupidoBhvContext(ff);
 		farmers.attachBehavior(sfc);
-		//*/
+		
 		
 		
 		//step 4, Attach Behavior (ArableCropFarmer_MP)
-		/*
+		
 		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,2));		
-		ArableCropProducerContainer acpc = new ArableCropProducerContainer(ff2);
+		CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,1));		
+		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(ff2);
 		farmers.attachBehavior(acpc);
-		*/
 		
 		
+		//step 5, Attach Behavior (SocialNetworking)
+
 
 		return this.space;
 	}
 
-	
-	/**
-	 * This is the algorithm of simulation. The following actions are taken:<br />
-	 * <ol>
-	 * <li><strong>Production stage: </strong>For all {@link Farmer} objects, decide the production</li>
-	 * </ol>
-	 */
-	/*
-	public void step() {
-		System.err.println("Do Step");
-		
-		//1. Production Stage
-		
-		//1.1 keep decisions of farmers
-		HashMap<Farmer,ArrayList<AProductionDecision>> all_decisions = new HashMap<>();
-				
-		//1.2 select farmers (randomly) and force them to make decisions
-		Iterable<IHasProductionAbility> fi = this.space.getFarmersContext().getRandomObjects(Farmer.class, this.space.getFarmersContext().size());
-		for (IHasProductionAbility f : fi) {
-			if (f instanceof Farmer) {
-				Farmer ff = (Farmer) f;
-				all_decisions.put(ff, (ArrayList<AProductionDecision>) ff.makeProductionDecision(ff.getCultivatingPlots()));
-			}
-			//System.err.println(f.toString() + " | ProductpcionDecision: " + pc);
-		}
-		
-		//1.3 given their decision, apply the feedback to Plots and Farmers
-		for (Entry<Farmer, ArrayList<AProductionDecision>> entry : all_decisions.entrySet()) {
-			Farmer f = entry.getKey();
-			ArrayList<AProductionDecision> decs = entry.getValue();
-		    for(AProductionDecision dec : decs) {
-		    	dec.feedbackToPlot(dec.getPlot());
-		    	dec.feedbackToFarmer(f);
-		    }
-		}
-		
-		
-		
-		this.space.updateValueLayers();
-		
-		System.err.println(this.space.get_gvlProductionDecisions().toString());
-		
-		
-		//System.err.println(this.mainContext.get_gvlProductionDecisions().toString());
-	}
-	*/
-	
 
-	
-	
-	
-	
-	
-
-}
+} //end class

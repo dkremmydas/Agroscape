@@ -3,7 +3,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.IScheduledBehavior;
-import gr.agroscape.behaviors.farmers.ABehavior;
+import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
@@ -40,12 +40,12 @@ import java.util.Iterator;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class AArableCropProducer extends ABehavior<AArableCropProducer> implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
+public abstract class AArableCropProductionBhv extends AFarmerBehavior<AArableCropProductionBhv> implements IHasProductionAbility,IScheduledBehavior<AArableCropProductionBhv> {
 	
 	/**
 	 * A reference to the container context
 	 */
-	protected ArableCropProducerContainer container;
+	protected ArableCropProductionBhvContext container;
 	
     /**
      * The liquidity at the current moment (�cents)
@@ -64,12 +64,12 @@ public abstract class AArableCropProducer extends ABehavior<AArableCropProducer>
 	 * @param id
 	 * @param grid
 	 */	
-    private AArableCropProducer(Farmer f,ArableCropProducerContainer container) {
+    private AArableCropProductionBhv(Farmer f,ArableCropProductionBhvContext container) {
     	super(f);
     	this.container = container;
     }
     
-	public AArableCropProducer(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f,ArableCropProducerContainer container) {
+	public AArableCropProductionBhv(ArrayList<ArableCropCultivation> pC, long liquidity , Farmer f,ArableCropProductionBhvContext container) {
 		this(f,container);
 		this.potentialAgriculturalActivity=pC;
 		this.liquidity = liquidity;

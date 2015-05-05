@@ -2,18 +2,18 @@ package gr.agroscape.behaviors.farmers.stupido;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.IScheduledBehavior;
-import gr.agroscape.behaviors.farmers.ABehavior;
+import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
-public class StupidoBhv extends ABehavior<StupidoBhv> implements IScheduledBehavior<StupidoBhv>   {
+public class StupidoBhv extends AFarmerBehavior<StupidoBhv> implements IScheduledBehavior<StupidoBhv>   {
 
 	/**
 	 * A reference to the container context
 	 */
-	protected StupidoBhvContainer container;
+	protected StupidoBhvContext container;
 	
 
-	public StupidoBhv(Farmer owner, StupidoBhvContainer c) {
+	public StupidoBhv(Farmer owner, StupidoBhvContext c) {
 		super(owner);
 		this.container=c;
 	}

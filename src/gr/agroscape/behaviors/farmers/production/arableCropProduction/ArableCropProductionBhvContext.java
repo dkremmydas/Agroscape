@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import repast.simphony.valueLayer.GridValueLayer;
 
-public class ArableCropProducerContainer extends ABehaviorContext<AArableCropProducer> {
+public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCropProductionBhv> {
 
 	
 	private ArrayList<ArableCropCultivation> availableCrops;
@@ -24,11 +24,11 @@ public class ArableCropProducerContainer extends ABehaviorContext<AArableCropPro
 	private HashMap<ArableCropCultivation, GridValueLayer> cropSuitabilities=new HashMap<ArableCropCultivation, GridValueLayer>();
 	
 	
-	public ArableCropProducerContainer(Collection<? super AArableCropProducer> owners) {
-				this(owners,new DefaultArableProducerLoader());	
+	public ArableCropProductionBhvContext(Collection<? super Farmer> owners) {
+				this(owners,new DefaultArableProductionBhvContextLoader());	
 	}
 	
-	public ArableCropProducerContainer(Collection<? super AArableCropProducer> owners,IScheduledBehaviorDataLoader<AArableCropProducer> objectLoader) {
+	public ArableCropProductionBhvContext(Collection<? super Farmer> owners,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
 		this.loadBehavingObjects(owners, null,  Space.getInstance());
@@ -75,12 +75,12 @@ public class ArableCropProducerContainer extends ABehaviorContext<AArableCropPro
  * @author Dimitris Kremmydas
  *
  */
-class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArableCropProducer> {
+class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataLoader<AArableCropProductionBhv> {
 
 	
 
 	@Override
-	public Collection<IScheduledBehavior<AArableCropProducer>> setup(Collection<? super AArableCropProducer> owners, Space space, ABehaviorContext<AArableCropProducer> container) {
+	public Collection<IScheduledBehavior<AArableCropProductionBhv>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<AArableCropProductionBhv> container) {
 			
 		//create crops
 		ArableCropCultivation c1 = new ArableCropCultivation("maize", new Product("maize product"));
@@ -88,33 +88,33 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 		ArableCropCultivation c3 = new ArableCropCultivation("cotton", new Product("cotton product"));
 		
 		//add those crops
-		((ArableCropProducerContainer)container).getAvailableCrops().add(c1);
-		((ArableCropProducerContainer)container).getAvailableCrops().add(c2);
-		((ArableCropProducerContainer)container).getAvailableCrops().add(c3);
+		((ArableCropProductionBhvContext)container).getAvailableCrops().add(c1);
+		((ArableCropProductionBhvContext)container).getAvailableCrops().add(c2);
+		((ArableCropProductionBhvContext)container).getAvailableCrops().add(c3);
 		
 		
 		//load crop suitability, all value equals to 1		
-		for (ArableCropCultivation c : ((ArableCropProducerContainer)container).getAvailableCrops()) {
+		for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
 			GridValueLayer gv = new GridValueLayer("CropSuitability_"+c.getName(), true, space.getGridWidth(),space.getGridHeight());
 			for (int i = 0; i < gv.getDimensions().getWidth(); i++) {
 				for (int j = 0; j <  gv.getDimensions().getHeight(); j++) {
 					gv.set(1d, i,j);
 				}
 			}
-			((ArableCropProducerContainer)container).getCropSuitabilities().put(c, gv);
+			((ArableCropProductionBhvContext)container).getCropSuitabilities().put(c, gv);
 		}
 		
 		
 		//load PaymentAuthority couple payments
-		for (ArableCropCultivation c : ((ArableCropProducerContainer)container).getAvailableCrops()) {
+		for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
 			space.getPaymentAuthority().getCoupledPayments().put(c, 0l);
 		}
 
 		
-		Collection<IScheduledBehavior<AArableCropProducer>> r = new ArrayList<IScheduledBehavior<AArableCropProducer>>();
+		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
 			
 			for (Object f : owners) {
-				ArableCropProducer_MP toadd = new ArableCropProducer_MP(((ArableCropProducerContainer)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProducerContainer) container);
+				ArableCropProductionBhv_MP toadd = new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container);
 				r.add(toadd);
 			}
 			
@@ -123,8 +123,8 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 	
 
 	@Override
-	public Collection<IScheduledBehavior<AArableCropProducer>> setup(Collection<? super AArableCropProducer> owners, 
-			Space space, ABehaviorContext<AArableCropProducer> container, Path dataFile) {
+	public Collection<IScheduledBehavior<AArableCropProductionBhv>> setup(Collection<? super Farmer> owners, 
+			Space space, ABehaviorContext<AArableCropProductionBhv> container, Path dataFile) {
 			return this.setup(owners,space,container);	
 	}
 
