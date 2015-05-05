@@ -319,9 +319,10 @@ public class LandPropertyRegistry {
 					ArrayList<GridPoint> gps=this.plots.get(j).getGridPoints();
 					for (GridPoint gp : gps) {
 						vl.set((this.tenants.get(i).getID()).doubleValue(), gp.getX(),gp.getY());
-					}					
+					}	
+					break;
 				} //end if tenant is found
-				break;
+				
 			}			
 		}
 		
@@ -333,9 +334,6 @@ public class LandPropertyRegistry {
 	 * @param vl
 	 */
 	public void updateCultivatorValueLayer(GridValueLayer vl) {
-		for (Plot p : this.plots) {
-			//double v = this.g
-		}
 		
 		for (int j = 0; j < this.tenantRegistry.getColumnDimension(); j++) {
 			for (int i = 0; i < this.tenantRegistry.getRowDimension(); i++) {
@@ -343,9 +341,9 @@ public class LandPropertyRegistry {
 					ArrayList<GridPoint> gps=this.plots.get(j).getGridPoints();
 					for (GridPoint gp : gps) {
 						vl.set((this.tenants.get(i).getID()).doubleValue(), gp.getX(),gp.getY());
-					}					
+					}		
+					break;
 				} //end if tenant is found
-				break;
 			}			
 		}
 		

@@ -9,6 +9,8 @@ import gr.agroscape.contexts.Space;
 
 import org.apache.commons.collections4.map.HashedMap;
 
+import repast.simphony.space.grid.GridPoint;
+
 
 /**
  * A human agent of AgroScape.
@@ -34,6 +36,13 @@ public abstract class HumanAgent {
      * A reference to the mainContext. 
      */
     protected Space mainContext ;
+    
+    
+    /**
+     * Where has this Agent its residence
+     * //TODO implement it somehow
+     */
+    protected GridPoint residentIn;
 
     
   

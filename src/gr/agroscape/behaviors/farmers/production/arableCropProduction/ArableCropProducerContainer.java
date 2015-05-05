@@ -106,7 +106,6 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 		
 		
 		//load PaymentAuthority couple payments
-		HashMap<ArableCropCultivation,Long> coupledPayments=new HashMap<>();
 		for (ArableCropCultivation c : ((ArableCropProducerContainer)container).getAvailableCrops()) {
 			space.getPaymentAuthority().getCoupledPayments().put(c, 0l);
 		}
