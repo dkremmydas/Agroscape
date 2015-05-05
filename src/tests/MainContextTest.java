@@ -1,7 +1,7 @@
 package tests;
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.farmers.ABehavingFarmer;
-import gr.agroscape.behaviors.farmers.stupido.StupidoFarmer;
+import gr.agroscape.behaviors.farmers.ABehavior;
+import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.main.ContextManager;
 
@@ -43,8 +43,8 @@ public class MainContextTest {
 		System.err.println("Number of loaded objects: " + space.getFarmersContext().size());
 		
 		System.err.println("Number of Farmers: " + space.getFarmersContext().getObjects(Farmer.class).size());
-		System.err.println("Number of Stupido Farmers: " + space.getFarmersContext().getObjects(StupidoFarmer.class).size());
-		System.err.println("Number of ABehavingFarmers: " + space.getFarmersContext().getObjects(ABehavingFarmer.class).size());
+		System.err.println("Number of Stupido Farmers: " + space.getFarmersContext().getObjects(StupidoBhv.class).size());
+		System.err.println("Number of ABehavingFarmers: " + space.getFarmersContext().getObjects(ABehavior.class).size());
 		
 	}
 	

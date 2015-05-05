@@ -2,7 +2,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
-import gr.agroscape.behaviors.ABehaviorContainer;
+import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import repast.simphony.valueLayer.GridValueLayer;
 
-public class ArableCropProducerContainer extends ABehaviorContainer<AArableCropProducer> {
+public class ArableCropProducerContainer extends ABehaviorContext<AArableCropProducer> {
 
 	
 	private ArrayList<ArableCropCultivation> availableCrops;
@@ -80,7 +80,7 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 	
 
 	@Override
-	public Collection<IScheduledBehavior<AArableCropProducer>> setup(Collection<? super AArableCropProducer> owners, Space space, ABehaviorContainer<AArableCropProducer> container) {
+	public Collection<IScheduledBehavior<AArableCropProducer>> setup(Collection<? super AArableCropProducer> owners, Space space, ABehaviorContext<AArableCropProducer> container) {
 			
 		//create crops
 		ArableCropCultivation c1 = new ArableCropCultivation("maize", new Product("maize product"));
@@ -124,7 +124,7 @@ class DefaultArableProducerLoader implements IScheduledBehaviorDataLoader<AArabl
 
 	@Override
 	public Collection<IScheduledBehavior<AArableCropProducer>> setup(Collection<? super AArableCropProducer> owners, 
-			Space space, ABehaviorContainer<AArableCropProducer> container, Path dataFile) {
+			Space space, ABehaviorContext<AArableCropProducer> container, Path dataFile) {
 			return this.setup(owners,space,container);	
 	}
 

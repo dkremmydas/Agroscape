@@ -1,5 +1,6 @@
 package gr.agroscape.behaviors;
 
+import gr.agroscape.agents.Farmer;
 import gr.agroscape.contexts.Space;
 
 import java.nio.file.Path;
@@ -21,7 +22,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * 
 	 * @param df
 	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space, ABehaviorContainer<T> container,Path dataFile);
+	public Collection<IScheduledBehavior<T>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<T> container,Path dataFile);
 	
 	/**
 	 * Load without data file
@@ -29,7 +30,7 @@ public interface IScheduledBehaviorDataLoader<T> {
 	 * @param space
 	 * @return
 	 */
-	public Collection<IScheduledBehavior<T>> setup(Collection<? super T> owners, Space space, ABehaviorContainer<T> container);
+	public Collection<IScheduledBehavior<T>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<T> container);
 
 
 }

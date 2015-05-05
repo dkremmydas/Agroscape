@@ -1,5 +1,8 @@
 package gr.agroscape.behaviors;
 
+import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.farmers.ABehavior;
+import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContainer;
 import gr.agroscape.contexts.Space;
 
 import java.nio.file.Path;
@@ -9,17 +12,17 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.engine.environment.RunEnvironment;
 
 /**
- * A Behavior is actually a Context<IScheduledBehavior<T>> containing 
- * one {@link IScheduledBehaviorDataLoader} object.<br />
- * During the constructor call, the {@link IScheduledBehaviorDataLoader} is used
- * in order to load all objects* 
- * 
- * 
+ * This class is the context of the behavior, enclosing at least a {@link IScheduledBehaviorDataLoader}
+ * and all the {@link ABehavior} objects. <br />
+ * It can also have other attributes and methods that are useful for the operation
+ * of the contained individual {@link ABehavior} objects.<br />
+ * For a simple example see {@link StupidoBhvContainer}. 
+ *  
  * @author Dimitris Kremmydas
  *
  * @param <T>
  */
-public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBehavior<T>>{
+public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehavior<T>>{
 
 
 	protected IScheduledBehaviorDataLoader<T> objectLoader;
@@ -32,7 +35,7 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 	 * @param behavingObjects
 	 * @param objectLoader
 	 */
-	public ABehaviorContainer(String name, IScheduledBehaviorDataLoader<T> objectLoader) {
+	public ABehaviorContext(String name, IScheduledBehaviorDataLoader<T> objectLoader) {
 		super(name);
 		this.setId(name);
 		this.objectLoader = objectLoader;
@@ -44,7 +47,7 @@ public abstract class ABehaviorContainer<T> extends DefaultContext<IScheduledBeh
 	 * @param dataFile
 	 * @param space
 	 */
-	protected void loadBehavingObjects(Collection<? super T> owners, Path dataFile, Space space) {
+	protected void loadBehavingObjects(Collection<? super Farmer> owners, Path dataFile, Space space) {
 		
 		//get container objects, i.e. behavingObjects
 		this.addAll(this.objectLoader.setup(owners, space, this, dataFile));

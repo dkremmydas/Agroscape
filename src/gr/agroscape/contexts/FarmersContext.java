@@ -1,25 +1,24 @@
 package gr.agroscape.contexts;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehaviorContainer;
+import gr.agroscape.behaviors.ABehaviorContext;
+import gr.agroscape.behaviors.farmers.ABehavior;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 
 
 public class FarmersContext extends DefaultContext<Farmer> {
 
-	private Space space;
-	
+
 	
 	public FarmersContext() {
 		super("FarmersContext");
 		this.setId("FarmersContext");
-		this.space = Space.getInstance();
 	}
 	
 	
 	@SuppressWarnings("unchecked")
-	public void attachBehavior(ABehaviorContainer<? extends Farmer> behaviorContainer) {
+	public void attachBehavior(ABehaviorContext<? extends ABehavior<?>> behaviorContainer) {
 		this.addSubContext((Context<? extends Farmer>) behaviorContainer);
 	}
 	

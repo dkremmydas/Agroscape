@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors.farmers.stupido;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehaviorContainer;
+import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.contexts.Space;
@@ -16,11 +16,11 @@ import java.util.Random;
  * @author Dimitris Kremmydas
  *
  */
-public class StupidoFarmersContainer extends ABehaviorContainer<StupidoFarmer> {
+public class StupidoBhvContainer extends ABehaviorContext<StupidoBhv> {
 	
 	protected Random randomGenerator ;
 
-	public StupidoFarmersContainer(Collection<? super StupidoFarmer> owners) {
+	public StupidoBhvContainer(Collection<? super Farmer> owners) {
 		super("stupidoBehavior", new DefaultStupidoDataLoader());
 		this.randomGenerator = new Random(System.currentTimeMillis());
 		this.loadBehavingObjects(owners, null, Space.getInstance());		
@@ -39,16 +39,16 @@ public class StupidoFarmersContainer extends ABehaviorContainer<StupidoFarmer> {
  * @author Dimitris Kremmydas
  *
  */
-class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoFarmer> {
+class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoBhv> {
 
 	
 
 	@Override
-	public Collection<IScheduledBehavior<StupidoFarmer>> setup(Collection<? super StupidoFarmer> owners, 
-							Space space, ABehaviorContainer<StupidoFarmer> container) {
-		Collection<IScheduledBehavior<StupidoFarmer>> r = new ArrayList<IScheduledBehavior<StupidoFarmer>>();
+	public Collection<IScheduledBehavior<StupidoBhv>> setup(Collection<? super Farmer> owners, 
+							Space space, ABehaviorContext<StupidoBhv> container) {
+		Collection<IScheduledBehavior<StupidoBhv>> r = new ArrayList<IScheduledBehavior<StupidoBhv>>();
 			for (Object f : owners) {
-				StupidoFarmer toadd = new StupidoFarmer((Farmer)f,(StupidoFarmersContainer)container);
+				StupidoBhv toadd = new StupidoBhv((Farmer)f,(StupidoBhvContainer)container);
 				r.add(toadd);
 			}
 			return r;
@@ -56,7 +56,7 @@ class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoFa
 	
 
 	@Override
-	public Collection<IScheduledBehavior<StupidoFarmer>> setup(Collection<? super StupidoFarmer> owners, Space space, ABehaviorContainer<StupidoFarmer> container, Path dataFile) {
+	public Collection<IScheduledBehavior<StupidoBhv>> setup(Collection<? super Farmer> owners, Space space, ABehaviorContext<StupidoBhv> container, Path dataFile) {
 			return this.setup(owners,space,container);	
 	}
 

@@ -3,7 +3,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.IScheduledBehavior;
-import gr.agroscape.behaviors.farmers.ABehavingFarmer;
+import gr.agroscape.behaviors.farmers.ABehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
@@ -40,7 +40,7 @@ import java.util.Iterator;
  *  <p></p>
  * @author Dimitris Kremmydas
   */
-public abstract class AArableCropProducer extends ABehavingFarmer<AArableCropProducer> implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
+public abstract class AArableCropProducer extends ABehavior<AArableCropProducer> implements IHasProductionAbility,IScheduledBehavior<AArableCropProducer> {
 	
 	/**
 	 * A reference to the container context
