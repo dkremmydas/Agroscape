@@ -64,12 +64,15 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 	 * @param dataFile
 	 * @param space
 	 */
-	protected void loadBehavingObjects() {
-		
+	protected final void loadBehavingObjects() {
 		//get container objects, i.e. behavingObjects
 		this.objectLoader.setup(this);
-		
-		
+	}
+	
+	/**
+	 * Add any IScheduledBehavior object to schedule
+	 */
+	protected final void addBehavingObjectsToSchedule() {
 		//add their scheduled behavior to the current schedule
 		@SuppressWarnings("unchecked")
 		final Class<? super T> clazz = (Class<? super T>) IScheduledBehavior.class;

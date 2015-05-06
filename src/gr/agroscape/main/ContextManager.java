@@ -95,8 +95,8 @@ public class ContextManager implements ContextBuilder<Object> {
 		ff2.add(farmers.getObjects(Farmer.class).get(0));
 		//ff2.add(farmers.getObjects(Farmer.class).get(2));
 		
-		arableCropFarmers.put(ArableCropProductionBhv_MP.class, ff1);
 		arableCropFarmers.put(ArableCropProductionBhv_Network.class, ff2);
+		arableCropFarmers.put(ArableCropProductionBhv_MP.class, ff1);
 
 		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(arableCropFarmers);
 		farmers.attachBehavior(acpc);

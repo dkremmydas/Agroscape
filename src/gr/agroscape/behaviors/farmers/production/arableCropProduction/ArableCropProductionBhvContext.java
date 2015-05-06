@@ -34,6 +34,7 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
 		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), Space.getInstance(), entry.getKey());
 		    this.loadBehavingObjects();
+		    this.addBehavingObjectsToSchedule();
 		}
 			
 	}
@@ -42,6 +43,7 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
 		this.loadBehavingObjects();
+		this.addBehavingObjectsToSchedule();
 	}
 	
 

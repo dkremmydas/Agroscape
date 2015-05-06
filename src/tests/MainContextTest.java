@@ -72,11 +72,12 @@ public class MainContextTest {
 		System.err.println("testStep");
 		System.err.println("ContextBuilder Shecdule");
 		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
+		System.err.println("Current # of Farmers in context: " + FarmersContext.getInstance().getObjects(Farmer.class).size());
 		System.err.println("Current Schedule: " + RunEnvironment.getInstance().getCurrentSchedule().toString());
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
-		RunEnvironment.getInstance().setScheduleTickDelay(10);
+		//RunEnvironment.getInstance().setScheduleTickDelay(10);
 		
 		//StupidoFarmer f = (StupidoFarmer) space.getFarmersContext().getBehavior("stupidoBehavior").getBehavingObject(0);
 		//System.err.println("Got stupidofarmer: " + f.toString());
