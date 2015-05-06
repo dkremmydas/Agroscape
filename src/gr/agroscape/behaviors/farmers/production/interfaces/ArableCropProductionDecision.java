@@ -7,10 +7,11 @@ import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCr
 public class ArableCropProductionDecision extends AProductionDecision {
 	
 	private ArableCropCultivation decision;
-	
+	private Plot plot;
 	
 	private ArableCropProductionDecision(Plot p) {
 		super(p);
+		this.plot = p;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -34,14 +35,14 @@ public class ArableCropProductionDecision extends AProductionDecision {
 
 	@Override
 	public String toString() {
-		return super.toString() + ": Crop=" + this.decision.toString();
+		return "Plot: " + this.plot.toString() + " | Crop=" + this.decision.toString();
 	}
 
-	//@Override
-	//public Map<Product, Float> productionRealization(IWeatherSuitability w) {
-	//	// TODO Auto-generated method stub
-	//	return null;
-	//}
+	public ArableCropCultivation getDecision() {
+		return decision;
+	}
+
+	
 
 	
 	

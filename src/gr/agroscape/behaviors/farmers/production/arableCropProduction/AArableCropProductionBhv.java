@@ -5,6 +5,7 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
 
 import java.util.ArrayList;
@@ -56,6 +57,11 @@ public abstract class AArableCropProductionBhv extends AFarmerBehavior<AArableCr
      * Potential Crops that he can cultivate
      */
     protected ArrayList<ArableCropCultivation> potentialAgriculturalActivity = new ArrayList<ArableCropCultivation>();
+    
+    /**
+     * What was his last production decisions ?
+     */
+    protected ArrayList<ArableCropProductionDecision> lastProductionDecisions;
 
     
     

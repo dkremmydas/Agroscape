@@ -1,5 +1,6 @@
 package gr.agroscape.behaviors;
 
+import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import repast.simphony.context.DefaultContext;
@@ -34,6 +35,28 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 		this.setId(name);
 		this.objectLoader = objectLoader;
 	}
+	
+	/**
+	 * Returns the behavior object for a requested Farmer. <Br />
+	 * It does this by traversing all IScheduledBehavior<T> agents in the contextBhv.
+	 * @param f
+	 * @return
+	 */
+	public AFarmerBehavior<T> findByFarmerOwner(Farmer f) {
+		@SuppressWarnings("unchecked")
+		final Class<? super T> clazz = (Class<? super T>) IScheduledBehavior.class;
+		
+		for (IScheduledBehavior<T> object : this.getObjects(clazz)) {
+			if(object instanceof AFarmerBehavior) {
+				if(((AFarmerBehavior<T>)object).getOwner().equals(f)) {
+					return (AFarmerBehavior<T>)object;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	/**
 	 * Load BehavingObjects

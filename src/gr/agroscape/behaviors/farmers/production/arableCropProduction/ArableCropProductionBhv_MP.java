@@ -203,6 +203,7 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 			e.printStackTrace();
 		}
 
+		
 	    return r;		
 	
 	}
@@ -251,10 +252,11 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 	}
 
 
-	@ScheduledMethod (start=0,interval = 1)
+	@ScheduledMethod (start=1,interval = 360)
 	public void handleProduction() {
 		
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
+		this.lastProductionDecisions =pd;
 		
 		System.err.println(pd.toString());
 	}
