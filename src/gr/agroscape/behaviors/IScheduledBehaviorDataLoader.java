@@ -1,10 +1,5 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.contexts.Space;
-
-import java.nio.file.Path;
-import java.util.Collection;
 
 /**
  * An interface declaring actions for a BehaviorDataLoader.<br />

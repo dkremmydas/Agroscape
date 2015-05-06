@@ -4,9 +4,7 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
-import gr.agroscape.contexts.Space;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;

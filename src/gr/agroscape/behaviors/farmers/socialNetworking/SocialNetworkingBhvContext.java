@@ -1,11 +1,13 @@
 package gr.agroscape.behaviors.farmers.socialNetworking;
 
-import java.util.Collection;
-
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import repast.simphony.space.graph.Network;
 import repast.simphony.space.projection.Projection;
 
@@ -16,7 +18,8 @@ import repast.simphony.space.projection.Projection;
  * @author Dimitris Kremmydas
  *
  */
-public class SocialNetworkingBhvContext extends ABehaviorContext<Farmer> {
+public class SocialNetworkingBhvContext extends ABehaviorContext<DefaultSocialNetworkingBhv> {
+	//public class StupidoBhvContext extends ABehaviorContext<StupidoBhv> {
 
 	
 	private Network<? extends DefaultSocialNetworkingBhv> socialNetwork;
@@ -46,7 +49,7 @@ public class SocialNetworkingBhvContext extends ABehaviorContext<Farmer> {
 class DefaultSocialNetworkingBhvLoader implements IScheduledBehaviorDataLoader<DefaultSocialNetworkingBhv> {
 
 	private Collection<? super Farmer> owners;
-	private Projection<DefaultSocialNetworkingBhv> network;
+	private Projection<? super IScheduledBehavior<DefaultSocialNetworkingBhv>> network;
 
 	public DefaultSocialNetworkingBhvLoader(Collection<? super Farmer> owners) {
 		super();
@@ -57,6 +60,15 @@ class DefaultSocialNetworkingBhvLoader implements IScheduledBehaviorDataLoader<D
 
 	@Override
 	public void setup(ABehaviorContext<DefaultSocialNetworkingBhv> container) {
+
+		Collection<IScheduledBehavior<DefaultSocialNetworkingBhv>> r = new ArrayList<IScheduledBehavior<DefaultSocialNetworkingBhv>>();
+
+		for (Object f : this.owners) {
+			DefaultSocialNetworkingBhv toadd = new DefaultSocialNetworkingBhv((Farmer)f, (SocialNetworkingBhvContext)container);
+			r.add(toadd);
+		}
+		container.addAll(r);
+		this.fillNetwork();
 		container.addProjection(network);		
 	}
 

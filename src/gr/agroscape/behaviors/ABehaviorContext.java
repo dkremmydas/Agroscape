@@ -1,13 +1,7 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
-import gr.agroscape.contexts.Space;
-
-import java.nio.file.Path;
-import java.util.Collection;
-
 import repast.simphony.context.DefaultContext;
 import repast.simphony.engine.environment.RunEnvironment;
 

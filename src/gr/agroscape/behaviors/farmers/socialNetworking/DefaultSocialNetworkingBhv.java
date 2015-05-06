@@ -1,6 +1,7 @@
 package gr.agroscape.behaviors.farmers.socialNetworking;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 
 
@@ -11,10 +12,18 @@ import gr.agroscape.behaviors.farmers.AFarmerBehavior;
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultSocialNetworkingBhv extends AFarmerBehavior<DefaultSocialNetworkingBhv> {
+public class DefaultSocialNetworkingBhv extends AFarmerBehavior<DefaultSocialNetworkingBhv> implements IScheduledBehavior<DefaultSocialNetworkingBhv> {
 
-	public DefaultSocialNetworkingBhv(Farmer owner) {
+
+	/**
+	 * A reference to the container context
+	 */
+	protected SocialNetworkingBhvContext container;
+	
+	
+	public DefaultSocialNetworkingBhv(Farmer owner, SocialNetworkingBhvContext con) {
 		super(owner);
+		this.container=con;
 	}
 
 	@Override
