@@ -1,7 +1,10 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.AArableCropProductionBhv;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_MP;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Network;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
@@ -10,6 +13,8 @@ import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -59,40 +64,41 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		//step 3, create dataLoader
 		ICanLoadAgroscapeData dataLoader = new DefaultDataLoader();
-//		try {
-			//String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
-			//dataLoader = new ExcelDataLoader(excelFileLocation);
-			//dataLoader.loadCropsContext(crops);
-			dataLoader.loadFarmersContext(farmers);
-			dataLoader.loadPlotsContext(plots);
-			//dataLoader.loadCropSuitabilityMap(this.space.getCropsContext().getCropSuitability(),this.space);
+		//String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
+		//dataLoader = new ExcelDataLoader(excelFileLocation);
+		dataLoader.loadFarmersContext(farmers);
+		dataLoader.loadPlotsContext(plots);
+		dataLoader.initLandPropertyRegistry(this.space.getLandPropertyRegistry());
+		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 
-			//GridValueLayer vl = this.mainContext.getCropSuitability().get(this.mainContext.getCropsContext().getCropByName("maize"));
-			//System.err.println(ValueLayers.getValueLayerAsPrintedMatrix(vl));
-			//this.space.setActiveDisplaySuitabilityCrop(this.space.getCropsContext().getCropByName("maize"));
-			dataLoader.initLandPropertyRegistry(this.space.getLandPropertyRegistry());
-			//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
-			
-//		} catch (InvalidFormatException | IOException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
 		
 		//step 4, Attach Behavior (Stupido)
-		
+		/*
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
 		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
 		StupidoBhvContext sfc = new StupidoBhvContext(ff);
 		farmers.attachBehavior(sfc);
+		*/
 		
 		
+		//step 4, Attach Behavior (ArableCropFarmer_MP & ArableCropFarmer_Network)
 		
-		//step 4, Attach Behavior (ArableCropFarmer_MP)
+		HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> arableCropFarmers=new HashMap<>();
+		
+		
+		ArrayList<Farmer> ff1=new ArrayList<Farmer>();
+		ff1.add(farmers.getObjects(Farmer.class).get(1));
+		ff1.add(farmers.getObjects(Farmer.class).get(3));
 		
 		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff2, farmers.getRandomObjects(Farmer.class,1));		
-		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(ff2);
+		ff2.add(farmers.getObjects(Farmer.class).get(0));
+		ff2.add(farmers.getObjects(Farmer.class).get(2));
+		
+		arableCropFarmers.put(ArableCropProductionBhv_MP.class, ff1);
+		arableCropFarmers.put(ArableCropProductionBhv_Network.class, ff2);
+
+		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(arableCropFarmers);
 		farmers.attachBehavior(acpc);
 		
 		

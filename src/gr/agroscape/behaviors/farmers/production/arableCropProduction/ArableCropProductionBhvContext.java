@@ -12,6 +12,7 @@ import gr.agroscape.contexts.Space;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -22,9 +23,18 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	
 	private HashMap<ArableCropCultivation, GridValueLayer> cropSuitabilities=new HashMap<ArableCropCultivation, GridValueLayer>();
 	
-	
-	public ArableCropProductionBhvContext(Collection<? super Farmer> owners) {
-				this(owners,new DefaultArableProductionBhvContextLoader(owners,Space.getInstance()));	
+	/**
+	 * Takes a HashMap of KEY=class extending AArableCropProductionBhv, VALUE=Collection of farmers, and adds them to the BhvContext 
+	 * @param owners
+	 */
+	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
+		super("ArableCropProductionBehavior",null);
+			
+		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
+		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), Space.getInstance(), entry.getKey());
+		    this.loadBehavingObjects();
+		}
+			
 	}
 	
 	public ArableCropProductionBhvContext(Collection<? super Farmer> owners,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
@@ -78,13 +88,14 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 
 	private Collection<? super Farmer> owners;
 	private Space space;
+	private Class<? extends AArableCropProductionBhv> clazz;
 	
 	
-	
-	public DefaultArableProductionBhvContextLoader(Collection<? super Farmer> owners, Space space) {
+	public DefaultArableProductionBhvContextLoader(Collection<? super Farmer> owners, Space space, Class<? extends AArableCropProductionBhv> clazz) {
 		super();
 		this.owners = owners;
 		this.space = space;
+		this.clazz = clazz;
 	}
 
 
@@ -124,8 +135,15 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
 			
 			for (Object f : owners) {
-				ArableCropProductionBhv_MP toadd = new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container);
-				r.add(toadd);
+				if(this.clazz == ArableCropProductionBhv_MP.class) {
+					r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+				}
+				else if (this.clazz == ArableCropProductionBhv_Network.class) {
+					r.add(new ArableCropProductionBhv_Network(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+				}
+				else  {
+					r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+				}
 			}
 			
 			container.addAll(r);

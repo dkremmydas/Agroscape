@@ -6,15 +6,12 @@ import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCr
 import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.Space;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.graph.Network;
-import repast.simphony.util.ContextUtils;
 
 /**
  * The farmer decides an arable crop according to what his connection to the "productionNetwork"@FarmersContext has decided
@@ -30,7 +27,8 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 
 	public ArableCropProductionBhv_Network(ArrayList<ArableCropCultivation> pC, long liquidity, Farmer f,ArableCropProductionBhvContext container) {
 		super(pC, liquidity, f, container);
-		this.network = FarmersContext.getInstance().getNetworks().get("productionNetwork");
+		this.network = FarmersContext.getInstance().getNetwork("productionNetwork");
+		if(this.network == null) {throw new NullPointerException("'productionNetwork' not found in FarmersContext");}
 	}
 
 	/**
@@ -56,10 +54,11 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		return r;
 	}
 
+	/**
+	 * Do nothing in this behavior
+	 */
 	@Override
 	void calculateExpectations() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@ScheduledMethod (start=1,interval = 361)

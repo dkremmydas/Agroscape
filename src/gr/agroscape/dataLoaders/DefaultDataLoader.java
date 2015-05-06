@@ -10,6 +10,8 @@ import gr.agroscape.contexts.PlotsContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import repast.simphony.context.space.graph.NetworkBuilder;
+import repast.simphony.space.graph.Network;
 import repast.simphony.space.grid.GridPoint;
 
 public class DefaultDataLoader implements ICanLoadAgroscapeData {
@@ -39,11 +41,20 @@ public class DefaultDataLoader implements ICanLoadAgroscapeData {
 	@Override
 	public void loadFarmersContext(FarmersContext context) {
 
+		//add agents
 		this.avfarmers.add(new Farmer(1));
 		this.avfarmers.add(new Farmer(2));
 		this.avfarmers.add(new Farmer(3));
 		this.avfarmers.add(new Farmer(4));
 		context.addAll(this.avfarmers);
+		
+		//create network
+		NetworkBuilder<Farmer> builder = new NetworkBuilder<Farmer>("productionNetwork", context, true);
+		Network<Farmer> network = builder.buildNetwork();
+		network.addEdge(context.getObjects(Farmer.class).get(0), context.getObjects(Farmer.class).get(1));
+		network.addEdge(context.getObjects(Farmer.class).get(2), context.getObjects(Farmer.class).get(3));
+		context.addNetwork(network);
+		
 	}
 
 

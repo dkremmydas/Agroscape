@@ -42,14 +42,21 @@ public class FarmersContext extends DefaultContext<Farmer> {
 
 
 	/**
-	 * Getter for collection of networks. From here someone can manipulate directly the ArrayList
-	 * @return
+	 * Add a network in the {@link #networks} map. The ke is the name of the {@link Network} object
+	 * @param n
 	 */
-	public HashedMap<String,Network<Farmer>> getNetworks() {
-		return networks;
+	public void addNetwork(Network<Farmer> n)	{
+		this.networks.put(n.getName(), n);
 	}
 	
-
+	/**
+	 * Retrieves a {@link Network}
+	 * @param name
+	 * @return
+	 */
+	public Network<Farmer> getNetwork(String name) {
+		return this.networks.get(name);
+	}
 
 	@SuppressWarnings("unchecked")
 	public void attachBehavior(ABehaviorContext<? extends AFarmerBehavior<?>> behaviorContainer) {
