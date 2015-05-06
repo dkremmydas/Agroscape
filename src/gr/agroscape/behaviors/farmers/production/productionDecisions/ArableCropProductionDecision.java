@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.farmers.production.interfaces;
+package gr.agroscape.behaviors.farmers.production.productionDecisions;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
@@ -35,7 +35,7 @@ public class ArableCropProductionDecision extends AProductionDecision {
 
 	@Override
 	public String toString() {
-		return "Plot: " + this.plot.toString() + " | Crop=" + this.decision.toString();
+		return "Plot: " + this.plot.toString() + " | Crop=" + this.decision.toString() + "\n";
 	}
 
 	public ArableCropCultivation getDecision() {

@@ -52,7 +52,7 @@ public class DefaultDataLoader implements ICanLoadAgroscapeData {
 		NetworkBuilder<Farmer> builder = new NetworkBuilder<Farmer>("productionNetwork", context, true);
 		Network<Farmer> network = builder.buildNetwork();
 		network.addEdge(context.getObjects(Farmer.class).get(0), context.getObjects(Farmer.class).get(1));
-		network.addEdge(context.getObjects(Farmer.class).get(2), context.getObjects(Farmer.class).get(3));
+		//network.addEdge(context.getObjects(Farmer.class).get(2), context.getObjects(Farmer.class).get(3));
 		context.addNetwork(network);
 		
 	}

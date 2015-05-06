@@ -29,7 +29,8 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	 */
 	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
 		super("ArableCropProductionBehavior",null);
-			
+		this.availableCrops = new ArrayList<>();
+		
 		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
 		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), Space.getInstance(), entry.getKey());
 		    this.loadBehavingObjects();
@@ -102,7 +103,36 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 
 	@Override
 	public void setup(ABehaviorContext<AArableCropProductionBhv> container) {
-			
+		
+		if(((ArableCropProductionBhvContext)container).getAvailableCrops().isEmpty()) {
+			this.loadCrops(container);
+		}
+		
+		this.addAgents(container);	
+		
+	}
+	
+	
+	
+	private void addAgents(ABehaviorContext<AArableCropProductionBhv> container) {
+		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
+		
+		for (Object f : owners) {
+			if(this.clazz == ArableCropProductionBhv_MP.class) {
+				r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+			}
+			else if (this.clazz == ArableCropProductionBhv_Network.class) {
+				r.add(new ArableCropProductionBhv_Network(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+			}
+			else  {
+				r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+			}
+		}
+		
+		container.addAll(r);
+	}
+
+	private void loadCrops(ABehaviorContext<AArableCropProductionBhv> container) {
 		//create crops
 		ArableCropCultivation c1 = new ArableCropCultivation("maize", new Product("maize product"));
 		ArableCropCultivation c2 = new ArableCropCultivation("wheat", new Product("wheat product"));
@@ -112,7 +142,6 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		((ArableCropProductionBhvContext)container).getAvailableCrops().add(c1);
 		((ArableCropProductionBhvContext)container).getAvailableCrops().add(c2);
 		((ArableCropProductionBhvContext)container).getAvailableCrops().add(c3);
-		
 		
 		//load crop suitability, all value equals to 1		
 		for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
@@ -126,30 +155,12 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		}
 		
 		
+		
 		//load PaymentAuthority couple payments
 		for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
 			space.getPaymentAuthority().getCoupledPayments().put(c, 0l);
 		}
-
-		
-		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
-			
-			for (Object f : owners) {
-				if(this.clazz == ArableCropProductionBhv_MP.class) {
-					r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
-				}
-				else if (this.clazz == ArableCropProductionBhv_Network.class) {
-					r.add(new ArableCropProductionBhv_Network(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
-				}
-				else  {
-					r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
-				}
-			}
-			
-			container.addAll(r);
 	}
-	
-
 
 	
 } //end class

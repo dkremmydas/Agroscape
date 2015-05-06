@@ -3,8 +3,8 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.interfaces.AProductionDecision;
-import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
+import gr.agroscape.behaviors.farmers.production.productionDecisions.AProductionDecision;
+import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
 import gr.agroscape.contexts.FarmersContext;
 
 import java.util.ArrayList;
@@ -42,9 +42,9 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		ArrayList<ArableCropProductionDecision> r=new ArrayList<ArableCropProductionDecision>(); 
 		
 		//find the farmer's connection
-		Farmer connection = (Farmer) this.network.getEdges(this.owner);
+		Iterable<Farmer> connections =  network.getAdjacent(this.owner);
 		
-		AArableCropProductionBhv connection_bhv = (AArableCropProductionBhv) this.container.findByFarmerOwner(connection);
+		AArableCropProductionBhv connection_bhv = (AArableCropProductionBhv) this.container.findByFarmerOwner(connections.iterator().next());
 		
 		ArableCropCultivation decision = connection_bhv.lastProductionDecisions.get(0).getDecision();
 		
@@ -61,13 +61,17 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 	void calculateExpectations() {
 	}
 
-	@ScheduledMethod (start=1,interval = 361)
+	/*
+	 * do production
+	 */
+	@ScheduledMethod (start=1,interval = 1, priority=1)
 	public void handleProduction() {
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
 		
+		System.err.println("Farmer(Net) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());
 	}
 	

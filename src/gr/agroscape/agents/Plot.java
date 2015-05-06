@@ -147,8 +147,7 @@ public class Plot {
 		r += " ID=" + this.myId
 			// + " / Gridpoints: "
 			//+ Arrays.toString(this.gridPoints.toArray(new GridPoint[this.gridPoints.size()]))
-			+ " / Num of GridPoints: " + this.gridPoints.size()
-			+ "\n";
+			+ " / Num of GridPoints: " + this.gridPoints.size();
 		return r;
 	}
 	

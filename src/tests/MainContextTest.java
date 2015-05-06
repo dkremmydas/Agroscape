@@ -2,6 +2,7 @@ package tests;
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
+import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.Space;
 import gr.agroscape.main.ContextManager;
 
@@ -13,6 +14,8 @@ import repast.simphony.engine.environment.DefaultScheduleRunner;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
+import repast.simphony.space.graph.Network;
+import repast.simphony.space.graph.RepastEdge;
 
 
 public class MainContextTest {
@@ -36,6 +39,8 @@ public class MainContextTest {
 		
 	}
 	
+	
+
 	@Test
 	public void testContextManager()  {
 		System.err.println("testContextManager");
@@ -45,6 +50,19 @@ public class MainContextTest {
 		System.err.println("Number of Farmers: " + space.getFarmersContext().getObjects(Farmer.class).size());
 		System.err.println("Number of Stupido Farmers: " + space.getFarmersContext().getObjects(StupidoBhv.class).size());
 		System.err.println("Number of ABehavingFarmers: " + space.getFarmersContext().getObjects(AFarmerBehavior.class).size());
+		
+		
+		System.err.println("Testing network behavior");
+		Network<Farmer> network = FarmersContext.getInstance().getNetwork("productionNetwork");
+		
+		Farmer ft = space.getFarmersContext().getObjects(Farmer.class).get(1);
+		
+		Iterable<Farmer> connections =  network.getAdjacent(ft);
+		System.err.println("Farmer " + ft.toString() + ", has connections to:");
+		for (Farmer f : connections) {
+			System.err.println(f.toString());
+		}
+		
 		
 	}
 	
@@ -58,30 +76,38 @@ public class MainContextTest {
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
+		RunEnvironment.getInstance().setScheduleTickDelay(10);
+		
 		//StupidoFarmer f = (StupidoFarmer) space.getFarmersContext().getBehavior("stupidoBehavior").getBehavingObject(0);
 		//System.err.println("Got stupidofarmer: " + f.toString());
 		
 
 		//ArableCropProducer_MP f2 = (ArableCropProducer_MP) space.getFarmersContext().getBehavior("arableCropProducerBehavior").getBehavingObject(1);
 		//System.err.println("Got ArableCropProducer: " + f2.toString());
-
+		System.err.println("");
 		System.err.println("Advanced 1st step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 		
 		System.err.println("Advanced 2nd step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 		
 		System.err.println("Advanced 3nd step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 		
 		System.err.println("Advanced 4th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 		
 		System.err.println("Advanced 5th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 		
 		System.err.println("Advanced 6th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 	}
 
 }

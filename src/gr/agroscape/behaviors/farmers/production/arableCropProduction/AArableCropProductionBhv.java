@@ -5,8 +5,8 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;
+import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
 
 import java.util.ArrayList;
 import java.util.HashMap;

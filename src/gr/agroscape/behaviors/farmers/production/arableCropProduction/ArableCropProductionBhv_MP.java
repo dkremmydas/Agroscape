@@ -6,7 +6,7 @@ import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCr
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedCropPrices;
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropVarCost;
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropYield;
-import gr.agroscape.behaviors.farmers.production.interfaces.ArableCropProductionDecision;
+import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -175,7 +175,7 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 		constraints.add(new LinearConstraint(ca, Relationship.LEQ, this.liquidity));
 		//end constraints
 		
-		System.err.println(this.getMPtablaeu());
+		//System.err.println(this.getMPtablaeu());
 		
 		//solve
 	
@@ -252,12 +252,13 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 	}
 
 
-	@ScheduledMethod (start=1,interval = 360)
+	@ScheduledMethod (start=1,interval = 1, priority=2)
 	public void handleProduction() {
 		
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
 		
+		System.err.println("Farmer(MP) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());
 	}
 	

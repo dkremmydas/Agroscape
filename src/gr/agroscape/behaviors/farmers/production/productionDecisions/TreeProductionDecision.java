@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.farmers.production.interfaces;
+package gr.agroscape.behaviors.farmers.production.productionDecisions;
 
 import gr.agroscape.agents.Farmer;
 import gr.agroscape.agents.Plot;

@@ -89,11 +89,11 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		ArrayList<Farmer> ff1=new ArrayList<Farmer>();
 		ff1.add(farmers.getObjects(Farmer.class).get(1));
-		ff1.add(farmers.getObjects(Farmer.class).get(3));
+		//ff1.add(farmers.getObjects(Farmer.class).get(3));
 		
 		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
 		ff2.add(farmers.getObjects(Farmer.class).get(0));
-		ff2.add(farmers.getObjects(Farmer.class).get(2));
+		//ff2.add(farmers.getObjects(Farmer.class).get(2));
 		
 		arableCropFarmers.put(ArableCropProductionBhv_MP.class, ff1);
 		arableCropFarmers.put(ArableCropProductionBhv_Network.class, ff2);

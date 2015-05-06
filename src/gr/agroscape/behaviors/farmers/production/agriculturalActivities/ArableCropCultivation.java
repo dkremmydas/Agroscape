@@ -80,9 +80,7 @@ public class ArableCropCultivation extends AAgriculturalActivity {
 
 	@Override
 	public String toString() {
-		return "\nCrop::" + this.getName()  
-				+ " / Output Products:" + this.possibleOutput
-				+" [id=" + this.myId + "]";
+		return "Crop::" + this.getName() + " [id=" + this.myId + "]";
 	}
 	
 	
