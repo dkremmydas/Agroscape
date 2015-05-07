@@ -34,7 +34,6 @@ import java.util.HashMap;
 public class Farmer extends HumanAgent  {
 	
 	
-	
 	/**
 	 * Constructor
 	 * @param id

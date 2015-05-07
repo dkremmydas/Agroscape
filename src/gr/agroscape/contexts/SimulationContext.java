@@ -32,9 +32,9 @@ import repast.simphony.valueLayer.GridValueLayer;
  *
  * @param <Object>
  */
-public class Space extends DefaultContext<Object> {
+public class SimulationContext extends DefaultContext<Object> {
 	
-	private static Space instance=null;
+	private static SimulationContext instance=null;
 
 	private LandPropertyRegistry landPropertyRegistry=new LandPropertyRegistry();
 	
@@ -53,14 +53,9 @@ public class Space extends DefaultContext<Object> {
 	private int gridHeight=11;
 	
 	/**
-	 * What Crop should we show in {@link gvl_CropSuitability} ?
-	 */
-	private ArableCropCultivation activeDisplaySuitabilityCrop;
-	
-	/**
 	 * The Grid layer of space
 	 */
-	private Grid<Object> grid;
+	private Grid<Object> space;
 	
 
 	//The value layer of the Owners_id
@@ -83,15 +78,15 @@ public class Space extends DefaultContext<Object> {
 	 * <br />Singleton Design Pattern (?)
 	 * @return
 	 */
-	public static Space getInstance() {
-		if (Space.instance==null) {Space.instance=new Space();}
-		return Space.instance;
+	public static SimulationContext getInstance() {
+		if (SimulationContext.instance==null) {SimulationContext.instance=new SimulationContext();}
+		return SimulationContext.instance;
 	}
 	
 	/**
 	 * Private Constructor, so the existence of a unique instance of MainContext is enforced. 
 	 */
-	private Space() {
+	private SimulationContext() {
 		super("SpaceContext");
 		this.setId("SpaceContext");
 		
@@ -105,7 +100,7 @@ public class Space extends DefaultContext<Object> {
 		
 		//add Projections
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
-		grid = gridFactory.createGrid("grid", this,
+		space = gridFactory.createGrid("grid", this,
 						new GridBuilderParameters<Object>(new StrictBorders(),
 								new SimpleGridAdder<Object>(), false, gridWidth, gridHeight));
 
@@ -168,8 +163,8 @@ public class Space extends DefaultContext<Object> {
 	}
 
 
-	public Grid<Object> getGrid() {
-		return grid;
+	public Grid<Object> space() {
+		return space;
 	}
 	
 	
@@ -180,8 +175,8 @@ public class Space extends DefaultContext<Object> {
 	}
 		
 	public static ArrayList<Plot> getAvailablePlots() {
-		if(! Space.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (ArrayList<Plot>)Space.getInstance().getPlotsContext().getAvailablePlots();
+		if(! SimulationContext.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
+		return (ArrayList<Plot>)SimulationContext.getInstance().getPlotsContext().getAvailablePlots();
 	}
 	
 	public FarmersContext getFarmersContext() {

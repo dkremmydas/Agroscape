@@ -7,7 +7,7 @@ import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.products.Product;
-import gr.agroscape.contexts.Space;
+import gr.agroscape.contexts.SimulationContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +32,7 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		this.availableCrops = new ArrayList<>();
 		
 		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
-		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), Space.getInstance(), entry.getKey());
+		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), SimulationContext.getInstance(), entry.getKey());
 		    this.loadBehavingObjects();
 		    this.addBehavingObjectsToSchedule();
 		}
@@ -90,11 +90,11 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataLoader<AArableCropProductionBhv> {
 
 	private Collection<? super Farmer> owners;
-	private Space space;
+	private SimulationContext space;
 	private Class<? extends AArableCropProductionBhv> clazz;
 	
 	
-	public DefaultArableProductionBhvContextLoader(Collection<? super Farmer> owners, Space space, Class<? extends AArableCropProductionBhv> clazz) {
+	public DefaultArableProductionBhvContextLoader(Collection<? super Farmer> owners, SimulationContext space, Class<? extends AArableCropProductionBhv> clazz) {
 		super();
 		this.owners = owners;
 		this.space = space;

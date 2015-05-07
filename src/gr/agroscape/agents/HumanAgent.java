@@ -5,7 +5,7 @@
  */
 package gr.agroscape.agents;
 
-import gr.agroscape.contexts.Space;
+import gr.agroscape.contexts.SimulationContext;
 
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -35,7 +35,7 @@ public abstract class HumanAgent {
     /**
      * A reference to the mainContext. 
      */
-    protected Space mainContext ;
+    protected SimulationContext mainContext ;
     
     
     /**
@@ -55,7 +55,7 @@ public abstract class HumanAgent {
 		super();
 		this.myId = id;
 		HumanAgent.next_id=id++;
-		this.mainContext=Space.getInstance();
+		this.mainContext=SimulationContext.getInstance();
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public abstract class HumanAgent {
 	 * Get {@link MainContext} object
 	 * @return
 	 */
-	public Space getMainContext() {
+	public SimulationContext getMainContext() {
 		return this.mainContext;
 	}
     

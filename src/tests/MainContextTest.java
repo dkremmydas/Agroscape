@@ -3,7 +3,7 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
 import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.Space;
+import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.main.ContextManager;
 
 import org.junit.Before;
@@ -21,7 +21,7 @@ import repast.simphony.space.graph.RepastEdge;
 public class MainContextTest {
 
 	private ContextManager builder;
-	private Space space;
+	private SimulationContext space;
 	
 
 	@Before
@@ -35,7 +35,7 @@ public class MainContextTest {
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
 
 		builder = new ContextManager ();
-		this.space = (Space) builder.build(new DefaultContext<Object> ());
+		this.space = (SimulationContext) builder.build(new DefaultContext<Object> ());
 		
 	}
 	

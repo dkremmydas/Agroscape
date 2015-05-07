@@ -8,7 +8,7 @@ import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCrop
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.contexts.Space;
+import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
 
@@ -34,7 +34,7 @@ import repast.simphony.dataLoader.ContextBuilder;
 public class ContextManager implements ContextBuilder<Object> {
 	
 	
-	private Space space;
+	private SimulationContext space;
 	
 
 	/**
@@ -49,7 +49,7 @@ public class ContextManager implements ContextBuilder<Object> {
 	public Context<Object> build(Context<Object> context) {
 		
 		//step 1. keep a reference		
-		this.space=Space.getInstance();
+		this.space=SimulationContext.getInstance();
 		
 		
 
