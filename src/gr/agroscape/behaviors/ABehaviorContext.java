@@ -60,6 +60,7 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 	
 	/**
 	 * Load BehavingObjects
+	 *  //TODO give directly the IScheduledBehaviorDataLoader
 	 * @param owners
 	 * @param dataFile
 	 * @param space

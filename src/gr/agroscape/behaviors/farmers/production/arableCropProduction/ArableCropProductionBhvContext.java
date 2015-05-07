@@ -34,8 +34,8 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
 		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), SimulationContext.getInstance(), entry.getKey());
 		    this.loadBehavingObjects();
-		    this.addBehavingObjectsToSchedule();
 		}
+        this.addBehavingObjectsToSchedule();
 			
 	}
 	
