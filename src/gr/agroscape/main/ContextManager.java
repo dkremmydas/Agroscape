@@ -10,7 +10,7 @@ import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
-import gr.agroscape.dataLoaders.ICanLoadAgroscapeData;
+import gr.agroscape.dataLoaders.IAgroscapeDataLoader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class ContextManager implements ContextBuilder<Object> {
 	 * The steps that this method does, are: <br />
 	 * 1. Create the MainContext as the parentContext <br />
 	 * 2. Create empty SubContexts and load them to parentContext <br />
-	 * 3. Create {@link ICanLoadAgroscapeData dataLoader} and load data
+	 * 3. Create {@link IAgroscapeDataLoader dataLoader} and load data
 	 * 
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 3, create dataLoader
-		ICanLoadAgroscapeData dataLoader = new DefaultDataLoader();
+		IAgroscapeDataLoader dataLoader = new DefaultDataLoader();
 		//String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
 		//dataLoader = new ExcelDataLoader(excelFileLocation);
 		dataLoader.loadFarmersContext(farmers);

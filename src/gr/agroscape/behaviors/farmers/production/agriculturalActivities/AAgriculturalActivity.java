@@ -5,7 +5,7 @@ import gr.agroscape.behaviors.farmers.production.products.Product;
 import java.util.ArrayList;
 
 
-public class  AAgriculturalActivity {
+public abstract class  AAgriculturalActivity {
 
 	private static int next_id=1;
 	

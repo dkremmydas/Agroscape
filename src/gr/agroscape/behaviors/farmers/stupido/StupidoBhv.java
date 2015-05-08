@@ -11,7 +11,6 @@ public class StupidoBhv extends AFarmerBehavior<StupidoBhv> implements ISchedule
 	 * A reference to the container context
 	 */
 	protected StupidoBhvContext container;
-	
 
 	public StupidoBhv(Farmer owner, StupidoBhvContext c) {
 		super(owner);
@@ -19,7 +18,6 @@ public class StupidoBhv extends AFarmerBehavior<StupidoBhv> implements ISchedule
 	}
 
 	private int stupidoProperty;
-	
 
 	
 	@ScheduledMethod (start=2,interval = 2)
@@ -32,10 +30,8 @@ public class StupidoBhv extends AFarmerBehavior<StupidoBhv> implements ISchedule
 		System.err.println("Farmer, id="+this.owner.getID() + ", stupido random=" + this.stupidoProperty);
 	}
 	
-	
 	@Override
 	public Object getAnnotatedClass() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 

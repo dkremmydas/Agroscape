@@ -14,7 +14,7 @@ import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.space.graph.Network;
 import repast.simphony.space.grid.GridPoint;
 
-public class DefaultDataLoader implements ICanLoadAgroscapeData {
+public class DefaultDataLoader implements IAgroscapeDataLoader {
 	
 	private ArrayList<Plot> avplots = new ArrayList<Plot>();
 	private ArrayList<Farmer> avfarmers = new ArrayList<Farmer>();

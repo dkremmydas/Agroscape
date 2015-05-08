@@ -4,9 +4,7 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.IScheduledBehavior;
 
 /**
- * Every "Behavior" object contains a reference to the "Farmer" object that contains it.<br />
- * In this way, the Farmer does not need to know anything about the behaviors that he owns,
- * but the {@link AFarmerBehavior} objects know for him, and so have access to his attributes.<br />
+ * Every "Farmer Behavior" object contains a reference to the "Farmer" object that contains it.<br />
  * Bhv is a shortcut for "Behavior". So all classes that end with "Bhv" are actually extending 
  * {@link AFarmerBehavior}.
  * 
@@ -41,9 +39,5 @@ public abstract class AFarmerBehavior<T> implements IScheduledBehavior<T> {
 	public Farmer getOwner() {
 		return owner;
 	}
-	
-	
-	
-	
 
 }

@@ -13,7 +13,7 @@ import gr.agroscape.contexts.PlotsContext;
  * @author Dimitris Kremmydas
  *
  */
-public interface ICanLoadAgroscapeData {
+public interface IAgroscapeDataLoader {
 
 		
 	/**

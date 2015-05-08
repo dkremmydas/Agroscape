@@ -10,9 +10,9 @@ import java.util.Collection;
 import java.util.Random;
 
 /**
- * The container for the StupidoFarmer
+ * The context for the StupidoBhv
+ * 
  * @author Dimitris Kremmydas
- *
  */
 public class StupidoBhvContext extends ABehaviorContext<StupidoBhv> {
 	
@@ -33,22 +33,17 @@ public class StupidoBhvContext extends ABehaviorContext<StupidoBhv> {
 
 
 /**
- * Inner class to load stupido data
+ * Inner class to load stupidoBhv ojects
  * @author Dimitris Kremmydas
- *
  */
 class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoBhv> {
 
-	private Collection<? super Farmer> owners;
-	
-	
+	private Collection<? super Farmer> owners;	
 	
 	public DefaultStupidoDataLoader(Collection<? super Farmer> owners) {
 		super();
 		this.owners = owners;
 	}
-
-
 
 	@Override
 	public void setup( ABehaviorContext<StupidoBhv> container) {
@@ -59,10 +54,5 @@ class DefaultStupidoDataLoader implements IScheduledBehaviorDataLoader<StupidoBh
 			}
 			container.addAll(r);
 	}
-	
-
-
-
-
 	
 } //end class
