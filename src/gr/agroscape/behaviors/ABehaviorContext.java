@@ -4,7 +4,6 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import repast.simphony.context.DefaultContext;
-import repast.simphony.engine.environment.RunEnvironment;
 
 /**
  * This class is the context of the behavior, enclosing at least a {@link IScheduledBehaviorDataLoader}
@@ -34,8 +33,21 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 		super(name);
 		this.setId(name);
 		this.objectLoader = objectLoader;
+		/*
+		//add a contextListener that adds automatically the annotated class
+		this.addContextListener(new ContextListener<IScheduledBehavior<T>>() {
+			@Override
+			public void eventOccured(ContextEvent<IScheduledBehavior<T>> ev) {
+				if(ev.equals(EventType.AGENT_ADDED)) {
+					RunEnvironment.getInstance().getCurrentSchedule().schedule(ev.getTarget().getAnnotatedClass());
+				}
+				
+			}
+		});*/
+	
 	}
 	
+
 	/**
 	 * Returns the behavior object for a requested Farmer. <Br />
 	 * It does this by traversing all IScheduledBehavior<T> agents in the contextBhv.
@@ -65,25 +77,10 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 	 * @param dataFile
 	 * @param space
 	 */
-	protected final void loadBehavingObjects() {
-		//get container objects, i.e. behavingObjects
-		this.objectLoader.setup(this);
-		this.addBehavingObjectsToSchedule();
+	public final void loadBehavingObjects() {
+		this.objectLoader.setup(this);		
 	}
-	
-	/**
-	 * Add any IScheduledBehavior object to schedule
-	 */
-	private final void addBehavingObjectsToSchedule() {
-		//add their scheduled behavior to the current schedule
-		@SuppressWarnings("unchecked")
-		final Class<? super T> clazz = (Class<? super T>) IScheduledBehavior.class;
-//System.err.println("# this.getObjects(clazz) objects found " + this.getObjects(clazz).size());		
-		for (IScheduledBehavior<T> object : this.getObjects(clazz)) {
-//System.err.println("Object " + object.toString() + " / annotadedClass: " + object.getAnnotatedClass().toString());
-			RunEnvironment.getInstance().getCurrentSchedule().schedule(object.getAnnotatedClass());			
-		}
-	}
+
 
 	
 

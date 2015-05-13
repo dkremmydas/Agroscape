@@ -12,7 +12,7 @@ package gr.agroscape.behaviors;
 public interface IScheduledBehaviorDataLoader<T> {
 	
 	/**
-	 * Setups owners and space
+	 * Setups owners and space.
 	 * 
 	 * @param df
 	 */

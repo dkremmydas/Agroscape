@@ -5,7 +5,6 @@ import gr.agroscape.behaviors.farmers.production.arableCropProduction.AArableCro
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_MP;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Network;
-import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
@@ -15,8 +14,6 @@ import gr.agroscape.dataLoaders.IAgroscapeDataLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-
-import org.apache.commons.collections4.CollectionUtils;
 
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -34,7 +31,7 @@ import repast.simphony.dataLoader.ContextBuilder;
 public class ContextManager implements ContextBuilder<Object> {
 	
 	
-	private SimulationContext space;
+	private SimulationContext simulationContext;
 	
 
 	/**
@@ -49,17 +46,17 @@ public class ContextManager implements ContextBuilder<Object> {
 	public Context<Object> build(Context<Object> context) {
 		
 		//step 1. keep a reference		
-		this.space=SimulationContext.getInstance();
+		this.simulationContext=SimulationContext.getInstance();
 		
 		
 
 		
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
-		this.space.addSubContext(plots);
+		this.simulationContext.addSubContext(plots);
 		
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
-		this.space.addSubContext(farmers);
+		this.simulationContext.addSubContext(farmers);
 		
 		
 		//step 3, create dataLoader
@@ -68,7 +65,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		//dataLoader = new ExcelDataLoader(excelFileLocation);
 		dataLoader.loadFarmersContext(farmers);
 		dataLoader.loadPlotsContext(plots);
-		dataLoader.initLandPropertyRegistry(this.space.getLandPropertyRegistry());
+		dataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
 		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 
 		
@@ -105,7 +102,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		//step 5, Attach Behavior (SocialNetworking)
 
 
-		return this.space;
+		return this.simulationContext;
 	}
 
 

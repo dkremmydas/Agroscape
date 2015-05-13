@@ -1,15 +1,8 @@
 package gr.agroscape.main;
 
-import gr.agroscape.styles.DisplayValueLayer;
-import repast.simphony.context.Context;
-import repast.simphony.engine.controller.NullAbstractControllerAction;
-import repast.simphony.engine.environment.GUIRegistryType;
 import repast.simphony.engine.environment.RunEnvironmentBuilder;
-import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.IAction;
 import repast.simphony.engine.schedule.NonModelAction;
-import repast.simphony.engine.schedule.ScheduleParameters;
-import repast.simphony.parameter.Parameters;
 import repast.simphony.scenario.ModelInitializer;
 import repast.simphony.scenario.Scenario;
 import repast.simphony.visualization.IDisplay;
@@ -46,6 +39,9 @@ public class SimulationInitializer implements ModelInitializer {
 	   * @param scen the {@link repast.simphony..scenario.Scenario} object that hold settings for the run
 	   */
 	  public void initialize(Scenario scen, RunEnvironmentBuilder builder) {
+		  
+		  /*
+	  }
 
 	    scen.addMasterControllerAction(new NullAbstractControllerAction() {
 	      @Override
@@ -56,6 +52,7 @@ public class SimulationInitializer implements ModelInitializer {
 	                ScheduleParameters.END), new DisplayUpdater(display));
 
 	      }
+	      
 
 	      @Override
 	      public void runCleanup(RunState runState, Context context) {
@@ -67,8 +64,8 @@ public class SimulationInitializer implements ModelInitializer {
 	        return "Create a custom display";
 	      }
 	    });
-
-
+	         
+	*/
 	  }
 
 	}

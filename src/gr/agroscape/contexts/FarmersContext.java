@@ -60,6 +60,7 @@ public class FarmersContext extends DefaultContext<Farmer> {
 
 	@SuppressWarnings("unchecked")
 	public void attachBehavior(ABehaviorContext<? extends AFarmerBehavior<?>> behaviorContainer) {
+		behaviorContainer.loadBehavingObjects();
 		this.addSubContext((Context<? extends Farmer>) behaviorContainer);
 	}
 	

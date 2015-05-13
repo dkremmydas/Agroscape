@@ -15,7 +15,6 @@ import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
 import repast.simphony.space.graph.Network;
-import repast.simphony.space.graph.RepastEdge;
 
 
 public class MainContextTest {

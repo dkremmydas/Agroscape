@@ -31,13 +31,11 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		super("ArableCropProductionBehavior",null);
 		this.availableCrops = new ArrayList<>();
 		this.objectLoader = new DefaultArableProductionBhvContextLoader(owners);
-		this.loadBehavingObjects();  
 	}
 	
 	public ArableCropProductionBhvContext(Collection<? super Farmer> owners,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
-		this.loadBehavingObjects();
 	}
 	
 
@@ -90,7 +88,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 	public DefaultArableProductionBhvContextLoader(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
 		super();
 		this.owners = owners;
-		this.space = space;
+		this.space = SimulationContext.getInstance();
 	}
 
 
