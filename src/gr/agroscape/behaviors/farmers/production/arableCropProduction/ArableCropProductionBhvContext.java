@@ -30,20 +30,14 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
 		super("ArableCropProductionBehavior",null);
 		this.availableCrops = new ArrayList<>();
-		
-		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
-		    this.objectLoader = new DefaultArableProductionBhvContextLoader(entry.getValue(), SimulationContext.getInstance(), entry.getKey());
-		    this.loadBehavingObjects();
-		}
-        this.addBehavingObjectsToSchedule();
-			
+		this.objectLoader = new DefaultArableProductionBhvContextLoader(owners);
+		this.loadBehavingObjects();  
 	}
 	
 	public ArableCropProductionBhvContext(Collection<? super Farmer> owners,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
 		this.loadBehavingObjects();
-		this.addBehavingObjectsToSchedule();
 	}
 	
 
@@ -89,16 +83,14 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
  */
 class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataLoader<AArableCropProductionBhv> {
 
-	private Collection<? super Farmer> owners;
+	private HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners;
 	private SimulationContext space;
-	private Class<? extends AArableCropProductionBhv> clazz;
 	
 	
-	public DefaultArableProductionBhvContextLoader(Collection<? super Farmer> owners, SimulationContext space, Class<? extends AArableCropProductionBhv> clazz) {
+	public DefaultArableProductionBhvContextLoader(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
 		super();
 		this.owners = owners;
 		this.space = space;
-		this.clazz = clazz;
 	}
 
 
@@ -119,15 +111,19 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 	private void addAgents(ABehaviorContext<AArableCropProductionBhv> container) {
 		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
 		
-		for (Object f : owners) {
-			if(this.clazz == ArableCropProductionBhv_MP.class) {
-				r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
+			if(entry.getKey() == ArableCropProductionBhv_MP.class) {
+				for(Farmer f : entry.getValue()) {
+					r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+				}
 			}
-			else if (this.clazz == ArableCropProductionBhv_Network.class) {
-				r.add(new ArableCropProductionBhv_Network(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+			else if (entry.getKey() == ArableCropProductionBhv_Network.class) {
+				for(Farmer f : entry.getValue()) {
+					r.add(new ArableCropProductionBhv_Network(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+				}
 			}
 			else  {
-				r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+				throw new NullPointerException("Only ArableCropProductionBhv_Network.class and ArableCropProductionBhv_MP.class are currently supported");
 			}
 		}
 		

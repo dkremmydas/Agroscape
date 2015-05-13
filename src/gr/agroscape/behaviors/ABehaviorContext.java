@@ -59,7 +59,7 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 	
 	
 	/**
-	 * Load BehavingObjects
+	 * Load BehavingObjects. They are added to the context collection and also parsed for schedule additions
 	 *  //TODO give directly the IScheduledBehaviorDataLoader
 	 * @param owners
 	 * @param dataFile
@@ -68,12 +68,13 @@ public abstract class ABehaviorContext<T> extends DefaultContext<IScheduledBehav
 	protected final void loadBehavingObjects() {
 		//get container objects, i.e. behavingObjects
 		this.objectLoader.setup(this);
+		this.addBehavingObjectsToSchedule();
 	}
 	
 	/**
 	 * Add any IScheduledBehavior object to schedule
 	 */
-	protected final void addBehavingObjectsToSchedule() {
+	private final void addBehavingObjectsToSchedule() {
 		//add their scheduled behavior to the current schedule
 		@SuppressWarnings("unchecked")
 		final Class<? super T> clazz = (Class<? super T>) IScheduledBehavior.class;
