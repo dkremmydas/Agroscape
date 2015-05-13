@@ -89,8 +89,8 @@ public class SimulationContext extends DefaultContext<Object> {
 	 * Private Constructor, so the existence of a unique instance of MainContext is enforced. 
 	 */
 	private SimulationContext() {
-		super("SpaceContext");
-		this.setId("SpaceContext");
+		super("SimulationContext");
+		this.setId("SimulationContext");
 		
 		//set grid width and height
 		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
@@ -112,22 +112,8 @@ public class SimulationContext extends DefaultContext<Object> {
 		
 		this.gvl_Cultivators = new GridValueLayer("Cultivators",true,new StrictBorders(), gridWidth, gridHeight);
 		this.addValueLayer( gvl_Cultivators );
-		
-		this.gvl_ProductionDecisions = new GridValueLayer("ProductionDecisions",true,new StrictBorders(), gridWidth, gridHeight);
-		this.addValueLayer( gvl_ProductionDecisions );
-		
-	
-		
 	}
-	
-	
-	/**
-	 * Getter for {@link #gvl_ProductionDecisions}
-	 * @return
-	 */
-	public GridValueLayer get_gvlProductionDecisions() {
-		return gvl_ProductionDecisions;
-	}
+
 
 	/**
 	 * Getter for LandPropertyRegistry
@@ -165,7 +151,7 @@ public class SimulationContext extends DefaultContext<Object> {
 	}
 
 
-	public Grid<Object> space() {
+	public Grid<Object> getSpace() {
 		return space;
 	}
 	
@@ -186,29 +172,7 @@ public class SimulationContext extends DefaultContext<Object> {
 		return ((FarmersContext) this.getSubContext("FarmersContext"));
 	}	
 	
-	/**
-	 * Update Value Layers
-	 */
-	public void updateValueLayers() {
-	/*	this.landPropertyRegistry.updateOwnerValueLayer(gvl_Owners);
-		
-		//copy CropSuitability Value Layers
-		GridValueLayer from = this.getCropsContext().getCropSuitability().get(this.activeDisplaySuitabilityCrop);
-		//ValueLayersUtilities.copyGridValueLayers(from, this.gvl_CropSuitability);
-		
-		//update cultivation valuelayer
-		//APlot
-		
-		for (Iterator<Plot> iterator = landPropertyRegistry.getAllPlots().iterator(); iterator.hasNext();) {
-			Plot p = iterator.next();
-			for(GridPoint gp: p.getGridPoints()) {
-				//this.gvl_ProductionDecisions.set(p.getAgriculturalLandUse().getId(), gp.getX(),gp.getY());
-			}
-		}
-		*/
-	}
 
-	
 	
 	
 }

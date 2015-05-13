@@ -64,6 +64,7 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		@SuppressWarnings("unchecked")
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
+		this.container.updateProductionDecisionsValueLayer(pd);
 		
 		System.err.println("Farmer(Net) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());

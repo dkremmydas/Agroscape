@@ -6,6 +6,7 @@ import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.SimulationContext;
 
@@ -14,7 +15,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.StrictBorders;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCropProductionBhv> {
@@ -33,6 +34,9 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 								,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
+		
+		this.gvl_ProductionDecisions = new GridValueLayer("ProductionDecisions",true,new StrictBorders(), SimulationContext.getInstance().getGridWidth(),  SimulationContext.getInstance().getGridHeight());
+		SimulationContext.getInstance().addValueLayer( gvl_ProductionDecisions );
 	}
 	
 	/**
@@ -73,6 +77,18 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		GridValueLayer gvl = this.getCropSuitabilities().get(c);
 		return p.getAverage(gvl);
 	}
+
+	/**
+	 *  Update production Decisions ValueLayer
+	 * @return
+	 */
+	public void updateProductionDecisionsValueLayer(ArrayList<ArableCropProductionDecision> pd) {
+		for (ArableCropProductionDecision d : pd) {
+			d.getPlot().setGridValueLayer(this.gvl_ProductionDecisions, d.getDecision().getId());
+		}
+	}
+	
+	
 	
 
 } //end class
