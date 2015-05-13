@@ -25,7 +25,7 @@
 									
 		/>
 				<parameter name="ExcelDataFile" displayName="Excel Data File Location" type="java.lang.String" 
-						defaultValue="freezedried_data\\dataToLoad.xlsx" 
+						defaultValue="freezedried_data\\dataToLoad.v3.xlsx" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 		/>

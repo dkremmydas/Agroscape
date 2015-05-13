@@ -4,6 +4,7 @@ import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 
+import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections4.map.HashedMap;
 
 import repast.simphony.context.Context;
@@ -58,6 +59,10 @@ public class FarmersContext extends DefaultContext<Farmer> {
 		return this.networks.get(name);
 	}
 
+	/**
+	 * Attach a behavior to a {@link Farmer}
+	 * @param behaviorContainer
+	 */
 	@SuppressWarnings("unchecked")
 	public void attachBehavior(ABehaviorContext<? extends AFarmerBehavior<?>> behaviorContainer) {
 		behaviorContainer.loadBehavingObjects();
@@ -65,6 +70,34 @@ public class FarmersContext extends DefaultContext<Farmer> {
 	}
 	
 	
+	/**
+	 * Search for a Farmer with a specific id
+	 * @param id
+	 * @return
+	 */
+	public Farmer findFarmerById(int id) {
+		Iterable<Farmer> iff = this.query(new PredicateFarmerId(id));
+		return iff.iterator().next();
+	}
+	
+	
+	
+}
+
+class PredicateFarmerId implements Predicate<Farmer> {
+
+	private int lookingFor;
+	
+	public PredicateFarmerId(int lookingFor) {
+		super();
+		this.lookingFor = lookingFor;
+	}
+
+	@Override
+	public boolean evaluate(Farmer arg0) {
+		if(arg0.getID().equals(lookingFor)) return true;
+		return false;
+	}
 	
 }
 	
