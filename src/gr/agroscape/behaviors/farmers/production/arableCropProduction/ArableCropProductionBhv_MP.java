@@ -7,6 +7,7 @@ import gr.agroscape.behaviors.farmers.production.expectations.ExpectedCropPrices
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropVarCost;
 import gr.agroscape.behaviors.farmers.production.expectations.ExpectedPlotCropYield;
 import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
+import gr.agroscape.contexts.SimulationContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.valueLayer.GridValueLayer;
 
 
 
@@ -222,7 +224,6 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 
 	
 	
-	@Override
 	public void calculateExpectations() {
 		
 		this.coupledPayments = this.owner.getMainContext().getPaymentAuthority().getCoupledPayments();
@@ -257,6 +258,14 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 		
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
+		
+		/**
+		 * Update production Decisions
+		 */
+		GridValueLayer cropDecision =  SimulationContext.getInstance().get_gvlProductionDecisions();
+		for (ArableCropProductionDecision d : pd) {
+			d.getPlot().setGridValueLayer(cropDecision, d.getDecision().getId());
+		}
 		
 		System.err.println("Farmer(MP) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());

@@ -14,10 +14,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import repast.simphony.space.grid.Grid;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCropProductionBhv> {
 
+	private GridValueLayer gvl_ProductionDecisions;
 	
 	private ArrayList<ArableCropCultivation> availableCrops;
 	
@@ -27,15 +29,18 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	 * Takes a HashMap of KEY=class extending AArableCropProductionBhv, VALUE=Collection of farmers, and adds them to the BhvContext 
 	 * @param owners
 	 */
-	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
-		super("ArableCropProductionBehavior",null);
-		this.availableCrops = new ArrayList<>();
-		this.objectLoader = new DefaultArableProductionBhvContextLoader(owners);
-	}
-	
-	public ArableCropProductionBhvContext(Collection<? super Farmer> owners,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
+	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners
+								,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
+	}
+	
+	/**
+	 * Constructor with the default dataLoader
+	 * @param owners
+	 */
+	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
+		this(owners,new DefaultArableProductionBhvContextLoader(owners));
 	}
 	
 
@@ -89,6 +94,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		super();
 		this.owners = owners;
 		this.space = SimulationContext.getInstance();
+
 	}
 
 
@@ -97,7 +103,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 	public void setup(ABehaviorContext<AArableCropProductionBhv> container) {
 		
 		if(((ArableCropProductionBhvContext)container).getAvailableCrops().isEmpty()) {
-			this.loadCrops(container);
+			this.loadNonAgents(container);
 		}
 		
 		this.addAgents(container);	
@@ -128,7 +134,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		container.addAll(r);
 	}
 
-	private void loadCrops(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void loadNonAgents(ABehaviorContext<AArableCropProductionBhv> container) {
 		//create crops
 		ArableCropCultivation c1 = new ArableCropCultivation("maize", new Product("maize product"));
 		ArableCropCultivation c2 = new ArableCropCultivation("wheat", new Product("wheat product"));
@@ -150,12 +156,13 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 			((ArableCropProductionBhvContext)container).getCropSuitabilities().put(c, gv);
 		}
 		
-		
-		
 		//load PaymentAuthority couple payments
 		for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
 			space.getPaymentAuthority().getCoupledPayments().put(c, 0l);
 		}
+		
+		//add a CropDecisions Value Layer
+		//SimulationContext.getInstance().addValueLayer(new GridValueLayer("ProductionDecisions",true,space.getGridWidth(),space.getGridWidth()));
 	}
 
 	

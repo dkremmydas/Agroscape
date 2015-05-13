@@ -139,8 +139,6 @@ public abstract class AArableCropProductionBhv extends AFarmerBehavior<AArableCr
 		return this;
 	}    
 
-
-	abstract void calculateExpectations();	
 	
 	
 

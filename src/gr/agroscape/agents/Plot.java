@@ -1,15 +1,11 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.plots.APlotBehavior;
 import gr.agroscape.main.AgroscapeConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.commons.collections4.map.HashedMap;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -35,11 +31,6 @@ public class Plot {
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     
     
-    /**
-	 * The properties of the agent
-	 */
-    protected HashedMap<Class<? extends APlotBehavior>,APlotBehavior> behaviors = new HashedMap<>();
-
     /**
      * Create a new Plot from an ArrayList of GridPoints. <br />
      * <strong>Does not</strong> check for duplicate GidPoints in the ArrayList.
@@ -175,32 +166,17 @@ public class Plot {
 		
 	}
 
-	
+
 	/**
-	 * A getter of behaviors. It returns a reference to the {@link APlotBehavior}.<br /> 
-	 * New {@link APlotBehavior} can be added using the returned reference.
-	 * @return
+	 * Sets the corresponding x-y coordinates of the {@link GridValueLayer} to the requested value
+	 * @param vl
+	 * @param v
 	 */
-	public HashedMap<Class<? extends APlotBehavior>,APlotBehavior> getAllBehaviors() {
-		return this.behaviors;
-	}
-	
-	
-	/**
-	 * Get a Behavior of a specific Class
-	 * @param c
-	 * @return
-	 */
-	public APlotBehavior getBehavior(Class<? extends APlotBehavior> c) {
-		
-		for (Map.Entry<Class<? extends APlotBehavior>, APlotBehavior> entry : this.behaviors.entrySet()) {
-	    	if(entry.getKey().equals(c)) {
-	    		return entry.getValue();
-	    	}
+	public void setGridValueLayer(GridValueLayer vl, double v) {
+		for (Iterator<GridPoint> iterator = this.gridPoints.iterator(); iterator.hasNext();) {
+			GridPoint gridPoint = iterator.next();
+			vl.set(v, gridPoint.getX(),gridPoint.getY());
 		}
-		
-		return null;
-		
 	}
 	
 	

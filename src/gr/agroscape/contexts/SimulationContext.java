@@ -57,6 +57,8 @@ public class SimulationContext extends DefaultContext<Object> {
 	 */
 	private Grid<Object> space;
 	
+	
+	
 
 	//The value layer of the Owners_id
 	private GridValueLayer gvl_Owners;

@@ -54,12 +54,6 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		return r;
 	}
 
-	/**
-	 * Do nothing in this behavior
-	 */
-	@Override
-	void calculateExpectations() {
-	}
 
 	/*
 	 * do production
