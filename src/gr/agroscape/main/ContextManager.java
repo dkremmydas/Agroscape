@@ -8,19 +8,15 @@ import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCrop
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
-import gr.agroscape.dataLoaders.ExcelDataLoader;
+import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.dataLoaders.IAgroscapeDataLoader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
-import repast.simphony.engine.environment.RunEnvironment;
 
 
 /**
@@ -64,8 +60,12 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 3, create dataLoader
-		//IAgroscapeDataLoader dataLoader = new DefaultDataLoader();
-		String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
+		IAgroscapeDataLoader dataLoader = new DefaultDataLoader();
+		dataLoader.loadFarmersContext(farmers);
+		dataLoader.loadPlotsContext(plots);
+		dataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
+		
+		/*String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
 		IAgroscapeDataLoader dataLoader;
 		try {
 			dataLoader = new ExcelDataLoader(excelFileLocation);
@@ -75,6 +75,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		} catch (InvalidFormatException | IOException e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 
