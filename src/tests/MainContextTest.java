@@ -20,7 +20,7 @@ import repast.simphony.space.graph.Network;
 public class MainContextTest {
 
 	private ContextManager builder;
-	private SimulationContext space;
+	private SimulationContext simulationContext;
 	
 
 	@Before
@@ -29,12 +29,12 @@ public class MainContextTest {
 		DefaultParameters p = new DefaultParameters();
 		p.addParameter("gridWidth", "gridWidth", Integer.class, 31, false);
 		p.addParameter("gridHeight", "gridHeight", Integer.class, 31, false);
-		p.addParameter("ExcelDataFile", "ExcelDataFile", String.class, "freezedried_data\\dataToLoad.xlsx", false);
+		p.addParameter("ExcelDataFile", "ExcelDataFile", String.class, "freezedried_data\\dataToLoad.v3.xlsx", false);
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
 
 		builder = new ContextManager ();
-		this.space = (SimulationContext) builder.build(new DefaultContext<Object> ());
+		this.simulationContext = (SimulationContext) builder.build(new DefaultContext<Object> ());
 		
 	}
 	
@@ -44,17 +44,23 @@ public class MainContextTest {
 	public void testContextManager()  {
 		System.err.println("testContextManager");
 		System.err.println("Everything is loaded");
-		System.err.println("Number of loaded objects: " + space.getFarmersContext().size());
+		System.err.println("Number of loaded objects: " + simulationContext.getFarmersContext().size());
 		
-		System.err.println("Number of Farmers: " + space.getFarmersContext().getObjects(Farmer.class).size());
-		System.err.println("Number of Stupido Farmers: " + space.getFarmersContext().getObjects(StupidoBhv.class).size());
-		System.err.println("Number of ABehavingFarmers: " + space.getFarmersContext().getObjects(AFarmerBehavior.class).size());
+		System.err.println("Number of Farmers: " + simulationContext.getFarmersContext().getObjects(Farmer.class).size());
+		System.err.println("Number of Stupido Farmers: " + simulationContext.getFarmersContext().getObjects(StupidoBhv.class).size());
+		System.err.println("Number of ABehavingFarmers: " + simulationContext.getFarmersContext().getObjects(AFarmerBehavior.class).size());
 		
+		System.err.println("Printing all farmers:");
+		System.err.println("Farmer with ID=1, " + simulationContext.getFarmersContext().findFarmerById(1).toString());
+		System.err.println("Farmer with ID=2, " + simulationContext.getFarmersContext().findFarmerById(2).toString());
+		System.err.println("Farmer with ID=3, " + simulationContext.getFarmersContext().findFarmerById(3).toString());
+		System.err.println("Farmer with ID=4, " + simulationContext.getFarmersContext().findFarmerById(4).toString());
+		System.err.println("Farmer with ID=5, " + simulationContext.getFarmersContext().findFarmerById(5).toString());
 		
 		System.err.println("Testing network behavior");
 		Network<Farmer> network = FarmersContext.getInstance().getNetwork("productionNetwork");
 		
-		Farmer ft = space.getFarmersContext().getObjects(Farmer.class).get(1);
+		Farmer ft = simulationContext.getFarmersContext().getObjects(Farmer.class).get(1);
 		
 		Iterable<Farmer> connections =  network.getAdjacent(ft);
 		System.err.println("Farmer " + ft.toString() + ", has connections to:");
