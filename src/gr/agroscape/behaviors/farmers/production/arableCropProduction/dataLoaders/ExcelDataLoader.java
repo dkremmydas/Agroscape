@@ -1,6 +1,5 @@
 package gr.agroscape.behaviors.farmers.production.arableCropProduction.dataLoaders;
 
-import gr.agroscape.agents.Farmer;
 import gr.agroscape.behaviors.ABehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
@@ -9,14 +8,11 @@ import gr.agroscape.behaviors.farmers.production.arableCropProduction.AArableCro
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_MP;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Network;
-import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.SimulationContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -40,9 +36,6 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	
 	private ArrayList<ArableCropCultivation> crops;
 	private SimulationContext simulationContext;
-	
-	private HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners;
-	
 	
 	public ExcelDataLoader(Workbook excelWB) {
 		super();
@@ -95,13 +88,16 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 			GridValueLayer gv = new GridValueLayer("CropSuitability_"+c.getName(), true, simulationContext.getGridWidth(),simulationContext.getGridHeight());
 			Sheet sh = this.excelWB.getSheet("CropSuitability_"+c.getName());
 			
-					for (int i = 0; i < gv.getDimensions().getWidth(); i++) {
-						for (int j = 0; j <  gv.getDimensions().getHeight(); j++) {
-							gv.set(1d, i,j);
-						}
-					}
-					((ArableCropProductionBhvContext)container).getCropSuitabilities().put(c, gv);
-		}
+			Iterator<Row> rowItr = sh.iterator(); 
+			rowItr.next(); //skip first row
+			for (int i = 0; i < gv.getDimensions().getWidth(); i++) {
+				Row row = rowItr.next();
+				for (int j = 0; j <  gv.getDimensions().getHeight(); j++) {
+							gv.set(row.getCell(1+j).getNumericCellValue(), i,j);
+				} //for cols
+			} //for rows
+			((ArableCropProductionBhvContext)container).getCropSuitabilities().put(c, gv);
+		}//for crops
 	} //end class
 	
 	
@@ -110,6 +106,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	 * @param container
 	 */
 	private void setupPaymentAuthority(ABehaviorContext<AArableCropProductionBhv> container) {
+		if(this.crops==null) throw new NullPointerException("Crops shuld be loaded first !");
 		//load PaymentAuthority couple payments
 				for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
 					SimulationContext.getInstance().getPaymentAuthority().getCoupledPayments().put(c, 0l);
@@ -123,23 +120,38 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	 */
 	private void addAgents(ABehaviorContext<AArableCropProductionBhv> container) {
 		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
+		Sheet sh = this.excelWB.getSheet("Farmers");
 		
-		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
-			if(entry.getKey() == ArableCropProductionBhv_MP.class) {
-				for(Farmer f : entry.getValue()) {
-					r.add(new ArableCropProductionBhv_MP(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
+		Iterator<Row> rowItr = sh.iterator(); 
+		rowItr.next(); //skip first row
+		while(rowItr.hasNext()) {
+			Row row = rowItr.next();
+			int agent_id = (int)row.getCell(0).getNumericCellValue();
+			int isFarmer = (int)row.getCell(1).getNumericCellValue();	
+			long liquidity = (long)row.getCell(2).getNumericCellValue();
+			String farmer_type = row.getCell(3).getStringCellValue();
+			if(isFarmer==1) {
+				if(farmer_type.equals("Farmer_MP")) {
+					r.add(new ArableCropProductionBhv_MP(
+							((ArableCropProductionBhvContext)container).getAvailableCrops(),
+							liquidity,
+							simulationContext.getFarmersContext().findFarmerById(agent_id),
+							(ArableCropProductionBhvContext) container)
+						);
+				 }
+				else if(farmer_type.equals("Farmer_Net")) {
+					r.add(new ArableCropProductionBhv_Network(
+							((ArableCropProductionBhvContext)container).getAvailableCrops(),
+							liquidity,
+							simulationContext.getFarmersContext().findFarmerById(agent_id),
+							(ArableCropProductionBhvContext) container)
+						);
+				 }
+				else  {
+					throw new NullPointerException("Only ArableCropProductionBhv_Network.class and ArableCropProductionBhv_MP.class are currently supported");
 				}
-			}
-			else if (entry.getKey() == ArableCropProductionBhv_Network.class) {
-				for(Farmer f : entry.getValue()) {
-					r.add(new ArableCropProductionBhv_Network(((ArableCropProductionBhvContext)container).getAvailableCrops(),1000,(Farmer)f,(ArableCropProductionBhvContext) container));
-				}
-			}
-			else  {
-				throw new NullPointerException("Only ArableCropProductionBhv_Network.class and ArableCropProductionBhv_MP.class are currently supported");
 			}
 		}
-		
 		container.addAll(r);
 	}
 	

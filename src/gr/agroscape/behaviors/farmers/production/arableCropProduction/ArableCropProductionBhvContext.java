@@ -30,8 +30,7 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	 * Takes a HashMap of KEY=class extending AArableCropProductionBhv, VALUE=Collection of farmers, and adds them to the BhvContext 
 	 * @param owners
 	 */
-	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners
-								,IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
+	public ArableCropProductionBhvContext(IScheduledBehaviorDataLoader<AArableCropProductionBhv> objectLoader) {
 		super("ArableCropProductionBehavior",objectLoader);
 		this.availableCrops =new ArrayList<>();
 		
@@ -44,7 +43,7 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	 * @param owners
 	 */
 	public ArableCropProductionBhvContext(HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> owners) {
-		this(owners,new DefaultArableProductionBhvContextLoader(owners));
+		this(new DefaultArableProductionBhvContextLoader(owners));
 	}
 	
 

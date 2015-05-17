@@ -1,22 +1,18 @@
 package gr.agroscape.main;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.AArableCropProductionBhv;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_MP;
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Network;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.IAgroscapeDataLoader;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -85,8 +81,6 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
-
-		
 		
 		//step 4, Attach Behavior (Stupido)
 		/*
@@ -98,29 +92,35 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		
 		//step 4, Attach Behavior (ArableCropFarmer_MP & ArableCropFarmer_Network)
-		
-		HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> arableCropFarmers=new HashMap<>();
-		
-		
+		//ONLY FOR DEFAULT DATA LOADER
+		/*
+		HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> arableCropFarmers=new HashMap<>();		
 		ArrayList<Farmer> ff1=new ArrayList<Farmer>();
 		ff1.add(farmers.findFarmerById(1));
 		ff1.add(farmers.findFarmerById(2));
 		ff1.add(farmers.findFarmerById(3));
-		//ff1.add(farmers.getObjects(Farmer.class).get(3));
-		
 		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
 		ff2.add(farmers.findFarmerById(4));
-		ff2.add(farmers.findFarmerById(5));
-		//ff2.add(farmers.getObjects(Farmer.class).get(2));
-		
+		ff2.add(farmers.findFarmerById(5));		
 		arableCropFarmers.put(ArableCropProductionBhv_Network.class, ff2);
 		arableCropFarmers.put(ArableCropProductionBhv_MP.class, ff1);
-
 		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(arableCropFarmers);
-		farmers.attachBehavior(acpc);
+		*/
 		
+		//FOR EXCEL DATA LOADER OF BEHAVIOR
+		Workbook excelWB;
+		try {
+			excelWB = WorkbookFactory.create(new File(RunEnvironment.getInstance().getParameters().getString("ExcelDataFile")));
+			ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(new gr.agroscape.behaviors.farmers.production.arableCropProduction.dataLoaders.ExcelDataLoader(excelWB));
+			farmers.attachBehavior(acpc);
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//step 5, Attach Behavior (SocialNetworking)
 
 
 		return this.simulationContext;
