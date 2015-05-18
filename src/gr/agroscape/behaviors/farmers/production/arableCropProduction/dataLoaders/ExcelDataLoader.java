@@ -8,6 +8,7 @@ import gr.agroscape.behaviors.farmers.production.arableCropProduction.AArableCro
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_MP;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Network;
+import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.SimulationContext;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 			Row row = rowItr.next();
 			int crop_id = (int)row.getCell(0).getNumericCellValue();
 			String cropName = row.getCell(1).getStringCellValue();			
-			this.crops.add(new ArableCropCultivation(cropName, crop_id, null));
+			this.crops.add(new ArableCropCultivation(cropName, crop_id, new ArrayList<Product>()));
 		}
 		
 		//add those crops

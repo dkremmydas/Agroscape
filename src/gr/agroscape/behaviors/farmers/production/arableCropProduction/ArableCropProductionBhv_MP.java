@@ -251,7 +251,7 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 	}
 
 
-	@ScheduledMethod (start=1,interval = 1, priority=2)
+	@ScheduledMethod (start=1,interval = 1, priority=30)
 	public void handleProduction() {
 		
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());

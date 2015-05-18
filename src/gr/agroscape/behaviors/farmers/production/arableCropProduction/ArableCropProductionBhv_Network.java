@@ -9,12 +9,14 @@ import gr.agroscape.contexts.FarmersContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.graph.Network;
 
 /**
- * The farmer decides an arable crop according to what his connection to the "productionNetwork"@FarmersContext has decided
+ * The farmer decides an arable crop according to what his connection to the "productionNetwork"@FarmersContext has decided.<br />
+ * He plants for all his plots, the most "popular" plot that his connection has planted.
  * 
  * @author Dimitris Kremmydas 
  */
@@ -44,13 +46,36 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		//find the farmer's connection
 		Iterable<Farmer> connections =  network.getAdjacent(this.owner);
 		
+		//take his first connection
 		AArableCropProductionBhv connection_bhv = (AArableCropProductionBhv) this.container.findByFarmerOwner(connections.iterator().next());
 		
-		ArableCropCultivation decision = connection_bhv.lastProductionDecisions.get(0).getDecision();
+		//find the most popular one
+		ArableCropCultivation decision = findMostPopular(connection_bhv.lastProductionDecisions);
 		
 		for (Plot p : plots) {
 			r.add(new ArableCropProductionDecision(p, decision));
 		}
+		return r;
+	}
+	
+	//find the most popular ArableCropCultivation, weighted by plot area
+	private ArableCropCultivation findMostPopular(ArrayList<ArableCropProductionDecision> pd) {
+		ArableCropCultivation r = null;
+		HashMap<ArableCropCultivation,Double> popularity = new HashMap<>();
+		
+		//construct popularity and find maximum (together)		
+		for (ArableCropProductionDecision dec : pd) {
+			if(popularity.containsKey(dec.getDecision())) 
+				popularity.put(dec.getDecision(), popularity.get(dec.getDecision())+dec.getPlot().getArea());
+			else
+				popularity.put(dec.getDecision(), dec.getPlot().getArea());
+			
+			if(r==null){r=dec.getDecision();}
+			if(popularity.get(r).compareTo(popularity.get(dec.getDecision()))==1) {
+				r = dec.getDecision();
+			}
+		}
+		
 		return r;
 	}
 
@@ -58,7 +83,7 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 	/*
 	 * do production
 	 */
-	@ScheduledMethod (start=1,interval = 1, priority=1)
+	@ScheduledMethod (start=1,interval = 1, priority=20)
 	public void handleProduction() {
 		
 		@SuppressWarnings("unchecked")
