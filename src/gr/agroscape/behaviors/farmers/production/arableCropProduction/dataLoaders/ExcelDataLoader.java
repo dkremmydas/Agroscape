@@ -158,7 +158,8 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 						);
 				 }
 				else  {
-					throw new NullPointerException("Only ArableCropProductionBhv_Network.class and ArableCropProductionBhv_MP.class are currently supported");
+					throw new NullPointerException("Only ArableCropProductionBhv_Network.class, ArableCropProductionBhv_MP.class,"
+							+ "ArableCropProductionBhv_Immitator.class are currently supported");
 				}
 			}
 		}

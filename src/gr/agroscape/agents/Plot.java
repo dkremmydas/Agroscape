@@ -30,6 +30,11 @@ public class Plot {
 	
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     
+    /**
+     * Which point is the 
+     */   
+    private ArrayList<GridPoint> corners = new ArrayList<>();
+    
     
     /**
      * Create a new Plot from an ArrayList of GridPoints. <br />
@@ -189,4 +194,35 @@ public class Plot {
 	}
 	
 	
-}
+	/**
+	 * Returns an arraylist with 2 GridPoints. The order of the elements is as follows:<br />
+	 * 1. top-left<br />
+	 * 2. bottom-right<br />
+	 *
+	 * @return
+	 */
+	public ArrayList<GridPoint> getCorners() {
+		if(this.corners.isEmpty()) this.findCorners();
+		return this.corners;
+	}
+	
+	/**
+	 * find the corners of the plot
+	 */
+	private void findCorners() {
+		 GridPoint top_left_corner,bottom_right_corner;
+		 top_left_corner=this.gridPoints.get(0);
+		 bottom_right_corner=this.gridPoints.get(this.gridPoints.size());
+		
+		 for (Iterator<GridPoint> iterator = this.gridPoints.iterator(); iterator.hasNext();) {
+				GridPoint gp = iterator.next();
+				if(gp.getX()<top_left_corner.getX() && gp.getY()<top_left_corner.getY()) top_left_corner=gp;
+				if(gp.getX()>bottom_right_corner.getX() && gp.getY()>bottom_right_corner.getY()) bottom_right_corner=gp;
+		}
+		
+		 this.corners.clear();
+		 this.corners.add(top_left_corner);
+		 this.corners.add(bottom_right_corner);
+	}
+	
+} //end class
