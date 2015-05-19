@@ -47,9 +47,7 @@ public class ArableCropProductionBhv_Immitator extends AArableCropProductionBhv 
 			ArrayList<ArableCropProductionDecision> possiblePd = new ArrayList<>();
 			for (Plot aplot : adjPl) {
 				possiblePd.add(container.getCurrentProductionDecisions().get(aplot));			
-			}
-System.err.println("possiblePd");			
-System.err.println(possiblePd);			
+			}		
 			r.add(new ArableCropProductionDecision(p, AArableCropProductionBhv.findMostPopular(possiblePd)));
 		}
 		return r;
