@@ -9,7 +9,6 @@ import gr.agroscape.contexts.FarmersContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.graph.Network;
@@ -50,7 +49,7 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		AArableCropProductionBhv connection_bhv = (AArableCropProductionBhv) this.container.findByFarmerOwner(connections.iterator().next());
 		
 		//find the most popular one
-		ArableCropCultivation decision = findMostPopular(connection_bhv.lastProductionDecisions);
+		ArableCropCultivation decision =AArableCropProductionBhv.findMostPopular(connection_bhv.lastProductionDecisions);
 		
 		for (Plot p : plots) {
 			r.add(new ArableCropProductionDecision(p, decision));
@@ -58,26 +57,7 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		return r;
 	}
 	
-	//find the most popular ArableCropCultivation, weighted by plot area
-	private ArableCropCultivation findMostPopular(ArrayList<ArableCropProductionDecision> pd) {
-		ArableCropCultivation r = null;
-		HashMap<ArableCropCultivation,Double> popularity = new HashMap<>();
-		
-		//construct popularity and find maximum (together)		
-		for (ArableCropProductionDecision dec : pd) {
-			if(popularity.containsKey(dec.getDecision())) 
-				popularity.put(dec.getDecision(), popularity.get(dec.getDecision())+dec.getPlot().getArea());
-			else
-				popularity.put(dec.getDecision(), dec.getPlot().getArea());
-			
-			if(r==null){r=dec.getDecision();}
-			if(popularity.get(r).compareTo(popularity.get(dec.getDecision()))==1) {
-				r = dec.getDecision();
-			}
-		}
-		
-		return r;
-	}
+	
 
 
 	/*
@@ -89,7 +69,7 @@ public class ArableCropProductionBhv_Network extends AArableCropProductionBhv {
 		@SuppressWarnings("unchecked")
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
-		this.container.updateProductionDecisionsValueLayer(pd);
+		this.container.updateContainerWithProductionDecisions(pd);
 		
 		System.err.println("Farmer(Net) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());

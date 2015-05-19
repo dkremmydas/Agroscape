@@ -141,6 +141,32 @@ public abstract class AArableCropProductionBhv extends AFarmerBehavior<AArableCr
 
 	
 	
+	/**
+	 * A helper function to calculate the ArableCropCultivation that is most popular ArableCropCultivation, weighted by plot area 
+	 * given an array of {@link ArableCropProductionDecision}s
+	 * @param pd
+	 * @return
+	 */
+	protected static  ArableCropCultivation findMostPopular(ArrayList<ArableCropProductionDecision> pd) {
+			ArableCropCultivation r = null;
+			HashMap<ArableCropCultivation,Double> popularity = new HashMap<>();
+			
+			//construct popularity (weighted by plot area) and find maximum (together)		
+			for (ArableCropProductionDecision dec : pd) {
+				if(popularity.containsKey(dec.getDecision())) 
+					popularity.put(dec.getDecision(), popularity.get(dec.getDecision())+dec.getPlot().getArea());
+				else
+					popularity.put(dec.getDecision(), dec.getPlot().getArea());
+				
+				if(r==null){r=dec.getDecision();}
+				if(popularity.get(r).compareTo(popularity.get(dec.getDecision()))<0) {
+					r = dec.getDecision();
+				}
+			}
+			
+			return r;
+		}
+	
 
 }
 

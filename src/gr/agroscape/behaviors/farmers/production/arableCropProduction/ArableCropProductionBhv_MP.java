@@ -256,7 +256,7 @@ public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 		
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
-		this.container.updateProductionDecisionsValueLayer(pd);
+		this.container.updateContainerWithProductionDecisions(pd);
 		
 		System.err.println("Farmer(MP) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());

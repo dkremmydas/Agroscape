@@ -59,7 +59,16 @@ public class Plot {
 		this(new ArrayList<GridPoint>(Arrays.asList(point)));
 	}
     
+    
     /**
+     * get Id
+     * @return
+     */
+    public int getId() {
+		return myId;
+	}
+
+	/**
      * 
      * @param point
      * @param id

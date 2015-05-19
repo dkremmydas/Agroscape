@@ -27,6 +27,11 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	private HashMap<ArableCropCultivation, GridValueLayer> cropSuitabilities=new HashMap<ArableCropCultivation, GridValueLayer>();
 	
 	/**
+	 * Keeps a record of all current ArableCropCultivation production decisions for each plot
+	 */
+	private HashMap<Plot,ArableCropProductionDecision> currentProductionDecisions = new HashMap<>();
+	
+	/**
 	 * Takes a HashMap of KEY=class extending AArableCropProductionBhv, VALUE=Collection of farmers, and adds them to the BhvContext 
 	 * @param owners
 	 */
@@ -81,10 +86,20 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	 *  Update production Decisions ValueLayer
 	 * @return
 	 */
-	public void updateProductionDecisionsValueLayer(ArrayList<ArableCropProductionDecision> pd) {
+	public void updateContainerWithProductionDecisions(ArrayList<ArableCropProductionDecision> pd) {
 		for (ArableCropProductionDecision d : pd) {
 			d.getPlot().setGridValueLayer(this.gvl_ProductionDecisions, d.getDecision().getId());
+			this.currentProductionDecisions.put(d.getPlot(), d);
 		}
+		
+	}
+
+	/**
+	 * Getter
+	 * @return
+	 */
+	public HashMap<Plot,ArableCropProductionDecision> getCurrentProductionDecisions() {
+		return currentProductionDecisions;
 	}
 	
 	

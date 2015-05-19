@@ -5,13 +5,12 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.productionDecisions.AProductionDecision;
 import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
-import gr.agroscape.contexts.FarmersContext;
+import gr.agroscape.contexts.SimulationContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
-import repast.simphony.space.graph.Network;
 
 /**
  * This farmer decides in the following way: For each plot he owns, he plants whatever the plots close to this plots are.
@@ -37,15 +36,17 @@ public class ArableCropProductionBhv_Immitator extends AArableCropProductionBhv 
 		
 		ArrayList<ArableCropProductionDecision> r=new ArrayList<ArableCropProductionDecision>(); 
 		
-		//find the farmer's connection
-		Iterable<Farmer> connections =  network.getAdjacent(this.owner);
-		
-		AArableCropProductionBhv connection_bhv = (AArableCropProductionBhv) this.container.findByFarmerOwner(connections.iterator().next());
-		
-		ArableCropCultivation decision = connection_bhv.lastProductionDecisions.get(0).getDecision();
 		
 		for (Plot p : plots) {
-			r.add(new ArableCropProductionDecision(p, decision));
+			//for one plot, find adjacent plots
+			ArrayList<Plot> adjPl = SimulationContext.getInstance().getPlotsContext().findAdjacentPlots(p);
+			
+			//get production decisions
+			ArrayList<ArableCropProductionDecision> possiblePd = new ArrayList<>();
+			for (Plot aplot : adjPl) {
+				possiblePd.add(container.getCurrentProductionDecisions().get(aplot));			
+			}
+			r.add(new ArableCropProductionDecision(p, AArableCropProductionBhv.findMostPopular(possiblePd)));
 		}
 		return r;
 	}
@@ -60,13 +61,11 @@ public class ArableCropProductionBhv_Immitator extends AArableCropProductionBhv 
 		@SuppressWarnings("unchecked")
 		ArrayList<ArableCropProductionDecision> pd =  (ArrayList<ArableCropProductionDecision>)this.makeProductionDecision(this.getCultivatingPlots());
 		this.lastProductionDecisions =pd;
-		this.container.updateProductionDecisionsValueLayer(pd);
+		this.container.updateContainerWithProductionDecisions(pd);
 		
 		System.err.println("Farmer(Immitator) " + this.owner.toString() + " Decisions:");
 		System.err.println(pd.toString());
 	}
-	
-
 	
 	
 

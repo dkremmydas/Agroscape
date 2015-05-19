@@ -5,13 +5,27 @@ import gr.agroscape.agents.Plot;
 import java.util.ArrayList;
 
 import repast.simphony.context.DefaultContext;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.collections.IndexedIterable;
+import repast.simphony.valueLayer.GridValueLayer;
 
 
 
 public class PlotsContext extends DefaultContext<Plot> {
 
-
+	
+	/**
+	 * Keeps a grid with the values of plot-id's on each cell.<br/>
+	 * Very useful for quickly finding neighboring plots
+	 */
+	private GridValueLayer plotIdsValueLayer = new GridValueLayer("PlotIds", 
+																	0, 
+																	true, 
+																	RunEnvironment.getInstance().getParameters().getInteger("gridWidth"),
+																	RunEnvironment.getInstance().getParameters().getInteger("gridHeight")
+																	);
+	
 
 	/**
 	 * A full constructor
@@ -37,6 +51,28 @@ public class PlotsContext extends DefaultContext<Plot> {
 	}
 
 
+	@Override
+	protected void fireAddContextEvent(Plot o) {
+		super.fireAddContextEvent(o);
+		//update value layer accordingly
+		ArrayList<GridPoint> points = o.getGridPoints();
+		for (GridPoint p : points) {
+			this.plotIdsValueLayer.set(o.getId(), p.getX(),p.getY());
+		}
+	}
+
+	/**
+	 * Get the adjacent plots for a given Plot.<br />
+	 * It is using the {@link #plotIdsValueLayer} property of the context.
+	 * @param p
+	 * @return
+	 */
+	public ArrayList<Plot>findAdjacentPlots(Plot p) {
+		
+		
+		return new ArrayList<>();
+	}
+	
 
 
 	/*@Override

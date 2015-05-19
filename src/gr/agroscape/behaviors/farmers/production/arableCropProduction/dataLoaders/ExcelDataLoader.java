@@ -6,6 +6,7 @@ import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.AArableCropProductionBhv;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
+import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Immitator;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_MP;
 import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhv_Network;
 import gr.agroscape.behaviors.farmers.production.products.Product;
@@ -142,6 +143,14 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 				 }
 				else if(farmer_type.equals("Farmer_Net")) {
 					r.add(new ArableCropProductionBhv_Network(
+							((ArableCropProductionBhvContext)container).getAvailableCrops(),
+							liquidity,
+							simulationContext.getFarmersContext().findFarmerById(agent_id),
+							(ArableCropProductionBhvContext) container)
+						);
+				 }
+				else if(farmer_type.equals("Farmer_Immit")) {
+					r.add(new ArableCropProductionBhv_Immitator(
 							((ArableCropProductionBhvContext)container).getAvailableCrops(),
 							liquidity,
 							simulationContext.getFarmersContext().findFarmerById(agent_id),
