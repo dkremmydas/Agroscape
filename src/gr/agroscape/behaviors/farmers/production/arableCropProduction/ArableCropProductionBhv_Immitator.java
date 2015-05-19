@@ -9,6 +9,7 @@ import gr.agroscape.contexts.SimulationContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
 
@@ -39,13 +40,16 @@ public class ArableCropProductionBhv_Immitator extends AArableCropProductionBhv 
 		
 		for (Plot p : plots) {
 			//for one plot, find adjacent plots
-			ArrayList<Plot> adjPl = SimulationContext.getInstance().getPlotsContext().findAdjacentPlots(p);
+			ArrayList<Plot> adjPl = SimulationContext.getInstance().getPlotsContext().findAdjacentPlots(p,2);
+			adjPl.removeAll(Collections.singleton(null));
 			
 			//get production decisions
 			ArrayList<ArableCropProductionDecision> possiblePd = new ArrayList<>();
 			for (Plot aplot : adjPl) {
 				possiblePd.add(container.getCurrentProductionDecisions().get(aplot));			
 			}
+System.err.println("possiblePd");			
+System.err.println(possiblePd);			
 			r.add(new ArableCropProductionDecision(p, AArableCropProductionBhv.findMostPopular(possiblePd)));
 		}
 		return r;

@@ -3,6 +3,7 @@ package gr.agroscape.contexts;
 import gr.agroscape.agents.Plot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.commons.collections15.Predicate;
 
@@ -84,34 +85,39 @@ public class PlotsContext extends DefaultContext<Plot> {
 		int rightX = p.getCorners().get(1).getX();
 		
 		//scan top edge
-		for(int i=leftX;i<=rightX;i++) {
+		for(int i=leftX;i<rightX;i++) {
 			int y = (topY-buffer)>=0?topY-buffer:0;
-			if(! rInt.contains(this.plotIdsValueLayer.get(i,y))) rInt.add((int) this.plotIdsValueLayer.get(i,y));
+			if(! rInt.contains((int)this.plotIdsValueLayer.get(i,y)) && !((int)this.plotIdsValueLayer.get(i,y)==p.getId())) rInt.add((int) this.plotIdsValueLayer.get(i,y));
 		}
 		
 		//scan right edge
-		for(int i=topY;i<=bottomY;i++) {
-			int x = (int) ((rightX+buffer)<=this.plotIdsValueLayer.getDimensions().getWidth()?rightX+buffer:this.plotIdsValueLayer.getDimensions().getWidth());
-			if(! rInt.contains(this.plotIdsValueLayer.get(x,i))) rInt.add((int) this.plotIdsValueLayer.get(x,i));
+		for(int i=topY;i<bottomY;i++) {
+			int x = (int) ((rightX+buffer)<=this.plotIdsValueLayer.getDimensions().getWidth()?rightX+buffer:this.plotIdsValueLayer.getDimensions().getWidth())-1;
+			if(! rInt.contains((int)this.plotIdsValueLayer.get(x,i))  && !((int)this.plotIdsValueLayer.get(x,i)==p.getId())) rInt.add((int) this.plotIdsValueLayer.get(x,i));
 		}
 		
 		//scan left edge
-		for(int i=topY;i<=bottomY;i++) {
+		for(int i=topY;i<bottomY;i++) {
 			int x = (leftX-buffer)>=0?leftX-buffer:0;
-			if(! rInt.contains(this.plotIdsValueLayer.get(x,i))) rInt.add((int) this.plotIdsValueLayer.get(x,i));
+			if(! rInt.contains((int)this.plotIdsValueLayer.get(x,i)) && !((int)this.plotIdsValueLayer.get(x,i)==p.getId()) ) rInt.add((int) this.plotIdsValueLayer.get(x,i));
 		}
 		
 		
 		//scan bottom edge
-		for(int i=leftX;i<=rightX;i++) {
-			int y = (int) ((bottomY+buffer)<=this.plotIdsValueLayer.getDimensions().getHeight()?bottomY+buffer:this.plotIdsValueLayer.getDimensions().getHeight());
-			if(! rInt.contains(this.plotIdsValueLayer.get(i,y))) rInt.add((int) this.plotIdsValueLayer.get(i,y));
+		for(int i=leftX;i<rightX;i++) {
+			int y = (int) ((bottomY+buffer)<=this.plotIdsValueLayer.getDimensions().getHeight()?bottomY+buffer:this.plotIdsValueLayer.getDimensions().getHeight())-1;
+			if(! rInt.contains((int)this.plotIdsValueLayer.get(i,y))  && !((int)this.plotIdsValueLayer.get(i,y)==p.getId()) ) rInt.add((int) this.plotIdsValueLayer.get(i,y));
 		}
 		
 		ArrayList<Plot> r = new ArrayList<>();
 		for (int plot_id : rInt) {
-			r.add(this.findPlotById(plot_id));
+			if(plot_id>0) {			
+				r.add(this.findPlotById(plot_id));
+			}
 		}
+		
+		//remove null
+		r.removeAll(Collections.singleton(null));
 		return r;
 	}
 	
@@ -132,13 +138,33 @@ public class PlotsContext extends DefaultContext<Plot> {
 	 */
 	public Plot findPlotById(int id) {
 		Iterable<Plot> iff = this.query(new PredicatePlotId(id));
-		return iff.iterator().next();
+		for (Plot plot : iff) {
+			return plot;
+		}
+		return null;
 	}
 	
 
+	public String plotIdsStringMap() {
+		String r="   ";
+		for (int i = 0; i < this.plotIdsValueLayer.getDimensions().getWidth(); i++) {
+			r += String.format("%2d.",  i);
+		}
+		r += "\n";
+		
+		for (int i = 0; i < this.plotIdsValueLayer.getDimensions().getWidth(); i++) {
+			r +=  String.format("%2d.",  i);
+			for (int j = 0; j < this.plotIdsValueLayer.getDimensions().getHeight(); j++) {
+				r += String.format("%3d",  (int)this.plotIdsValueLayer.get(i,j));
+			}
+			r +="\n";
+		}
+		return r;
+	}
 
+	
 
-}
+} //end class
 
 
 /**

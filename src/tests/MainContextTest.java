@@ -1,5 +1,6 @@
 package tests;
 import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.Plot;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
 import gr.agroscape.contexts.FarmersContext;
@@ -27,8 +28,8 @@ public class MainContextTest {
 	public void setUp() throws Exception {
 		
 		DefaultParameters p = new DefaultParameters();
-		p.addParameter("gridWidth", "gridWidth", Integer.class, 31, false);
-		p.addParameter("gridHeight", "gridHeight", Integer.class, 31, false);
+		p.addParameter("gridWidth", "gridWidth", Integer.class, 30, false);
+		p.addParameter("gridHeight", "gridHeight", Integer.class, 30, false);
 		p.addParameter("ExcelDataFile", "ExcelDataFile", String.class, "freezedried_data\\dataToLoad.v3.xlsx", false);
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
@@ -114,6 +115,15 @@ public class MainContextTest {
 		System.err.println("Advanced 6th step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 		System.err.println("");
+	}
+	
+	
+	@Test
+	public void testPlotContext()  {
+		Plot p = simulationContext.getPlotsContext().findPlotById(13);
+		System.err.println(simulationContext.getPlotsContext().plotIdsStringMap());
+		System.err.println(p.getCorners().toString());
+		System.err.println("Adjacent" + simulationContext.getPlotsContext().findAdjacentPlots(p,2).toString());
 	}
 
 }

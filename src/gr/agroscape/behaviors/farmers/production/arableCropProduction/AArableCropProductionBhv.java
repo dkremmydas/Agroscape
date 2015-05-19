@@ -153,15 +153,17 @@ public abstract class AArableCropProductionBhv extends AFarmerBehavior<AArableCr
 			
 			//construct popularity (weighted by plot area) and find maximum (together)		
 			for (ArableCropProductionDecision dec : pd) {
-				if(popularity.containsKey(dec.getDecision())) 
-					popularity.put(dec.getDecision(), popularity.get(dec.getDecision())+dec.getPlot().getArea());
-				else
-					popularity.put(dec.getDecision(), dec.getPlot().getArea());
-				
-				if(r==null){r=dec.getDecision();}
-				if(popularity.get(r).compareTo(popularity.get(dec.getDecision()))<0) {
-					r = dec.getDecision();
-				}
+				if(dec!=null) {
+					if(popularity.containsKey(dec.getDecision())) 
+						popularity.put(dec.getDecision(), popularity.get(dec.getDecision())+dec.getPlot().getArea());
+					else
+						popularity.put(dec.getDecision(), dec.getPlot().getArea());
+					
+					if(r==null){r=dec.getDecision();}
+					if(popularity.get(r).compareTo(popularity.get(dec.getDecision()))<0) {
+						r = dec.getDecision();
+					}
+				}				
 			}
 			
 			return r;

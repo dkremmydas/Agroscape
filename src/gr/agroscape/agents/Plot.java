@@ -4,14 +4,14 @@ import gr.agroscape.main.AgroscapeConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
- * This is a Plot. Many GridPoints can constitute a Plot.<br /><br />
+ * This is a Plot. Many GridPoints can constitute a Plot.<br />
+ * The plot_id starts from 1<br />
  * The concern of this class is:
  * <ul>
  * <li> to give information about the Plot (Area, Average Soil Characteristics, etc.)</li>
@@ -24,7 +24,7 @@ import repast.simphony.valueLayer.GridValueLayer;
 
 public class Plot {
 
-	private static int next_id=0;
+	private static int next_id=1;
 	
 	private int myId;
 	
@@ -168,17 +168,6 @@ public class Plot {
 		return p;
 	}
 	
-	/**
-	 * Get the neighboring plots in a radius of r.
-	 * //TODO implement this method
-	 * @param r the radius (units ?)
-	 * @return
-	 */
-	public Collection<Plot> getNeighboringPlots(int r)
-	{
-		return null;
-		
-	}
 
 
 	/**
@@ -212,7 +201,7 @@ public class Plot {
 	private void findCorners() {
 		 GridPoint top_left_corner,bottom_right_corner;
 		 top_left_corner=this.gridPoints.get(0);
-		 bottom_right_corner=this.gridPoints.get(this.gridPoints.size());
+		 bottom_right_corner=this.gridPoints.get(this.gridPoints.size()-1);
 		
 		 for (Iterator<GridPoint> iterator = this.gridPoints.iterator(); iterator.hasNext();) {
 				GridPoint gp = iterator.next();
