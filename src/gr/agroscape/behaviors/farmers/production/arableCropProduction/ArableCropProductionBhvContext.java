@@ -9,12 +9,16 @@ import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCr
 import gr.agroscape.behaviors.farmers.production.productionDecisions.ArableCropProductionDecision;
 import gr.agroscape.behaviors.farmers.production.products.Product;
 import gr.agroscape.contexts.SimulationContext;
+import gr.agroscape.utilities.GridValueLayerFunction;
+import gr.agroscape.utilities.ValueLayersUtilities;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.StrictBorders;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -30,6 +34,8 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 	 * Keeps a record of all current ArableCropCultivation production decisions for each plot
 	 */
 	private HashMap<Plot,ArableCropProductionDecision> currentProductionDecisions = new HashMap<>();
+	
+	private HashMap<ArableCropCultivation, Integer> arableCropProductionDecisionAggregate = new HashMap<>();
 	
 	/**
 	 * Takes a HashMap of KEY=class extending AArableCropProductionBhv, VALUE=Collection of farmers, and adds them to the BhvContext 
@@ -91,9 +97,52 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 			d.getPlot().setGridValueLayer(this.gvl_ProductionDecisions, d.getDecision().getId());
 			this.currentProductionDecisions.put(d.getPlot(), d);
 		}
+		this.updateCropSuitabilityLayer(pd);
+		
+		
 		
 	}
 
+	/**
+	 * for each valueLayer diminish the CropSuitability by half
+	 * @param pd
+	 */
+	private void updateCropSuitabilityLayer(ArrayList<ArableCropProductionDecision> pd) {
+		for (ArableCropProductionDecision d : pd) {
+			Plot p = d.getPlot();
+			ArableCropCultivation c = d.getDecision();
+			
+			GridValueLayerFunction decrease = new GridValueLayerFunction() {
+				@Override
+				public void apply(GridValueLayer vl, ArrayList<GridPoint> appliedPoints) {
+					for (GridPoint point : appliedPoints) {
+						vl.set(0.8*vl.get(point.getX(),point.getY()), point.getX(),point.getY());
+					}					
+				}
+			};
+			
+			GridValueLayerFunction increase = new GridValueLayerFunction() {
+				@Override
+				public void apply(GridValueLayer vl, ArrayList<GridPoint> appliedPoints) {
+					for (GridPoint point : appliedPoints) {
+						if(1.2*vl.get(point.getX(),point.getY())>1) {
+							vl.set(1d, point.getX(),point.getY());
+						}
+						else {
+							vl.set(1.2*vl.get(point.getX(),point.getY()), point.getX(),point.getY());
+						}						
+					}					
+				}
+			};
+			
+			for (ArableCropCultivation cc : this.getAvailableCrops()) {
+				if(cc.equals(c)) {p.updateGridValueLayer(this.cropSuitabilities.get(c), decrease);}
+				else {p.updateGridValueLayer(this.cropSuitabilities.get(c), increase);}
+			}
+		
+		}
+	}
+	
 	/**
 	 * Getter
 	 * @return
@@ -102,6 +151,26 @@ public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCrop
 		return currentProductionDecisions;
 	}
 	
+	@ScheduledMethod(start=1,interval=1,priority=5)
+	public void printInfo() {
+		
+		
+		//update aggregate
+		arableCropProductionDecisionAggregate.clear();
+		ArrayList<ArableCropProductionDecision> decs = new ArrayList<>(this.currentProductionDecisions.values());
+		for (ArableCropProductionDecision d : decs) {
+			if(arableCropProductionDecisionAggregate.containsKey(d.getDecision())) {
+				arableCropProductionDecisionAggregate.put(d.getDecision(), arableCropProductionDecisionAggregate.get(d.getDecision()) + (int) d.getPlot().getArea());
+			}
+			else {
+				arableCropProductionDecisionAggregate.put(d.getDecision(), (int) d.getPlot().getArea());
+			}			
+		}
+		//ArableCropProductionDecisionAggregate
+				
+		System.err.println("Current Production Decisions Aggregate:");
+		System.err.println(arableCropProductionDecisionAggregate);
+	}
 	
 	
 
@@ -194,6 +263,8 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		//add a CropDecisions Value Layer
 		//SimulationContext.getInstance().addValueLayer(new GridValueLayer("ProductionDecisions",true,space.getGridWidth(),space.getGridWidth()));
 	}
+	
+	
 
 	
 } //end class

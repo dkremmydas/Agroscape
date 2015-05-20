@@ -21,7 +21,7 @@ import java.util.HashMap;
 public abstract class AbstractExpectation<K, V> {
 	//TODO: Write more on what an expectation is
 	
-	private HashMap<K,V> values;
+	protected HashMap<K,V> values;
 	
 	
 	/**

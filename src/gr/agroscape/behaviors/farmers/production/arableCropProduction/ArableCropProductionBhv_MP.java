@@ -39,8 +39,6 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 public class ArableCropProductionBhv_MP extends AArableCropProductionBhv {
 	
 
-	
-	
 	public ArableCropProductionBhv_MP(ArrayList<ArableCropCultivation> pC,
 			long liquidity, Farmer f, ArableCropProductionBhvContext c) {
 		super(pC, liquidity, f,c);

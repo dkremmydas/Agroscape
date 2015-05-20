@@ -170,6 +170,21 @@ public abstract class AArableCropProductionBhv extends AFarmerBehavior<AArableCr
 		}
 	
 
+	
+	public double getTotalWheat() {return getArea(this.container.getAvailableCrops().get(1));}
+	public double getTotalMaize() {return getArea(this.container.getAvailableCrops().get(0));}
+	public double getTotalCotton() {return getArea(this.container.getAvailableCrops().get(2));}
+	private int getArea(ArableCropCultivation c) {
+		int r = 0;
+		ArrayList<ArableCropProductionDecision> dcs = this.lastProductionDecisions;
+		for (ArableCropProductionDecision d : dcs) {
+			if(d.getDecision().equals(c)) {
+				r+=(int)d.getPlot().getArea();
+			}
+		}
+		return r;
+	}
+
 }
 
 

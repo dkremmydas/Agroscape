@@ -1,6 +1,7 @@
 package gr.agroscape.agents;
 
 import gr.agroscape.main.AgroscapeConfiguration;
+import gr.agroscape.utilities.GridValueLayerFunction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -180,6 +181,11 @@ public class Plot {
 			GridPoint gridPoint = iterator.next();
 			vl.set(v, gridPoint.getX(),gridPoint.getY());
 		}
+	}
+	
+	
+	public void updateGridValueLayer(GridValueLayer vl,GridValueLayerFunction function) {
+		function.apply(vl, this.gridPoints);
 	}
 	
 	
