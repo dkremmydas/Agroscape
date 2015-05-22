@@ -5,9 +5,6 @@ import gr.agroscape.agents.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.authorities.PaymentAuthority;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
-
-import java.util.ArrayList;
-
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
@@ -16,7 +13,6 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
-import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * This is the MainContext. Everything is included here. <br />
@@ -58,23 +54,6 @@ public class SimulationContext extends DefaultContext<Object> {
 	private Grid<Object> space;
 	
 	
-	
-
-	//The value layer of the Owners_id
-	private GridValueLayer gvl_Owners;
-	
-	//The ValueLayer of the Cultivator_id
-	private GridValueLayer gvl_Cultivators;
-	
-	//The ValueLayer of the Cultivator_id
-	//private GridValueLayer gvl_Tenants;
-	
-	//The ValueLayer showing the production decisions of the farmers
-	private GridValueLayer gvl_ProductionDecisions;
-	
-	
-	
-	
 	/**
 	 * Only one instance of MainContext exists. 
 	 * <br />Singleton Design Pattern (?)
@@ -106,12 +85,6 @@ public class SimulationContext extends DefaultContext<Object> {
 						new GridBuilderParameters<Object>(new StrictBorders(),
 								new SimpleGridAdder<Object>(), false, gridWidth, gridHeight));
 
-
-		this.gvl_Owners =  new GridValueLayer("Owners",true,new StrictBorders(), gridWidth, gridHeight);
-		this.addValueLayer( gvl_Owners );
-		
-		this.gvl_Cultivators = new GridValueLayer("Cultivators",true,new StrictBorders(), gridWidth, gridHeight);
-		this.addValueLayer( gvl_Cultivators );
 	}
 
 
@@ -158,15 +131,15 @@ public class SimulationContext extends DefaultContext<Object> {
 	
 	
 	public PlotsContext getPlotsContext() {
-		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
+		if(! this.hasSubContext()) throw new NullPointerException("The PlotsContext does not have any subcontexts yet.");
 		return (PlotsContext) this.getSubContext("PlotsContext");
 	}
-		
-	public static ArrayList<Plot> getAvailablePlots() {
-		if(! SimulationContext.getInstance().hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
-		return (ArrayList<Plot>)SimulationContext.getInstance().getPlotsContext().getAvailablePlots();
-	}
 	
+	public BehaviorsContext getBehaviorsContext() {
+		if(! this.hasSubContext()) throw new NullPointerException("The BehaviorsContext does not have any subcontexts yet.");
+		return (BehaviorsContext) this.getSubContext("BehaviorsContext");
+	}
+		
 	public FarmersContext getFarmersContext() {
 		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");
 		return ((FarmersContext) this.getSubContext("FarmersContext"));

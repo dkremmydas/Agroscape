@@ -1,13 +1,10 @@
 package gr.agroscape.contexts;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehaviorContext;
-import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections4.map.HashedMap;
 
-import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.space.graph.Network;
 
@@ -59,16 +56,6 @@ public class FarmersContext extends DefaultContext<Farmer> {
 		return this.networks.get(name);
 	}
 
-	/**
-	 * Attach a behavior to a {@link Farmer}
-	 * @param behaviorContainer
-	 */
-	@SuppressWarnings("unchecked")
-	public void attachBehavior(ABehaviorContext<? extends AFarmerBehavior<?>> behaviorContainer) {
-		behaviorContainer.loadBehavingObjects();
-		this.addSubContext((Context<? extends Farmer>) behaviorContainer);
-	}
-	
 	
 	/**
 	 * Search for a Farmer with a specific id

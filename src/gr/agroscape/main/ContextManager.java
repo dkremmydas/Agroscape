@@ -1,18 +1,20 @@
 package gr.agroscape.main;
 
-import gr.agroscape.behaviors.farmers.production.arableCropProduction.ArableCropProductionBhvContext;
+import gr.agroscape.agents.Farmer;
+import gr.agroscape.behaviors.ABehaviorContext;
+import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
+import gr.agroscape.contexts.BehaviorsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.IAgroscapeDataLoader;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -49,14 +51,15 @@ public class ContextManager implements ContextBuilder<Object> {
 		this.simulationContext=SimulationContext.getInstance();
 		
 		
-
-		
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
 		this.simulationContext.addSubContext(plots);
 		
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
 		this.simulationContext.addSubContext(farmers);
+		
+		BehaviorsContext bhvContext = new BehaviorsContext();
+		this.simulationContext.addSubContext(bhvContext);
 		
 		
 		//step 3, create dataLoader
@@ -83,12 +86,12 @@ public class ContextManager implements ContextBuilder<Object> {
 		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
 		
 		//step 4, Attach Behavior (Stupido)
-		/*
+		
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
 		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
-		StupidoBhvContext sfc = new StupidoBhvContext(ff);
-		farmers.attachBehavior(sfc);
-		*/
+		//bhvContext.addSubContext(new StupidoBhvContext(ff));
+		bhvContext.addSubContext(new StupidoBhvContext(ff));
+		
 		
 		
 		//step 4, Attach Behavior (ArableCropFarmer_MP & ArableCropFarmer_Network)
@@ -107,6 +110,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(arableCropFarmers);
 		*/
 		
+		/*
 		//FOR EXCEL DATA LOADER OF BEHAVIOR
 		Workbook excelWB;
 		try {
@@ -120,7 +124,7 @@ public class ContextManager implements ContextBuilder<Object> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 
 
 		return this.simulationContext;

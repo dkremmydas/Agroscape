@@ -1,11 +1,10 @@
 package gr.agroscape.behaviors.farmers.stupido;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
-public class StupidoBhv extends AFarmerBehavior<StupidoBhv> implements IScheduledBehavior<StupidoBhv>   {
+public class StupidoBhv extends AFarmerBehavior   {
 
 	/**
 	 * A reference to the container context
@@ -28,11 +27,6 @@ public class StupidoBhv extends AFarmerBehavior<StupidoBhv> implements ISchedule
 	@ScheduledMethod (start=2,interval = 1)
 	public void print() {
 		System.err.println("Farmer, id="+this.owner.getID() + ", stupido random=" + this.stupidoProperty);
-	}
-	
-	@Override
-	public Object getAnnotatedClass() {
-		return this;
 	}
 
 }

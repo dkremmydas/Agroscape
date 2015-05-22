@@ -1,13 +1,10 @@
-package gr.agroscape.behaviors.farmers;
-
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehavior;
+package gr.agroscape.behaviors;
 
 
 /**
  * Every "Farmer Behavior" object contains a reference to the "Farmer" object that contains it.<br />
  * Bhv is a shortcut for "Behavior". So all classes that end with "Bhv" are actually extending 
- * {@link AFarmerBehavior}.
+ * {@link ABehavior}.
  * 
  *   //TODO int he FarmersContext, have a Map of Farmer->ArrayList<ABehavior>
  *   
@@ -16,12 +13,29 @@ import gr.agroscape.behaviors.ABehavior;
  *
  * @param <T>
  */
-public abstract class AFarmerBehavior extends ABehavior<Farmer> {
+public abstract class ABehavior<T> {
+	
+	/**
+	 * A reference to the owner Farmer
+	 */
+	protected T owner;	
+	
 
-	public AFarmerBehavior(Farmer owner) {
-		super(owner);
+	/**
+	 * Constructor
+	 * @param owner
+	 */
+	public ABehavior(T owner) {
+		this.owner = owner;
 	}
-	
-	
+
+
+	/**
+	 * Getter
+	 * @return
+	 */
+	public T getOwner() {
+		return owner;
+	}
 
 }
