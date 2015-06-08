@@ -1,12 +1,21 @@
 package gr.agroscape.contexts;
 
-import gr.agroscape.behaviors.ABehaviorContext;
-import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
-import repast.simphony.context.Context;
+import repast.simphony.context.ContextEvent;
+import repast.simphony.context.ContextListener;
 import repast.simphony.context.DefaultContext;
+import repast.simphony.context.ContextEvent.EventType;
+import repast.simphony.engine.environment.RunEnvironment;
 
-public class BehaviorsContext extends DefaultContext<ABehaviorContext>  {
+public class BehaviorsContext extends DefaultContext<Object>  {
 
+	private ContextListener<?> addScheduledBehavior = new ContextListener<Object>() {
+		@Override
+		public void eventOccured(ContextEvent<Object> ev) {
+			if (ev.getType() ==	EventType.AGENT_ADDED)	 {
+				RunEnvironment.getInstance().getCurrentSchedule().schedule(ev.getTarget());
+			}
+		}
+	};
 	
 	/**
 	 * A full constructor
@@ -14,15 +23,13 @@ public class BehaviorsContext extends DefaultContext<ABehaviorContext>  {
 	 * @param valuelayers
 	 * @param lpr
 	 */
+	@SuppressWarnings("unchecked")
 	public BehaviorsContext() {
 		super("BehaviorsContext");
 		this.setId("BehaviorsContext");
+		this.addContextListener((ContextListener<Object>) addScheduledBehavior);
 	}
 
-	@Override
-	public void addSubContext(Context<? extends ABehaviorContext> context) {
-		super.addSubContext(context);
-	}
 
 
 	

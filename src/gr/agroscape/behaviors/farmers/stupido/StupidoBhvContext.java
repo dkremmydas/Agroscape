@@ -1,7 +1,6 @@
 package gr.agroscape.behaviors.farmers.stupido;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehavior;
 import gr.agroscape.behaviors.ABehaviorContext;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import repast.simphony.dataLoader.ContextBuilder;
  * 
  * @author Dimitris Kremmydas
  */
-public class StupidoBhvContext extends ABehaviorContext  {
+public class StupidoBhvContext extends ABehaviorContext<StupidoBhv>  {
 	
 	private Random randomGenerator ;
 
@@ -26,12 +25,10 @@ public class StupidoBhvContext extends ABehaviorContext  {
 		this.randomGenerator = new Random(System.currentTimeMillis());	
 	}
 	
-	
 	public StupidoBhvContext(ContextBuilder<StupidoBhv> builder) {
 		super("stupidoBehavior",builder);
 	}
 		
-	
 	public int getRandom() {
 		return this.randomGenerator.nextInt();
 	}
@@ -40,22 +37,20 @@ public class StupidoBhvContext extends ABehaviorContext  {
 
 
 /**
- * Inner class to load stupidoBhv ojects
+ * Inner class to load stupidoBhv objects
  * @author Dimitris Kremmydas
 */ 
-class DefaultStupidoDataLoader implements ContextBuilder<ABehavior<?>> {
+class DefaultStupidoDataLoader implements ContextBuilder<StupidoBhv> {
 
 	private Collection<? super Farmer> owners;	
-	
 	
 	public DefaultStupidoDataLoader(Collection<? super Farmer> owners) {
 		super();
 		this.owners = owners;
 	}
 
-
 	@Override
-	public Context<ABehavior<?>> build(Context<ABehavior<?>> context) {
+	public Context<StupidoBhv> build(Context<StupidoBhv> context) {
 		
 		StupidoBhvContext sbhCon = (StupidoBhvContext)context;
 		

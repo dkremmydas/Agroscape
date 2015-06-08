@@ -1,7 +1,7 @@
 package gr.agroscape.main;
 
 import gr.agroscape.agents.Farmer;
-import gr.agroscape.behaviors.ABehaviorContext;
+import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.BehaviorsContext;
 import gr.agroscape.contexts.FarmersContext;
@@ -44,6 +44,7 @@ public class ContextManager implements ContextBuilder<Object> {
 	 * 3. Create {@link IAgroscapeDataLoader dataLoader} and load data
 	 * 
 	 */
+
 	@Override
 	public Context<Object> build(Context<Object> context) {
 		
@@ -90,7 +91,10 @@ public class ContextManager implements ContextBuilder<Object> {
 		ArrayList<Farmer> ff=new ArrayList<Farmer>();
 		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
 		//bhvContext.addSubContext(new StupidoBhvContext(ff));
-		bhvContext.addSubContext(new StupidoBhvContext(ff));
+		Context<StupidoBhv> ssc = new StupidoBhvContext(ff);
+		bhvContext.addSubContext(ssc);
+		
+		
 		
 		
 		
