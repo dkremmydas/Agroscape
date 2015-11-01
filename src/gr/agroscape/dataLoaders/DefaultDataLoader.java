@@ -1,8 +1,8 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.HumanAgent;
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.human.HumanAgent;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
@@ -14,7 +14,7 @@ import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.space.graph.Network;
 import repast.simphony.space.grid.GridPoint;
 
-public class DefaultDataLoader implements IAgroscapeDataLoader {
+public class DefaultDataLoader implements AgroscapeSkeletonDataLoader {
 	
 	private ArrayList<Plot> avplots = new ArrayList<Plot>();
 	private ArrayList<Farmer> avfarmers = new ArrayList<Farmer>();

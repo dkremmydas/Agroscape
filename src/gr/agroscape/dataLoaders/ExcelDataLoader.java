@@ -1,7 +1,7 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
@@ -34,7 +34,7 @@ import repast.simphony.space.grid.GridPoint;
  * @author Dimitris Kremmydas
  *
  */
-public class ExcelDataLoader implements IAgroscapeDataLoader {
+public class ExcelDataLoader implements AgroscapeSkeletonDataLoader {
 
 	private Workbook excelWB; 
 	

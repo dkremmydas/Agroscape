@@ -1,6 +1,6 @@
 package gr.agroscape.behaviors.farmers.production;
 
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.AAgriculturalActivity;
 
 /**

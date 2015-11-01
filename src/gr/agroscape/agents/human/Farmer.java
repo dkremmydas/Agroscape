@@ -1,4 +1,4 @@
-package gr.agroscape.agents;
+package gr.agroscape.agents.human;
 
 import java.util.HashMap;
 
@@ -34,20 +34,7 @@ import java.util.HashMap;
 public class Farmer extends HumanAgent  {
 	
 	
-	/**
-	 * Constructor
-	 * @param id
-	 * @param grid
-	 */	
-	public Farmer(int id) {
-		super(id);			
-	}
 	
-	public Farmer() {
-		super();			
-	}
- 
-
 	
 	
 

@@ -1,6 +1,6 @@
 package tests;
 
-import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.human.Farmer;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.main.ContextManager;

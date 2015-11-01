@@ -1,8 +1,7 @@
 package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.Plot;
-import gr.agroscape.behaviors.IScheduledBehavior;
+import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.behaviors.farmers.production.interfaces.IHasProductionAbility;

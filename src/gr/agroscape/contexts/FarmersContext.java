@@ -1,6 +1,10 @@
 package gr.agroscape.contexts;
 
-import gr.agroscape.agents.Farmer;
+
+
+
+
+import gr.agroscape.agents.human.Farmer;
 
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections4.map.HashedMap;
@@ -82,7 +86,7 @@ class PredicateFarmerId implements Predicate<Farmer> {
 
 	@Override
 	public boolean evaluate(Farmer arg0) {
-		if(arg0.getID().equals(lookingFor)) return true;
+		if(arg0.getId().equals(lookingFor)) return true;
 		return false;
 	}
 	

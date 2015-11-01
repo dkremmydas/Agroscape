@@ -1,6 +1,6 @@
 package tests;
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.behaviors.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
 import gr.agroscape.contexts.FarmersContext;

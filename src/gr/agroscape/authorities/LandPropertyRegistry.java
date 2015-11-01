@@ -1,8 +1,8 @@
 package gr.agroscape.authorities;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.HumanAgent;
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.human.HumanAgent;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.exceptions.NoSuchAgentException;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class LandPropertyRegistry {
 	
 	/**
 	 * The owner's registry.  <br />
-	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.agents.HumanAgent#myID}. <br />
+	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.agents.human.HumanAgent#myID}. <br />
 	 * Column dimension is for Plots and it holds the plot_num. <br />
 	 * If the value of (i,j) element equals to 1, then Agent_num=i owns Plot_num=j. <br />
 	 */
@@ -200,7 +200,7 @@ public class LandPropertyRegistry {
 	}
 	
 	/**
-	 * Checks whether ther is a tenant for the Plot
+	 * Checks whether there is a tenant for the Plot
 	 * @param p {@link Plot}
 	 * @return true/false
 	 */
@@ -302,7 +302,7 @@ public class LandPropertyRegistry {
 				if(this.ownerRegistry.getEntry(i, j)>0d) {
 					ArrayList<GridPoint> gps=this.plots.get(j).getGridPoints();
 					for (GridPoint gp : gps) {
-						vl.set((this.owners.get(i).getID()).doubleValue(), gp.getX(),gp.getY());
+						vl.set((this.owners.get(i).getId()).doubleValue(), gp.getX(),gp.getY());
 					}
 				}
 			}			
@@ -321,7 +321,7 @@ public class LandPropertyRegistry {
 				if(this.tenantRegistry.getEntry(i, j)>0d) {
 					ArrayList<GridPoint> gps=this.plots.get(j).getGridPoints();
 					for (GridPoint gp : gps) {
-						vl.set((this.tenants.get(i).getID()).doubleValue(), gp.getX(),gp.getY());
+						vl.set((this.tenants.get(i).getId()).doubleValue(), gp.getX(),gp.getY());
 					}	
 					break;
 				} //end if tenant is found
@@ -343,7 +343,7 @@ public class LandPropertyRegistry {
 				if(this.tenantRegistry.getEntry(i, j)>0d) {
 					ArrayList<GridPoint> gps=this.plots.get(j).getGridPoints();
 					for (GridPoint gp : gps) {
-						vl.set((this.tenants.get(i).getID()).doubleValue(), gp.getX(),gp.getY());
+						vl.set((this.tenants.get(i).getId()).doubleValue(), gp.getX(),gp.getY());
 					}		
 					break;
 				} //end if tenant is found

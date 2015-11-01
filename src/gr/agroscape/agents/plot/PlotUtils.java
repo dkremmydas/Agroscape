@@ -1,4 +1,4 @@
-package gr.agroscape.agents;
+package gr.agroscape.agents.plot;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,15 @@ import repast.simphony.space.grid.GridPoint;
  * 
  * @author Dimitris Kremmydas
  */
-public class PlotUtils {
+public final class PlotUtils {
+	
+	
+	/*
+	 * Private Constructor. This class is a Utility class
+	 */
+	private  PlotUtils() {
+		
+	}
 	
 	/**
 	 * Create a new Plot that contains all {@link GridPoint}s from (leftX,topX) to (rightX,bottomY);
@@ -19,7 +27,7 @@ public class PlotUtils {
 	 * @param bottomY
 	 * @return
 	 */
-	public Plot newRectanglePlot(int leftX, int topY, int rightX, int bottomY) {
+	public static Plot newRectanglePlot(int leftX, int topY, int rightX, int bottomY) {
 		// public Plot(ArrayList<GridPoint> points, PlotsContext sp)
 		ArrayList<GridPoint> gps = new ArrayList<GridPoint>();
 		for(int i=leftX;i <=rightX; i++ ) {
@@ -39,7 +47,7 @@ public class PlotUtils {
 	 * @return
 	 * @throws CloneNotSupportedException 
 	 */
-	public Plot mergePlots(Plot p1, Plot p2) throws CloneNotSupportedException {
+	public static Plot mergePlots(Plot p1, Plot p2) throws CloneNotSupportedException {
 		ArrayList<GridPoint> gps1 = p1.getGridPoints();
 		ArrayList<GridPoint> gps2 = p2.getGridPoints();
 		ArrayList<GridPoint> gps3 = new ArrayList<GridPoint>();

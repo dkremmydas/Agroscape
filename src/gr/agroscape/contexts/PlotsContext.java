@@ -1,6 +1,6 @@
 package gr.agroscape.contexts;
 
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.plot.Plot;
 
 import java.util.ArrayList;
 import java.util.Collections;

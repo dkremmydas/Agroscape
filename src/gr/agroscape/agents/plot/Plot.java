@@ -1,5 +1,6 @@
-package gr.agroscape.agents;
+package gr.agroscape.agents.plot;
 
+import gr.agroscape.agents.AgroscapeAgent;
 import gr.agroscape.main.AgroscapeConfiguration;
 import gr.agroscape.utilities.GridValueLayerFunction;
 
@@ -11,7 +12,7 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
- * This is a Plot. Many GridPoints can constitute a Plot.<br />
+ * This is a Plot. Many GridPoints constitute a Plot.<br />
  * The plot_id starts from 1<br />
  * The concern of this class is:
  * <ul>
@@ -23,58 +24,20 @@ import repast.simphony.valueLayer.GridValueLayer;
  *
  */
 
-public class Plot {
+public class Plot extends AgroscapeAgent implements Cloneable {
 
-	private static int next_id=1;
-	
-	private int myId;
-	
+	/**
+	 * A Plot is a set of GridPoints
+	 */
     private ArrayList<GridPoint> gridPoints=new ArrayList<GridPoint>();
     
     /**
-     * Which point is the 
+     * Which points are the corners of the plot 
      */   
     private ArrayList<GridPoint> corners = new ArrayList<>();
     
     
     /**
-     * Create a new Plot from an ArrayList of GridPoints. <br />
-     * <strong>Does not</strong> check for duplicate GidPoints in the ArrayList.
-     * @param points
-     * @param id
-     */
-    public Plot(ArrayList<GridPoint> points,  int id) {
-		super();
-		this.myId=id; Plot.next_id=id++;
-		this.gridPoints = points;
-	}
-    
-    /**
-     * 
-     * @param points
-     */
-    public Plot(ArrayList<GridPoint> points) {
-		this(points,Plot.next_id);
-	}
-    
-    /**
-     * 
-     * @param point
-     */
-    public Plot(GridPoint point) {
-		this(new ArrayList<GridPoint>(Arrays.asList(point)));
-	}
-    
-    
-    /**
-     * get Id
-     * @return
-     */
-    public int getId() {
-		return myId;
-	}
-
-	/**
      * 
      * @param point
      * @param id
@@ -85,17 +48,47 @@ public class Plot {
     
     /**
      * 
+     * @param point
+     */
+    public Plot(GridPoint point) {
+		this(new ArrayList<GridPoint>(Arrays.asList(point)));
+	}
+    
+
+    
+    
+    /**
+     * Create a new Plot from an ArrayList of GridPoints. <br />
+     * <strong>Does not</strong> check for duplicate GidPoints in the ArrayList.
+     * @param points
+     * @param id
+     */
+    public Plot(ArrayList<GridPoint> points,  int id) {
+		super(id);
+		this.gridPoints = points;
+	}
+    
+    
+    /**
+     * 
+     * @param points
+     */
+    public Plot(ArrayList<GridPoint> points) {
+		super();
+		this.gridPoints = points;
+	}
+ 
+      
+    
+    /**
+     * 
      * @param points
      * @param id
      */
     public Plot(int[][] points, int id) {
-    	super();
-    	this.myId=id; Plot.next_id=id++;
-		for(int i=0;i<points.length;i++) {
-			int[] gp = new int[2]; gp[0]=points[i][0];gp[1]=points[i][1];
-			this.addGridPoint(new GridPoint(gp));
-					//(Integer.valueOf(points[i][0]),Integer.valueOf(points[i][1])));
-		}		
+    	this(points);	
+    	this.setName(id);
+		
 	}
     
     /**
@@ -103,7 +96,12 @@ public class Plot {
      * @param points
      */
     public Plot(int[][] points) {
-    	this(points,Plot.next_id);	
+    	super();
+    	for(int i=0;i<points.length;i++) {
+			int[] gp = new int[2]; gp[0]=points[i][0];gp[1]=points[i][1];
+			this.addGridPoint(new GridPoint(gp));
+					//(Integer.valueOf(points[i][0]),Integer.valueOf(points[i][1])));
+		}		
 	}
 
     /**
@@ -149,11 +147,8 @@ public class Plot {
 	
 	@Override
 	public String toString() {
-		String r = "["+super.toString()+"]";
-		r += " ID=" + this.myId
-			// + " / Gridpoints: "
-			//+ Arrays.toString(this.gridPoints.toArray(new GridPoint[this.gridPoints.size()]))
-			+ " / Num of GridPoints: " + this.gridPoints.size();
+		String r = "{"+super.toString()+"} ";
+		r += " / Num of GridPoints: " + this.gridPoints.size();
 		return r;
 	}
 	
@@ -219,5 +214,6 @@ public class Plot {
 		 this.corners.add(top_left_corner);
 		 this.corners.add(bottom_right_corner);
 	}
+
 	
 } //end class

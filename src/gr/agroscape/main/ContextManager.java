@@ -1,6 +1,6 @@
 package gr.agroscape.main;
 
-import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.human.Farmer;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
 import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
 import gr.agroscape.contexts.BehaviorsContext;
@@ -8,7 +8,7 @@ import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.dataLoaders.ExcelDataLoader;
-import gr.agroscape.dataLoaders.IAgroscapeDataLoader;
+import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class ContextManager implements ContextBuilder<Object> {
 	 * The steps that this method does, are: <br />
 	 * 1. Create the MainContext as the parentContext <br />
 	 * 2. Create empty SubContexts and load them to parentContext <br />
-	 * 3. Create {@link IAgroscapeDataLoader dataLoader} and load data
+	 * 3. Create {@link AgroscapeSkeletonDataLoader dataLoader} and load data
 	 * 
 	 */
 
@@ -73,7 +73,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		 */
 		
 		String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
-		IAgroscapeDataLoader dataLoader;
+		AgroscapeSkeletonDataLoader dataLoader;
 		try {
 			dataLoader = new ExcelDataLoader(excelFileLocation);
 			dataLoader.loadFarmersContext(farmers);

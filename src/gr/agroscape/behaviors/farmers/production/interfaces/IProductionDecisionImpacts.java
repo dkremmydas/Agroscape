@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors.farmers.production.interfaces;
 
-import gr.agroscape.agents.Farmer;
-import gr.agroscape.agents.Plot;
+import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.plot.Plot;
 
 /**
  * Any class that affects a farmer should respect this interface

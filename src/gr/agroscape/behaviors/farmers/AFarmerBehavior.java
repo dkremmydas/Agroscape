@@ -1,6 +1,6 @@
 package gr.agroscape.behaviors.farmers;
 
-import gr.agroscape.agents.Farmer;
+import gr.agroscape.agents.human.Farmer;
 import gr.agroscape.behaviors.ABehavior;
 
 
