@@ -1,7 +1,6 @@
 package gr.agroscape.agents;
 
 import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.behaviors.BehaviorProperty;
 import gr.agroscape.contexts.SimulationContext;
 
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public abstract class AgroscapeAgent {
 	 * <p>A map of behavior properties of the agent</p>
 	 * <p>The name of the behavior is constructed in a special way: {NAME OF ORIGINATING BEHAVIOR}_{NAME OF BEHAVIOR}</p>
 	 */
-	private HashMap<String,BehaviorProperty<?>> behaviorProperties = new HashMap<String, BehaviorProperty<?>>();
+	private HashMap<String,AgroscapeAgentProperty<?>> behaviorProperties = new HashMap<String, AgroscapeAgentProperty<?>>();
 	
 	/**
      * A reference to the mainContext. 
@@ -123,19 +122,19 @@ public abstract class AgroscapeAgent {
 	 * @param ab {@AgentBehavior}
 	 * @param bp {@BehaviorProperty}. Be careful !!!  It should be passed as "new BehaviorProperty<?>(...)
 	 */
-	public void addBehaviorProperty(AgentBehavior ab, BehaviorProperty<?> bp) {
+	public void addBehaviorProperty(AgentBehavior ab, AgroscapeAgentProperty<?> bp) {
 		this.behaviorProperties.put(ab.getName() + "_"+name, bp);
 		//get(ab.getName() + "_"+name);
 	}
     
 	/**
-	 * Gets the {@link BehaviorProperty} of a certain {@link AgentBehavior} and for
+	 * Gets the {@link AgroscapeAgentProperty} of a certain {@link AgentBehavior} and for
 	 * the given property name.
 	 * @param ab  {@link AgentBehavior}
 	 * @param name {@String} the name of the behavior
-	 * @return {@link BehaviorProperty}
+	 * @return {@link AgroscapeAgentProperty}
 	 */
-	public BehaviorProperty<?> getBehaviorProperty(AgentBehavior ab, String name) {
+	public AgroscapeAgentProperty<?> getBehaviorProperty(AgentBehavior ab, String name) {
 		return this.behaviorProperties.get(ab.getName() + "_"+name);
 	}
 	
@@ -147,7 +146,7 @@ public abstract class AgroscapeAgent {
 	 * @return
 	 */
 	public Object getBehaviorPropertyValue (AgentBehavior ab, String name) {
-		BehaviorProperty<?> bhvP = this.behaviorProperties.get(ab.getName() + "_"+name);
+		AgroscapeAgentProperty<?> bhvP = this.behaviorProperties.get(ab.getName() + "_"+name);
 		return bhvP.getValue();
 	}
 		

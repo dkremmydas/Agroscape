@@ -1,6 +1,5 @@
-package gr.agroscape.behaviors;
+package gr.agroscape.agents;
 
-import gr.agroscape.agents.AgroscapeAgent;
 import gr.agroscape.agents.plot.Plot;
 
 /**
@@ -20,7 +19,7 @@ import gr.agroscape.agents.plot.Plot;
  *
  * @param <T> The class of the property. It can be anything.
  */
-public class BehaviorProperty<T> implements Cloneable {
+public class AgroscapeAgentProperty<T> implements Cloneable {
 
 	private Class<T> type;
 	private T value;
@@ -28,7 +27,7 @@ public class BehaviorProperty<T> implements Cloneable {
 	
 	
 	
-	BehaviorProperty(Class<T> type, String name, T value) {
+	AgroscapeAgentProperty(Class<T> type, String name, T value) {
 		super();
 		this.type = type;
 		this.value = value;
@@ -40,7 +39,7 @@ public class BehaviorProperty<T> implements Cloneable {
 	 * @param type
 	 * @param name
 	 */
-	BehaviorProperty(Class<T> type, String name) {
+	AgroscapeAgentProperty(Class<T> type, String name) {
 		super();
 		this.type = type;
 		this.value = null;

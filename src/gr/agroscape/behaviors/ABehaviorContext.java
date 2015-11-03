@@ -5,7 +5,16 @@ import javax.help.UnsupportedOperationException;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
 
-public abstract class ABehaviorContext<T extends ABehavior<?>> extends DefaultContext<T> {
+/**
+ * <p>The BehaviorContext holds common properties that are specific to the behavior's logic.</p>
+ * <p>For example in the ArableCropProductionBehavior, the BehavrioContext will include the ListOfArableCrops</p>
+ * 
+ * @author Dimitris Kremmydas
+ * @version %I%
+ * @since 2.0
+ *
+ */
+public abstract class ABehaviorContext extends DefaultContext<T> {
 	
 
 	public ABehaviorContext(ContextBuilder<T> builder,Object name) {
