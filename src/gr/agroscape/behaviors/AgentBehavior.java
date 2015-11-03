@@ -7,6 +7,8 @@ import repast.simphony.context.Context;
 
 public abstract class AgentBehavior implements BehaviorSchedulable {
 	
+	private String name;
+	
 	private Context<?> bhvContext;
 	
 	private AgentBehavior agentBhv;
@@ -31,6 +33,11 @@ public abstract class AgentBehavior implements BehaviorSchedulable {
 
 	public BehaviorProperties getProperties(Class<AgroscapeAgent> key) {
 		this.properties.getProperties(key);
+	}
+
+
+	public String getName() {
+		return name;
 	}
 
 	

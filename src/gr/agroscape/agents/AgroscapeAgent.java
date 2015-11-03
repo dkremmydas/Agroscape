@@ -1,27 +1,35 @@
 package gr.agroscape.agents;
 
-import gr.agroscape.behaviors.ABehavior;
+import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.BehaviorProperty;
 import gr.agroscape.contexts.SimulationContext;
 
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.collections4.map.MultiKeyMap;
-
-import com.google.common.collect.Table;
+import repast.simphony.context.Context;
+import repast.simphony.util.ContextUtils;
 
 /**
- * Defines common characteristics for all Agroscape Agents. <br />
- * Those characteristics are :
+ * <p>This is the root class of every skeleton agent of the simulation.</p>
+ * <p>Defines common characteristics for all Simulation Agents. Those characteristics are :</p>
  * <ul>
  * <li>Unique incremental Id</li>
+ * <li>Given name. The name could be an id. It is not necessarily unique</li>
+ * <li>A reference to the root {@link SimulationContext}</li>
+ * <li>A reference to the parent  {@link Context}</li>
+ * <li>The behavior properties of the agent. {@see #behaviorProperties}</li>
+ * </ul>
  * 
  * @author Dimitris Kremmydas
+ * @version %I%
+ * @since 2.0
  *
  */
 public abstract class AgroscapeAgent {
 	
 	/**
-	 * Gives the unique id for all Agroscape Agents. Thread safe.
+	 * Gives the unique id for all Simulation Agents. Thread safe.
 	 */
 	private static AtomicInteger uniqueId=new AtomicInteger();
 	
@@ -35,13 +43,21 @@ public abstract class AgroscapeAgent {
 	 */
 	private String name = "N/A";
 	
-	
-	private Table BehaviorProperties<Class<ABehavior<T>>;
+	/**
+	 * <p>A map of behavior properties of the agent</p>
+	 * <p>The name of the behavior is constructed in a special way: {NAME OF ORIGINATING BEHAVIOR}_{NAME OF BEHAVIOR}</p>
+	 */
+	private HashMap<String,BehaviorProperty<?>> behaviorProperties = new HashMap<String, BehaviorProperty<?>>();
 	
 	/**
      * A reference to the mainContext. 
      */
     protected SimulationContext mainContext ;
+    
+    /**
+     * A reference to the parentContext. 
+     */
+    protected Context<?> parentContext ;
 
 	/**
 	 * Constructor
@@ -49,6 +65,7 @@ public abstract class AgroscapeAgent {
 	public AgroscapeAgent() {
 		id=uniqueId.getAndIncrement();
 		this.mainContext=SimulationContext.getInstance();	
+		this.parentContext= ContextUtils.getContext(this);
 	}
 	
 	public AgroscapeAgent(String name) {
@@ -100,7 +117,41 @@ public abstract class AgroscapeAgent {
 	public SimulationContext getMainContext() {
 		return this.mainContext;
 	}
+	
+	/**
+	 * Adds a behavior property.
+	 * @param ab {@AgentBehavior}
+	 * @param bp {@BehaviorProperty}. Be careful !!!  It should be passed as "new BehaviorProperty<?>(...)
+	 */
+	public void addBehaviorProperty(AgentBehavior ab, BehaviorProperty<?> bp) {
+		this.behaviorProperties.put(ab.getName() + "_"+name, bp);
+		//get(ab.getName() + "_"+name);
+	}
     
+	/**
+	 * Gets the {@link BehaviorProperty} of a certain {@link AgentBehavior} and for
+	 * the given property name.
+	 * @param ab  {@link AgentBehavior}
+	 * @param name {@String} the name of the behavior
+	 * @return {@link BehaviorProperty}
+	 */
+	public BehaviorProperty<?> getBehaviorProperty(AgentBehavior ab, String name) {
+		return this.behaviorProperties.get(ab.getName() + "_"+name);
+	}
+	
+	/**
+	 * Gets the Value (i.e. {@link Object}) of a certain {@link AgentBehavior} and for
+	 * the given property name. The calling method should take care of the casting.
+	 * @param ab
+	 * @param name
+	 * @return
+	 */
+	public Object getBehaviorPropertyValue (AgentBehavior ab, String name) {
+		BehaviorProperty<?> bhvP = this.behaviorProperties.get(ab.getName() + "_"+name);
+		return bhvP.getValue();
+	}
+		
+	
 	
 	@Override
 	public String toString() {

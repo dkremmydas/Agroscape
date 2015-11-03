@@ -3,10 +3,7 @@ package gr.agroscape.behaviors;
 import gr.agroscape.agents.AgroscapeAgent;
 import gr.agroscape.agents.plot.Plot;
 
-
-
 /**
- * 
  * <p>The purpose of this class is to assign to {@link AgroscapeAgent}s properties, 
  * that although are specific to the behavior, may be used by other behaviors too.</p>
  * 
@@ -23,7 +20,7 @@ import gr.agroscape.agents.plot.Plot;
  *
  * @param <T> The class of the property. It can be anything.
  */
-public class BehaviorProperty<T> {
+public class BehaviorProperty<T> implements Cloneable {
 
 	private Class<T> type;
 	private T value;
@@ -37,6 +34,18 @@ public class BehaviorProperty<T> {
 		this.value = value;
 		this.name = name;
 	}
+	
+	/**
+	 * Creates an empty Property
+	 * @param type
+	 * @param name
+	 */
+	BehaviorProperty(Class<T> type, String name) {
+		super();
+		this.type = type;
+		this.value = null;
+		this.name = name;
+	}
 
 
 	public T getValue() {return this.value;}
@@ -44,7 +53,15 @@ public class BehaviorProperty<T> {
 	public Class<T> getType() {return type;}
 
 	public String getName() {return name;}
+
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
 	
+		
 	
 	
 }
