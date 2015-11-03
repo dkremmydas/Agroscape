@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.collections4.map.MultiKeyMap;
 
+import com.google.common.collect.Table;
+
 /**
  * Defines common characteristics for all Agroscape Agents. <br />
  * Those characteristics are :
@@ -34,7 +36,7 @@ public abstract class AgroscapeAgent {
 	private String name = "N/A";
 	
 	
-	private Table BehaviorProperties<Class<ABehavior<T>>>
+	private Table BehaviorProperties<Class<ABehavior<T>>;
 	
 	/**
      * A reference to the mainContext. 
