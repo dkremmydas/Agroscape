@@ -2,3 +2,10 @@
 /docs/
 /AgroScape.rs/
 /lib/
+/debug.*
+/Repast.settings
+/velocity.*
+/.settings/
+/freezedried_data/
+/freezedried_data/*
+/.classpath
