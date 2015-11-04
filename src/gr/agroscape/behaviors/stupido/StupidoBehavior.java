@@ -6,7 +6,6 @@ import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import java.util.ArrayList;
 import java.util.List;
 
-import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.DefaultAction;
 import repast.simphony.engine.schedule.IAction;
 import repast.simphony.engine.schedule.ScheduleParameters;
@@ -14,8 +13,9 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 
 public class StupidoBehavior extends AgentBehavior {
 	
+	
 
-	public StupidoBehavior(AgroscapeAgent owner, Context<?> bhvContext, StupidoBehaviorFactory bhvFactory) {
+	public StupidoBehavior(AgroscapeAgent owner, StupidoBehaviorContext bhvContext, StupidoBehaviorFactory bhvFactory) {
 		super("Stupido", bhvFactory, owner, bhvContext);
 	}
 
@@ -33,7 +33,19 @@ public class StupidoBehavior extends AgentBehavior {
 	
 	@ScheduledMethod (start=1,interval=2)
 	public void printHappiness() {
-		System.out.println("I am a happy behavior of agent: " + this.getOwner());
+		
+		int newNumber = (int) Math.round(Math.random()*100);
+		StupidoBehaviorContext sbhvc= (StupidoBehaviorContext)this.getBehaviorContext();
+		
+		
+		
+		System.out.println("I am a happy behavior of agent: " + this.getOwner() 
+				+ ". The common property I see is: " + sbhvc.getCommonProperty()
+				+ " and I set it to be " + newNumber
+			);
+		
+		sbhvc.setCommonProperty(newNumber);
+		
 	}
 
 }

@@ -21,7 +21,12 @@ public class StupidoBehaviorContext extends BehaviorContext {
 
 	public int getCommonProperty() {
 		return commonProperty;
+	}
+
+	public void setCommonProperty(int commonProperty) {
+		this.commonProperty = commonProperty;
 	}	
+	
 		
 
 }

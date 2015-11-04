@@ -124,6 +124,12 @@ public class StupidoBehaviorTest {
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 		System.err.println("");
 		
+		//1st step
+		System.err.println("");
+		System.err.println("Advanced 2nd step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
+		
 		
 		
 		assertTrue("Agents added !", true);

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.DefaultAction;
 import repast.simphony.engine.schedule.ISchedule;
 
 

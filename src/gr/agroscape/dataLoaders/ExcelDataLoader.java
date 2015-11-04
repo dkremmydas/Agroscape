@@ -171,7 +171,7 @@ public class ExcelDataLoader implements AgroscapeSkeletonDataLoader {
 			Farmer follower_f = context.findFarmerById(follower_id);
 			network.addEdge(follower_f, leader_f);
 		}
-		context.addNetwork(network);
+		//context.addNetwork(network);
 	}
 
 }
