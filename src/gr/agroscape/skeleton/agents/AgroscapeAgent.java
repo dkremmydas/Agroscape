@@ -1,7 +1,7 @@
-package gr.agroscape.agents;
+package gr.agroscape.skeleton.agents;
 
 import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.contexts.SimulationContext;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gr.agroscape.agents.human;
+package gr.agroscape.skeleton.agents.human;
 
-import gr.agroscape.agents.AgroscapeAgent;
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
 
 import org.apache.commons.collections.map.HashedMap;
 

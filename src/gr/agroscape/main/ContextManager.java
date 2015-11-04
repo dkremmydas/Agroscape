@@ -1,9 +1,9 @@
 package gr.agroscape.main;
 
-import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.PlotsContext;
-import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
+import gr.agroscape.skeleton.contexts.FarmersContext;
+import gr.agroscape.skeleton.contexts.PlotsContext;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 

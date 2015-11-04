@@ -1,6 +1,6 @@
-package gr.agroscape.agents;
+package gr.agroscape.skeleton.agents;
 
-import gr.agroscape.agents.plot.Plot;
+import gr.agroscape.skeleton.agents.plot.Plot;
 
 /**
  * <p>The purpose of this class is to assign to {@link AgroscapeAgent}s properties, 

@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.agents.AgroscapeAgent;
-import gr.agroscape.agents.AgroscapeAgentProperty;
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
+import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;
 
 import java.util.List;
 

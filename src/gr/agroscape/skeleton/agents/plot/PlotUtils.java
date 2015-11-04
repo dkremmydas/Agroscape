@@ -1,4 +1,4 @@
-package gr.agroscape.agents.plot;
+package gr.agroscape.skeleton.agents.plot;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package gr.agroscape.agents.human;
+package gr.agroscape.skeleton.agents.human;
 
 import java.util.HashMap;
 
@@ -34,7 +34,14 @@ import java.util.HashMap;
 public class Farmer extends HumanAgent  {
 
 
+	public Farmer(int id) {
+		super();
+		this.setName(id);
+	}
 	
+	public Farmer() {
+		super();
+	}
 	
 	
 	

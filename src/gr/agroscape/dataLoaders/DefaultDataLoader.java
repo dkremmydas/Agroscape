@@ -1,11 +1,11 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.agents.human.Farmer;
-import gr.agroscape.agents.human.HumanAgent;
-import gr.agroscape.agents.plot.Plot;
-import gr.agroscape.authorities.LandPropertyRegistry;
-import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.PlotsContext;
+import gr.agroscape.skeleton.agents.human.Farmer;
+import gr.agroscape.skeleton.agents.human.HumanAgent;
+import gr.agroscape.skeleton.agents.plot.Plot;
+import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
+import gr.agroscape.skeleton.contexts.FarmersContext;
+import gr.agroscape.skeleton.contexts.PlotsContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;

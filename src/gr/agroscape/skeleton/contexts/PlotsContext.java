@@ -1,6 +1,6 @@
-package gr.agroscape.contexts;
+package gr.agroscape.skeleton.contexts;
 
-import gr.agroscape.agents.plot.Plot;
+import gr.agroscape.skeleton.agents.plot.Plot;
 
 import java.util.ArrayList;
 import java.util.Collections;

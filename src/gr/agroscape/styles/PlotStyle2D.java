@@ -1,7 +1,7 @@
 package gr.agroscape.styles;
 
-import gr.agroscape.agents.plot.Plot;
-import gr.agroscape.contexts.SimulationContext;
+import gr.agroscape.skeleton.agents.plot.Plot;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 import repast.simphony.visualizationOGL2D.DefaultStyleOGL2D;
 
 public class PlotStyle2D extends DefaultStyleOGL2D {

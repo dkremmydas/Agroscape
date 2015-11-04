@@ -1,10 +1,10 @@
-package gr.agroscape.contexts;
+package gr.agroscape.skeleton.contexts;
 
 
 
 
 
-import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.skeleton.agents.human.Farmer;
 
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections4.map.HashedMap;

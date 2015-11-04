@@ -1,9 +1,9 @@
-package gr.agroscape.authorities;
+package gr.agroscape.skeleton.authorities;
 
-import gr.agroscape.agents.human.Farmer;
-import gr.agroscape.agents.human.HumanAgent;
-import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.exceptions.NoSuchAgentException;
+import gr.agroscape.skeleton.agents.human.Farmer;
+import gr.agroscape.skeleton.agents.human.HumanAgent;
+import gr.agroscape.skeleton.agents.plot.Plot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class LandPropertyRegistry {
 	
 	/**
 	 * The owner's registry.  <br />
-	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.agents.human.HumanAgent#myID}. <br />
+	 * Row dimension is for agents. The number of row equals to the {@link gr.agroscape.skeleton.agents.human.HumanAgent#myID}. <br />
 	 * Column dimension is for Plots and it holds the plot_num. <br />
 	 * If the value of (i,j) element equals to 1, then Agent_num=i owns Plot_num=j. <br />
 	 */

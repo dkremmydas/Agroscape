@@ -1,11 +1,11 @@
 package tests;
-import gr.agroscape.agents.human.Farmer;
-import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.behaviors.xxxold.farmers.AFarmerBehavior;
 import gr.agroscape.behaviors.xxxold.farmers.stupido.StupidoBhv;
-import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.main.ContextManager;
+import gr.agroscape.skeleton.agents.human.Farmer;
+import gr.agroscape.skeleton.agents.plot.Plot;
+import gr.agroscape.skeleton.contexts.FarmersContext;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import org.junit.Before;
 import org.junit.Test;

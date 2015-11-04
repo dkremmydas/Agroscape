@@ -1,8 +1,8 @@
-package gr.agroscape.contexts;
+package gr.agroscape.skeleton.contexts;
 
-import gr.agroscape.agents.human.Farmer;
-import gr.agroscape.agents.plot.Plot;
-import gr.agroscape.authorities.LandPropertyRegistry;
+import gr.agroscape.skeleton.agents.human.Farmer;
+import gr.agroscape.skeleton.agents.plot.Plot;
+import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;

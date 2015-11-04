@@ -1,6 +1,6 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.agents.AgroscapeAgent;
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import repast.simphony.context.Context;
 
 /**

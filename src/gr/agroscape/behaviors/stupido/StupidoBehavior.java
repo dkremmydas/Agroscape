@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors.stupido;
 
-import gr.agroscape.agents.AgroscapeAgent;
 import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
 
 import java.util.ArrayList;
 import java.util.List;

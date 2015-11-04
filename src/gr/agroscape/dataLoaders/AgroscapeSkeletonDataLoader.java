@@ -1,8 +1,8 @@
 package gr.agroscape.dataLoaders;
 
-import gr.agroscape.authorities.LandPropertyRegistry;
-import gr.agroscape.contexts.FarmersContext;
-import gr.agroscape.contexts.PlotsContext;
+import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
+import gr.agroscape.skeleton.contexts.FarmersContext;
+import gr.agroscape.skeleton.contexts.PlotsContext;
 
 /**
  * The interface, defining what is needed to load minimal data 
