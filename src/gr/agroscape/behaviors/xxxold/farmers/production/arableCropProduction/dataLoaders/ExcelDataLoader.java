@@ -1,6 +1,6 @@
 package gr.agroscape.behaviors.farmers.production.arableCropProduction.dataLoaders;
 
-import gr.agroscape.behaviors.ABehaviorContext;
+import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
@@ -48,7 +48,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 
 
 	@Override
-	public void setup(ABehaviorContext<AArableCropProductionBhv> container) {
+	public void setup(BehaviorContext<AArableCropProductionBhv> container) {
 		this.loadCrops(container);
 		this.loadCropSuitabilities(container);
 		this.setupPaymentAuthority(container);
@@ -59,7 +59,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	 * 
 	 * @param container
 	 */
-	private void loadCrops(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void loadCrops(BehaviorContext<AArableCropProductionBhv> container) {
 		Sheet sh = this.excelWB.getSheet("Crops");
 		this.crops = new ArrayList<ArableCropCultivation>();
 		
@@ -81,7 +81,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	 * 
 	 * @param container
 	 */
-	private void loadCropSuitabilities(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void loadCropSuitabilities(BehaviorContext<AArableCropProductionBhv> container) {
 		if(this.crops==null) throw new NullPointerException("Crops shuld be loaded first !");
 		
 		
@@ -107,7 +107,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	 * 
 	 * @param container
 	 */
-	private void setupPaymentAuthority(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void setupPaymentAuthority(BehaviorContext<AArableCropProductionBhv> container) {
 		if(this.crops==null) throw new NullPointerException("Crops shuld be loaded first !");
 		//load PaymentAuthority couple payments
 				for (ArableCropCultivation c : ((ArableCropProductionBhvContext)container).getAvailableCrops()) {
@@ -120,7 +120,7 @@ public class ExcelDataLoader implements IScheduledBehaviorDataLoader<AArableCrop
 	 * 
 	 * @param container
 	 */
-	private void addAgents(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void addAgents(BehaviorContext<AArableCropProductionBhv> container) {
 		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
 		Sheet sh = this.excelWB.getSheet("Farmers");
 		

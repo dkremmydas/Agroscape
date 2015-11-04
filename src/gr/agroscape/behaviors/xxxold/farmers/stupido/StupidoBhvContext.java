@@ -1,7 +1,7 @@
 package gr.agroscape.behaviors.farmers.stupido;
 
 import gr.agroscape.agents.human.Farmer;
-import gr.agroscape.behaviors.ABehaviorContext;
+import gr.agroscape.behaviors.BehaviorContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +16,7 @@ import repast.simphony.dataLoader.ContextBuilder;
  * 
  * @author Dimitris Kremmydas
  */
-public class StupidoBhvContext extends ABehaviorContext<StupidoBhv>  {
+public class StupidoBhvContext extends BehaviorContext<StupidoBhv>  {
 	
 	private Random randomGenerator ;
 

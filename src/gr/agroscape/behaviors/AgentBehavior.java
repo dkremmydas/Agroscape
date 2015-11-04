@@ -20,13 +20,23 @@ public abstract class AgentBehavior implements BehaviorSchedulable {
 	private Context<?> bhvContext;
 	
 	private AgroscapeAgent owner;
+	
+	protected BehaviorFactory bhvFactory;
 
-	public AgentBehavior(String name, AgroscapeAgent owner, Context<?> bhvContext) {
+	protected AgentBehavior(String name, BehaviorFactory bhvFactory, AgroscapeAgent owner, Context<?> bhvContext) {
 		super();
 		this.bhvContext = bhvContext;
 		this.name = name;
 		this.owner = owner;
+		this.bhvFactory = bhvFactory;
 	}
+
+	
+	
+	protected BehaviorFactory getBhvFactory() {
+		return bhvFactory;
+	}
+
 
 
 	public Context<?> getBehaviorContext() {

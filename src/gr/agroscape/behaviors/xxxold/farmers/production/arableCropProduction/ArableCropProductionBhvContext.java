@@ -2,7 +2,7 @@ package gr.agroscape.behaviors.farmers.production.arableCropProduction;
 
 import gr.agroscape.agents.human.Farmer;
 import gr.agroscape.agents.plot.Plot;
-import gr.agroscape.behaviors.ABehaviorContext;
+import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.IScheduledBehavior;
 import gr.agroscape.behaviors.IScheduledBehaviorDataLoader;
 import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
@@ -22,7 +22,7 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.StrictBorders;
 import repast.simphony.valueLayer.GridValueLayer;
 
-public class ArableCropProductionBhvContext extends ABehaviorContext<AArableCropProductionBhv> {
+public class ArableCropProductionBhvContext extends BehaviorContext<AArableCropProductionBhv> {
 
 	private GridValueLayer gvl_ProductionDecisions;
 	
@@ -199,7 +199,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 
 
 	@Override
-	public void setup(ABehaviorContext<AArableCropProductionBhv> container) {
+	public void setup(BehaviorContext<AArableCropProductionBhv> container) {
 		
 		if(((ArableCropProductionBhvContext)container).getAvailableCrops().isEmpty()) {
 			this.loadNonAgents(container);
@@ -211,7 +211,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 	
 	
 	
-	private void addAgents(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void addAgents(BehaviorContext<AArableCropProductionBhv> container) {
 		Collection<IScheduledBehavior<AArableCropProductionBhv>> r = new ArrayList<IScheduledBehavior<AArableCropProductionBhv>>();
 		
 		for (Map.Entry<Class<? extends AArableCropProductionBhv>, Collection<Farmer>> entry : owners.entrySet()) {
@@ -233,7 +233,7 @@ class DefaultArableProductionBhvContextLoader implements IScheduledBehaviorDataL
 		container.addAll(r);
 	}
 
-	private void loadNonAgents(ABehaviorContext<AArableCropProductionBhv> container) {
+	private void loadNonAgents(BehaviorContext<AArableCropProductionBhv> container) {
 		//create crops
 		ArableCropCultivation c1 = new ArableCropCultivation("maize", new Product("maize product"));
 		ArableCropCultivation c2 = new ArableCropCultivation("wheat", new Product("wheat product"));
