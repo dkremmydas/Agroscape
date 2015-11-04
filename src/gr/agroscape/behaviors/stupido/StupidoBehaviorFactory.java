@@ -21,12 +21,12 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	//abstract void assignBehavior(List<? extends AgroscapeAgent> agents);
 	
 	@Override
-	public String assignBehavior(ArrayList<AgroscapeAgent> farmers) {
+	public void assignBehavior(Iterable<? extends AgroscapeAgent> farmers) {
 		for (AgroscapeAgent f : farmers) {
-			f.addBehavior(new StupidoBehavior(f, this.bhvContext));
+			f.addBehavior(new StupidoBehavior(f, this.bhvContext, this));
 		}
-		return "";
 	}
+
 
 	
 	@Override
@@ -44,6 +44,8 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 		// TODO Auto-generated method stub
 		return "This is the Stupido Behavior. A test behavior";
 	}
+
+
 
 
 

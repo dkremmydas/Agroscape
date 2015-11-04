@@ -88,7 +88,7 @@ public abstract class AgroscapeAgent {
 	 * Id getter
 	 * @return
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

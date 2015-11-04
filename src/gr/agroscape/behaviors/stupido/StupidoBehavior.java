@@ -14,7 +14,7 @@ import repast.simphony.engine.schedule.ScheduleParameters;
 public class StupidoBehavior extends AgentBehavior {
 	
 
-	public StupidoBehavior(AgroscapeAgent owner, Context<?> bhvContext) {
+	public StupidoBehavior(AgroscapeAgent owner, Context<?> bhvContext, StupidoBehaviorFactory bhvFactory) {
 		super("Stupido", bhvFactory, owner, bhvContext);
 	}
 

@@ -59,7 +59,7 @@ public abstract class BehaviorFactory {
 	 * @param List of {@link AgroscapeAgent}. It is the reference to the agents that 
 	 * a {@link AgentBehavior} will be assigned 
 	 */
-	abstract public String assignBehavior(List<? extends AgroscapeAgent> agents);
+	abstract public void assignBehavior(Iterable<? extends AgroscapeAgent> agents);
 	
 	/**
 	 * Create the {@link BehaviorContext} and return it.

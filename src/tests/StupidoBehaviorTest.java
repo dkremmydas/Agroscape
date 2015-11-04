@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import gr.agroscape.agents.human.Farmer;
 import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.agents.plot.PlotUtils;
-import gr.agroscape.contexts.PlotsContext;
+import gr.agroscape.behaviors.stupido.StupidoBehaviorFactory;
 import gr.agroscape.contexts.SimulationContext;
 import gr.agroscape.main.ContextManager;
 
@@ -64,6 +64,34 @@ public class StupidoBehaviorTest {
 		
 		System.out.println(this.simulationContext.getFarmersContext().toString());
 		System.out.println(this.simulationContext.getPlotsContext().toString());
+		
+		
+		assertTrue("Agents added !", true);
+	}
+	
+	@Test
+	public void addStupidoBehavior() {
+			
+		this.simulationContext.getFarmersContext().add( new Farmer());
+		this.simulationContext.getFarmersContext().add( new Farmer());
+		this.simulationContext.getFarmersContext().add( new Farmer());
+		
+		this.simulationContext.getPlotsContext().add(
+				PlotUtils.newRectanglePlot(1, 1, 3, 3)
+		);
+		this.simulationContext.getPlotsContext().add(
+				PlotUtils.newRectanglePlot(1, 4, 2, 6)
+		);
+		
+		System.out.println(this.simulationContext.getFarmersContext().toString());
+		System.out.println(this.simulationContext.getPlotsContext().toString());
+		
+		
+		StupidoBehaviorFactory sbf = new StupidoBehaviorFactory();		
+		sbf.assignBehavior(this.simulationContext.getFarmersContext().getAgentLayer(Farmer.class));
+		
+		System.out.println(this.simulationContext.getFarmersContext().getAllFarmers());
+		
 		
 		
 		assertTrue("Agents added !", true);

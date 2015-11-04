@@ -18,11 +18,6 @@ public class FarmersContext extends DefaultContext<Farmer> {
 	
 	private static FarmersContext instance=null;
 	
-	
-	/**
-	 * A Collection of networks
-	 */
-	private HashedMap<String,Network<Farmer>> networks = new HashedMap<>();
 
 	/**
 	 * Constructor
@@ -44,31 +39,21 @@ public class FarmersContext extends DefaultContext<Farmer> {
 
 
 	/**
-	 * Add a network in the {@link #networks} map. The ke is the name of the {@link Network} object
-	 * @param n
-	 */
-	public void addNetwork(Network<Farmer> n)	{
-		this.networks.put(n.getName(), n);
-	}
-	
-	/**
-	 * Retrieves a {@link Network}
-	 * @param name
-	 * @return
-	 */
-	public Network<Farmer> getNetwork(String name) {
-		return this.networks.get(name);
-	}
-
-	
-	/**
 	 * Search for a Farmer with a specific id
 	 * @param id
 	 * @return
 	 */
 	public Farmer findFarmerById(int id) {
-		Iterable<Farmer> iff = this.query(new PredicateFarmerId(id));
+		Iterable<Farmer> iff = this.query(new PredicateFarmerId((Integer)id));
 		return iff.iterator().next();
+	}
+	
+	/**
+	 * Get all farmers
+	 * @return
+	 */
+	public Iterable<Farmer> getAllFarmers() {
+		return this.getAgentLayer(Farmer.class);
 	}
 	
 	
@@ -77,9 +62,9 @@ public class FarmersContext extends DefaultContext<Farmer> {
 
 class PredicateFarmerId implements Predicate<Farmer> {
 
-	private int lookingFor;
+	private Integer lookingFor;
 	
-	public PredicateFarmerId(int lookingFor) {
+	public PredicateFarmerId(Integer lookingFor) {
 		super();
 		this.lookingFor = lookingFor;
 	}

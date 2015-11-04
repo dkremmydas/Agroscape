@@ -2,7 +2,6 @@ package gr.agroscape.agents.plot;
 
 import java.util.ArrayList;
 
-import cern.colt.Arrays;
 import repast.simphony.space.grid.GridPoint;
 
 /**

@@ -32,6 +32,8 @@ import java.util.HashMap;
  * @author Dimitris Kremmydas
   */
 public class Farmer extends HumanAgent  {
+
+
 	
 	
 	
