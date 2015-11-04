@@ -1,12 +1,20 @@
 package gr.agroscape.main;
 
+import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
+
+import java.util.ArrayList;
+
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.DefaultAction;
+import repast.simphony.engine.schedule.ISchedule;
 
 
 /**
@@ -34,9 +42,11 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	
 	
-	public AgroscapeInitializer(AgroscapeSkeletonDataLoader dataLoader) {
+	public AgroscapeInitializer(AgroscapeSkeletonDataLoader dataLoader, 
+									AgroscapeAllBehaviorsDataLoader behaviorLoader) {
 		super();
 		this.skeletonDataLoader = dataLoader;
+		this.behaviorsDataLoader = behaviorLoader;
 	}
 
 
@@ -70,7 +80,28 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		
 		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
 		
+		//add behaviors to schedule for each agent
+		this.addAgroscapeAgentsBehaviorToSchedule(farmers.getAllFarmers());
+		
+		
 		return this.simulationContext;
+	}
+	
+	
+	private void addAgroscapeAgentsBehaviorToSchedule(Iterable<? extends AgroscapeAgent> agents) {
+		ISchedule timeline = RunEnvironment.getInstance().getCurrentSchedule();
+		
+		for (AgroscapeAgent ag : agents) {
+			ArrayList<AgentBehavior> bhvs = (ArrayList<AgentBehavior>) ag.getBehaviors();
+			for (AgentBehavior ab : bhvs) {
+				timeline.schedule(ab);
+				//ArrayList<DefaultAction> actions =  (ArrayList<DefaultAction>) ab.getScheduledActions();
+				//for (DefaultAction ac : actions) {
+				//	//System.err.println(ac.);
+				//	timeline.schedule(ac);
+				//}
+			}
+		}
 	}
 
 

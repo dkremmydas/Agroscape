@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertTrue;
 import gr.agroscape.behaviors.stupido.StupidoBehaviorFactory;
+import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.human.Farmer;
@@ -33,8 +34,24 @@ public class StupidoBehaviorTest {
 		p.addParameter("gridHeight", "gridHeight", Integer.class, 30, false);
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
+		
+		AgroscapeAllBehaviorsDataLoader bhvLoader = new  AgroscapeAllBehaviorsDataLoader() {
 
-		builder = new AgroscapeInitializer (new DefaultDataLoader());
+			StupidoBehaviorFactory stupidoFactory = new StupidoBehaviorFactory();
+			
+			@Override
+			public void loadAllBehaviors(SimulationContext simulationContext) {
+				//add to all farmers the stupido Behavior
+				FarmersContext fcon = simulationContext.getFarmersContext();
+				
+				simulationContext.addSubContext(this.stupidoFactory.buildBehaviorContext());
+				this.stupidoFactory.assignBehavior(fcon.getAllFarmers());	
+			}
+			
+	
+		};
+
+		builder = new AgroscapeInitializer (new DefaultDataLoader(), bhvLoader);
 		this.simulationContext = (SimulationContext) builder.build(new DefaultContext<Object> ());
 		
 	}
@@ -96,16 +113,16 @@ public class StupidoBehaviorTest {
 		
 		//init simulation
 		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
-		System.err.println("Current # of Farmers in context: " + FarmersContext.getInstance().getObjects(Farmer.class).size());
+		System.err.println("Current # of Farmers in context: " + this.simulationContext.getFarmersContext().getObjects(Farmer.class).size());
 		System.err.println("Current Schedule: " + RunEnvironment.getInstance().getCurrentSchedule().toString());
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
 		//1st step
-//		System.err.println("");
-//		System.err.println("Advanced 1st step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
-//		RunEnvironment.getInstance().getCurrentSchedule().execute();
-//		System.err.println("");
+		System.err.println("");
+		System.err.println("Advanced 1st step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
+		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		System.err.println("");
 		
 		
 		
