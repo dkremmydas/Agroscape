@@ -124,6 +124,14 @@ public abstract class AgroscapeAgent {
 		return this.mainContext;
 	}
 	
+	public Context<?> getParentContext() {
+		return parentContext;
+	}
+
+	public void setParentContext(Context<?> parentContext) {
+		this.parentContext = parentContext;
+	}
+
 	/**
 	 * Adds a behavior property.
 	 * @param ab {@AgentBehavior}

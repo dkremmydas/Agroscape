@@ -1,7 +1,8 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import gr.agroscape.agents.human.Farmer;
+import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.agents.plot.PlotUtils;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
@@ -42,6 +43,12 @@ public class StupidoBehaviorTest {
 	}
 	
 	@Test
+	public void newRectanglePlotTest() {
+		Plot p = PlotUtils.newRectanglePlot(1, 1, 3, 3);
+		System.out.println(p.toString());
+	}
+	
+	@Test
 	public void addSkeletonAgents() {
 			
 		this.simulationContext.getFarmersContext().add( new Farmer());
@@ -58,8 +65,6 @@ public class StupidoBehaviorTest {
 		System.out.println(this.simulationContext.getFarmersContext().toString());
 		System.out.println(this.simulationContext.getPlotsContext().toString());
 		
-		PlotsContext pc = this.simulationContext.getPlotsContext();
-		System.out.println(pc.getAvailablePlots().get(0).toString());
 		
 		assertTrue("Agents added !", true);
 	}

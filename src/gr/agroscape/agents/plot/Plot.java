@@ -24,7 +24,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  *
  */
 
-public class Plot extends AgroscapeAgent implements Cloneable {
+public class Plot extends AgroscapeAgent {
 
 	/**
 	 * A Plot is a set of GridPoints

@@ -2,6 +2,7 @@ package gr.agroscape.agents.plot;
 
 import java.util.ArrayList;
 
+import cern.colt.Arrays;
 import repast.simphony.space.grid.GridPoint;
 
 /**
@@ -28,15 +29,14 @@ public final class PlotUtils {
 	 * @return
 	 */
 	public static Plot newRectanglePlot(int leftX, int topY, int rightX, int bottomY) {
-		// public Plot(ArrayList<GridPoint> points, PlotsContext sp)
 		ArrayList<GridPoint> gps = new ArrayList<GridPoint>();
 		for(int i=leftX;i <=rightX; i++ ) {
-			for(int j=bottomY;j <=topY; i++ ) {
+			for(int j=topY;j <=bottomY; j++ ) {
 				gps.add(new GridPoint(i,j));
 			}
 		}
-		
-		return new Plot(gps);
+		Plot p = new Plot(gps);
+		return p;
 	}
 	
 	
