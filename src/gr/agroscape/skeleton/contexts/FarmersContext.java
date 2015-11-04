@@ -7,10 +7,8 @@ package gr.agroscape.skeleton.contexts;
 import gr.agroscape.skeleton.agents.human.Farmer;
 
 import org.apache.commons.collections15.Predicate;
-import org.apache.commons.collections4.map.HashedMap;
 
 import repast.simphony.context.DefaultContext;
-import repast.simphony.space.graph.Network;
 
 
 public class FarmersContext extends DefaultContext<Farmer> {

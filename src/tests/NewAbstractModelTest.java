@@ -1,6 +1,6 @@
 package tests;
 
-import gr.agroscape.main.ContextManager;
+import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
@@ -16,7 +16,7 @@ import repast.simphony.parameter.DefaultParameters;
 
 public class NewAbstractModelTest {
 	
-	private ContextManager builder;
+	private AgroscapeInitializer builder;
 	private SimulationContext simulationContext;
 	
 
@@ -30,7 +30,7 @@ public class NewAbstractModelTest {
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
 
-		builder = new ContextManager ();
+		builder = new AgroscapeInitializer ();
 		this.simulationContext = (SimulationContext) builder.build(new DefaultContext<Object> ());
 		
 	}

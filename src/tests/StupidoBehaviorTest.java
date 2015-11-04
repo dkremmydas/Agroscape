@@ -2,7 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertTrue;
 import gr.agroscape.behaviors.stupido.StupidoBehaviorFactory;
-import gr.agroscape.main.ContextManager;
+import gr.agroscape.dataLoaders.DefaultDataLoader;
+import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.agents.plot.PlotUtils;
@@ -20,7 +21,7 @@ import repast.simphony.parameter.DefaultParameters;
 
 public class StupidoBehaviorTest {
 	
-	private ContextManager builder;
+	private AgroscapeInitializer builder;
 	private SimulationContext simulationContext;
 	
 
@@ -33,7 +34,7 @@ public class StupidoBehaviorTest {
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
 
-		builder = new ContextManager ();
+		builder = new AgroscapeInitializer (new DefaultDataLoader());
 		this.simulationContext = (SimulationContext) builder.build(new DefaultContext<Object> ());
 		
 	}

@@ -30,6 +30,8 @@ import java.util.HashMap;
  *  </p>
  *  <p></p>
  * @author Dimitris Kremmydas
+ * @version $Revision$
+ * @since 1.0
   */
 public class Farmer extends HumanAgent  {
 

@@ -1,5 +1,6 @@
 package gr.agroscape.main;
 
+import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
@@ -17,14 +18,28 @@ import repast.simphony.dataLoader.ContextBuilder;
  * </ul> 
  *
  * @author Dimitris Kremmydas
- * @version %I%
+ * @version $Revision$
+ * @since 2.0
  *
  */
-public class ContextManager implements ContextBuilder<Object> {
+public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	
 	private SimulationContext simulationContext;
 	
+	private AgroscapeSkeletonDataLoader skeletonDataLoader;
+	
+	private AgroscapeAllBehaviorsDataLoader behaviorsDataLoader;
+
+	
+	
+	
+	public AgroscapeInitializer(AgroscapeSkeletonDataLoader dataLoader) {
+		super();
+		this.skeletonDataLoader = dataLoader;
+	}
+
+
 
 	/**
 	 * It builds the Contexts of Agroscape. <br />
@@ -44,11 +59,16 @@ public class ContextManager implements ContextBuilder<Object> {
 		
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
+		this.skeletonDataLoader.loadPlotsContext(plots);
 		this.simulationContext.addSubContext(plots);
 		
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
+		this.skeletonDataLoader.loadFarmersContext(farmers);
 		this.simulationContext.addSubContext(farmers);
 		
+		this.skeletonDataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
+		
+		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
 		
 		return this.simulationContext;
 	}

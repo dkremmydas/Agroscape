@@ -1,7 +1,5 @@
 package tests;
-import gr.agroscape.behaviors.xxxold.farmers.AFarmerBehavior;
-import gr.agroscape.behaviors.xxxold.farmers.stupido.StupidoBhv;
-import gr.agroscape.main.ContextManager;
+import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.contexts.FarmersContext;
@@ -20,7 +18,7 @@ import repast.simphony.space.graph.Network;
 
 public class MainContextTest {
 
-	private ContextManager builder;
+	private AgroscapeInitializer builder;
 	private SimulationContext simulationContext;
 	
 
@@ -34,7 +32,7 @@ public class MainContextTest {
 		
 		RunEnvironment.init(new Schedule(), new DefaultScheduleRunner(), p, false);
 
-		builder = new ContextManager ();
+		builder = new AgroscapeInitializer ();
 		this.simulationContext = (SimulationContext) builder.build(new DefaultContext<Object> ());
 		
 	}
