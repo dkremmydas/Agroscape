@@ -18,13 +18,15 @@ import repast.simphony.engine.schedule.DefaultActionFactory;
  * </ul>
  * <p>For every {@link Behavior} class, a {@link BehaviorFactory} should be crafted, extendind the abstract methods.</p>
  * <p>It follows the Singleton design pattern, since only one Factory for every behavior can exist.</p>
+ * 
  * @author Dimitris Kremmydas
  * @version %G%
+ * @since 2.0
  *
  */
 public abstract class BehaviorFactory {
 	
-	private String name;
+	protected String name;
 	
 	/**
 	 * The factory that creates the IAction
@@ -43,7 +45,6 @@ public abstract class BehaviorFactory {
 	}
 
 
-
 	public String getName() {
 		return name;
 	}
@@ -58,21 +59,27 @@ public abstract class BehaviorFactory {
 	 * @param List of {@link AgroscapeAgent}. It is the reference to the agents that 
 	 * a {@link AgentBehavior} will be assigned 
 	 */
-	abstract void assignBehavior(List<AgroscapeAgent> agents);
+	abstract public String assignBehavior(List<? extends AgroscapeAgent> agents);
 	
 	/**
-	 * 
+	 * Create the {@link BehaviorContext} and return it.
 	 * @return {@link BehaviorContext}
 	 */
-	abstract BehaviorContext getBehvaviorContext();
+	abstract public BehaviorContext buildBehaviorContext();
 	
-	
-	abstract List<AgroscapeAgent> getNewAgents();
+	/**
+	 * If new SimulationAgents should be created, do it here
+	 * @return
+	 */
+	abstract public List<AgroscapeAgent> getNewAgents();
 
 	/**
 	 * 
 	 * @return {@link String}
 	 */
-	abstract String getBehaviorInformation();
+	abstract public String getBehaviorInformation();
+
+
+
 	
 }

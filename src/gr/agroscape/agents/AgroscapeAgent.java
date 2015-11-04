@@ -3,7 +3,9 @@ package gr.agroscape.agents;
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.contexts.SimulationContext;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import repast.simphony.context.Context;
@@ -47,6 +49,11 @@ public abstract class AgroscapeAgent {
 	 * <p>The name of the behavior is constructed in a special way: {NAME OF ORIGINATING BEHAVIOR}_{NAME OF BEHAVIOR}</p>
 	 */
 	private HashMap<String,AgroscapeAgentProperty<?>> behaviorProperties = new HashMap<String, AgroscapeAgentProperty<?>>();
+	
+	/**
+	 * <p>The list of behaviors that are attached to the agent</p>
+	 */
+	private List<AgentBehavior> behaviors = new ArrayList<>();
 	
 	/**
      * A reference to the mainContext. 
@@ -151,7 +158,22 @@ public abstract class AgroscapeAgent {
 	}
 		
 	
+	/**
+	 * Gets the array of the behaviors attached to the agent
+	 * @return List of {@link AgentBehavior}
+	 */
+	public List<AgentBehavior> getBehaviors() {
+		return behaviors;
+	}
 	
+	/**
+	 * Adds an {@link AgentBehavior} to the agent
+	 * @param ab {@link AgentBehavior}
+	 */
+	public void addBehavior(AgentBehavior ab) {
+		this.behaviors.add(ab);
+	}
+
 	@Override
 	public String toString() {
 		return "[uniqID="+this.getId()+", class="+ this.getClass().toString() + "]" + " name="+this.getName();

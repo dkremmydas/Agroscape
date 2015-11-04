@@ -1,33 +1,23 @@
 package gr.agroscape.main;
 
-import gr.agroscape.agents.human.Farmer;
-import gr.agroscape.behaviors.farmers.stupido.StupidoBhv;
-import gr.agroscape.behaviors.farmers.stupido.StupidoBhvContext;
-import gr.agroscape.contexts.BehaviorsContext;
 import gr.agroscape.contexts.FarmersContext;
 import gr.agroscape.contexts.PlotsContext;
 import gr.agroscape.contexts.SimulationContext;
-import gr.agroscape.dataLoaders.ExcelDataLoader;
 import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
-import repast.simphony.engine.environment.RunEnvironment;
 
 
 /**
- * This is the "main" class. 
- * <br />Everything is loaded here through Overriding {@link #build()} method.
- * This is directly related to the definition of Agroscape.rs/
- * <br />Also the workflow of the AgroScape simulation is defined here, in the {@link #step()} method.
- * 
+ * This is the "main" class. The purpose is to:
+ * <ul>
+ * <li>create the empty {@link SimulationContext}</li>
+ * <li>create the empty {@link FarmersContext}</li> 
+ * <li>create the empty {@link PlotsContext}</li> 
+ * </ul> 
+ *
  * @author Dimitris Kremmydas
+ * @version %I%
  *
  */
 public class ContextManager implements ContextBuilder<Object> {
@@ -59,78 +49,7 @@ public class ContextManager implements ContextBuilder<Object> {
 		FarmersContext farmers = new FarmersContext(); //create farmers' context
 		this.simulationContext.addSubContext(farmers);
 		
-		BehaviorsContext bhvContext = new BehaviorsContext();
-		this.simulationContext.addSubContext(bhvContext);
 		
-		
-		//step 3, create dataLoader
-		/*
-		 IAgroscapeDataLoader dataLoader = new DefaultDataLoader();
-		
-		dataLoader.loadFarmersContext(farmers);
-		dataLoader.loadPlotsContext(plots);
-		dataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
-		 */
-		
-		String excelFileLocation = RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
-		AgroscapeSkeletonDataLoader dataLoader;
-		try {
-			dataLoader = new ExcelDataLoader(excelFileLocation);
-			dataLoader.loadFarmersContext(farmers);
-			dataLoader.loadPlotsContext(plots);
-			dataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
-		} catch (InvalidFormatException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		//dataLoader.initPaymentAuthority(this.space.getPaymentAuthority());
-		
-		//step 4, Attach Behavior (Stupido)
-		
-		ArrayList<Farmer> ff=new ArrayList<Farmer>();
-		CollectionUtils.addAll(ff, farmers.getRandomObjects(Farmer.class,2));
-		//bhvContext.addSubContext(new StupidoBhvContext(ff));
-		Context<StupidoBhv> ssc = new StupidoBhvContext(ff);
-		bhvContext.addSubContext(ssc);
-		
-		
-		
-		
-		
-		//step 4, Attach Behavior (ArableCropFarmer_MP & ArableCropFarmer_Network)
-		//ONLY FOR DEFAULT DATA LOADER
-		/*
-		HashMap<Class<? extends AArableCropProductionBhv>,Collection<Farmer>> arableCropFarmers=new HashMap<>();		
-		ArrayList<Farmer> ff1=new ArrayList<Farmer>();
-		ff1.add(farmers.findFarmerById(1));
-		ff1.add(farmers.findFarmerById(2));
-		ff1.add(farmers.findFarmerById(3));
-		ArrayList<Farmer> ff2=new ArrayList<Farmer>();
-		ff2.add(farmers.findFarmerById(4));
-		ff2.add(farmers.findFarmerById(5));		
-		arableCropFarmers.put(ArableCropProductionBhv_Network.class, ff2);
-		arableCropFarmers.put(ArableCropProductionBhv_MP.class, ff1);
-		ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(arableCropFarmers);
-		*/
-		
-		/*
-		//FOR EXCEL DATA LOADER OF BEHAVIOR
-		Workbook excelWB;
-		try {
-			excelWB = WorkbookFactory.create(new File(RunEnvironment.getInstance().getParameters().getString("ExcelDataFile")));
-			ArableCropProductionBhvContext acpc = new ArableCropProductionBhvContext(new gr.agroscape.behaviors.farmers.production.arableCropProduction.dataLoaders.ExcelDataLoader(excelWB));
-			farmers.attachBehavior(acpc);
-		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-
-
 		return this.simulationContext;
 	}
 

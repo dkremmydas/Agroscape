@@ -3,8 +3,6 @@ package gr.agroscape.contexts;
 import gr.agroscape.agents.human.Farmer;
 import gr.agroscape.agents.plot.Plot;
 import gr.agroscape.authorities.LandPropertyRegistry;
-import gr.agroscape.authorities.PaymentAuthority;
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
@@ -18,11 +16,9 @@ import repast.simphony.space.grid.StrictBorders;
  * This is the MainContext. Everything is included here. <br />
  * It contains:
  * <ul>
- * <li>The {@link ArableCropCultivation crops} that are available within Agroscape. They are inside the {@link CropsContext}. The Crops Collection can directly be accessed by callling the static {@link #getAvailableCrops()}</li>
  * <li>The {@link Plot plots} that are available. They are inside the {@link PlotsContext}. The Plots Collection can directly be accessed by callling the static {@link #getAvailablePlots()}</li>
  * <li>The available {@link Farmer farmers}. They are inside the {@link FarmersContext}.</li>
  * <li>The {@link LandPropertyRegistry}. It is available through {@link #getLandPropertyRegistry()}.</li>
- * <li>The {@link PaymentAuthority}.  It is available through {@link MainContext#getPaymentAuthority()}.</li>
  * </ul>
  * @author jkr
  *
@@ -33,10 +29,7 @@ public class SimulationContext extends DefaultContext<Object> {
 	private static SimulationContext instance=null;
 
 	private LandPropertyRegistry landPropertyRegistry=new LandPropertyRegistry();
-	
-	private PaymentAuthority paymentAuthority=new PaymentAuthority();
-	
-	
+		
 	
 	/**
 	 * The Grid default Width. It is usually altered in the Constructor.
@@ -96,16 +89,7 @@ public class SimulationContext extends DefaultContext<Object> {
 		return landPropertyRegistry;
 	}
 
-	/**
-	 * Getter for PaymentAuthority
-	 * @return
-	 */
-	public PaymentAuthority getPaymentAuthority() {
-		return paymentAuthority;
-	}
 
-	
-	
 	/**
 	 * 
 	 * @return
@@ -128,17 +112,11 @@ public class SimulationContext extends DefaultContext<Object> {
 		return space;
 	}
 	
-	
-	
 	public PlotsContext getPlotsContext() {
 		if(! this.hasSubContext()) throw new NullPointerException("The PlotsContext does not have any subcontexts yet.");
 		return (PlotsContext) this.getSubContext("PlotsContext");
 	}
 	
-	public BehaviorsContext getBehaviorsContext() {
-		if(! this.hasSubContext()) throw new NullPointerException("The BehaviorsContext does not have any subcontexts yet.");
-		return (BehaviorsContext) this.getSubContext("BehaviorsContext");
-	}
 		
 	public FarmersContext getFarmersContext() {
 		if(! this.hasSubContext()) throw new NullPointerException("The MainContext does not have any subcontexts yet.");

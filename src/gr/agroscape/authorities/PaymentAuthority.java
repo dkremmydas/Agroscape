@@ -1,7 +1,6 @@
 package gr.agroscape.authorities;
 
 
-import gr.agroscape.behaviors.farmers.production.agriculturalActivities.ArableCropCultivation;
 
 import java.util.HashMap;
 
