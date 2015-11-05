@@ -1,13 +1,13 @@
-/bin/*
-/docs/*
-/AgroScape.rs/*
-/lib/*
+/bin/
+/docs/
+/AgroScape.rs/
+/lib/
 /debug.*
 /Repast.settings
 /velocity.*
-/.settings/*
-/freezedried_data/*
-/.classpath/*
+/.settings/
+/freezedried_data/
+/.classpath/
 
 *.pydevproject
 .metadata
@@ -29,7 +29,6 @@ simulation_logs.txt
 /debug.log.*
 /validation.*
 
-/bin
 /output
 
 # Package Files #
