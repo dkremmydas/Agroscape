@@ -39,7 +39,7 @@ public class StupidoBehavior extends AgentBehavior {
 		StupidoBehaviorContext sbhvc= (StupidoBehaviorContext)this.getBehaviorContext();
 		
 		Plot rPlot = this.getOwner().getMainContext().getPlotsContext().getRandomObject();
-		StupidoPlotIntegerProperty prop = (StupidoPlotIntegerProperty) rPlot.getBehaviorProperty(this.bhvFactory, "StupidoInteger");
+		StupidoPlotIntegerProperty prop = (StupidoPlotIntegerProperty) rPlot.getBehaviorProperty(StupidoPlotIntegerProperty.class);
 		prop.setValue(new Integer(newNumber));
 		
 		System.out.println("I am a happy behavior of agent: " + this.getOwner() 

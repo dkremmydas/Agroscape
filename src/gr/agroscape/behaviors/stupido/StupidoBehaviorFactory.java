@@ -35,7 +35,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 		//add properties to plot
 		Iterable<Plot> plots = simulationContext.getPlotsContext().getAgentLayer(Plot.class);
 		for (Plot p : plots) {
-			p.addBehaviorProperty(this, new StupidoPlotIntegerProperty());
+			p.addBehaviorProperty(new StupidoPlotIntegerProperty());
 		}
 		
 	}

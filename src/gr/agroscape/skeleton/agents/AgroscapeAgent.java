@@ -1,7 +1,6 @@
 package gr.agroscape.skeleton.agents;
 
 import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
@@ -144,6 +143,11 @@ public abstract class AgroscapeAgent {
 	 */
 	public void addBehaviorProperty(AgroscapeAgentProperty<?> bp, Class<? extends AgroscapeAgentProperty<?>> clazz) {
 		this.behaviorProperties.put(clazz, bp);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void addBehaviorProperty(AgroscapeAgentProperty<?> bp) {
+		this.behaviorProperties.put((Class<? extends AgroscapeAgentProperty<?>>) bp.getClass(),bp);
 	}
     
 	/**
