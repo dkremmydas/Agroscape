@@ -22,6 +22,22 @@ local.properties
 .settings/
 .loadpath
 
+*.class
+
+simulation_logs.txt
+/velocity.log*
+/debug.log.*
+/validation.*
+
+/bin
+/output
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+
 # Eclipse Core
 .project
 
