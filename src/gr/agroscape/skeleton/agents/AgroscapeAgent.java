@@ -76,7 +76,7 @@ public abstract class AgroscapeAgent {
 		id=uniqueId.getAndIncrement();
 		this.mainContext=SimulationContext.getInstance();	
 		this.parentContext= ContextUtils.getContext(this);
-		//this.behaviorProperties = new 
+		this.behaviorProperties = MutableClassToInstanceMap.create();
 	}
 	
 	public AgroscapeAgent(String name) {
