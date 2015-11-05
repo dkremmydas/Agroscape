@@ -20,6 +20,8 @@ import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
 
+import com.google.common.collect.Iterables;
+
 public class StupidoBehaviorTest {
 	
 	private AgroscapeInitializer builder;
@@ -113,7 +115,7 @@ public class StupidoBehaviorTest {
 		
 		//init simulation
 		System.err.println("Current Parameters: " + RunEnvironment.getInstance().getParameters().toString());
-		System.err.println("Current # of Farmers in context: " + this.simulationContext.getFarmersContext().getObjects(Farmer.class).size());
+		System.err.println("Current # of Farmers in context: " + Iterables.size(this.simulationContext.getFarmersContext().getAllFarmers()));
 		System.err.println("Current Schedule: " + RunEnvironment.getInstance().getCurrentSchedule().toString());
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
