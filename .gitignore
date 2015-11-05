@@ -1,11 +1,32 @@
-/bin/
-/docs/
-/AgroScape.rs/
-/lib/
+/bin/*
+/docs/*
+/AgroScape.rs/*
+/lib/*
 /debug.*
 /Repast.settings
 /velocity.*
-/.settings/
-/freezedried_data/
+/.settings/*
 /freezedried_data/*
-/.classpath
+/.classpath/*
+
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# Eclipse Core
+.project
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
