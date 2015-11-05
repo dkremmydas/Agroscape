@@ -5,12 +5,14 @@ import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import repast.simphony.context.Context;
 import repast.simphony.util.ContextUtils;
+
+import com.google.common.collect.ClassToInstanceMap;
+import com.google.common.collect.MutableClassToInstanceMap;
 
 /**
  * <p>This is the root class of every skeleton agent of the simulation.</p>
@@ -49,7 +51,8 @@ public abstract class AgroscapeAgent {
 	 * <p>A map of behavior properties of the agent</p>
 	 * <p>The name of the behavior is constructed in a special way: {NAME OF ORIGINATING BEHAVIOR}_{NAME OF BEHAVIOR}</p>
 	 */
-	private HashMap<String,AgroscapeAgentProperty<?>> behaviorProperties = new HashMap<String, AgroscapeAgentProperty<?>>();
+	private ClassToInstanceMap<AgroscapeAgentProperty<?>>  behaviorProperties ;
+	//private final ClassToInstanceMap<MyObject> instances = MutableClassToInstanceMap.create();
 	
 	/**
 	 * <p>The list of behaviors that are attached to the agent</p>
@@ -73,6 +76,7 @@ public abstract class AgroscapeAgent {
 		id=uniqueId.getAndIncrement();
 		this.mainContext=SimulationContext.getInstance();	
 		this.parentContext= ContextUtils.getContext(this);
+		//this.behaviorProperties = new 
 	}
 	
 	public AgroscapeAgent(String name) {
@@ -138,9 +142,8 @@ public abstract class AgroscapeAgent {
 	 * @param bf {@AgentBehavior}
 	 * @param bp {@BehaviorProperty}. Be careful !!!  It should be passed as "new BehaviorProperty<?>(...)
 	 */
-	public void addBehaviorProperty(BehaviorFactory bf, AgroscapeAgentProperty<?> bp) {
-		this.behaviorProperties.put(bf.getName() + "_"+name, bp);
-		//get(ab.getName() + "_"+name);
+	public void addBehaviorProperty(AgroscapeAgentProperty<?> bp, Class<? extends AgroscapeAgentProperty<?>> clazz) {
+		this.behaviorProperties.put(clazz, bp);
 	}
     
 	/**
@@ -150,22 +153,9 @@ public abstract class AgroscapeAgent {
 	 * @param name {@String} the name of the behavior
 	 * @return {@link AgroscapeAgentProperty}
 	 */
-	public AgroscapeAgentProperty<?> getBehaviorProperty(BehaviorFactory bf, String name) {
-		return this.behaviorProperties.get(bf.getName() + "_"+name);
-	}
-	
-	/**
-	 * Gets the Value (i.e. {@link Object}) of a certain {@link AgentBehavior} and for
-	 * the given property name. The calling method should take care of the casting.
-	 * @param ab
-	 * @param name
-	 * @return
-	 */
-	public Object getBehaviorPropertyValue (AgentBehavior ab, String name) {
-		AgroscapeAgentProperty<?> bhvP = this.behaviorProperties.get(ab.getName() + "_"+name);
-		return bhvP.getValue();
-	}
-		
+	public AgroscapeAgentProperty<?> getBehaviorProperty(Class<? extends AgroscapeAgentProperty<?>> clazz) {
+		return this.behaviorProperties.get(clazz);
+	}		
 	
 	/**
 	 * Gets the array of the behaviors attached to the agent
