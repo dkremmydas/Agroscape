@@ -43,11 +43,9 @@ public class StupidoBehaviorTest {
 			
 			@Override
 			public void loadAllBehaviors(SimulationContext simulationContext) {
-				//add to all farmers the stupido Behavior
-				FarmersContext fcon = simulationContext.getFarmersContext();
-				
+					
 				simulationContext.addSubContext(this.stupidoFactory.buildBehaviorContext());
-				this.stupidoFactory.assignBehavior(fcon.getAllFarmers());	
+				this.stupidoFactory.assignBehavior(simulationContext);	
 			}
 			
 	
@@ -109,7 +107,7 @@ public class StupidoBehaviorTest {
 		
 		
 		StupidoBehaviorFactory sbf = new StupidoBehaviorFactory();		
-		sbf.assignBehavior(this.simulationContext.getFarmersContext().getAgentLayer(Farmer.class));
+		sbf.assignBehavior(this.simulationContext);
 		
 		//test simulation environment
 		

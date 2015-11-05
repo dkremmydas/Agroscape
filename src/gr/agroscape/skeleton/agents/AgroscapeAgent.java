@@ -1,6 +1,7 @@
 package gr.agroscape.skeleton.agents;
 
 import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
@@ -134,23 +135,23 @@ public abstract class AgroscapeAgent {
 
 	/**
 	 * Adds a behavior property.
-	 * @param ab {@AgentBehavior}
+	 * @param bf {@AgentBehavior}
 	 * @param bp {@BehaviorProperty}. Be careful !!!  It should be passed as "new BehaviorProperty<?>(...)
 	 */
-	public void addBehaviorProperty(AgentBehavior ab, AgroscapeAgentProperty<?> bp) {
-		this.behaviorProperties.put(ab.getName() + "_"+name, bp);
+	public void addBehaviorProperty(BehaviorFactory bf, AgroscapeAgentProperty<?> bp) {
+		this.behaviorProperties.put(bf.getName() + "_"+name, bp);
 		//get(ab.getName() + "_"+name);
 	}
     
 	/**
 	 * Gets the {@link AgroscapeAgentProperty} of a certain {@link AgentBehavior} and for
 	 * the given property name.
-	 * @param ab  {@link AgentBehavior}
+	 * @param bf  {@link AgentBehavior}
 	 * @param name {@String} the name of the behavior
 	 * @return {@link AgroscapeAgentProperty}
 	 */
-	public AgroscapeAgentProperty<?> getBehaviorProperty(AgentBehavior ab, String name) {
-		return this.behaviorProperties.get(ab.getName() + "_"+name);
+	public AgroscapeAgentProperty<?> getBehaviorProperty(BehaviorFactory bf, String name) {
+		return this.behaviorProperties.get(bf.getName() + "_"+name);
 	}
 	
 	/**

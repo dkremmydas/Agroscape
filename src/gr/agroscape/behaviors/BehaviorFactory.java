@@ -2,6 +2,7 @@ package gr.agroscape.behaviors;
 
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ import repast.simphony.engine.schedule.DefaultActionFactory;
  */
 public abstract class BehaviorFactory {
 	
+	/**
+	 * The name of the behavior that this factory is serving.
+	 */
 	protected String name;
 	
 	/**
@@ -52,14 +56,15 @@ public abstract class BehaviorFactory {
 
 
 	/**
-	 * <p>It receives a list of {@link AgroscapeAgent}s and assign to them a {@link AgentBehavior}</p>
+	 * <p>It receives the root {@link SimulationContext} and caters for
+	 * the assignment of {@link AgentBehavior}s and {@link AgroscapeAgentProperty}s
+	 *  to {@link AgroscapeAgent}s</p>
 	 * <p>The assignment should be given with a "new Behavior" created each time, and not by
 	 * passing a reference to a Behavior that was created once</p>
 	 * 
-	 * @param List of {@link AgroscapeAgent}. It is the reference to the agents that 
-	 * a {@link AgentBehavior} will be assigned 
+	 * @param {@link SimulationContext}
 	 */
-	abstract public void assignBehavior(Iterable<? extends AgroscapeAgent> agents);
+	abstract public void assignBehavior(SimulationContext simulationContext);
 	
 	/**
 	 * Create the {@link BehaviorContext} and return it.
@@ -72,6 +77,7 @@ public abstract class BehaviorFactory {
 	 * @return
 	 */
 	abstract public List<AgroscapeAgent> getNewAgents();
+	
 
 	/**
 	 * 
