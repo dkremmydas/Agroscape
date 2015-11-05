@@ -53,9 +53,6 @@ public abstract class AgentBehavior implements BehaviorSchedulable {
 		return owner;
 	}
 
-	
-	
-	
-	
+
 
 }

@@ -2,6 +2,7 @@ package gr.agroscape.behaviors.stupido;
 
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
+import gr.agroscape.skeleton.agents.plot.Plot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,15 @@ public class StupidoBehavior extends AgentBehavior {
 		int newNumber = (int) Math.round(Math.random()*100);
 		StupidoBehaviorContext sbhvc= (StupidoBehaviorContext)this.getBehaviorContext();
 		
-		
+		Plot rPlot = this.getOwner().getMainContext().getPlotsContext().getRandomObject();
+		StupidoPlotIntegerProperty prop = (StupidoPlotIntegerProperty) rPlot.getBehaviorProperty(this.bhvFactory, "StupidoInteger");
+		prop.setValue(new Integer(newNumber));
 		
 		System.out.println("I am a happy behavior of agent: " + this.getOwner() 
 				+ ". The common property I see is: " + sbhvc.getCommonProperty()
-				+ " and I set it to be " + newNumber
+				+ " and I set it to be " + newNumber + "\n"
+				+ "I also picked a random Plot: " + rPlot.getId() + "and assign to it"
+				+ " the property. So the plot now is: " + rPlot.toString()
 			);
 		
 		sbhvc.setCommonProperty(newNumber);

@@ -52,7 +52,15 @@ public class AgroscapeAgentProperty<T> implements Cloneable {
 	public Class<T> getType() {return type;}
 
 	public String getName() {return name;}
-
+	
+	public void setValue(T value) {
+		this.value = value;
+	}
+	
+	@Override
+	public String toString() {
+		return "name: " + this.name + ", type: " + this.type + ", value: " + this.value;
+	}
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {

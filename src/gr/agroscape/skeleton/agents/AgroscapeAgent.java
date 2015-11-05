@@ -188,5 +188,19 @@ public abstract class AgroscapeAgent {
 		return "[uniqID="+this.getId()+", class="+ this.getClass().toString() + "]" + " name="+this.getName();
 	}
 	
+	public String getPropertiesString() {
+		String r = "";
+		if(this.behaviorProperties.isEmpty()) {
+			r = "No BehaviorProperties";
+		}
+		else {
+			String sep="";
+			for (AgentBehavior ab : behaviors) {
+				r += sep+ab.toString();sep=" | ";
+			}
+		}	
+		return r;
+	}
+	
 	
 }

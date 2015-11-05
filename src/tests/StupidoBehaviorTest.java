@@ -8,7 +8,6 @@ import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.agents.plot.PlotUtils;
-import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import org.junit.Before;
@@ -90,22 +89,7 @@ public class StupidoBehaviorTest {
 	
 	@Test
 	public void addStupidoBehavior() {
-			
-		this.simulationContext.getFarmersContext().add( new Farmer(1));
-		this.simulationContext.getFarmersContext().add( new Farmer(2));
-		this.simulationContext.getFarmersContext().add( new Farmer(3));
-		
-		this.simulationContext.getPlotsContext().add(
-				PlotUtils.newRectanglePlot(1, 1, 3, 3)
-		);
-		this.simulationContext.getPlotsContext().add(
-				PlotUtils.newRectanglePlot(1, 4, 2, 6)
-		);
-		
-		System.out.println(this.simulationContext.getFarmersContext().toString());
-		System.out.println(this.simulationContext.getPlotsContext().toString());
-		
-		
+				
 		StupidoBehaviorFactory sbf = new StupidoBehaviorFactory();		
 		sbf.assignBehavior(this.simulationContext);
 		
