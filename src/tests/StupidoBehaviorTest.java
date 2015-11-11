@@ -1,5 +1,6 @@
 package tests;
 
+import static org.junit.Assert.*;
 import gr.agroscape.behaviors.stupido.StupidoBehaviorFactory;
 import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.dataLoaders.DefaultDataLoader;
@@ -8,6 +9,10 @@ import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.agents.plot.PlotUtils;
 import gr.agroscape.skeleton.contexts.SimulationContext;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import repast.simphony.context.DefaultContext;
 import repast.simphony.engine.environment.DefaultScheduleRunner;
 import repast.simphony.engine.environment.RunEnvironment;

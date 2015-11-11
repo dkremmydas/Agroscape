@@ -6,7 +6,6 @@
 /Repast.settings
 /velocity.*
 /freezedried_data/
-/.classpath/
 
 *.pydevproject
 .metadata
@@ -18,7 +17,6 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.settings/
 .loadpath
 
 *.class
@@ -36,8 +34,6 @@ simulation_logs.txt
 *.ear
 
 
-# Eclipse Core
-.project
 
 # External tool builders
 .externalToolBuilders/

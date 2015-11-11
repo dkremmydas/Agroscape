@@ -3,10 +3,10 @@
 
   <skipIfNotSupported/>
 
-  <programGroup defaultName="AgroScape" location="StartMenu"/>
+  <programGroup defaultName="Agroscape" location="StartMenu"/>
   
   <shortcut
-     name="AgroScape"
+     name="Agroscape"
      programGroup="yes"
      desktop="no"
      applications="no"
@@ -16,7 +16,7 @@
      commandLine=""
      workingDirectory="$INSTALL_PATH"
      description="Model"
-     iconFile="$INSTALL_PATH/AgroScape/icons/model.png"
+     iconFile="$INSTALL_PATH/Agroscape/icons/model.png"
      iconIndex="0"
      type="Application"
      encoding="UTF-8"
@@ -33,13 +33,13 @@
      applications="no"
      startMenu="no"
      startup="no"
-     target="$INSTALL_PATH/AgroScape/docs/index.html"
+     target="$INSTALL_PATH/Agroscape/docs/index.html"
      workingDirectory="$INSTALL_PATH/docs"
      commandLine=""
      initialState="noShow"
      iconFile="help"
      iconIndex="0" 
-     url="$INSTALL_PATH/AgroScape/docs/index.html"                                
+     url="$INSTALL_PATH/Agroscape/docs/index.html"                                
      type="Application"
      encoding="UTF-8" 
    	 createForAll="true"  
@@ -48,7 +48,7 @@
   </shortcut>
    
   <shortcut
-     name="AgroScape Uninstaller"
+     name="Agroscape Uninstaller"
      programGroup="yes"
      desktop="no"
      applications="no"
