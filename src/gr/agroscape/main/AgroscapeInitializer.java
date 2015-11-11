@@ -82,7 +82,7 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		this.simulationContext.addSubContext(farmers);
 		
 		this.skeletonDataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
-		
+			
 		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
 		
 		//add behaviors to schedule for each agent
