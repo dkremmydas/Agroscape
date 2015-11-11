@@ -12,14 +12,11 @@ import gr.agroscape.skeleton.contexts.SimulationContext;
 import java.util.ArrayList;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import repast.simphony.context.Context;
-import repast.simphony.context.space.graph.ContextJungNetwork;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
-import simphony.util.messages.MessageCenter;
 
 
 /**
@@ -53,7 +50,13 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		this.skeletonDataLoader = dataLoader;
 		this.behaviorsDataLoader = behaviorLoader;
 	}
-
+	
+	
+	public AgroscapeInitializer() {
+		super();
+		
+		
+	}
 
 
 	/**
@@ -66,7 +69,36 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	 */
 
 	@Override
-	public Context<Object> build(Context<Object> context) {
+	public Context<Object> build(Context<Object> context)  {
+		
+		//initialize everything
+		//load from xml dataloadr
+		System.out.println(RunEnvironment.getInstance());
+		String loaderName = RunEnvironment.getInstance().getParameters().getString("skeletonDataLoaderClass");
+		AgroscapeSkeletonDataLoader dataLoader;
+		try {
+			dataLoader = (AgroscapeSkeletonDataLoader) Class.forName(loaderName).newInstance();
+			this.skeletonDataLoader = dataLoader;
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NullPointerException();
+		}
+		
+		
+		String bhvLoaderString = RunEnvironment.getInstance().getParameters().getString("behaviorLoaderClass");
+		AgroscapeAllBehaviorsDataLoader bhvLoader;
+		try {
+			bhvLoader = (AgroscapeAllBehaviorsDataLoader) Class.forName(bhvLoaderString).newInstance();
+			this.behaviorsDataLoader = bhvLoader;
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NullPointerException();
+		}
+		
 		
 		//step 1. keep a reference		
 		this.simulationContext=SimulationContext.getInstance();

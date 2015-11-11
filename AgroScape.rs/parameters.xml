@@ -18,8 +18,15 @@
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
 		/>
-				<parameter name="dataLoaderClass" displayName="DataLoader Class" type="java.lang.String" 
+				<parameter name="skeletonDataLoaderClass" displayName="Skeleton DataLoader Class" type="java.lang.String" 
 						defaultValue="gr.agroscape.dataLoaders.DefaultDataLoader" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
+		
+		<parameter name="behaviorLoaderClass" displayName="DataLoader Class" type="java.lang.String" 
+						defaultValue="gr.agroscape.behaviors.stupido.StupidoBehaviorFactory" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
