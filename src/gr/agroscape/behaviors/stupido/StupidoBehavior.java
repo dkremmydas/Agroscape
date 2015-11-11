@@ -1,14 +1,13 @@
 package gr.agroscape.behaviors.stupido;
 
 import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import repast.simphony.engine.schedule.DefaultAction;
-import repast.simphony.engine.schedule.IAction;
 import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
@@ -21,13 +20,10 @@ public class StupidoBehavior extends AgentBehavior {
 	}
 
 	@Override
-	public List<DefaultAction> getScheduledActions() {
-		List<DefaultAction> actions= new ArrayList<DefaultAction>();
-		
-		ScheduleParameters p= ScheduleParameters.createRepeating(1, 360);
-		IAction action =  this.getBhvFactory().getActionFactory().createAction(this, "printHappiness");
-		
-		actions.add(new DefaultAction(p, action,1));		
+	public List<BehaviorAction> getScheduledActions() {
+		List<BehaviorAction> actions= new ArrayList<BehaviorAction>();
+	
+		actions.add(new BehaviorAction("printHappines",ScheduleParameters.createRepeating(1, 360),this));
 			
 		return actions;
 	}

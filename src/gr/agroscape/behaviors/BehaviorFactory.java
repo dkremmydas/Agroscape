@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.media.j3d.Behavior;
 
-import repast.simphony.engine.schedule.DefaultActionFactory;
-
 /**
  * <p>The purposes of this class are:</p>
  * <ul>
@@ -32,22 +30,13 @@ public abstract class BehaviorFactory {
 	 */
 	protected String name;
 	
-	/**
-	 * The factory that creates the IAction
-	 */
-	private DefaultActionFactory actionFactory = new DefaultActionFactory();
-	
+
 	
 	protected BehaviorFactory() {
 		this.name="N/A";
 	}
 
 		
-	
-	public DefaultActionFactory getActionFactory() {
-		return actionFactory;
-	}
-
 
 	public String getName() {
 		return name;

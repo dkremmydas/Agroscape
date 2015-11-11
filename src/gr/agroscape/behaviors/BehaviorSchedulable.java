@@ -25,6 +25,6 @@ public interface BehaviorSchedulable {
 	 * {@link ScheduleParameters} class.
 	 * @return List of {@link DefaultAction}
 	 */
-	public List<DefaultAction> getScheduledActions(); 
+	public List<BehaviorAction> getScheduledActions(); 
 	
 }
