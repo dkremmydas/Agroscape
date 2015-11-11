@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import repast.simphony.engine.schedule.ScheduleParameters;
-import repast.simphony.engine.schedule.ScheduledMethod;
 
 public class StupidoBehavior extends AgentBehavior {
 	
@@ -28,15 +27,21 @@ public class StupidoBehavior extends AgentBehavior {
 		return actions;
 	}
 	
-	//@ScheduledMethod (start=1,interval=2)
+
 	public void printHappiness() {
 		
-		int newNumber = (int) Math.round(Math.random()*100);
+		//get the random choice and a context
+		Integer newNumber = (int) Math.round(Math.random()*100);
 		StupidoBehaviorContext sbhvc= (StupidoBehaviorContext)this.getBehaviorContext();
 		
+		//update plot property
 		Plot rPlot = this.getOwner().getMainContext().getPlotsContext().getRandomObject();
 		StupidoPlotIntegerProperty prop = (StupidoPlotIntegerProperty) rPlot.getBehaviorProperty(StupidoPlotIntegerProperty.class);
 		prop.setValue(new Integer(newNumber));
+		
+		//update gridvaluelayer
+		StupidoBehaviorContext con = (StupidoBehaviorContext) this.getBehaviorContext();
+		rPlot.setGridValueLayer(con.getGvl(), newNumber.doubleValue());
 		
 		System.out.println("I am a happy behavior of agent: " + this.getOwner() 
 				+ ". The common property I see is: " + sbhvc.getCommonProperty()
@@ -46,6 +51,7 @@ public class StupidoBehavior extends AgentBehavior {
 			);
 		
 		sbhvc.setCommonProperty(newNumber);
+
 		
 	}
 

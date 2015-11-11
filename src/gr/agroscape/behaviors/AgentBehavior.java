@@ -1,8 +1,9 @@
 package gr.agroscape.behaviors;
 
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
+
 import java.util.List;
 
-import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import repast.simphony.context.Context;
 
 /**

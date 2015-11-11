@@ -10,6 +10,10 @@ import gr.agroscape.skeleton.contexts.SimulationContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.space.grid.StrictBorders;
+import repast.simphony.valueLayer.GridValueLayer;
+
 public class StupidoBehaviorFactory extends BehaviorFactory {
 	
 	private StupidoBehaviorContext bhvContext;
@@ -17,8 +21,12 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	 
 	public StupidoBehaviorFactory() {
 		super();
+		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
+		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
+		
 		this.name = "Stupido Behavior Factory";
-		this.bhvContext = new StupidoBehaviorContext();
+		this.bhvContext = new StupidoBehaviorContext(
+								new GridValueLayer("StupidoGridValues", 0.0, true, new StrictBorders() ,w ,h));
 	}
 
 	//abstract void assignBehavior(List<? extends AgroscapeAgent> agents);
@@ -44,6 +52,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	
 	@Override
 	public BehaviorContext buildBehaviorContext() {
+		
 		return this.bhvContext;
 	}
 

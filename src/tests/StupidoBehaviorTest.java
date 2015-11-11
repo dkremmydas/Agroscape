@@ -102,17 +102,13 @@ public class StupidoBehaviorTest {
 		System.err.println("Current Schedule, Number of Actions Scheduled: " + 
 				RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
-		//1st step
-		System.err.println("");
-		System.err.println("Advanced 1st step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
-		RunEnvironment.getInstance().getCurrentSchedule().execute();
-		System.err.println("");
-		
-		//1st step
-		System.err.println("");
-		System.err.println("Advanced 2nd step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
-		RunEnvironment.getInstance().getCurrentSchedule().execute();
-		System.err.println("");
+		//20 steps step
+		for(int i=0;i<20;i++) {
+			System.err.println("");
+			System.err.println("Advanced " + i +" step, tick " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());		
+			RunEnvironment.getInstance().getCurrentSchedule().execute();
+			System.err.println("");
+		}
 		
 		
 		

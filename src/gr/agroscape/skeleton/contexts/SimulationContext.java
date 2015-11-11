@@ -3,6 +3,9 @@ package gr.agroscape.skeleton.contexts;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
+
+import org.apache.log4j.Level;
+
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
@@ -11,6 +14,7 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
+import simphony.util.messages.MessageCenter;
 
 /**
  * This is the MainContext. Everything is included here. <br />
@@ -124,6 +128,11 @@ public class SimulationContext extends DefaultContext<Object> {
 	}	
 	
 
+	
+	public static void logMessage(Class<?> clazz, Level level,Object message) {
+		MessageCenter mc = MessageCenter.getMessageCenter(clazz);
+		mc.fireMessageEvent(level, message, null);
+	}
 	
 	
 }

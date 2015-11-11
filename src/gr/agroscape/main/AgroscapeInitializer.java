@@ -94,29 +94,24 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	
 	private void addAgroscapeAgentsBehaviorToSchedule(Iterable<? extends AgroscapeAgent> agents) {
-		MessageCenter mc = MessageCenter.getMessageCenter(this.getClass());
+		
 		
 		ISchedule timeline = RunEnvironment.getInstance().getCurrentSchedule();
-		mc.info("AgroscapeInitializer.addAgroscapeAgentsBehaviorToSchedule()");
+		SimulationContext.logMessage(this.getClass(), Level.INFO, "Initializing simulation: Loading Behaviors");
 		
 		for (AgroscapeAgent ag : agents) {
 			//AgroscapeInitializer.logger.info("Loading Agent");
-			System.out.println("Loading Agent: " + ag.toString());
+			SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agent: " + ag.toString());
 			
 			ArrayList<AgentBehavior> bhvs = (ArrayList<AgentBehavior>) ag.getBehaviors();
 			for (AgentBehavior ab : bhvs) {
-				mc.info("Loading Agent's Behavior: " + ab.toString());
+				SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agent's Behavior: " + ab.toString());
+				
 				ArrayList<BehaviorAction> aSchA = (ArrayList<BehaviorAction>) ab.getScheduledActions();
 				for (BehaviorAction beha : aSchA) {
-					mc.info("Loading Agent's Behavior's Action: " + beha.toString());
+					SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agent's Behavior's Action: " + beha.toString());
 					timeline.schedule(beha.getParams(), beha.getObject(), beha.getMethod());
 				}
-				//timeline.schedule(ab.);
-				//ArrayList<DefaultAction> actions =  (ArrayList<DefaultAction>) ab.getScheduledActions();
-				//for (DefaultAction ac : actions) {
-				//	//System.err.println(ac.);
-				//	timeline.schedule(ac);
-				//}
 			}
 		}
 	}

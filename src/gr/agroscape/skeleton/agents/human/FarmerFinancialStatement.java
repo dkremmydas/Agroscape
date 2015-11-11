@@ -10,5 +10,12 @@ package gr.agroscape.skeleton.agents.human;
 public class FarmerFinancialStatement {
 
 	private Long liquidity;
+
+	public Long getLiquidity() {
+		return liquidity;
+	}
+	
+	
+	
 	
 }

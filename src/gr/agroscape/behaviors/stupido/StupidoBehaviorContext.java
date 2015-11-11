@@ -1,6 +1,7 @@
 package gr.agroscape.behaviors.stupido;
 
 import gr.agroscape.behaviors.BehaviorContext;
+import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * This BehaviorContext is in order to simulate the sharing of a common Behavior property
@@ -14,9 +15,12 @@ public class StupidoBehaviorContext extends BehaviorContext {
 
 	private int commonProperty;
 	
-	protected StupidoBehaviorContext() {
+	private GridValueLayer gvl;
+	
+	public StupidoBehaviorContext(GridValueLayer gvl) {
 		super("Stupido Behavior Context");
 		this.commonProperty = (int) Math.rint(Math.random()*10.0);
+		this.gvl = gvl;
 	}
 
 	public int getCommonProperty() {
@@ -25,8 +29,12 @@ public class StupidoBehaviorContext extends BehaviorContext {
 
 	public void setCommonProperty(int commonProperty) {
 		this.commonProperty = commonProperty;
+	}
+
+	public GridValueLayer getGvl() {
+		return gvl;
 	}	
 	
-		
+	
 
 }
