@@ -1,6 +1,7 @@
 package gr.agroscape.main;
 
 import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
@@ -10,10 +11,15 @@ import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import repast.simphony.context.Context;
+import repast.simphony.context.space.graph.ContextJungNetwork;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
+import simphony.util.messages.MessageCenter;
 
 
 /**
@@ -38,7 +44,7 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	private AgroscapeAllBehaviorsDataLoader behaviorsDataLoader;
 
-	
+	//static Logger logger = Logger.getLogger(AgroscapeInitializer.class);
 	
 	
 	public AgroscapeInitializer(AgroscapeSkeletonDataLoader dataLoader, 
@@ -88,12 +94,24 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	
 	private void addAgroscapeAgentsBehaviorToSchedule(Iterable<? extends AgroscapeAgent> agents) {
+		MessageCenter mc = MessageCenter.getMessageCenter(this.getClass());
+		
 		ISchedule timeline = RunEnvironment.getInstance().getCurrentSchedule();
+		mc.info("AgroscapeInitializer.addAgroscapeAgentsBehaviorToSchedule()");
 		
 		for (AgroscapeAgent ag : agents) {
+			//AgroscapeInitializer.logger.info("Loading Agent");
+			System.out.println("Loading Agent: " + ag.toString());
+			
 			ArrayList<AgentBehavior> bhvs = (ArrayList<AgentBehavior>) ag.getBehaviors();
 			for (AgentBehavior ab : bhvs) {
-				timeline.schedule(ab);
+				mc.info("Loading Agent's Behavior: " + ab.toString());
+				ArrayList<BehaviorAction> aSchA = (ArrayList<BehaviorAction>) ab.getScheduledActions();
+				for (BehaviorAction beha : aSchA) {
+					mc.info("Loading Agent's Behavior's Action: " + beha.toString());
+					timeline.schedule(beha.getParams(), beha.getObject(), beha.getMethod());
+				}
+				//timeline.schedule(ab.);
 				//ArrayList<DefaultAction> actions =  (ArrayList<DefaultAction>) ab.getScheduledActions();
 				//for (DefaultAction ac : actions) {
 				//	//System.err.println(ac.);

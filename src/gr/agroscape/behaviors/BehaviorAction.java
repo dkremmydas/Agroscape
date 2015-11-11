@@ -29,7 +29,29 @@ public class BehaviorAction {
 		this.params = params;
 		this.object = object;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public ScheduleParameters getParams() {
+		return params;
+	}
+
+	public Object getObject() {
+		return object;
+	}
 	
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "["+super.toString()+"] BehaviorAction name:"+this.name+" Object: "+this.object.toString();
+	}
 	
 	
 	

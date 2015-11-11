@@ -23,12 +23,12 @@ public class StupidoBehavior extends AgentBehavior {
 	public List<BehaviorAction> getScheduledActions() {
 		List<BehaviorAction> actions= new ArrayList<BehaviorAction>();
 	
-		actions.add(new BehaviorAction("printHappines",ScheduleParameters.createRepeating(1, 360),this));
+		actions.add(new BehaviorAction("printHappiness",ScheduleParameters.createRepeating(1, 360),this));
 			
 		return actions;
 	}
 	
-	@ScheduledMethod (start=1,interval=2)
+	//@ScheduledMethod (start=1,interval=2)
 	public void printHappiness() {
 		
 		int newNumber = (int) Math.round(Math.random()*100);

@@ -1,5 +1,7 @@
 package gr.agroscape.behaviors;
 
+import java.util.List;
+
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import repast.simphony.context.Context;
 
@@ -54,5 +56,21 @@ public abstract class AgentBehavior implements BehaviorSchedulable {
 	}
 
 
+
+	@Override
+	public List<BehaviorAction> getScheduledActions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "["+super.toString()+"} Behavior name:"+this.name+" Owner: "+this.owner.toString();
+	}
+
+	
 
 }
