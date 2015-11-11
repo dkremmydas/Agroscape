@@ -5,7 +5,6 @@
 /debug.*
 /Repast.settings
 /velocity.*
-/.settings/
 /freezedried_data/
 /.classpath/
 
@@ -45,3 +44,4 @@ simulation_logs.txt
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+/installer/
