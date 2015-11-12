@@ -28,21 +28,10 @@ public class SimulationContext extends DefaultContext<Object> {
 
 	private LandPropertyRegistry landPropertyRegistry=new LandPropertyRegistry();
 		
-	
-	/**
-	 * The Grid default Width. It is usually altered in the Constructor.
-	 */
-	private int gridWidth=11;
-	
-	/**
-	 * The Grid default Height. It is usually altered in the Constructor.
-	 */
-	private int gridHeight=11;
-	
 	/**
 	 * The Space of the simulation
 	 */
-	private SimulationSpace space;
+	private SimulationSpace space ;
 	
 	
 	/**
@@ -60,6 +49,7 @@ public class SimulationContext extends DefaultContext<Object> {
 	 */
 	public SimulationContext() {
 		super("SimulationContext","SimulationContext");
+		this.space = new SimulationSpace();
 		SimulationContext.instance = this;
 	}
 
@@ -70,24 +60,6 @@ public class SimulationContext extends DefaultContext<Object> {
 	 */
 	public LandPropertyRegistry getLandPropertyRegistry() {
 		return landPropertyRegistry;
-	}
-
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getGridWidth() {
-		return gridWidth;
-	}
-
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getGridHeight() {
-		return gridHeight;
 	}
 
 

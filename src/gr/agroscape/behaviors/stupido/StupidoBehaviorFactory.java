@@ -51,7 +51,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	
 	@Override
 	public BehaviorContext buildBehaviorContext() {
-		
+		this.bhvContext.addProjection(SimulationContext.getInstance().getSpace().getSpace());
 		return this.bhvContext;
 	}
 

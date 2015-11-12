@@ -19,21 +19,13 @@
 									
 		/>
 				<parameter name="skeletonDataLoaderClass" displayName="Skeleton DataLoader Class" type="java.lang.String" 
-						defaultValue="gr.agroscape.dataLoaders.DefaultDataLoader" 
+						defaultValue="gr.agroscape.skeleton.dataLoaders.DefaultDataLoader" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
 		
 
-		<parameter name="Behavior" displayName="StupidoBehavior Factory Class 1" type="java.lang.String" 
-					defaultValue="gr.agroscape.behaviors.stupido.StupidoBehaviorFactory" 
-					isReadOnly="false" 
-					converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
-								
-		/>
-		
-	
 		<parameter name="ExcelDataFile" displayName="Excel Data File Location" type="java.lang.String" 
 						defaultValue="freezedried_data\\dataToLoad.v3.xlsx" 
 						isReadOnly="false" 

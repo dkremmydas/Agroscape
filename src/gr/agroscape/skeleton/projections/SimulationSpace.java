@@ -14,7 +14,6 @@ import repast.simphony.space.projection.Projection;
 public class SimulationSpace {
 	
 		private Projection<Object> space;
-		private SimulationContext sc;
 		
 		public SimulationSpace(Projection<Object> space) {
 			this();
@@ -24,7 +23,6 @@ public class SimulationSpace {
 		public SimulationSpace() {
 			super();
 			this.space = null;
-			this.sc = SimulationContext.getInstance();
 		}
 
 
@@ -34,7 +32,7 @@ public class SimulationSpace {
 		
 		public void setSpace(Projection<Object> space) {
 			this.space = space;
-			this.sc.addProjection(this.space);
+			SimulationContext.getInstance().addProjection(this.space);
 		}
 
 		@SuppressWarnings("unchecked")

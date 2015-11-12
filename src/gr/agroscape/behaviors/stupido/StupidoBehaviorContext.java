@@ -23,7 +23,6 @@ public class StupidoBehaviorContext extends BehaviorContext {
 		this.setId("StupidoBehavior");
 		this.commonProperty = (int) Math.rint(Math.random()*10.0);
 		this.gvl = gvl;
-		this.addProjection(SimulationContext.getInstance().getSpace().getSpace());
 		SimulationContext.getInstance().addValueLayer(this.gvl);
 	}
 
