@@ -14,6 +14,7 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
+import repast.simphony.space.projection.Projection;
 import simphony.util.messages.MessageCenter;
 
 /**
@@ -46,7 +47,7 @@ public class SimulationContext extends DefaultContext<Object> {
 	private int gridHeight=11;
 	
 	/**
-	 * The Grid layer of space
+	 * The Space of the simulation
 	 */
 	private Grid<Object> space;
 	

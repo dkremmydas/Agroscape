@@ -10,15 +10,22 @@ import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.log4j.Level;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
-import repast.simphony.parameter.Schema;
 
 
 /**
@@ -66,9 +73,7 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	/**
 	 * It builds the Contexts of Agroscape. <br />
 	 * The steps that this method does, are: <br />
-	 * 1. Create the MainContext as the parentContext <br />
-	 * 2. Create empty SubContexts and load them to parentContext <br />
-	 * 3. Create {@link AgroscapeSkeletonDataLoader dataLoader} and load data
+	 * 1. //TODO complete documentation
 	 * 
 	 */
 
@@ -78,11 +83,10 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		//create Grid on SimulationContext
 		this.simulationContext.initializeGrid();
 		
-		
 		//load from xml dataloadrO
-		if(this.skeletonDataLoader == null) this.loadFromParameters();
+		if(this.skeletonDataLoader == null) this.setSkeletonDataLoaderFromParametersXML();
+		if(this.behaviorsDataLoader == null) this.setBehaviorsDataLoaderFromParametersXML();
 		
-	
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
 		this.skeletonDataLoader.loadPlotsContext(plots);
@@ -98,7 +102,7 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
 		this.addAgroscapeAgentsBehaviorToSchedule(farmers.getAllFarmers());
 	
-		
+		//Return the created SimulationContext
 		return this.simulationContext;
 	}
 
@@ -132,8 +136,8 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	/**
 	 * Load skeletonLoader and behaviorsDataLoader from parameters.xml
 	 */
-	private void loadFromParameters() {
-		System.out.println(RunEnvironment.getInstance());
+	private void setSkeletonDataLoaderFromParametersXML() {
+		
 		String loaderName = RunEnvironment.getInstance().getParameters().getString("skeletonDataLoaderClass");
 		try {
 			this.skeletonDataLoader = (AgroscapeSkeletonDataLoader) Class.forName(loaderName).newInstance();
@@ -145,8 +149,28 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 			throw new NullPointerException();
 		}
 
-		Schema bhvsSchema= RunEnvironment.getInstance().getParameters().getSchema();
-		this.behaviorsDataLoader = new DefaultBehaviorsLoader(bhvsSchema);
+	
+	}
+	
+	private void setBehaviorsDataLoaderFromParametersXML() {
+		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		Document doc = null;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			 doc = dBuilder.parse(new File("freezedried_data/behaviors.xml"));
+		} catch (ParserConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.behaviorsDataLoader = new DefaultBehaviorsLoader(doc);
+		
+		
 	}
 
 

@@ -3,6 +3,6 @@
 xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/dkremmydas/Agroscape/agroscape2/src/gr/agroscape/behaviors/behaviors.xsd">
 	<Behavior>
 		<Name>Stupido</Name>
-		<ClassString>gr.agroscape.behaviors.stupido.BehavrioFactory</ClassString>
+		<ClassString>gr.agroscape.behaviors.stupido.StupidoBehaviorFactory</ClassString>
 	</Behavior>
 </Behaviors>

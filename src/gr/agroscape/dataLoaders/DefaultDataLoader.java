@@ -3,12 +3,15 @@ package gr.agroscape.dataLoaders;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.human.HumanAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
+import gr.agroscape.skeleton.agents.plot.PlotUtils;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.jfree.chart.plot.PlotUtilities;
 
 import repast.simphony.space.grid.GridPoint;
 
@@ -32,6 +35,7 @@ public class DefaultDataLoader implements AgroscapeSkeletonDataLoader {
 		this.avplots.add(new Plot(new int[][] {{2,1},{2,2},{2,3},{3,1},{3,2},{3,3}},5));
 		this.avplots.add(new Plot(new int[][] {{4,1},{4,2},{4,3},{5,1},{5,2},{5,3},{6,1},{6,2},{6,3},{7,1},{7,2},{7,3}},6));
 		this.avplots.add(new Plot(new int[][] {{4,4},{4,4},{4,5},{5,4},{5,5},{5,6},{6,4},{6,5},{6,6},{7,4},{7,5},{7,6}},7));
+		this.avplots.add(PlotUtils.newRectanglePlot(15, 10, 20, 20));
 		context.addAll(this.avplots);
 	}
 
