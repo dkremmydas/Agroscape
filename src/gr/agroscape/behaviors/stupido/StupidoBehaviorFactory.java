@@ -17,6 +17,7 @@ import repast.simphony.valueLayer.GridValueLayer;
 public class StupidoBehaviorFactory extends BehaviorFactory {
 	
 	private StupidoBehaviorContext bhvContext;
+	
 
 	 
 	public StupidoBehaviorFactory() {
@@ -26,11 +27,10 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 		
 		this.name = "Stupido Behavior Factory";
 		this.bhvContext = new StupidoBehaviorContext(
-								new GridValueLayer("StupidoGridValues", 0.0, true, new StrictBorders() ,w ,h));
+								new GridValueLayer("StupidoGridValues", 0.0, true, new StrictBorders() ,w ,h),
+								SimulationContext.getInstance().getSpace());
 	}
 
-	//abstract void assignBehavior(List<? extends AgroscapeAgent> agents);
-	
 	@Override
 	public void assignBehavior(SimulationContext simulationContext) {
 		

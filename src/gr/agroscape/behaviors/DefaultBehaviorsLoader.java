@@ -31,7 +31,6 @@ public class DefaultBehaviorsLoader implements AgroscapeAllBehaviorsDataLoader{
 			this.bhvs.add(bf);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				

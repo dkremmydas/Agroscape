@@ -130,7 +130,7 @@ public class SimulationContext extends DefaultContext<Object> {
 		
 		//add Projections
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
-		space = gridFactory.createGrid("grid", this,
+		space = gridFactory.createGrid("space", this,
 						new GridBuilderParameters<Object>(new StrictBorders(),
 								new SimpleGridAdder<Object>(), false, gridWidth, gridHeight));
 	}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<parameters>
+					<parameter name="randomSeed" displayName="Default Random Seed" type="int" 
+						defaultValue="__NULL__"
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="gridHeight" displayName="gridHeight" type="int" 
+						defaultValue="30" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="gridWidth" displayName="gridWidth" type="int" 
+						defaultValue="30" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="skeletonDataLoaderClass" displayName="Skeleton DataLoader Class" type="java.lang.String" 
+						defaultValue="gr.agroscape.dataLoaders.DefaultDataLoader" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
+		
+
+		<parameter name="Behavior" displayName="StupidoBehavior Factory Class 1" type="java.lang.String" 
+					defaultValue="gr.agroscape.behaviors.stupido.StupidoBehaviorFactory" 
+					isReadOnly="false" 
+					converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+								
+		/>
+		
+	
+		<parameter name="ExcelDataFile" displayName="Excel Data File Location" type="java.lang.String" 
+						defaultValue="freezedried_data\\dataToLoad.v3.xlsx" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+		/>
+		
+		
+		
+		
+		</parameters>
+
+
