@@ -18,7 +18,8 @@ public class StupidoBehaviorContext extends BehaviorContext {
 	private GridValueLayer gvl;
 	
 	public StupidoBehaviorContext(GridValueLayer gvl) {
-		super("Stupido Behavior Context");
+		super("StupidoBehavior");
+		this.setId("StupidoBehavior");
 		this.commonProperty = (int) Math.rint(Math.random()*10.0);
 		this.gvl = gvl;
 	}

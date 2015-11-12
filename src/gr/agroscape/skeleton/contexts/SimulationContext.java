@@ -64,24 +64,9 @@ public class SimulationContext extends DefaultContext<Object> {
 	/**
 	 * Private Constructor, so the existence of a unique instance of MainContext is enforced. 
 	 */
-	private SimulationContext() {
-		super("SimulationContext");
-		this.setId("SimulationContext");
-		
-		//set grid width and height
-		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
-		if(w > 0) this.gridWidth = w;
-		
-		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
-		if(h > 0) this.gridHeight = h;
-		
-		
-		//add Projections
-		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
-		space = gridFactory.createGrid("grid", this,
-						new GridBuilderParameters<Object>(new StrictBorders(),
-								new SimpleGridAdder<Object>(), false, gridWidth, gridHeight));
-
+	public SimulationContext() {
+		super("SimulationContext","SimulationContext");
+		SimulationContext.instance = this;
 	}
 
 
@@ -132,6 +117,22 @@ public class SimulationContext extends DefaultContext<Object> {
 	public static void logMessage(Class<?> clazz, Level level,Object message) {
 		MessageCenter mc = MessageCenter.getMessageCenter(clazz);
 		mc.fireMessageEvent(level, message, null);
+	}
+	
+	public void initializeGrid() {
+		//set grid width and height
+		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
+		if(w > 0) this.gridWidth = w;
+		
+		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
+		if(h > 0) this.gridHeight = h;
+		
+		
+		//add Projections
+		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+		space = gridFactory.createGrid("grid", this,
+						new GridBuilderParameters<Object>(new StrictBorders(),
+								new SimpleGridAdder<Object>(), false, gridWidth, gridHeight));
 	}
 	
 	

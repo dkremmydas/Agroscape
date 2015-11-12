@@ -2,6 +2,7 @@ package gr.agroscape.main;
 
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorAction;
+import gr.agroscape.behaviors.DefaultBehaviorsLoader;
 import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
@@ -17,6 +18,7 @@ import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.parameter.Schema;
 
 
 /**
@@ -43,20 +45,22 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 
 	//static Logger logger = Logger.getLogger(AgroscapeInitializer.class);
 	
-	
-	public AgroscapeInitializer(AgroscapeSkeletonDataLoader dataLoader, 
-									AgroscapeAllBehaviorsDataLoader behaviorLoader) {
-		super();
-		this.skeletonDataLoader = dataLoader;
-		this.behaviorsDataLoader = behaviorLoader;
-	}
-	
-	
+	/**
+	 * Load values from the parameters.xml
+	 */
 	public AgroscapeInitializer() {
-		super();
-		
-		
+		this.simulationContext = SimulationContext.getInstance();
 	}
+	
+
+	public AgroscapeInitializer(AgroscapeSkeletonDataLoader skeletonDataLoader,
+			AgroscapeAllBehaviorsDataLoader behaviorsDataLoader) {
+		this();
+		this.skeletonDataLoader = skeletonDataLoader;
+		this.behaviorsDataLoader = behaviorsDataLoader;
+	}
+
+	
 
 
 	/**
@@ -71,39 +75,14 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	@Override
 	public Context<Object> build(Context<Object> context)  {
 		
-		//initialize everything
-		//load from xml dataloadr
-		System.out.println(RunEnvironment.getInstance());
-		String loaderName = RunEnvironment.getInstance().getParameters().getString("skeletonDataLoaderClass");
-		AgroscapeSkeletonDataLoader dataLoader;
-		try {
-			dataLoader = (AgroscapeSkeletonDataLoader) Class.forName(loaderName).newInstance();
-			this.skeletonDataLoader = dataLoader;
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new NullPointerException();
-		}
+		//create Grid on SimulationContext
+		this.simulationContext.initializeGrid();
 		
 		
-		String bhvLoaderString = RunEnvironment.getInstance().getParameters().getString("behaviorLoaderClass");
-		AgroscapeAllBehaviorsDataLoader bhvLoader;
-		try {
-			bhvLoader = (AgroscapeAllBehaviorsDataLoader) Class.forName(bhvLoaderString).newInstance();
-			this.behaviorsDataLoader = bhvLoader;
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new NullPointerException();
-		}
+		//load from xml dataloadrO
+		if(this.skeletonDataLoader == null) this.loadFromParameters();
 		
-		
-		//step 1. keep a reference		
-		this.simulationContext=SimulationContext.getInstance();
-		
-		
+	
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context
 		this.skeletonDataLoader.loadPlotsContext(plots);
@@ -114,20 +93,22 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		this.simulationContext.addSubContext(farmers);
 		
 		this.skeletonDataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
-			
+		
+		//load all behaviors
 		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
-		
-		//add behaviors to schedule for each agent
 		this.addAgroscapeAgentsBehaviorToSchedule(farmers.getAllFarmers());
-		
+	
 		
 		return this.simulationContext;
 	}
+
 	
-	
+	/**
+	 * Add Behaviors to Schedule
+	 * @param agents
+	 */
 	private void addAgroscapeAgentsBehaviorToSchedule(Iterable<? extends AgroscapeAgent> agents) {
-		
-		
+
 		ISchedule timeline = RunEnvironment.getInstance().getCurrentSchedule();
 		SimulationContext.logMessage(this.getClass(), Level.INFO, "Initializing simulation: Loading Behaviors");
 		
@@ -146,6 +127,26 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Load skeletonLoader and behaviorsDataLoader from parameters.xml
+	 */
+	private void loadFromParameters() {
+		System.out.println(RunEnvironment.getInstance());
+		String loaderName = RunEnvironment.getInstance().getParameters().getString("skeletonDataLoaderClass");
+		try {
+			this.skeletonDataLoader = (AgroscapeSkeletonDataLoader) Class.forName(loaderName).newInstance();
+
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NullPointerException();
+		}
+
+		Schema bhvsSchema= RunEnvironment.getInstance().getParameters().getSchema();
+		this.behaviorsDataLoader = new DefaultBehaviorsLoader(bhvsSchema);
 	}
 
 

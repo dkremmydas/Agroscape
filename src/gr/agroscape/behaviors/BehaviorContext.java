@@ -17,8 +17,11 @@ public abstract class BehaviorContext extends DefaultContext<Object> {
 	protected String name;
 
 	protected BehaviorContext(String name) {
+		super(name,name);
 		this.name=name;
 	}
+	
+	
 
 
 }
