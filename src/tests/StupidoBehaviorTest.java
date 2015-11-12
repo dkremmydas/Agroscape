@@ -1,14 +1,14 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import gr.agroscape.behaviors.stupido.StupidoBehaviorFactory;
 import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
-import gr.agroscape.dataLoaders.DefaultDataLoader;
 import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.agents.plot.PlotUtils;
 import gr.agroscape.skeleton.contexts.SimulationContext;
+import gr.agroscape.skeleton.dataLoaders.DefaultDataLoader;
 
 import org.junit.Before;
 import org.junit.Test;

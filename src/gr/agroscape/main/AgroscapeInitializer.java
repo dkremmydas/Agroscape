@@ -4,11 +4,11 @@ import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.behaviors.DefaultBehaviorsLoader;
 import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
-import gr.agroscape.dataLoaders.AgroscapeSkeletonDataLoader;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
+import gr.agroscape.skeleton.dataLoaders.AgroscapeSkeletonDataLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,13 +79,13 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 
 	@Override
 	public Context<Object> build(Context<Object> context)  {
-		
-		//create Grid on SimulationContext
-		this.simulationContext.initializeGrid();
-		
-		//load from xml dataloadrO
+			
+		//load from XML dataloadrO
 		if(this.skeletonDataLoader == null) this.setSkeletonDataLoaderFromParametersXML();
 		if(this.behaviorsDataLoader == null) this.setBehaviorsDataLoaderFromParametersXML();
+		
+		//Initialize space
+		this.skeletonDataLoader.initSimulationSpace(this.simulationContext.getSpace());
 		
 		//step 2, create empty  subContexts
 		PlotsContext plots = new PlotsContext(); //create plots' context

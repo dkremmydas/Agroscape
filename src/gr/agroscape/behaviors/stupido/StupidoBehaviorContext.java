@@ -2,7 +2,6 @@ package gr.agroscape.behaviors.stupido;
 
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
-import repast.simphony.space.grid.Grid;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
@@ -19,12 +18,12 @@ public class StupidoBehaviorContext extends BehaviorContext {
 	
 	private GridValueLayer gvl;
 	
-	public StupidoBehaviorContext(GridValueLayer gvl,  Grid<Object> space) {
+	public StupidoBehaviorContext(GridValueLayer gvl) {
 		super("StupidoBehavior");
 		this.setId("StupidoBehavior");
 		this.commonProperty = (int) Math.rint(Math.random()*10.0);
 		this.gvl = gvl;
-		this.addProjection(space);
+		this.addProjection(SimulationContext.getInstance().getSpace().getSpace());
 		SimulationContext.getInstance().addValueLayer(this.gvl);
 	}
 

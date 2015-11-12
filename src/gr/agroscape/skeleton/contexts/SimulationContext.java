@@ -3,18 +3,11 @@ package gr.agroscape.skeleton.contexts;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
+import gr.agroscape.skeleton.projections.SimulationSpace;
 
 import org.apache.log4j.Level;
 
 import repast.simphony.context.DefaultContext;
-import repast.simphony.context.space.grid.GridFactory;
-import repast.simphony.context.space.grid.GridFactoryFinder;
-import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.space.grid.Grid;
-import repast.simphony.space.grid.GridBuilderParameters;
-import repast.simphony.space.grid.SimpleGridAdder;
-import repast.simphony.space.grid.StrictBorders;
-import repast.simphony.space.projection.Projection;
 import simphony.util.messages.MessageCenter;
 
 /**
@@ -49,7 +42,7 @@ public class SimulationContext extends DefaultContext<Object> {
 	/**
 	 * The Space of the simulation
 	 */
-	private Grid<Object> space;
+	private SimulationSpace space;
 	
 	
 	/**
@@ -98,8 +91,8 @@ public class SimulationContext extends DefaultContext<Object> {
 	}
 
 
-	public Grid<Object> getSpace() {
-		return space;
+	public SimulationSpace getSpace() {
+		return this.space;
 	}
 	
 	public PlotsContext getPlotsContext() {
@@ -120,21 +113,6 @@ public class SimulationContext extends DefaultContext<Object> {
 		mc.fireMessageEvent(level, message, null);
 	}
 	
-	public void initializeGrid() {
-		//set grid width and height
-		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
-		if(w > 0) this.gridWidth = w;
-		
-		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
-		if(h > 0) this.gridHeight = h;
-		
-		
-		//add Projections
-		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
-		space = gridFactory.createGrid("space", this,
-						new GridBuilderParameters<Object>(new StrictBorders(),
-								new SimpleGridAdder<Object>(), false, gridWidth, gridHeight));
-	}
-	
+
 	
 }

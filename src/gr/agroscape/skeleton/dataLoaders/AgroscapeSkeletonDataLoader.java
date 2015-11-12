@@ -1,8 +1,9 @@
-package gr.agroscape.dataLoaders;
+package gr.agroscape.skeleton.dataLoaders;
 
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
+import gr.agroscape.skeleton.projections.SimulationSpace;
 
 /**
  * The interface, defining what is needed to load minimal data 
@@ -35,6 +36,12 @@ public interface AgroscapeSkeletonDataLoader {
 	 * @param {@link LandPropertyRegistry} lpr
 	 */
 	void initLandPropertyRegistry(LandPropertyRegistry lpr);
+	
+	/**
+	 * Initialize the {@link SimulationSpace}
+	 * @param sp
+	 */
+	void initSimulationSpace(SimulationSpace sp);
 	
 	/**
 	 * 

@@ -5,6 +5,8 @@ import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
+import gr.agroscape.skeleton.dataLoaders.AgroscapeSkeletonDataLoader;
+import gr.agroscape.skeleton.projections.SimulationSpace;
 
 import java.io.File;
 import java.io.IOException;
@@ -172,6 +174,13 @@ public class ExcelDataLoader implements AgroscapeSkeletonDataLoader {
 			network.addEdge(follower_f, leader_f);
 		}
 		//context.addNetwork(network);
+	}
+
+
+	@Override
+	public void initSimulationSpace(SimulationSpace sp) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

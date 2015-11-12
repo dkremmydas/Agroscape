@@ -27,8 +27,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 		
 		this.name = "Stupido Behavior Factory";
 		this.bhvContext = new StupidoBehaviorContext(
-								new GridValueLayer("StupidoGridValues", 0.0, true, new StrictBorders() ,w ,h),
-								SimulationContext.getInstance().getSpace());
+								new GridValueLayer("StupidoGridValues", 0.0, true, new StrictBorders() ,w ,h));
 	}
 
 	@Override

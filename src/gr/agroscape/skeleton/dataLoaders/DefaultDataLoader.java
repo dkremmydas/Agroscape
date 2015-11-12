@@ -1,4 +1,4 @@
-package gr.agroscape.dataLoaders;
+package gr.agroscape.skeleton.dataLoaders;
 
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.human.HumanAgent;
@@ -7,13 +7,20 @@ import gr.agroscape.skeleton.agents.plot.PlotUtils;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
+import gr.agroscape.skeleton.contexts.SimulationContext;
+import gr.agroscape.skeleton.projections.SimulationSpace;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.jfree.chart.plot.PlotUtilities;
-
+import repast.simphony.context.space.grid.GridFactory;
+import repast.simphony.context.space.grid.GridFactoryFinder;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
+import repast.simphony.space.grid.SimpleGridAdder;
+import repast.simphony.space.grid.StrictBorders;
 
 public class DefaultDataLoader implements AgroscapeSkeletonDataLoader {
 	
@@ -77,6 +84,31 @@ public class DefaultDataLoader implements AgroscapeSkeletonDataLoader {
 	}
 
 
+	@Override
+	public void initSimulationSpace(SimulationSpace sp) {
+		//set grid width and height
+		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
+		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
+		
+		//add Projections
+		// //TODO The createGrid adds the projection to the context and we do not want to end with the projection added twice
+		
+		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+		Grid<Object> space = gridFactory.createGrid("space", SimulationContext.getInstance(),
+						new GridBuilderParameters<Object>(new StrictBorders(),
+								new SimpleGridAdder<Object>(), false, w, h));
+		
+		sp.setSpace(space);
+		
+	}
+
+//	/**
+//	 * Initialize Space
+//	 */
+//	public void initializeSpace() {
+
+//	}
+//	
 	
 	
 
