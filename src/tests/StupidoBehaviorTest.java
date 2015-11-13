@@ -43,7 +43,7 @@ public class StupidoBehaviorTest {
 			@Override
 			public void loadAllBehaviors(SimulationContext simulationContext) {
 					
-				simulationContext.addSubContext(this.stupidoFactory.buildBehaviorContext());
+				simulationContext.addSubContext(this.stupidoFactory.getBehaviorContext());
 				this.stupidoFactory.assignBehavior(simulationContext);	
 			}
 			

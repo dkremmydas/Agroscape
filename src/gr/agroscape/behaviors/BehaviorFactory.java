@@ -59,7 +59,7 @@ public abstract class BehaviorFactory {
 	 * Create the {@link BehaviorContext} and return it.
 	 * @return {@link BehaviorContext}
 	 */
-	abstract public BehaviorContext buildBehaviorContext();
+	abstract public BehaviorContext getBehaviorContext();
 	
 	/**
 	 * If new SimulationAgents should be created, do it here
