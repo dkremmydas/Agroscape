@@ -13,11 +13,11 @@ import gr.agroscape.skeleton.contexts.SimulationContext;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArCrop_BehaviotFactory extends BehaviorFactory {
+public class ArCrop_BehaviorFactory extends BehaviorFactory {
 	
 	private BehaviorContext bvhContext;
 	
-	public ArCrop_BehaviotFactory() {
+	public ArCrop_BehaviorFactory() {
 		super();
 		this.name = "ArableCropProductionBehavior";
 		this.bvhContext = new ArCrop_BehaviorContext("ArableCropProductionBehaviorContext");

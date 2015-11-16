@@ -1,8 +1,10 @@
 package gr.agroscape.behaviors.arableCropProduction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import repast.simphony.context.Context;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.behaviors.BehaviorFactory;
@@ -18,8 +20,17 @@ public class ArCrop_Behavior extends AgentBehavior{
 
 	@Override
 	public List<BehaviorAction> getScheduledActions() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<BehaviorAction> r = new ArrayList<>();
+		BehaviorAction ba = new BehaviorAction("decideOnArableCrop", "makeProductionDecision", ScheduleParameters.createRepeating(1, 360),this);
+		r.add(ba);
+		return r;
+	}
+	
+	/**
+	 * The production decision making
+	 */
+	public void makeProductionDecision() {
+		
 	}
 
 }
