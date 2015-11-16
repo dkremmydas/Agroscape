@@ -1,9 +1,12 @@
 package gr.agroscape.behaviors;
 
+import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.media.j3d.Behavior;
@@ -30,13 +33,10 @@ public abstract class BehaviorFactory {
 	 */
 	protected String name;
 	
-
-	
 	protected BehaviorFactory() {
 		this.name="N/A";
 	}
-
-		
+	
 
 	public String getName() {
 		return name;
@@ -50,10 +50,20 @@ public abstract class BehaviorFactory {
 	 *  to {@link AgroscapeAgent}s</p>
 	 * <p>The assignment should be given with a "new Behavior" created each time, and not by
 	 * passing a reference to a Behavior that was created once</p>
+	 * <p>The idea is that the passed {@link SimulationContext} should be directly changed
+	 * by this method</p>
 	 * 
 	 * @param {@link SimulationContext}
 	 */
-	abstract public void assignBehavior(SimulationContext simulationContext);
+	abstract public void assignBehaviors(SimulationContext simulationContext);
+	
+	/**
+	 * <p>Its purpose is to add {@link AgroscapeAgentProperty}s to {@link AgroscapeAgent}s
+	 * </p>
+	 *
+	 * @return HashMap<Iterator<AgroscapeAgent>,AgroscapeAgentProperty<?>>
+	 */
+	abstract public void addProperties(SimulationContext simulationContext);
 	
 	/**
 	 * Create the {@link BehaviorContext} and return it.

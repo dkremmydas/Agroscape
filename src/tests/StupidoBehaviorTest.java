@@ -44,7 +44,7 @@ public class StupidoBehaviorTest {
 			public void loadAllBehaviors(SimulationContext simulationContext) {
 					
 				simulationContext.addSubContext(this.stupidoFactory.getBehaviorContext());
-				this.stupidoFactory.assignBehavior(simulationContext);	
+				this.stupidoFactory.assignBehaviors(simulationContext);	
 			}
 			
 	
@@ -91,7 +91,7 @@ public class StupidoBehaviorTest {
 	public void addStupidoBehavior() {
 				
 		StupidoBehaviorFactory sbf = new StupidoBehaviorFactory();		
-		sbf.assignBehavior(this.simulationContext);
+		sbf.assignBehaviors(this.simulationContext);
 		
 		//test simulation environment
 		

@@ -2,9 +2,9 @@ package gr.agroscape.behaviors.arableCropProduction;
 
 import gr.agroscape.behaviors.BehaviorContext;
 
-public class Context extends BehaviorContext {
+public class ArCrop_BehaviorContext extends BehaviorContext {
 
-	protected Context(String name) {
+	protected ArCrop_BehaviorContext(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}

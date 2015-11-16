@@ -31,7 +31,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	}
 
 	@Override
-	public void assignBehavior(SimulationContext simulationContext) {
+	public void assignBehaviors(SimulationContext simulationContext) {
 		
 		//add the behavior to farmer agents
 		Iterable<Farmer> farmers = simulationContext.getFarmersContext().getAllFarmers();	
@@ -39,14 +39,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 			f.addBehavior(new StupidoBehavior(f, this.bhvContext, this));
 		}
 		
-		//add properties to plot
-		Iterable<Plot> plots = simulationContext.getPlotsContext().getAgentLayer(Plot.class);
-		for (Plot p : plots) {
-			p.addBehaviorProperty(new StupidoPlotIntegerProperty());
-		}
-		
 	}
-
 
 	
 	@Override
@@ -64,6 +57,16 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	public String getBehaviorInformation() {
 		// TODO Auto-generated method stub
 		return "This is the Stupido Behavior. A test behavior";
+	}
+
+	@Override
+	public void addProperties(SimulationContext simulationContext) {
+		//add properties to plot
+		Iterable<Plot> plots = simulationContext.getPlotsContext().getAgentLayer(Plot.class);
+		for (Plot p : plots) {
+			p.addBehaviorProperty(new StupidoPlotIntegerProperty());
+		}
+
 	}
 
 

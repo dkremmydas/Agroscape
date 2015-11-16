@@ -101,6 +101,7 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		//load all behaviors
 		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
 		this.addAgroscapeAgentsBehaviorToSchedule(farmers.getAllFarmers());
+		this.addAgroscapeAgentsBehaviorToSchedule(plots.getAvailablePlots());
 	
 		//Return the created SimulationContext
 		return this.simulationContext;

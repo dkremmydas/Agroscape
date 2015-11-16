@@ -8,11 +8,11 @@ import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 
-public class Behavior extends AgentBehavior{
+public class ArCrop_Behavior extends AgentBehavior{
 
-	protected Behavior(String name, BehaviorFactory bhvFactory,
+	public ArCrop_Behavior(BehaviorFactory bhvFactory,
 			AgroscapeAgent owner, Context<?> bhvContext) {
-		super(name, bhvFactory, owner, bhvContext);
+		super("ArableCropProductionBehavior", bhvFactory, owner, bhvContext);
 		// TODO Auto-generated constructor stub
 	}
 

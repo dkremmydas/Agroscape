@@ -27,7 +27,7 @@ public class AgroscapeAgentProperty<T> implements Cloneable {
 	
 	
 	
-	protected AgroscapeAgentProperty(Class<T> type, String name, T value) {
+	public AgroscapeAgentProperty(Class<T> type, String name, T value) {
 		super();
 		this.type = type;
 		this.value = value;
@@ -39,7 +39,7 @@ public class AgroscapeAgentProperty<T> implements Cloneable {
 	 * @param type
 	 * @param name
 	 */
-	protected AgroscapeAgentProperty(Class<T> type, String name) {
+	public AgroscapeAgentProperty(Class<T> type, String name) {
 		super();
 		this.type = type;
 		this.value = null;
