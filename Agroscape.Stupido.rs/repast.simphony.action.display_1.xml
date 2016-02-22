@@ -23,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1594850342</hashCode>
+    <hashCode>-766996257</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space</layoutProjection>
@@ -79,7 +79,7 @@
     <alpha>255</alpha>
   </backgroundColor>
   <valueLayerStyleName>repast.simphony.visualization.editedStyle.EditedValueLayerStyle2D</valueLayerStyleName>
-  <valueLayerEditedStyleName>StupidoGridValues.style_0.xml</valueLayerEditedStyleName>
+  <valueLayerEditedStyleName>StupidoGridValues.style_1.xml</valueLayerEditedStyleName>
   <valueLayers>
     <string>StupidoGridValues</string>
   </valueLayers>
