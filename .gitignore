@@ -39,3 +39,4 @@ simulation_logs.txt
 # Locally stored "Eclipse launch configurations"
 *.launch
 /installer/
+/target/

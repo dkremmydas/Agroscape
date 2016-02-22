@@ -80,7 +80,8 @@ public class DefaultBehaviorsLoader implements AgroscapeAllBehaviorsDataLoader{
 
 		for (BehaviorFactory bhv : this.bhvs) {
 			simulationContext.addSubContext(bhv.getBehaviorContext());
-			bhv.assignBehavior(simulationContext);	
+			bhv.assignBehaviors(simulationContext);	
+			bhv.addProperties(simulationContext);
 		}
 		
 	}
