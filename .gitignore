@@ -37,6 +37,4 @@ simulation_logs.txt
 .externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
-*.launch
 /installer/
-/target/
