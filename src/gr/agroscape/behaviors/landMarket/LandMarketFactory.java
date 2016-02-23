@@ -25,8 +25,7 @@ public class LandMarketFactory extends BehaviorFactory {
 
 	@Override
 	public void assignBehaviors(SimulationContext simulationContext) {
-		// TODO Auto-generated method stub
-
+		//Nothing assigned here
 	}
 
 	@Override
