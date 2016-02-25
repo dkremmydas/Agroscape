@@ -1,25 +1,32 @@
 package gr.agroscape.behaviors.landMarket.rules;
 
 import gr.agroscape.behaviors.landMarket.Bid;
-import gr.agroscape.behaviors.landMarket.BuyerBidFormationRule;
-import gr.agroscape.behaviors.landMarket.WtaFormationRule;
+import gr.agroscape.behaviors.landMarket.BuyerRules;
 import gr.agroscape.skeleton.agents.human.Farmer;
+import gr.agroscape.skeleton.agents.plot.Plot;
+import repast.simphony.random.RandomHelper;
 
-public class DefaultBuyerRules implements BuyerBidFormationRule,
-		WtaFormationRule {
+public class DefaultBuyerRules implements BuyerRules {
 	
-	private Farmer ruleOwner;
 
-	@Override
-	public Bid getWta() {
-		// TODO Auto-generated method stub
-		return null;
+	public DefaultBuyerRules(Farmer ruleOwner) {
+		super();
 	}
 
+	/**
+	 * Returns a random fraction of the WTP
+	 */
 	@Override
-	public Bid getTheBuyBid() {
-		// TODO Auto-generated method stub
-		return null;
+	public Bid getTheBuyBid(Plot p) {
+		return new Bid(p,RandomHelper.nextIntFromTo(1, 100)*this.getWtp(p)/100);
+	}
+
+	/**
+	 * Returns a random number from 1 to 100
+	 */
+	@Override
+	public Long getWtp(Plot p) {
+		return new Long(RandomHelper.nextIntFromTo(1, 100));
 	}
 
 }

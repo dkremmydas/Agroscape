@@ -1,5 +1,7 @@
 package gr.agroscape.behaviors.landMarket;
 
+import gr.agroscape.skeleton.agents.plot.Plot;
+
 
 /**
  * <p>The purposes of this class are:</p>
@@ -12,6 +14,10 @@ package gr.agroscape.behaviors.landMarket;
  * @since 2.1
  *
  */
-public interface SellerBidFormationRule {
-	public Bid getTheSellBid();
+public interface BuyerRules {
+
+	public Bid getTheBuyBid(Plot p);
+	
+	public Long getWtp(Plot p);
+	
 }
