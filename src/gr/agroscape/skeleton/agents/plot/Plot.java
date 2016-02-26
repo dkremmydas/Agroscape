@@ -2,6 +2,7 @@ package gr.agroscape.skeleton.agents.plot;
 
 import gr.agroscape.main.AgroscapeConfiguration;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
+import gr.agroscape.skeleton.agents.human.HumanAgent;
 import gr.agroscape.utilities.GridValueLayerFunction;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Plot extends AgroscapeAgent {
      * Which points are the corners of the plot 
      */   
     private ArrayList<GridPoint> corners = new ArrayList<>();
+    
     
     
     /**

@@ -1,7 +1,7 @@
-package gr.agroscape.behaviors.landMarket.interfaces;
+package gr.agroscape.landMarket;
 
-import gr.agroscape.behaviors.landMarket.exceptions.BuyBidLowerSellBidException;
-import gr.agroscape.behaviors.landMarket.exceptions.PlotMismatchException;
+import gr.agroscape.landMarket.exceptions.BuyBidLowerSellBidException;
+import gr.agroscape.landMarket.exceptions.PlotMismatchException;
 
 
 /**

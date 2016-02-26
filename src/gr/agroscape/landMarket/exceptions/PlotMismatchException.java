@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.landMarket.exceptions;
+package gr.agroscape.landMarket.exceptions;
 
 public class PlotMismatchException extends Exception {
 

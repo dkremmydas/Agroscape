@@ -1,22 +1,22 @@
-package gr.agroscape.behaviors.landMarket.interfaces;
+package gr.agroscape.landMarket;
 
-import gr.agroscape.skeleton.agents.plot.Plot;
-
-import org.apache.commons.collections4.MultiMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 public abstract class LandMarket {
 
 	private BuyersSelectionRule buyersSelectionRule;
 	private PlotsSelectionRule plotsSelectionRule;
-	private ClearingMechanism clearingMechanism;
+	private PerformTransaction performTransaction;
 	
-	protected ArrayListValuedHashMap<Plot,Bid> bidRegistry = new ArrayListValuedHashMap<>();
+	/**
+	 * It holds the correspondence from SellerBid->{BuyBid1, BuyBid2,...,BuyBidN}
+	 */
+	protected ArrayListValuedHashMap<Bid,Bid> bidRegistry = new ArrayListValuedHashMap<>();
 	
 	
 	public LandMarket(BuyersSelectionRule buyersSelectionRule,
 			PlotsSelectionRule plotSelectionRule,
-			ClearingMechanism clearingMechanism) {
+			PerformTransaction clearingMechanism) {
 		this();
 		this.setLandMarketRules(buyersSelectionRule,plotSelectionRule,clearingMechanism) ;
 	}
@@ -27,13 +27,13 @@ public abstract class LandMarket {
 	
 	public void setLandMarketRules(BuyersSelectionRule buyersSelectionRule,
 			PlotsSelectionRule plotSelectionRule,
-			ClearingMechanism clearingMechanism) {
+			PerformTransaction clearingMechanism) {
 		this.buyersSelectionRule = buyersSelectionRule;
 		this.plotsSelectionRule = plotSelectionRule;
-		this.clearingMechanism = clearingMechanism;
+		this.performTransaction = clearingMechanism;
 	}
 	
-	public ArrayListValuedHashMap<Plot,Bid> getBidRegistry() {
+	public ArrayListValuedHashMap<Bid,Bid> getBidRegistry() {
 		return this.bidRegistry;
 	}
 	

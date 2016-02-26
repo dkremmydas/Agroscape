@@ -1,15 +1,18 @@
 package gr.agroscape.behaviors.landMarket;
 
-import gr.agroscape.behaviors.landMarket.exceptions.BuyBidLowerSellBidException;
-import gr.agroscape.behaviors.landMarket.exceptions.PlotMismatchException;
-import gr.agroscape.behaviors.landMarket.interfaces.Bid;
-import gr.agroscape.behaviors.landMarket.interfaces.BuyersSelectionRule;
-import gr.agroscape.behaviors.landMarket.interfaces.ClearingMechanism;
-import gr.agroscape.behaviors.landMarket.interfaces.LandMarket;
-import gr.agroscape.behaviors.landMarket.interfaces.LandTransaction;
-import gr.agroscape.behaviors.landMarket.interfaces.PlotsSelectionRule;
-import gr.agroscape.behaviors.landMarket.interfaces.PriceFormationRule;
-import gr.agroscape.behaviors.landMarket.interfaces.WinningRule;
+import gr.agroscape.landMarket.Bid;
+import gr.agroscape.landMarket.BuyBidFormationRule;
+import gr.agroscape.landMarket.BuyersSelectionRule;
+import gr.agroscape.landMarket.LandMarket;
+import gr.agroscape.landMarket.LandMarketUtilities;
+import gr.agroscape.landMarket.LandTransaction;
+import gr.agroscape.landMarket.PerformTransaction;
+import gr.agroscape.landMarket.PlotsSelectionRule;
+import gr.agroscape.landMarket.PriceFormationRule;
+import gr.agroscape.landMarket.SellBidFormationRule;
+import gr.agroscape.landMarket.WinningRule;
+import gr.agroscape.landMarket.exceptions.BuyBidLowerSellBidException;
+import gr.agroscape.landMarket.exceptions.PlotMismatchException;
 import gr.agroscape.skeleton.agents.human.HumanAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.contexts.SimulationContext;
@@ -23,7 +26,8 @@ public class DefaultLandMarket extends LandMarket {
 	
 	private BuyersSelectionRule dbr = new DefaultBuyerSelectionRule();
 	private PlotsSelectionRule psr = new DefaultPlotSelectionRule();
-	private DefaultClearingMechanism cm = new DefaultClearingMechanism();
+	private DefaultPerformTransaction cm = new DefaultPerformTransaction();
+	
 	
 	private Boolean oneTransaction = false;
 
@@ -31,14 +35,37 @@ public class DefaultLandMarket extends LandMarket {
 	public DefaultLandMarket() {
 		super();
 		this.setLandMarketRules(this.dbr,this.psr,this.cm);
+		this.fillRegistry();
 	}
 	
+	/**
+	 * <p>In the default implementation, get one plot and put only one bid</p>
+	 * <p>In other implementations, that would not suffice,but instead for every plot, the bids of all 
+	 * potential buyers should be filled to the bidRegistry</p>
+	 */
+	private void fillRegistry() {
+		Plot selectedPlot = this.psr.getSelledPlots().get(0);
+		SellBidFormationRule sbfr = LandMarketUtilities.getSellBidFormationRuleFromHumanAgent(
+					SimulationContext.getInstance().getLandPropertyRegistry().getOwner(selectedPlot)
+				);
+		
+		HumanAgent selectedBuyer = this.dbr.getPotentialBuyers(selectedPlot).get(0);
+		BuyBidFormationRule bbfr = LandMarketUtilities.getBuyBidFormationRuleFromHumanAgent(selectedBuyer);
+		
+		bidRegistry.put(sbfr.getTheSellBid(selectedPlot), bbfr.getTheBuyBid(selectedPlot));
+	}
 
 
 	@Override
 	public void clearMarket() {
-		
-		cm.getTransactions();	
+		Bid sellBid = bidRegistry.keySet().iterator().next();
+		try {
+			cm.getTransaction(sellBid, bidRegistry.get(sellBid));
+		} catch (BuyBidLowerSellBidException | PlotMismatchException e) { //the transaction could not happen 
+			
+			e.printStackTrace();
+		}
+		//cm.getTransaction(bidRegistry., null);	
 		this.oneTransaction=true;
 	}
 	
@@ -84,17 +111,16 @@ public class DefaultLandMarket extends LandMarket {
 	}
 	
 	
-	class DefaultClearingMechanism extends ClearingMechanism {
+	class DefaultPerformTransaction extends PerformTransaction {
 		
-		private List<HumanAgent> buyers;
-		private List<Plot> selledPlots;
-		private WinningRule winningRule;
-		
+		private WinningRule winningRule = new DefaultWinningRule();
+		private PriceFormationRule priceFormationRule = new DefaultPriceFormationRule();
 
 		@Override
-		public List<LandTransaction> getTransactions() {
-			// TODO Auto-generated method stub
-			return null;
+		public LandTransaction getTransaction(Bid sellerBid, List<Bid> bids) throws PlotMismatchException, BuyBidLowerSellBidException {
+			Bid winnerBid = this.winningRule.getWinner(bids);
+			Long price = this.priceFormationRule.getPrice(winnerBid, sellerBid);
+			return new LandTransaction(sellerBid,winnerBid, price);
 		}
 		
 		/**
@@ -129,6 +155,8 @@ public class DefaultLandMarket extends LandMarket {
 			}
 			
 		}
+
+		
 		
 	}
 
