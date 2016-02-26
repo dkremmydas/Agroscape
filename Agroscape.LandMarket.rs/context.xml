@@ -6,6 +6,7 @@
 	<context id="StupidoBehavior">
 		
 		<projection type="grid" id="space" /> 
+		<projection type="value layer" id="owners" />
 	</context>
 	
 	

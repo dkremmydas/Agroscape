@@ -36,7 +36,9 @@ public class StupidoBehaviorContext extends BehaviorContext {
 
 	public GridValueLayer getGvl() {
 		return gvl;
-	}	
+	}
+
+	
 	
 	
 

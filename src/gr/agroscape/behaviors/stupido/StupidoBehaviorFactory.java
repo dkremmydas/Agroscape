@@ -45,6 +45,14 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	@Override
 	public BehaviorContext getBehaviorContext() {
 		this.bhvContext.addProjection(SimulationContext.getInstance().getSpace().getSpace());
+		
+		GridValueLayer ownersGrid = new GridValueLayer("owners", 
+				true, RunEnvironment.getInstance().getParameters().getInteger("gridWidth"),
+				RunEnvironment.getInstance().getParameters().getInteger("gridHeight"));
+		this.bhvContext.addValueLayer(ownersGrid);
+		
+		SimulationContext.getInstance().getLandPropertyRegistry().updateOwnerValueLayer(ownersGrid);
+			
 		return this.bhvContext;
 	}
 
