@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.landMarket;
+package gr.agroscape.behaviors.landMarket.interfaces;
 
 import gr.agroscape.skeleton.agents.plot.Plot;
 
@@ -14,10 +14,10 @@ import gr.agroscape.skeleton.agents.plot.Plot;
  * @since 2.1
  *
  */
-public interface SellerRules {
+public interface BuyerRules {
+
+	public Bid getTheBuyBid(Plot p);
 	
-	public Bid getTheSellBid(Plot p);
-	
-	public Long getWta(Plot p);
+	public Long getWtp(Plot p);
 	
 }

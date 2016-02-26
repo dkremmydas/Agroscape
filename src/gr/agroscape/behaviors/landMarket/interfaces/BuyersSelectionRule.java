@@ -1,6 +1,7 @@
-package gr.agroscape.behaviors.landMarket;
+package gr.agroscape.behaviors.landMarket.interfaces;
 
 import gr.agroscape.skeleton.agents.human.HumanAgent;
+import gr.agroscape.skeleton.agents.plot.Plot;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ import java.util.List;
 public interface BuyersSelectionRule {
 
 	
-	public List<HumanAgent> getPotentialBuyers();
+	public List<HumanAgent> getPotentialBuyers(Plot plot);
 	
 }

@@ -50,5 +50,9 @@ public class LandMarketFactory extends BehaviorFactory {
 	public String getBehaviorInformation() {
 		return "This is the LandMarket Behavior.";
 	}
+	
+	
+
+	
 
 }

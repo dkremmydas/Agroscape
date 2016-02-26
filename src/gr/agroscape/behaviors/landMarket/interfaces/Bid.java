@@ -1,5 +1,6 @@
-package gr.agroscape.behaviors.landMarket;
+package gr.agroscape.behaviors.landMarket.interfaces;
 
+import gr.agroscape.skeleton.agents.human.HumanAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
 
 
@@ -15,12 +16,14 @@ public class Bid {
 	
 	private Plot thePlot;
 	private Long theBid;
+	private HumanAgent theAgent;
 	
 	
-	public Bid(Plot thePlot, Long theBid) {
+	public Bid(Plot thePlot, Long theBid, HumanAgent agent) {
 		super();
 		this.thePlot = thePlot;
 		this.theBid = theBid;
+		this.theAgent = agent;
 	}
 
 
@@ -31,6 +34,10 @@ public class Bid {
 
 	public Long getTheBid() {
 		return theBid;
+	}
+	
+	public HumanAgent getTheAgent() {
+		return theAgent;
 	}
 	
 	

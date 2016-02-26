@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.landMarket;
+package gr.agroscape.behaviors.landMarket.interfaces;
 
 import gr.agroscape.skeleton.agents.plot.Plot;
 

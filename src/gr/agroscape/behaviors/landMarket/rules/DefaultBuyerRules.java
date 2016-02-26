@@ -1,16 +1,18 @@
 package gr.agroscape.behaviors.landMarket.rules;
 
-import gr.agroscape.behaviors.landMarket.Bid;
-import gr.agroscape.behaviors.landMarket.BuyerRules;
-import gr.agroscape.skeleton.agents.human.Farmer;
+import gr.agroscape.behaviors.landMarket.interfaces.Bid;
+import gr.agroscape.behaviors.landMarket.interfaces.BuyerRules;
+import gr.agroscape.skeleton.agents.human.HumanAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import repast.simphony.random.RandomHelper;
 
 public class DefaultBuyerRules implements BuyerRules {
 	
+	private HumanAgent ruleOwner;
 
-	public DefaultBuyerRules(Farmer ruleOwner) {
+	public DefaultBuyerRules(HumanAgent ruleOwner) {
 		super();
+		this.ruleOwner = ruleOwner;
 	}
 
 	/**
@@ -18,7 +20,7 @@ public class DefaultBuyerRules implements BuyerRules {
 	 */
 	@Override
 	public Bid getTheBuyBid(Plot p) {
-		return new Bid(p,RandomHelper.nextIntFromTo(1, 100)*this.getWtp(p)/100);
+		return new Bid(p,RandomHelper.nextIntFromTo(1, 100)*this.getWtp(p)/100, this.ruleOwner);
 	}
 
 	/**
