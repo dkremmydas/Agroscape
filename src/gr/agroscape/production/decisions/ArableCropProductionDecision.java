@@ -1,6 +1,6 @@
-package gr.agroscape.behaviors.arableCropProduction.productionDecisions;
+package gr.agroscape.production.decisions;
 
-import gr.agroscape.behaviors.arableCropProduction.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.skeleton.agents.plot.Plot;
 
 public class ArableCropProductionDecision extends ProductionDecision {

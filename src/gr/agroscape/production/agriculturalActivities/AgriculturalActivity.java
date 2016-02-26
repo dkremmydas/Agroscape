@@ -1,6 +1,6 @@
-package gr.agroscape.behaviors.arableCropProduction.production.agriculturalActivities;
+package gr.agroscape.production.agriculturalActivities;
 
-import gr.agroscape.behaviors.arableCropProduction.production.products.Product;
+import gr.agroscape.production.products.Product;
 
 import java.util.ArrayList;
 

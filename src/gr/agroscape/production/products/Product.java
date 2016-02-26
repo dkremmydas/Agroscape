@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.arableCropProduction.production.products;
+package gr.agroscape.production.products;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.arableCropProduction.productionDecisions;
+package gr.agroscape.production.decisions;
 
 import gr.agroscape.skeleton.agents.plot.Plot;
 

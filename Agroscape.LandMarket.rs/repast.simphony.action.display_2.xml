@@ -1,5 +1,5 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>New Display</name>
+  <name>owners</name>
   <type>2D</type>
   <styles>
     <entry>
@@ -23,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>467917232</hashCode>
+    <hashCode>264768980</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space</layoutProjection>
@@ -79,8 +79,8 @@
     <alpha>255</alpha>
   </backgroundColor>
   <valueLayerStyleName>repast.simphony.visualization.editedStyle.EditedValueLayerStyle2D</valueLayerStyleName>
-  <valueLayerEditedStyleName>StupidoGridValues.style_0.xml</valueLayerEditedStyleName>
+  <valueLayerEditedStyleName>owners.style_0.xml</valueLayerEditedStyleName>
   <valueLayers>
-    <string>StupidoGridValues</string>
+    <string>owners</string>
   </valueLayers>
 </repast.simphony.visualization.engine.CartesianDisplayDescriptor>

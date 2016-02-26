@@ -2,7 +2,7 @@
 <Behaviors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/dkremmydas/Agroscape/agroscape2/src/gr/agroscape/behaviors/behaviors.xsd">
 	<Behavior>
-		<Name>Stupido</Name>
-		<ClassString>gr.agroscape.behaviors.stupido.StupidoBehaviorFactory</ClassString>
+		<Name>ArableCropProduction</Name>
+		<ClassString>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</ClassString>
 	</Behavior>
 </Behaviors>
