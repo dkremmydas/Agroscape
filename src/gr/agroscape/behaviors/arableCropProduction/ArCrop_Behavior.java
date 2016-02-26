@@ -1,14 +1,15 @@
 package gr.agroscape.behaviors.arableCropProduction;
 
+import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.BehaviorAction;
+import gr.agroscape.behaviors.BehaviorFactory;
+import gr.agroscape.skeleton.agents.AgroscapeAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduleParameters;
-import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.behaviors.BehaviorAction;
-import gr.agroscape.behaviors.BehaviorFactory;
-import gr.agroscape.skeleton.agents.AgroscapeAgent;
 
 public class ArCrop_Behavior extends AgentBehavior{
 

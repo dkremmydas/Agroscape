@@ -2,7 +2,6 @@ package gr.agroscape.skeleton.agents.plot;
 
 import gr.agroscape.main.AgroscapeConfiguration;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
-import gr.agroscape.skeleton.agents.human.HumanAgent;
 import gr.agroscape.utilities.GridValueLayerFunction;
 
 import java.util.ArrayList;

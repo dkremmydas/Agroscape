@@ -1,12 +1,9 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.main.AgroscapeInitializer;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.media.j3d.Behavior;

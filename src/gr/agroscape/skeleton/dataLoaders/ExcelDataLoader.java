@@ -1,11 +1,11 @@
-package gr.agroscape.dataLoaders;
+package gr.agroscape.skeleton.dataLoaders;
 
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
-import gr.agroscape.skeleton.dataLoaders.AgroscapeSkeletonDataLoader;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 import gr.agroscape.skeleton.projections.SimulationSpace;
 
 import java.io.File;
@@ -23,10 +23,18 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import repast.simphony.context.space.graph.NetworkBuilder;
+import repast.simphony.context.space.grid.GridFactory;
+import repast.simphony.context.space.grid.GridFactoryFinder;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.graph.Network;
+import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
+import repast.simphony.space.grid.SimpleGridAdder;
+import repast.simphony.space.grid.StrictBorders;
 /**
- * This class loads agents and initial data from an excel file. <br />
+ * This class loads agents and initial data from an excel file whose destination
+ * is defind at the Properties.xml file at "ExcelDataFile". <br />
  * The Excel file should contain the following worksheets:
  * <ul>
  * <li>"Farmers", where farmers are defined. See {@link #loadFarmersContext}</li>
@@ -49,9 +57,10 @@ public class ExcelDataLoader implements AgroscapeSkeletonDataLoader {
 	 * @throws InvalidFormatException
 	 * @throws IOException
 	 */
-	public ExcelDataLoader(String excel_location) throws InvalidFormatException, IOException {
+	public ExcelDataLoader() throws InvalidFormatException, IOException {
 		super();
-		Workbook wb = WorkbookFactory.create(new File(excel_location));
+		String excelLocation =  RunEnvironment.getInstance().getParameters().getString("ExcelDataFile");
+		Workbook wb = WorkbookFactory.create(new File(excelLocation));
 		this.excelWB=wb;
 	}
 	
@@ -117,7 +126,7 @@ public class ExcelDataLoader implements AgroscapeSkeletonDataLoader {
 		context.addAll(this.avfarmers);		
 		
 		//load production Network
-		this.loadProductionNetwork(context);
+		//this.loadProductionNetwork(context);
 		
 	}
 
@@ -179,8 +188,19 @@ public class ExcelDataLoader implements AgroscapeSkeletonDataLoader {
 
 	@Override
 	public void initSimulationSpace(SimulationSpace sp) {
-		// TODO Auto-generated method stub
-		
+		//set grid width and height
+				Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
+				Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
+				
+				//add Projections
+				// //TODO The createGrid adds the projection to the context and we do not want to end with the projection added twice
+				
+				GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+				Grid<Object> space = gridFactory.createGrid("space", SimulationContext.getInstance(),
+								new GridBuilderParameters<Object>(new StrictBorders(),
+										new SimpleGridAdder<Object>(), false, w, h));
+				
+				sp.setSpace(space);
 	}
 
 }

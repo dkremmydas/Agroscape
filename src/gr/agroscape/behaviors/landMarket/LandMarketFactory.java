@@ -1,14 +1,11 @@
 package gr.agroscape.behaviors.landMarket;
 
-import java.util.List;
-
-import javax.media.j3d.Behavior;
-
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
-import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;
 import gr.agroscape.skeleton.contexts.SimulationContext;
+
+import java.util.List;
 
 /**
  * <p>The purposes of this class are:</p>

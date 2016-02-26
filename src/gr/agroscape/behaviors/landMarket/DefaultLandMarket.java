@@ -62,11 +62,13 @@ public class DefaultLandMarket extends LandMarket {
 		try {
 			cm.getTransaction(sellBid, bidRegistry.get(sellBid));
 		} catch (BuyBidLowerSellBidException | PlotMismatchException e) { //the transaction could not happen 
-			
+			bidRegistry.clear();
 			e.printStackTrace();
+			return;
 		}
 		//cm.getTransaction(bidRegistry., null);	
 		this.oneTransaction=true;
+
 	}
 	
 
