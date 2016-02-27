@@ -1,12 +1,10 @@
 <context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context" id="SimulationContext">
 	
 	<projection type="grid" id="space" /> 
-	<projection type="value layer"  id="StupidoGridValues"  />
 	
-	<context id="StupidoBehavior">
-		
+	<context id="ArableCropProductionBehavior">
 		<projection type="grid" id="space" /> 
-		<projection type="value layer" id="owners" />
+		<projection type="value layer" id="cropsGrid" />
 	</context>
 	
 	

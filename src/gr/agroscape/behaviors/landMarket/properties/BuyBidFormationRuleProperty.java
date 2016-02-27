@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.landMarket;
+package gr.agroscape.behaviors.landMarket.properties;
 
 import gr.agroscape.landMarket.BuyBidFormationRule;
 import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;

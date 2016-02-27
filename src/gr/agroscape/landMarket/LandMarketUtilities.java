@@ -1,7 +1,7 @@
 package gr.agroscape.landMarket;
 
-import gr.agroscape.behaviors.landMarket.BuyBidFormationRuleProperty;
-import gr.agroscape.behaviors.landMarket.SellBidFormationRuleProperty;
+import gr.agroscape.behaviors.landMarket.properties.BuyBidFormationRuleProperty;
+import gr.agroscape.behaviors.landMarket.properties.SellBidFormationRuleProperty;
 import gr.agroscape.skeleton.agents.human.HumanAgent;
 
 /**
