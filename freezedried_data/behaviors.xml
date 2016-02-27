@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Behaviors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/dkremmydas/Agroscape/agroscape2/src/gr/agroscape/behaviors/behaviors.xsd">
+xsi:noNamespaceSchemaLocation="https://github.com/dkremmydas/Agroscape/blob/BiogasCaseStudy/src/gr/agroscape/behaviors/behaviors.xsd">
 	<Behavior>
 		<Name>ArableCropProduction</Name>
 		<ClassString>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</ClassString>
-		<Type>AgentBehavior</Type>
 	</Behavior>
 	
 	<Behavior>
 		<Name>LandMarketBehavior</Name>
 		<ClassString>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</ClassString>
-		<Type>ContextBehavior</Type>
+		<
 	</Behavior>
 </Behaviors>
