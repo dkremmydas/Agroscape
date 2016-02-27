@@ -5,6 +5,7 @@ import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.behaviors.arableCropProduction.agentProperties.CurrentArableCropActivityProperty;
 import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
+import gr.agroscape.production.products.Product;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Level;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -83,8 +85,9 @@ public class ArableCropProdBehaviorFactory extends BehaviorFactory {
 			Row row = rowItr.next();
 			int crop_id = (int)row.getCell(0).getNumericCellValue();
 			String crop_name = row.getCell(1).getStringCellValue();			
-			crops.add(new ArableCropCultivation(crop_name, crop_id, null));
-		}		
+			crops.add(new ArableCropCultivation(crop_name, crop_id, new ArrayList<Product>()));
+		}	
+		SimulationContext.logMessage(this.getClass(), Level.INFO, "Loaded Crops:"+crops.toString());
 		return crops;		
 	}
 	

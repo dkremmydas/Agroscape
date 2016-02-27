@@ -46,7 +46,7 @@ public class ArableCropProdBehavior extends AgentBehavior{
 		//decide in random for each owned plot
 		for (Plot plot : plots) {
 			CurrentArableCropActivityProperty ca = (CurrentArableCropActivityProperty) plot.getBehaviorProperty(CurrentArableCropActivityProperty.class).getValue();
-			ArableCropCultivation crop = cont.getAvailableCrops().get(RandomHelper.nextIntFromTo(1, cont.getAvailableCrops().size()));
+			ArableCropCultivation crop = cont.getAvailableCrops().get(RandomHelper.nextIntFromTo(0, cont.getAvailableCrops().size()-1));
 			ca.setValue(crop);
 			
 			//update GridValueLayer
