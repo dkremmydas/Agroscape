@@ -2,6 +2,7 @@ package gr.agroscape.behaviors.stupido;
 
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
+import gr.agroscape.behaviors.stupido.properties.StupidoPlotIntegerProperty;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.human.Farmer;
 import gr.agroscape.skeleton.agents.plot.Plot;

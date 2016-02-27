@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.arableCropProduction.agentProperties;
+package gr.agroscape.behaviors.arableCropProduction.properties;
 
 import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;

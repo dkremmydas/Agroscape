@@ -3,7 +3,7 @@ package gr.agroscape.behaviors.arableCropProduction;
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
-import gr.agroscape.behaviors.arableCropProduction.agentProperties.CurrentArableCropActivityProperty;
+import gr.agroscape.behaviors.arableCropProduction.properties.CurrentArableCropActivityProperty;
 import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.production.products.Product;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;

@@ -4,5 +4,12 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/dkremmydas/Agro
 	<Behavior>
 		<Name>ArableCropProduction</Name>
 		<ClassString>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</ClassString>
+		<Type>AgentBehavior</Type>
+	</Behavior>
+	
+	<Behavior>
+		<Name>LandMarketBehavior</Name>
+		<ClassString>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</ClassString>
+		<Type>ContextBehavior</Type>
 	</Behavior>
 </Behaviors>

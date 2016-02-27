@@ -1,4 +1,4 @@
-package gr.agroscape.behaviors.stupido;
+package gr.agroscape.behaviors.stupido.properties;
 
 import gr.agroscape.skeleton.agents.AgroscapeAgentProperty;
 
@@ -8,7 +8,7 @@ public class StupidoPlotIntegerProperty extends AgroscapeAgentProperty<Integer> 
 		super(Integer.class, "StupidoInteger", value);
 	}
 
-	StupidoPlotIntegerProperty() {
+	public StupidoPlotIntegerProperty() {
 		super(Integer.class, "StupidoInteger", 0);
 	}
 
