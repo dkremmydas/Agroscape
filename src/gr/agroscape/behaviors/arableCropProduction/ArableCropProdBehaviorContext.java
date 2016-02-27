@@ -22,6 +22,7 @@ public class ArableCropProdBehaviorContext extends BehaviorContext {
 				RunEnvironment.getInstance().getParameters().getInteger("gridWidth"),
 				RunEnvironment.getInstance().getParameters().getInteger("gridHeight"));
 		this.addProjection(SimulationContext.getInstance().getSpace().getSpace());
+		this.addValueLayer(this.cropsGrid);
 	}
 
 

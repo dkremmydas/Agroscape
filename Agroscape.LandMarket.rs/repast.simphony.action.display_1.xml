@@ -1,5 +1,5 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>owners</name>
+  <name>New Display</name>
   <type>2D</type>
   <styles>
     <entry>
@@ -23,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>2056373346</hashCode>
+    <hashCode>1113466646</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space</layoutProjection>
@@ -79,8 +79,8 @@
     <alpha>255</alpha>
   </backgroundColor>
   <valueLayerStyleName>repast.simphony.visualization.editedStyle.EditedValueLayerStyle2D</valueLayerStyleName>
-  <valueLayerEditedStyleName>owners.style_0.xml</valueLayerEditedStyleName>
+  <valueLayerEditedStyleName>cropsGrid.style_1.xml</valueLayerEditedStyleName>
   <valueLayers>
-    <string>owners</string>
+    <string>cropsGrid</string>
   </valueLayers>
 </repast.simphony.visualization.engine.CartesianDisplayDescriptor>
