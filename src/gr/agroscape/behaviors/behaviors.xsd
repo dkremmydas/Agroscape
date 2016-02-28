@@ -25,6 +25,7 @@
 										<xs:element name="ScheduledAction">
 											<xs:complexType>
 												<xs:all>
+													<xs:element name="Method"></xs:element>
 											  		<xs:element name="Start"></xs:element>
 											  		<xs:element name="Duration"></xs:element>
 											  		<xs:element name="Interval"></xs:element>
