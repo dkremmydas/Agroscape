@@ -1,28 +1,42 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-
-	<xs:complexType name="BehaviorDataType">
-	  	<xs:sequence>
-			<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
-			<xs:element name="ClassString" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
-			<xs:element name="Type" minOccurs="1" maxOccurs="1">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="AgentBehavior"></xs:enumeration>
-						<xs:enumeration value="ContextBehavior"></xs:enumeration>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-		</xs:sequence>
-	  </xs:complexType>
-	  
-	  
-
 	<xs:element name="Behaviors">
 		<xs:complexType>
 				<xs:sequence minOccurs="0" maxOccurs="unbounded">
-				<xs:element name="Behavior" type="BehaviorDataType" minOccurs="0">
+				<xs:element name="Behavior" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+							<xs:element name="Type" minOccurs="1" maxOccurs="1">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="AgentBehavior"></xs:enumeration>
+										<xs:enumeration value="ContextBehavior"></xs:enumeration>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="FactoryClass" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+							<xs:element name="ContextClass" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+							<xs:element name="BehaviorClass" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+							<xs:element name="ScheduledActions">
+								<xs:complexType>
+									<xs:sequence minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="ScheduledAction">
+											<xs:complexType>
+												<xs:all>
+											  		<xs:element name="Start"></xs:element>
+											  		<xs:element name="Duration"></xs:element>
+											  		<xs:element name="Interval"></xs:element>
+											  		<xs:element name="Priority"></xs:element>
+											  	</xs:all>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>	
+								</xs:complexType>					
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
