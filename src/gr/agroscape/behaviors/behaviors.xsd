@@ -18,17 +18,17 @@
 							</xs:element>
 							<xs:element name="FactoryClass" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
 							<xs:element name="ContextClass" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
-							<xs:element name="BehaviorClass" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+							<xs:element name="BehaviorClass" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
 							<xs:element name="ScheduledActions">
 								<xs:complexType>
 									<xs:sequence minOccurs="0" maxOccurs="unbounded">
 										<xs:element name="ScheduledAction">
 											<xs:complexType>
 												<xs:all>
-													<xs:element name="Method"></xs:element>
-											  		<xs:element name="Start"></xs:element>
+													<xs:element name="Method" minOccurs="1" maxOccurs="1"></xs:element>
+											  		<xs:element name="Start" minOccurs="1" maxOccurs="1"></xs:element>
 											  		<xs:element name="Duration"></xs:element>
-											  		<xs:element name="Interval"></xs:element>
+											  		<xs:element name="Interval" minOccurs="1" maxOccurs="1"></xs:element>
 											  		<xs:element name="Priority"></xs:element>
 											  	</xs:all>
 											</xs:complexType>

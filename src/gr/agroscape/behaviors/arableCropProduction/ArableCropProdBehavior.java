@@ -17,6 +17,7 @@ import org.apache.log4j.Level;
 
 import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduleParameters;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.random.RandomHelper;
 
 public class ArableCropProdBehavior extends AgentBehavior{
