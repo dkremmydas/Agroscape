@@ -1,8 +1,8 @@
 package gr.agroscape.behaviors;
 
-import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,40 +14,22 @@ import org.w3c.dom.NodeList;
 import repast.simphony.parameter.ParameterSchema;
 import repast.simphony.parameter.Schema;
 
-public class DefaultBehaviorsLoader implements AgroscapeAllBehaviorsDataLoader{
+public class BehaviorsLoader {
 	
-	Set<BehaviorFactory> bhvs;
+	Document doc;
+	ArrayList<BehaviorBundle> bhvs = new ArrayList<>();
 	
-
-	public DefaultBehaviorsLoader(Set<BehaviorFactory> bhvs) {
-		super();
-		this.bhvs = bhvs;
-	}
-
-	public DefaultBehaviorsLoader(Schema bhvsSchema) {
-		super();
-		this.bhvs = new HashSet<>();
-		ParameterSchema bhvSchema = (ParameterSchema) bhvsSchema.getDetails("Behavior");
-		String bs = bhvSchema.getDefaultValue().toString();
-
-		BehaviorFactory bf;
-		try {
-			bf = (BehaviorFactory) Class.forName(bs).newInstance();
-			this.bhvs.add(bf);
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-				
-		
+	
+	public BehaviorsLoader(Document doc) {
+		this.doc = doc;
+		this.loadBehaviorBundle();
 	}
 	
-	public DefaultBehaviorsLoader(Document doc) {
-		super();
-		this.bhvs = new HashSet<>();
-		
+	/**
+	 * Loads the xml file 
+	 */
+	private void loadBehaviorBundle() {
 		doc.getDocumentElement().normalize();
-
 		NodeList nList = doc.getElementsByTagName("Behavior");
 		
 		for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -70,12 +52,12 @@ public class DefaultBehaviorsLoader implements AgroscapeAllBehaviorsDataLoader{
 				
 			}
 		}
-				
-		
 	}
 
-
-	@Override
+	/**
+	 * Add behaviors to the simulation context
+	 * @param simulationContext
+	 */
 	public void loadAllBehaviors(SimulationContext simulationContext) {
 
 		for (BehaviorFactory bhv : this.bhvs) {
@@ -87,6 +69,37 @@ public class DefaultBehaviorsLoader implements AgroscapeAllBehaviorsDataLoader{
 	}
 	
 	
+	class BehaviorBundle {
+		private BehaviorType type;
+		private BehaviorContext context;
+		private BehaviorFactory factory;
+		private AgentBehavior agentClass;
+		public BehaviorBundle(BehaviorType btype, BehaviorContext bcontext,
+				BehaviorFactory bfactory, AgentBehavior bagentClass) {
+			super();
+			this.type = btype;
+			this.context = bcontext;
+			this.factory = bfactory;
+			this.agentClass = bagentClass;
+		}
+		public BehaviorType getBtype() {
+			return type;
+		}
+		public BehaviorContext getBcontext() {
+			return context;
+		}
+		public BehaviorFactory getBfactory() {
+			return factory;
+		}
+		public AgentBehavior getBagentClass() {
+			return agentClass;
+		}
+		
+		
+	}
 	
+	enum BehaviorType {
+		AgentBehavior, ContextBehavior
+	}
 	
 }

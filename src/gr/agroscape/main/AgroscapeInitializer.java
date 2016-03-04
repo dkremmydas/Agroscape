@@ -2,8 +2,7 @@ package gr.agroscape.main;
 
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorAction;
-import gr.agroscape.behaviors.DefaultBehaviorsLoader;
-import gr.agroscape.dataLoaders.AgroscapeAllBehaviorsDataLoader;
+import gr.agroscape.behaviors.BehaviorsLoader;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
@@ -48,23 +47,12 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	private AgroscapeSkeletonDataLoader skeletonDataLoader;
 	
-	private AgroscapeAllBehaviorsDataLoader behaviorsDataLoader;
+	private BehaviorsLoader behaviorsDataLoader ;
 
-	//static Logger logger = Logger.getLogger(AgroscapeInitializer.class);
 	
-	/**
-	 * Load values from the parameters.xml
-	 */
 	public AgroscapeInitializer() {
 		this.simulationContext = SimulationContext.getInstance();
-	}
-	
-
-	public AgroscapeInitializer(AgroscapeSkeletonDataLoader skeletonDataLoader,
-			AgroscapeAllBehaviorsDataLoader behaviorsDataLoader) {
-		this();
-		this.skeletonDataLoader = skeletonDataLoader;
-		this.behaviorsDataLoader = behaviorsDataLoader;
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Created AgroscapeInitializer");
 	}
 
 	
@@ -79,31 +67,36 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 
 	@Override
 	public Context<Object> build(Context<Object> context)  {
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Start building SimulationContet");
 			
-		//load from XML dataloadrO
-		if(this.skeletonDataLoader == null) this.setSkeletonDataLoaderFromParametersXML();
-		if(this.behaviorsDataLoader == null) this.setBehaviorsDataLoaderFromParametersXML();
+		//1. set dataLoaders
+		this.setSkeletonDataLoaderFromParametersXML();
+		this.setBehaviorsDataLoaderFromParametersXML();
 		
-		//Initialize space
+		//2. Initialize space
 		this.skeletonDataLoader.initSimulationSpace(this.simulationContext.getSpace());
 		
-		//step 2, create empty  subContexts
+		//3. create plots
 		PlotsContext plots = new PlotsContext(); //create plots' context
 		this.skeletonDataLoader.loadPlotsContext(plots);
 		this.simulationContext.addSubContext(plots);
 		
-		FarmersContext farmers = new FarmersContext(); //create farmers' context
+		//4. create farmers
+		FarmersContext farmers = new FarmersContext(); 
 		this.skeletonDataLoader.loadFarmersContext(farmers);
 		this.simulationContext.addSubContext(farmers);
 		
+		//5. landPropertyRegistry
 		this.skeletonDataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
 		
-		//load all behaviors
+		//6.load behaviors
 		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
+		
+		//7. add behaviors to timeline
 		this.addAgroscapeAgentsBehaviorToSchedule(farmers.getAllFarmers());
 		this.addAgroscapeAgentsBehaviorToSchedule(plots.getAvailablePlots());
 	
-		//Return the created SimulationContext
+		//8. Return the created SimulationContext
 		return this.simulationContext;
 	}
 
@@ -135,7 +128,7 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	}
 	
 	/**
-	 * Load skeletonLoader and behaviorsDataLoader from parameters.xml
+	 * Set skeletonDataLoader according to the value of "skeletonDataLoaderClass" in the parameters.xml
 	 */
 	private void setSkeletonDataLoaderFromParametersXML() {
 		
@@ -153,6 +146,9 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	
 	}
 	
+	/**
+	 * Initialize behaviorsDataLoader with the xml document in "freezedried_data/behaviors.xml"
+	 */
 	private void setBehaviorsDataLoaderFromParametersXML() {
 		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -162,14 +158,12 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 			dBuilder = dbFactory.newDocumentBuilder();
 			 doc = dBuilder.parse(new File("freezedried_data/behaviors.xml"));
 		} catch (ParserConfigurationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		catch (SAXException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.behaviorsDataLoader = new DefaultBehaviorsLoader(doc);
+		this.behaviorsDataLoader = new BehaviorsLoader(doc);
 		
 		
 	}
