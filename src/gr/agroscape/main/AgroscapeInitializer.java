@@ -1,9 +1,6 @@
 package gr.agroscape.main;
 
-import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.behaviors.BehaviorsLoader;
-import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
 import gr.agroscape.skeleton.contexts.SimulationContext;
@@ -11,7 +8,6 @@ import gr.agroscape.skeleton.dataLoaders.AgroscapeSkeletonDataLoader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,7 +20,6 @@ import org.xml.sax.SAXException;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ISchedule;
 
 
 /**
@@ -90,42 +85,19 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 		this.skeletonDataLoader.initLandPropertyRegistry(this.simulationContext.getLandPropertyRegistry());
 		
 		//6.load behaviors
-		this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
+		try {
+			this.behaviorsDataLoader.loadAllBehaviors(this.simulationContext);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			SimulationContext.logMessage(this.getClass(), Level.INFO, "Fatal error loading behaviors");
+			e.printStackTrace();
+			System.exit(5);			
+		}
 		
-		//7. add behaviors to timeline
-		this.addAgroscapeAgentsBehaviorToSchedule(farmers.getAllFarmers());
-		this.addAgroscapeAgentsBehaviorToSchedule(plots.getAvailablePlots());
-	
-		//8. Return the created SimulationContext
+		//7. Return the created SimulationContext
 		return this.simulationContext;
 	}
 
-	
-	/**
-	 * Add Behaviors to Schedule
-	 * @param agents
-	 */
-	private void addAgroscapeAgentsBehaviorToSchedule(Iterable<? extends AgroscapeAgent> agents) {
-
-		ISchedule timeline = RunEnvironment.getInstance().getCurrentSchedule();
-		SimulationContext.logMessage(this.getClass(), Level.INFO, "Initializing simulation: Loading Behaviors");
-		
-		for (AgroscapeAgent ag : agents) {
-			//AgroscapeInitializer.logger.info("Loading Agent");
-			SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agent: " + ag.toString());
-			
-			ArrayList<AgentBehavior> bhvs = (ArrayList<AgentBehavior>) ag.getBehaviors();
-			for (AgentBehavior ab : bhvs) {
-				SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agent's Behavior: " + ab.toString());
-				
-				ArrayList<BehaviorAction> aSchA = (ArrayList<BehaviorAction>) ab.getScheduledActions();
-				for (BehaviorAction beha : aSchA) {
-					SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agent's Behavior's Action: " + beha.toString());
-					timeline.schedule(beha.getParams(), beha.getObject(), beha.getMethod());
-				}
-			}
-		}
-	}
 	
 	/**
 	 * Set skeletonDataLoader according to the value of "skeletonDataLoaderClass" in the parameters.xml

@@ -1,15 +1,9 @@
 package gr.agroscape.behaviors.stupido;
 
 import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.behaviors.BehaviorAction;
 import gr.agroscape.behaviors.stupido.properties.StupidoPlotIntegerProperty;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import repast.simphony.engine.schedule.ScheduleParameters;
 
 public class StupidoBehavior extends AgentBehavior {
 	
@@ -19,15 +13,6 @@ public class StupidoBehavior extends AgentBehavior {
 		super("Stupido", bhvFactory, owner, bhvContext);
 	}
 
-	@Override
-	public List<BehaviorAction> getScheduledActions() {
-		List<BehaviorAction> actions= new ArrayList<BehaviorAction>();
-	
-		actions.add(new BehaviorAction("printHappiness",ScheduleParameters.createRepeating(1, 360),this));
-			
-		return actions;
-	}
-	
 
 	public void printHappiness() {
 		

@@ -13,7 +13,7 @@ import repast.simphony.context.Context;
  * @since 2.0
  *
  */
-public abstract class AgentBehavior implements BehaviorSchedulable {
+public abstract class AgentBehavior {
 	
 	private String name;
 	
@@ -36,8 +36,6 @@ public abstract class AgentBehavior implements BehaviorSchedulable {
 	protected BehaviorFactory getBhvFactory() {
 		return bhvFactory;
 	}
-
-
 
 	public Context<?> getBehaviorContext() {
 		return bhvContext;

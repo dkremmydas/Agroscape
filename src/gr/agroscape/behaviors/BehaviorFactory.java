@@ -28,7 +28,7 @@ public abstract class BehaviorFactory {
 	/**
 	 * The name of the behavior that this factory is serving.
 	 */
-	protected String name;
+	private String name;
 	
 	protected BehaviorFactory() {
 		this.name="N/A";
@@ -38,21 +38,21 @@ public abstract class BehaviorFactory {
 	public String getName() {
 		return name;
 	}
+	
+	public final void setName(String name) {
+		this.name=name;
+	}
 
 
 
 	/**
-	 * <p>It receives the root {@link SimulationContext} and caters for
-	 * the assignment of {@link AgentBehavior}s and {@link AgroscapeAgentProperty}s
-	 *  to {@link AgroscapeAgent}s</p>
-	 * <p>The assignment should be given with a "new Behavior" created each time, and not by
-	 * passing a reference to a Behavior that was created once</p>
-	 * <p>The idea is that the passed {@link SimulationContext} should be directly changed
-	 * by this method</p>
+	 * <p>It receives the root {@link SimulationContext} and creates the {@link AgentBehavior}
+	 * objects</p>
 	 * 
 	 * @param {@link SimulationContext}
+	 * @return Iterable<? extends {@link AgentBehavior}> An iterable of the behavior objects
 	 */
-	abstract public void assignBehaviors(SimulationContext simulationContext);
+	abstract public Iterable<? extends AgentBehavior> getBehaviorObjects(SimulationContext simulationContext);
 	
 	/**
 	 * <p>Its purpose is to add {@link AgroscapeAgentProperty}s to {@link AgroscapeAgent}s
@@ -69,7 +69,7 @@ public abstract class BehaviorFactory {
 	abstract public BehaviorContext getBehaviorContext();
 	
 	/**
-	 * If new SimulationAgents should be created, do it here
+	 * If new SimulationAgents should be created, do it here. They are added in the behaviors context
 	 * @return
 	 */
 	abstract public List<AgroscapeAgent> getNewAgents();

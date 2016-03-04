@@ -2,30 +2,14 @@
 <Behaviors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://github.com/dkremmydas/Agroscape/blob/BiogasCaseStudy/src/gr/agroscape/behaviors/behaviors.xsd">
 	<Behavior>
-		<Name>ArableCropProduction</Name>
+		<Name>StupidoBehavior</Name>
 		<Type>AgentBehavior</Type>
-		<FactoryClass>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</FactoryClass>
-		<ContextClass>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorContext</ContextClass>
-		<BehaviorClass>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehavior</BehaviorClass>		
+		<FactoryClass>gr.agroscape.behaviors.stupido.StupidoBehaviorFactory</FactoryClass>	
 		<ScheduledActions>
 			<ScheduledAction>
-				<Method></Method>
+				<Method>printHappiness</Method>
 				<Start>1</Start>
-				<Interval>1</Interval>
-			</ScheduledAction>
-		</ScheduledActions>
-	</Behavior>
-	
-	<Behavior>
-		<Name>LandMarketBehavior</Name>
-		<Type>ContextBehavior</Type>
-		<FactoryClass>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorFactory</FactoryClass>
-		<ContextClass>gr.agroscape.behaviors.arableCropProduction.ArableCropProdBehaviorContext</ContextClass>
-		<ScheduledActions>
-			<ScheduledAction>
-				<Method></Method>
-				<Start>1</Start>
-				<Interval>1</Interval>
+				<Interval>100</Interval>
 				<Priority>1</Priority>
 			</ScheduledAction>
 		</ScheduledActions>

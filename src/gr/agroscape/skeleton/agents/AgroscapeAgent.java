@@ -3,8 +3,7 @@ package gr.agroscape.skeleton.agents;
 import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import repast.simphony.context.Context;
@@ -56,7 +55,7 @@ public abstract class AgroscapeAgent {
 	/**
 	 * <p>The list of behaviors that are attached to the agent</p>
 	 */
-	private List<AgentBehavior> behaviors = new ArrayList<>();
+	private HashMap<String,AgentBehavior> behaviors = new HashMap<>();
 	
 	/**
      * A reference to the mainContext. 
@@ -165,7 +164,7 @@ public abstract class AgroscapeAgent {
 	 * Gets the array of the behaviors attached to the agent
 	 * @return List of {@link AgentBehavior}
 	 */
-	public List<AgentBehavior> getBehaviors() {
+	public HashMap<String,AgentBehavior> getBehaviors() {
 		return behaviors;
 	}
 	
@@ -173,8 +172,8 @@ public abstract class AgroscapeAgent {
 	 * Adds an {@link AgentBehavior} to the agent
 	 * @param ab {@link AgentBehavior}
 	 */
-	public void addBehavior(AgentBehavior ab) {
-		this.behaviors.add(ab);
+	public void addBehavior(String name,AgentBehavior ab) {
+		this.behaviors.put(name,ab);
 	}
 
 	@Override
@@ -189,8 +188,8 @@ public abstract class AgroscapeAgent {
 		}
 		else {
 			String sep="";
-			for (AgentBehavior ab : behaviors) {
-				r += sep+ab.toString();sep=" | ";
+			for (String abName : behaviors.keySet()) {
+				r += sep+behaviors.get(abName).toString();sep=" | ";
 			}
 		}	
 		return r;

@@ -1,5 +1,6 @@
 package gr.agroscape.behaviors.stupido;
 
+import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.behaviors.stupido.properties.StupidoPlotIntegerProperty;
@@ -25,23 +26,23 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 		super();
 		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
 		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
-		
-		this.name = "Stupido Behavior Factory";
 		this.bhvContext = new StupidoBehaviorContext(
 								new GridValueLayer("StupidoGridValues", 0.0, true, new StrictBorders() ,w ,h));
 	}
 
 	@Override
-	public void assignBehaviors(SimulationContext simulationContext) {
+	public Iterable<? extends AgentBehavior> getBehaviorObjects(SimulationContext simulationContext) {
+		ArrayList<StupidoBehavior> bhvs = new ArrayList<>();
 		
 		//add the behavior to farmer agents
 		Iterable<Farmer> farmers = simulationContext.getFarmersContext().getAllFarmers();	
 		for (AgroscapeAgent f : farmers) {
-			f.addBehavior(new StupidoBehavior(f, this.bhvContext, this));
+			bhvs.add(new StupidoBehavior(f, this.bhvContext, this));
 		}
 		
+		return bhvs;
 	}
-
+	
 	
 	@Override
 	public BehaviorContext getBehaviorContext() {

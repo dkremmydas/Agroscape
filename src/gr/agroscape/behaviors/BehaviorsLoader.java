@@ -3,16 +3,15 @@ package gr.agroscape.behaviors;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import repast.simphony.parameter.ParameterSchema;
-import repast.simphony.parameter.Schema;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 
 public class BehaviorsLoader {
 	
@@ -37,19 +36,11 @@ public class BehaviorsLoader {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
-				String bNAme = eElement.getElementsByTagName("Name").item(0).getTextContent();
-				String bClass = eElement.getElementsByTagName("ClassString").item(0).getTextContent();
-				
-				BehaviorFactory bf;
-				try {
-					bf = (BehaviorFactory) Class.forName(bClass).newInstance();
-					this.bhvs.add(bf);
-				} catch (InstantiationException | IllegalAccessException
-						| ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-				
-				
+				String behaviorName = eElement.getElementsByTagName("Name").item(0).getTextContent();
+				String behaviorType = eElement.getElementsByTagName("Type").item(0).getTextContent();
+				String factoryClass = eElement.getElementsByTagName("FactoryClass").item(0).getTextContent();
+				NodeList scheduledActions = (NodeList) eElement.getElementsByTagName("ScheduledActions").item(0);
+				this.bhvs.add(new BehaviorBundle(behaviorName,behaviorType,factoryClass, scheduledActions));
 			}
 		}
 	}
@@ -57,42 +48,107 @@ public class BehaviorsLoader {
 	/**
 	 * Add behaviors to the simulation context
 	 * @param simulationContext
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public void loadAllBehaviors(SimulationContext simulationContext) {
+	public void loadAllBehaviors(SimulationContext simulationContext) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		ISchedule timeline = RunEnvironment.getInstance().getCurrentSchedule();	
+		Iterable<ScheduledAction> actions = new ArrayList<>();
+		
+		for (BehaviorBundle bhv : this.bhvs) {
+			
+			actions = bhv.getActions();			
+			
+			//create the factory
+			BehaviorFactory fact = (BehaviorFactory) Class.forName(bhv.factory).newInstance();
+			fact.setName(bhv.name);
+			
+			//add bhv context
+			simulationContext.addSubContext(fact.getBehaviorContext());
+			
+			if(bhv.type.equals(BehaviorType.AgentBehavior)) {
+				
+				//assign behavior to agents
+				Iterable<? extends AgentBehavior> behaviorObjects = fact.getBehaviorObjects(simulationContext);	
+				for (AgentBehavior ab : behaviorObjects) {
+					ab.getOwner().addBehavior(bhv.name, ab);
+					//add any actions to timeline
+					for (ScheduledAction sa : actions) {
+						timeline.schedule(sa.getParams(), ab, sa.getMethod());
+					}
+				}
+				
+				//add properties to agents
+				fact.addProperties(simulationContext);
 
-		for (BehaviorFactory bhv : this.bhvs) {
-			simulationContext.addSubContext(bhv.getBehaviorContext());
-			bhv.assignBehaviors(simulationContext);	
-			bhv.addProperties(simulationContext);
-		}
+				
+			} 
+			else if (bhv.type.equals(BehaviorType.ContextBehavior)) {
+				//add only the context timeline
+				for (ScheduledAction sa : actions) {
+					timeline.schedule(sa.getParams(), fact.getBehaviorContext(), sa.getMethod());
+				}
+			}
+
+			
+		} //end loop of behaviors.xml
 		
 	}
 	
 	
+	
 	class BehaviorBundle {
+		private String name;
 		private BehaviorType type;
-		private BehaviorContext context;
-		private BehaviorFactory factory;
-		private AgentBehavior agentClass;
-		public BehaviorBundle(BehaviorType btype, BehaviorContext bcontext,
-				BehaviorFactory bfactory, AgentBehavior bagentClass) {
+		private String factory;
+		private ArrayList<ScheduledAction> actions = new ArrayList<>();
+		
+		public BehaviorBundle(String name, String type, String factory,NodeList scheduledActions) {
+			this.name = name;
+			this.type = BehaviorType.valueOf(type);
+			this.factory = factory;
+			this.extractActions(scheduledActions);
+		}
+		
+		private void extractActions(NodeList scheduledActions) {
+			for (int temp = 0; temp < scheduledActions.getLength(); temp++) {
+				Node nNode = scheduledActions.item(temp);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					String method = eElement.getElementsByTagName("Method").item(0).getTextContent();
+					int start = Integer.parseInt(eElement.getElementsByTagName("Start").item(0).getTextContent());
+					int interval = Integer.parseInt(eElement.getElementsByTagName("Interval").item(0).getTextContent());
+					int priority = Integer.parseInt(eElement.getElementsByTagName("Priority").item(0).getTextContent());
+					this.actions.add(new ScheduledAction(method,ScheduleParameters.createRepeating(start, interval, priority)));
+				}
+			}
+		}
+
+		public Iterable<ScheduledAction> getActions() {
+			return actions;
+		}
+		
+		
+		 
+	}
+	
+	class ScheduledAction {
+		private String method;		
+		private ScheduleParameters params;
+		
+		public ScheduledAction(String method, ScheduleParameters params) {
 			super();
-			this.type = btype;
-			this.context = bcontext;
-			this.factory = bfactory;
-			this.agentClass = bagentClass;
+			this.method = method;
+			this.params = params;
 		}
-		public BehaviorType getBtype() {
-			return type;
+
+		public String getMethod() {
+			return method;
 		}
-		public BehaviorContext getBcontext() {
-			return context;
-		}
-		public BehaviorFactory getBfactory() {
-			return factory;
-		}
-		public AgentBehavior getBagentClass() {
-			return agentClass;
+
+		public ScheduleParameters getParams() {
+			return params;
 		}
 		
 		

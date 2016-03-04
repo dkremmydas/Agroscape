@@ -21,7 +21,7 @@ import java.util.List;
 public class LandMarketFactory extends BehaviorFactory {
 
 	@Override
-	public void assignBehaviors(SimulationContext simulationContext) {
+	public void getBehaviorAgents(SimulationContext simulationContext) {
 		//Nothing assigned here
 	}
 

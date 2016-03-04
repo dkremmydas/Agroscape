@@ -4,6 +4,7 @@ import gr.agroscape.behaviors.AgentBehavior;
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.behaviors.arableCropProduction.properties.CurrentArableCropActivityProperty;
+import gr.agroscape.behaviors.stupido.StupidoBehavior;
 import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.production.products.Product;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
@@ -38,13 +39,15 @@ public class ArableCropProdBehaviorFactory extends BehaviorFactory {
 	}
 
 	@Override
-	public void assignBehaviors(SimulationContext simulationContext) {
+	public Iterable<? extends AgroscapeAgent> getBehaviorAgents(SimulationContext simulationContext) {
+		Iterable<Farmer> farmers = simulationContext.getFarmersContext().getAllFarmers();	
+		
 		//1. assign to all farmers
-		for (Iterator<Farmer> farmers = simulationContext.getFarmersContext().getAllFarmers().iterator(); farmers.hasNext();) {
-			Farmer farmer =  farmers.next();
-			AgentBehavior ab = new ArableCropProdBehavior(this,farmer, this.bvhContext) ;
-			farmer.addBehavior(ab);
-		}	
+		for (AgroscapeAgent f : farmers) {
+			f.addBehavior(new ArableCropProdBehavior(this,f, this.bvhContext));
+		}
+		
+		return farmers;
 	}
 
 	@Override
