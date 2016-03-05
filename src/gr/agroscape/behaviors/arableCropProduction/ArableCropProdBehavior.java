@@ -1,7 +1,6 @@
 package gr.agroscape.behaviors.arableCropProduction;
 
-import gr.agroscape.behaviors.AgentBehavior;
-import gr.agroscape.behaviors.BehaviorAction;
+import gr.agroscape.behaviors.Behavior;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.behaviors.arableCropProduction.properties.CurrentArableCropActivityProperty;
 import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
@@ -11,16 +10,13 @@ import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.log4j.Level;
 
 import repast.simphony.context.Context;
-import repast.simphony.engine.schedule.ScheduleParameters;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.random.RandomHelper;
 
-public class ArableCropProdBehavior extends AgentBehavior{
+public class ArableCropProdBehavior extends Behavior{
 
 	public ArableCropProdBehavior(BehaviorFactory bhvFactory,
 			AgroscapeAgent owner, Context<?> bhvContext) {
@@ -28,13 +24,6 @@ public class ArableCropProdBehavior extends AgentBehavior{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public List<BehaviorAction> getScheduledActions() {
-		ArrayList<BehaviorAction> r = new ArrayList<>();
-		BehaviorAction ba = new BehaviorAction("makeProductionDecision", ScheduleParameters.createRepeating(1, 360),this);
-		r.add(ba);
-		return r;
-	}
 	
 	/**
 	 * The production decision making

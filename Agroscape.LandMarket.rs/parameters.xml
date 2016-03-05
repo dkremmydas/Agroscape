@@ -25,6 +25,13 @@
 									
 		/>
 		
+		<parameter name="behaviorXMLfile" displayName="Skeleton DataLoader Class" type="java.lang.String" 
+						defaultValue="freezedried_data\\behaviors.xml" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
+		
 
 		<parameter name="ExcelDataFile" displayName="Excel Data File Location" type="java.lang.String" 
 						defaultValue="freezedried_data\\dataToLoad.v3.xlsx" 

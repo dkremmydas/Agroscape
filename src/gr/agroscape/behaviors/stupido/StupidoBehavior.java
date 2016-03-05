@@ -1,11 +1,11 @@
 package gr.agroscape.behaviors.stupido;
 
-import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.Behavior;
 import gr.agroscape.behaviors.stupido.properties.StupidoPlotIntegerProperty;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
 import gr.agroscape.skeleton.agents.plot.Plot;
 
-public class StupidoBehavior extends AgentBehavior {
+public class StupidoBehavior extends Behavior {
 	
 	
 

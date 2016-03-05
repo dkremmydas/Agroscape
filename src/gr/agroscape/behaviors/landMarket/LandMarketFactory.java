@@ -1,5 +1,6 @@
 package gr.agroscape.behaviors.landMarket;
 
+import gr.agroscape.behaviors.Behavior;
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
@@ -20,10 +21,6 @@ import java.util.List;
  */
 public class LandMarketFactory extends BehaviorFactory {
 
-	@Override
-	public void getBehaviorAgents(SimulationContext simulationContext) {
-		//Nothing assigned here
-	}
 
 	@Override
 	public void addProperties(SimulationContext simulationContext) {
@@ -46,6 +43,11 @@ public class LandMarketFactory extends BehaviorFactory {
 	@Override
 	public String getBehaviorInformation() {
 		return "This is the LandMarket Behavior.";
+	}
+
+	@Override
+	public Iterable<? extends Behavior> getBehaviorObjects(SimulationContext simulationContext) {
+		return null;
 	}
 	
 	

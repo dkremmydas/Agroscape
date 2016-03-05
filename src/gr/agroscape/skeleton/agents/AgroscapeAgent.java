@@ -1,6 +1,6 @@
 package gr.agroscape.skeleton.agents;
 
-import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.Behavior;
 import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public abstract class AgroscapeAgent {
 	/**
 	 * <p>The list of behaviors that are attached to the agent</p>
 	 */
-	private HashMap<String,AgentBehavior> behaviors = new HashMap<>();
+	private HashMap<String,Behavior> behaviors = new HashMap<>();
 	
 	/**
      * A reference to the mainContext. 
@@ -150,9 +150,9 @@ public abstract class AgroscapeAgent {
 	}
     
 	/**
-	 * Gets the {@link AgroscapeAgentProperty} of a certain {@link AgentBehavior} and for
+	 * Gets the {@link AgroscapeAgentProperty} of a certain {@link Behavior} and for
 	 * the given property name.
-	 * @param bf  {@link AgentBehavior}
+	 * @param bf  {@link Behavior}
 	 * @param name {@String} the name of the behavior
 	 * @return {@link AgroscapeAgentProperty}
 	 */
@@ -162,17 +162,17 @@ public abstract class AgroscapeAgent {
 	
 	/**
 	 * Gets the array of the behaviors attached to the agent
-	 * @return List of {@link AgentBehavior}
+	 * @return List of {@link Behavior}
 	 */
-	public HashMap<String,AgentBehavior> getBehaviors() {
+	public HashMap<String,Behavior> getBehaviors() {
 		return behaviors;
 	}
 	
 	/**
-	 * Adds an {@link AgentBehavior} to the agent
-	 * @param ab {@link AgentBehavior}
+	 * Adds an {@link Behavior} to the agent
+	 * @param ab {@link Behavior}
 	 */
-	public void addBehavior(String name,AgentBehavior ab) {
+	public void addBehavior(String name,Behavior ab) {
 		this.behaviors.put(name,ab);
 	}
 

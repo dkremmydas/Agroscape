@@ -70,8 +70,8 @@ public class BehaviorsLoader {
 			if(bhv.type.equals(BehaviorType.AgentBehavior)) {
 				
 				//assign behavior to agents
-				Iterable<? extends AgentBehavior> behaviorObjects = fact.getBehaviorObjects(simulationContext);	
-				for (AgentBehavior ab : behaviorObjects) {
+				Iterable<? extends Behavior> behaviorObjects = fact.getBehaviorObjects(simulationContext);	
+				for (Behavior ab : behaviorObjects) {
 					ab.getOwner().addBehavior(bhv.name, ab);
 					//add any actions to timeline
 					for (ScheduledAction sa : actions) {

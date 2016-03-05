@@ -1,10 +1,9 @@
 package gr.agroscape.behaviors.arableCropProduction;
 
-import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.Behavior;
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.behaviors.arableCropProduction.properties.CurrentArableCropActivityProperty;
-import gr.agroscape.behaviors.stupido.StupidoBehavior;
 import gr.agroscape.production.agriculturalActivities.ArableCropCultivation;
 import gr.agroscape.production.products.Product;
 import gr.agroscape.skeleton.agents.AgroscapeAgent;
@@ -33,22 +32,21 @@ public class ArableCropProdBehaviorFactory extends BehaviorFactory {
 	
 	public ArableCropProdBehaviorFactory() {
 		super();
-		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "ArableCropProdBehaviorFactory Created");
-		this.name = "ArableCropProductionBehavior";
-		
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "ArableCropProdBehaviorFactory Created");		
 	}
 
 	@Override
-	public Iterable<? extends AgroscapeAgent> getBehaviorAgents(SimulationContext simulationContext) {
+	public Iterable<? extends Behavior> getBehaviorObjects(SimulationContext simulationContext) {
 		Iterable<Farmer> farmers = simulationContext.getFarmersContext().getAllFarmers();	
-		
+		ArrayList<Behavior> bhvs = new ArrayList<>();
 		//1. assign to all farmers
 		for (AgroscapeAgent f : farmers) {
-			f.addBehavior(new ArableCropProdBehavior(this,f, this.bvhContext));
+			bhvs.add(new ArableCropProdBehavior(this,f, this.bvhContext));
 		}
 		
-		return farmers;
+		return bhvs;
 	}
+
 
 	@Override
 	public void addProperties(SimulationContext simulationContext) {
@@ -102,7 +100,7 @@ public class ArableCropProdBehaviorFactory extends BehaviorFactory {
 	
 	@Override
 	public String getBehaviorInformation() {
-		return this.name + "\n Version 1. \n Author Dimitris Kremmydas";
+		return "\n Version 1. \n Author Dimitris Kremmydas";
 	}
 
 

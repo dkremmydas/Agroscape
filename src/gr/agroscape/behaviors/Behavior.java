@@ -13,7 +13,7 @@ import repast.simphony.context.Context;
  * @since 2.0
  *
  */
-public abstract class AgentBehavior {
+public abstract class Behavior {
 	
 	private String name;
 	
@@ -23,7 +23,7 @@ public abstract class AgentBehavior {
 	
 	protected BehaviorFactory bhvFactory;
 
-	protected AgentBehavior(String name, BehaviorFactory bhvFactory, AgroscapeAgent owner, Context<?> bhvContext) {
+	protected Behavior(String name, BehaviorFactory bhvFactory, AgroscapeAgent owner, Context<?> bhvContext) {
 		super();
 		this.bhvContext = bhvContext;
 		this.name = name;

@@ -6,7 +6,6 @@ import gr.agroscape.skeleton.contexts.SimulationContext;
 
 import java.util.List;
 
-import javax.media.j3d.Behavior;
 
 /**
  * <p>The purposes of this class are:</p>
@@ -46,13 +45,13 @@ public abstract class BehaviorFactory {
 
 
 	/**
-	 * <p>It receives the root {@link SimulationContext} and creates the {@link AgentBehavior}
+	 * <p>It receives the root {@link SimulationContext} and creates the {@link Behavior}
 	 * objects</p>
 	 * 
 	 * @param {@link SimulationContext}
-	 * @return Iterable<? extends {@link AgentBehavior}> An iterable of the behavior objects
+	 * @return Iterable<? extends {@link Behavior}> An iterable of the behavior objects
 	 */
-	abstract public Iterable<? extends AgentBehavior> getBehaviorObjects(SimulationContext simulationContext);
+	abstract public Iterable<? extends Behavior> getBehaviorObjects(SimulationContext simulationContext);
 	
 	/**
 	 * <p>Its purpose is to add {@link AgroscapeAgentProperty}s to {@link AgroscapeAgent}s

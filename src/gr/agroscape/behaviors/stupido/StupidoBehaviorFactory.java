@@ -1,6 +1,6 @@
 package gr.agroscape.behaviors.stupido;
 
-import gr.agroscape.behaviors.AgentBehavior;
+import gr.agroscape.behaviors.Behavior;
 import gr.agroscape.behaviors.BehaviorContext;
 import gr.agroscape.behaviors.BehaviorFactory;
 import gr.agroscape.behaviors.stupido.properties.StupidoPlotIntegerProperty;
@@ -31,7 +31,7 @@ public class StupidoBehaviorFactory extends BehaviorFactory {
 	}
 
 	@Override
-	public Iterable<? extends AgentBehavior> getBehaviorObjects(SimulationContext simulationContext) {
+	public Iterable<? extends Behavior> getBehaviorObjects(SimulationContext simulationContext) {
 		ArrayList<StupidoBehavior> bhvs = new ArrayList<>();
 		
 		//add the behavior to farmer agents

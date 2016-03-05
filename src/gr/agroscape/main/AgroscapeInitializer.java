@@ -119,16 +119,18 @@ public class AgroscapeInitializer implements ContextBuilder<Object> {
 	}
 	
 	/**
-	 * Initialize behaviorsDataLoader with the xml document in "freezedried_data/behaviors.xml"
+	 * Initialize behaviorsDataLoader with the xml document in the file
+	 * that the parameter "behaviorXMLfile" is pointing
 	 */
 	private void setBehaviorsDataLoaderFromParametersXML() {
 		
+		String behaviorXMLfile = RunEnvironment.getInstance().getParameters().getString("behaviorXMLfile");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		Document doc = null;
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
-			 doc = dBuilder.parse(new File("freezedried_data/behaviors.xml"));
+			 doc = dBuilder.parse(new File(behaviorXMLfile));
 		} catch (ParserConfigurationException e1) {
 			e1.printStackTrace();
 		}
