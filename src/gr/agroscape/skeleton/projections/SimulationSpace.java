@@ -1,6 +1,5 @@
 package gr.agroscape.skeleton.projections;
 
-import gr.agroscape.skeleton.contexts.SimulationContext;
 import repast.simphony.space.projection.Projection;
 
 
@@ -32,7 +31,7 @@ public class SimulationSpace {
 		
 		public void setSpace(Projection<Object> space) {
 			this.space = space;
-			SimulationContext.getInstance().addProjection(this.space);
+			//SimulationContext.getInstance().addProjection(this.space);
 		}
 
 		@SuppressWarnings("unchecked")

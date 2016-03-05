@@ -11,6 +11,8 @@ package gr.agroscape.skeleton.agents.human;
  * @since 1.0
   */
 public class Farmer extends HumanAgent  {
+	
+	private FarmerAccounting account = new FarmerAccounting();
 
 
 	public Farmer(int id) {
@@ -20,6 +22,11 @@ public class Farmer extends HumanAgent  {
 	
 	public Farmer() {
 		super();
+	}
+
+	
+	public FarmerAccounting getAccount() {
+		return account;
 	}
 	
 	
