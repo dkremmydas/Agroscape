@@ -33,10 +33,18 @@
 		/>
 		
 
-		<parameter name="ExcelDataFile" displayName="Excel Data File Location" type="java.lang.String" 
-						defaultValue="freezedried_data\\dataToLoad.v3.xlsx" 
+		<parameter name="NumberOfFarmers" displayName="NumberOfFarmers" type="int" 
+						defaultValue="5" 
 						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+		
+		<parameter name="NumberOfPlots" displayName="NumberOfPlots" type="int" 
+						defaultValue="15" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
 		/>
 		
 		
