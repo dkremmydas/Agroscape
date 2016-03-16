@@ -1,4 +1,6 @@
-package gr.agroscape.skeleton.agents.plot;
+package gr.agroscape.utilities;
+
+import gr.agroscape.skeleton.agents.plot.Plot;
 
 import java.util.ArrayList;
 
@@ -9,13 +11,13 @@ import repast.simphony.space.grid.GridPoint;
  * 
  * @author Dimitris Kremmydas
  */
-public final class PlotUtils {
+public final class PlotUtilities {
 	
 	
 	/*
 	 * Private Constructor. This class is a Utility class
 	 */
-	private  PlotUtils() {
+	private  PlotUtilities() {
 		
 	}
 	
