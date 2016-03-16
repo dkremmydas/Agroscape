@@ -13,8 +13,9 @@ public class FarmerBehavior extends Behavior{
 
 	private long budgetConstraint;
 	private Farmer f;
-	private Utility u;
 	private Prospect p;
+	
+	private long[][] payoff = new long[9][5];
 	
 	
 	public FarmerBehavior(BehaviorFactory bhvFactory,
@@ -22,7 +23,6 @@ public class FarmerBehavior extends Behavior{
 		super("RiskFarmerBehavior", bhvFactory, owner, bhvContext);
 
 		this.f = (Farmer)this.getOwner();
-		this.u = new Utility();
 		this.p = new Prospect();
 		
 		this.budgetConstraintCalculation();
@@ -52,12 +52,16 @@ public class FarmerBehavior extends Behavior{
 		return this.f.getAccount().getCash();
 	}
 	
+	class PayoffCalculator {
+		
+	}
+	
 	
 	class Prospect {
 		// 0: -80%, 1: -50%, 2: -25%, 3: -1-%
 		// 4: 0, 5: +10%, 6: +20%, 7: +50% 8: +60%, 9: +80%
 		private double probs[] = new double[9];
-		private double incomeDiffs[] = {-0.8,-0.5,-0.25,-0.1,0.0,0.1,0.25,0.35,0.5,0.8};
+		private double incomes[] = {1,2,3,4,5,6,7,8,9,10};
 
 		public Prospect() {
 			//initialize all with equal probability
@@ -71,25 +75,17 @@ public class FarmerBehavior extends Behavior{
 		public double getExpectedIncomeDiff() {
 			double est = 0 ;
 			for(int i=0;i<9;i++) {
-				est =+ (probs[i]*incomeDiffs[i]);
+				est =+ (probs[i]*incomes[i]);
 			}		
 			return est;
 		}
-		
-	}
-	
-	/**
-	 * From 0 - 100
-	 * 
-	 * @author Dimitris Kremmydas
-	 *
-	 */
-	class Utility {
-		
-		
-		public int getUtility(Prospect p) {
-			return 100;
+
+		public double[] getProbs() {
+			return probs;
 		}
+		
+		
+		
 	}
 	
 	
