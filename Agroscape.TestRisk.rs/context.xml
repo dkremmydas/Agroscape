@@ -2,9 +2,8 @@
 	
 	<projection type="grid" id="space" /> 
 	
-	<context id="ArableCropProductionBehavior">
+	<context id="RiskFarmerBehaviorContext">
 		<projection type="grid" id="space" /> 
-		<projection type="value layer" id="cropsGrid" />
 	</context>
 	
 	

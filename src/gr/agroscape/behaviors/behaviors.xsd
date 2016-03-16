@@ -23,6 +23,7 @@
 										<xs:element name="ScheduledAction">
 											<xs:complexType>
 												<xs:all>
+													<xs:element name="Type" minOccurs="1" maxOccurs="1"></xs:element>
 													<xs:element name="Method" minOccurs="1" maxOccurs="1"></xs:element>
 											  		<xs:element name="Start" minOccurs="1" maxOccurs="1"></xs:element>
 											  		<xs:element name="Duration"></xs:element>
