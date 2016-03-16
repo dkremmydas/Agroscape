@@ -26,9 +26,9 @@
 													<xs:element name="Type" minOccurs="1" maxOccurs="1"></xs:element>
 													<xs:element name="Method" minOccurs="1" maxOccurs="1"></xs:element>
 											  		<xs:element name="Start" minOccurs="1" maxOccurs="1"></xs:element>
-											  		<xs:element name="Duration"></xs:element>
+											  		<xs:element name="Duration"  minOccurs="0" maxOccurs="1"></xs:element>
 											  		<xs:element name="Interval" minOccurs="1" maxOccurs="1"></xs:element>
-											  		<xs:element name="Priority"></xs:element>
+											  		<xs:element name="Priority" minOccurs="0" maxOccurs="1"></xs:element>
 											  	</xs:all>
 											</xs:complexType>
 										</xs:element>
