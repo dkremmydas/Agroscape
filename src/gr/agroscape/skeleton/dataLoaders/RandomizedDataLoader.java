@@ -6,12 +6,19 @@ import gr.agroscape.skeleton.agents.plot.Plot;
 import gr.agroscape.skeleton.authorities.LandPropertyRegistry;
 import gr.agroscape.skeleton.contexts.FarmersContext;
 import gr.agroscape.skeleton.contexts.PlotsContext;
+import gr.agroscape.skeleton.contexts.SimulationContext;
 import gr.agroscape.skeleton.projections.SimulationSpace;
 import gr.agroscape.utilities.PlotUtilities;
 
 import java.util.ArrayList;
 
+import repast.simphony.context.space.grid.GridFactory;
+import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridBuilderParameters;
+import repast.simphony.space.grid.SimpleGridAdder;
+import repast.simphony.space.grid.StrictBorders;
 
 public class RandomizedDataLoader implements AgroscapeSkeletonDataLoader {
 	
@@ -27,10 +34,10 @@ public class RandomizedDataLoader implements AgroscapeSkeletonDataLoader {
 	
 	public RandomizedDataLoader() {
 		super();
-		this.numberOfFarmers =  Integer.parseInt(RunEnvironment.getInstance().getParameters().getString("NumberOfFarmers"));
-		this.numberOfPlots =  Integer.parseInt(RunEnvironment.getInstance().getParameters().getString("NumberOfPlots"));
-		gridH = Integer.parseInt(RunEnvironment.getInstance().getParameters().getString("gridHeight"));
-		gridW = Integer.parseInt(RunEnvironment.getInstance().getParameters().getString("gridWidth"));
+		this.numberOfFarmers =  RunEnvironment.getInstance().getParameters().getInteger("NumberOfFarmers");
+		this.numberOfPlots =  RunEnvironment.getInstance().getParameters().getInteger("NumberOfPlots");
+		gridH = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
+		gridW = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
 		plotsPerFarmer=numberOfFarmers/numberOfPlots;
 	}
 
@@ -69,7 +76,15 @@ public class RandomizedDataLoader implements AgroscapeSkeletonDataLoader {
 
 	@Override
 	public void initSimulationSpace(SimulationSpace sp) {
-		// TODO Auto-generated method stub
+		Integer w = RunEnvironment.getInstance().getParameters().getInteger("gridWidth");
+		Integer h = RunEnvironment.getInstance().getParameters().getInteger("gridHeight");
+		
+		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+		Grid<Object> space = gridFactory.createGrid("space", SimulationContext.getInstance(),
+						new GridBuilderParameters<Object>(new StrictBorders(),
+								new SimpleGridAdder<Object>(), false, w, h));
+		
+		sp.setSpace(space);
 
 	}
 	
