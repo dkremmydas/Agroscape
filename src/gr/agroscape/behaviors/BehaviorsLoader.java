@@ -68,15 +68,24 @@ public class BehaviorsLoader {
 			simulationContext.addSubContext(fact.getBehaviorContext());
 			
 			if(bhv.type.equals(BehaviorType.AgentBehavior)) {
-				
+	
 				//assign behavior to agents
 				Iterable<? extends Behavior> behaviorObjects = fact.getBehaviorObjects(simulationContext);	
 				for (Behavior ab : behaviorObjects) {
 					ab.getOwner().addBehavior(bhv.name, ab);
-					//add any actions to timeline
+					//add any actions that are of AgentAction Type to timeline
 					for (ScheduledAction sa : actions) {
-						timeline.schedule(sa.getParams(), ab, sa.getMethod());
+						if(sa.getType().equals(ActionType.AgentAction)) {
+							timeline.schedule(sa.getParams(), ab, sa.getMethod());
+						}						
 					}
+				}
+				
+				//add any actions that are of ContextAction Type to timeline
+				for (ScheduledAction sa : actions) {
+					if(sa.getType().equals(ActionType.ContextAction)) {
+						timeline.schedule(sa.getParams(), fact.getBehaviorContext(), sa.getMethod());
+					}						
 				}
 				
 				//add properties to agents
@@ -116,11 +125,12 @@ public class BehaviorsLoader {
 				Node nNode = scheduledActions.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
+					String actionType = eElement.getElementsByTagName("Type").item(0).getTextContent();
 					String method = eElement.getElementsByTagName("Method").item(0).getTextContent();
 					int start = Integer.parseInt(eElement.getElementsByTagName("Start").item(0).getTextContent());
 					int interval = Integer.parseInt(eElement.getElementsByTagName("Interval").item(0).getTextContent());
 					int priority = Integer.parseInt(eElement.getElementsByTagName("Priority").item(0).getTextContent());
-					this.actions.add(new ScheduledAction(method,ScheduleParameters.createRepeating(start, interval, priority)));
+					this.actions.add(new ScheduledAction(ActionType.valueOf(actionType),method,ScheduleParameters.createRepeating(start, interval, priority)));
 				}
 			}
 		}
@@ -134,11 +144,13 @@ public class BehaviorsLoader {
 	}
 	
 	class ScheduledAction {
+		private ActionType type;
 		private String method;		
 		private ScheduleParameters params;
 		
-		public ScheduledAction(String method, ScheduleParameters params) {
+		public ScheduledAction(ActionType a, String method, ScheduleParameters params) {
 			super();
+			this.type = a;
 			this.method = method;
 			this.params = params;
 		}
@@ -150,12 +162,19 @@ public class BehaviorsLoader {
 		public ScheduleParameters getParams() {
 			return params;
 		}
-		
+
+		public ActionType getType() {
+			return type;
+		}		
 		
 	}
 	
 	enum BehaviorType {
 		AgentBehavior, ContextBehavior
+	}
+	
+	enum ActionType {
+		AgentAction, ContextAction
 	}
 	
 }
