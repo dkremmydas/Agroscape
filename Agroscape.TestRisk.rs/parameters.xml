@@ -25,8 +25,8 @@
 									
 		/>
 		
-		<parameter name="behaviorXMLfile" displayName="Skeleton DataLoader Class" type="java.lang.String" 
-						defaultValue="freezedried_data\\behaviors.xml" 
+		<parameter name="behaviorXMLfile" displayName="Behavior XML File" type="java.lang.String" 
+						defaultValue="freezedried_data\\behaviorTestRisk.xml" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
