@@ -13,6 +13,8 @@ public class FarmerBehavior extends Behavior{
 
 	private long budgetConstraint;
 	private Farmer f;
+	private Utility u;
+	private Prospect p;
 	
 	
 	public FarmerBehavior(BehaviorFactory bhvFactory,
@@ -20,6 +22,9 @@ public class FarmerBehavior extends Behavior{
 		super("RiskFarmerBehavior", bhvFactory, owner, bhvContext);
 
 		this.f = (Farmer)this.getOwner();
+		this.u = new Utility();
+		this.p = new Prospect();
+		
 		this.budgetConstraintCalculation();
 		
 	}
@@ -36,13 +41,16 @@ public class FarmerBehavior extends Behavior{
 	
 
 	/**
-	 * Getter
+	 * Getter      
 	 * @return
 	 */
 	public long getBudgetConstraint() {
 		return budgetConstraint;
 	}
 	
+	public long getCash() {
+		return this.f.getAccount().getCash();
+	}
 	
 	
 	class Prospect {
