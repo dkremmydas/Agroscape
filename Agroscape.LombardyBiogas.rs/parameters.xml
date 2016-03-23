@@ -32,7 +32,7 @@
 									
 		/>
 		
-
+		
 		<parameter name="NumberOfFarmers" displayName="NumberOfFarmers" type="int" 
 						defaultValue="100" 
 						isReadOnly="false" 
@@ -44,6 +44,13 @@
 						defaultValue="500" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+		
+		<parameter name="dataFolder" displayName="Data Folder Location" type="java.lang.String" 
+						defaultValue="C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Lombardy Biogas ABM\\data\\" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
 									
 		/>
 		
