@@ -1,0 +1,17 @@
+<context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context" id="SimulationContext">
+	
+	<projection type="grid" id="space" /> 
+	
+	<context id="RiskFarmerBehaviorContext">
+		<projection type="grid" id="space" /> 
+	</context>
+	
+	
+	<context id="FarmersContext">
+		
+	</context>
+	<context id="PlotsContext">
+		
+	</context>
+
+</context>

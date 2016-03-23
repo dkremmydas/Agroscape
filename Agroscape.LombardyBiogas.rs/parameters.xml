@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<parameters>
+					<parameter name="randomSeed" displayName="Default Random Seed" type="int" 
+						defaultValue="__NULL__"
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="gridHeight" displayName="gridHeight" type="int" 
+						defaultValue="101" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="gridWidth" displayName="gridWidth" type="int" 
+						defaultValue="101" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="skeletonDataLoaderClass" displayName="Skeleton DataLoader Class" type="java.lang.String" 
+						defaultValue="gr.agroscape.skeleton.dataLoaders.RandomizedDataLoader" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
+		
+		<parameter name="behaviorXMLfile" displayName="Behavior XML File" type="java.lang.String" 
+						defaultValue="freezedried_data\\behaviorTestRisk.xml" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$StringStringConverter"
+									
+		/>
+		
+
+		<parameter name="NumberOfFarmers" displayName="NumberOfFarmers" type="int" 
+						defaultValue="100" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+		
+		<parameter name="NumberOfPlots" displayName="NumberOfPlots" type="int" 
+						defaultValue="500" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+		
+		
+		
+		
+		</parameters>
+
+
