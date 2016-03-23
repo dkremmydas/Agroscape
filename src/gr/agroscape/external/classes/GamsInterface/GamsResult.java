@@ -24,7 +24,7 @@ public class GamsResult {
 
 	@Override
 	public String toString() {
-		return "GamsResult [resultFile=" + resultFile + ", resultCode="
+		return "GamsResult [resultFile=" + resultFile.getAbsolutePath() + ", resultCode="
 				+ resultCode + "]";
 	}
 	

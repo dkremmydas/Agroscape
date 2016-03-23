@@ -4,14 +4,11 @@ import static org.junit.Assert.assertNotNull;
 import gr.agroscape.external.classes.GamsInterface.GamsModelSolver;
 import gr.agroscape.external.classes.GamsInterface.GamsResult;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +26,26 @@ public class TestGamsExe {
 	public void setUp() throws Exception {
 			this.systemDir="C:\\Program Files (x86)\\gams_22.4\\gams_22.4";
 			this.workingDir="C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Lombardy Biogas ABM\\data\\testGAMS";
-			this.modelFile= "transport.gms";
+			this.modelFile= this.workingDir + "\\transport.gms";
+	}
+	
+	
+	@Test
+	public void testGamsLombardyModel() throws IOException {
+		GamsModelSolver gms = new GamsModelSolver();
+		System.out.println(gms.toString());
+		
+		String root = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Lombardy Biogas ABM\\productionModel";
+		String modelF = root + "\\farmerModel.gms";
+		ArrayList<String> dataF = new ArrayList<String>(Arrays.asList(root+"\\loadData.gms",root+"\\data.gdx",root+"\\definitions.gms",
+				root+"\\price.inc"));
+		
+		GamsResult gs = gms.solve(modelF,dataF);
+		System.out.println(gs.toString());
+		
+		
+		
+		assertNotNull(gs);
 	}
 	
 	@Test

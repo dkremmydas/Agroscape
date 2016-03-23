@@ -9,9 +9,11 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ivy.util.StringUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.io.Files;
+
 
 /*
  * Responsible for solving GAMS model that contain a bunch of Farmers
@@ -37,73 +39,79 @@ import com.google.common.io.Files;
  */
 public class GamsModelSolver {
 	
-	private File workingDir;
+	private File workingDir = null;	
+	private Boolean usedWorkingDir = Boolean.FALSE;
 	
-	private String systemDir = "C:\\Program Files (x86)\\gams_22.4\\gams_22.4";
+	private String systemDir = "C:\\Program Files (x86)\\gams_24_0";
 	
-	private String modelFile;
+	private File modelFile = null;
 	
-	private File dataFile;
+	private ArrayList<File> dataFile = new ArrayList<>();
 	
 	
-	public GamsModelSolver() {		
+	public GamsModelSolver() {	
 		this.getNewWorkingDir();
 	}
 	
 
 	public GamsResult solve(String modelFile) throws IOException {
-		return this.solve(modelFile,"");
+		this.modelFile = new File(modelFile);
+		return this.doSolve();
 	}
 
 	public GamsResult solve(String modelFile, String dataFile) throws IOException {
-		this.modelFile=modelFile;
-		this.dataFile=new File(dataFile);		
-		this.getNewWorkingDir();
+		this.modelFile = new File(modelFile);
+		this.dataFile.add(new File(dataFile));		
 		return this.doSolve();
 	}
 	
-	private void getNewWorkingDir() {
-		try {
-			if(! (this.workingDir==null)) {
-				this.deleteExistingWorkingDir();
+	public GamsResult solve(String modelFile, ArrayList<String> dataFiles) throws IOException {
+		this.modelFile = new File(modelFile);
+		for (String string : dataFiles) {
+			this.dataFile.add(new File(string));		
+		}
+		return this.doSolve();
+	}
+	
+	public String getSystemDir() {
+		return systemDir;
+	}
+
+
+	public void setSystemDir(String systemDir) {
+		this.systemDir = systemDir;
+	}
+
+
+	private GamsResult doSolve() throws IOException {
+		if (usedWorkingDir) this.getNewWorkingDir();
+		usedWorkingDir=Boolean.TRUE;
+		
+		//copy data file to working dir
+		for (File file : dataFile) {
+			if(file.exists()) {
+				FileUtils.copyFile(file, new File(this.workingDir+File.separator+file.getName()));
 			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			else {
+				throw new IOException("Gams Data File does not exist ! ["+file.getAbsolutePath()+"]");
+			}
 		}
 		
-		this.workingDir = Files.createTempDir();
-	}
-	
-	private void deleteExistingWorkingDir() throws IOException {
-		if(! this.workingDir.exists()) return;
-		java.nio.file.Files.walkFileTree(this.workingDir.toPath(), new SimpleFileVisitor<Path>() {
-			   @Override
-			   public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				   java.nio.file.Files.delete(file);
-			       return FileVisitResult.CONTINUE;
-			   }
 
-			   @Override
-			   public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-				   java.nio.file.Files.delete(dir);
-			       return FileVisitResult.CONTINUE;
-			   }
-			});
-	}
-	
-	
-	private GamsResult doSolve() throws IOException {
 		//copy data file to working dir
-		if(this.dataFile.exists()) {
-			Files.copy(this.dataFile, new File(this.workingDir+File.pathSeparator+this.dataFile.getName()));
+		if(this.modelFile.exists()) {
+			FileUtils.copyFile(this.modelFile, new File(this.workingDir+File.separator+this.modelFile.getName()));
 		}
+		else {
+			throw new IOException("Gams Model File does not exist ! ["+this.modelFile.getAbsolutePath()+"]");
+		}
+		
+		
 		
 		//create command
 		List<String> command = new ArrayList<String>();
 	    command.add(this.systemDir + "\\gams.exe");
-	    command.add(this.modelFile);
+	    command.add(this.modelFile.getName());
 	    command.add("Gdx=output");
 	    
 	    //create processbuilder
@@ -125,9 +133,12 @@ public class GamsModelSolver {
             command.clear();
             command.add(this.systemDir + "\\gdx2sqlite.exe");
     	    command.add("-i");
-    	    command.add("output.gdx");
+    	    command.add("\"" + this.workingDir + File.separator + "output.gdx" + "\"");
     	    command.add("-o");
-    	    command.add("results.db");
+    	    command.add("\"" + this.workingDir + File.separator+ "results.db" + "\"");
+    	    System.out.println(StringUtils.join(command.toArray()," "));
+    	    //Arrays.deepToString();
+    	    
     	    final Process p2 = builder.start();
     	    try {
                 exitValueGdx = p2.waitFor();
@@ -142,7 +153,7 @@ public class GamsModelSolver {
         }
 	    
 	    if(exitValueGams==0 && exitValueGdx==0) {
-	    	return new GamsResult(new File(this.workingDir+File.pathSeparator+"results.db"), 
+	    	return new GamsResult(new File(this.workingDir+File.separator+"results.db"), 
 	    			GamsResultCodes.OK);	
 	    }
 	    else if(exitValueGdx!=0) {
@@ -153,6 +164,37 @@ public class GamsModelSolver {
 	    			GamsResultCodes.PROBLEM);
 	    }
 		
+	}
+	
+	private void getNewWorkingDir() {
+		try {
+			if(! (this.workingDir==null)) {
+				this.deleteExistingWorkingDir();
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.workingDir = Files.createTempDir();
+		usedWorkingDir=Boolean.FALSE;
+	}
+	
+	private void deleteExistingWorkingDir() throws IOException {
+		if(! this.workingDir.exists()) return;
+		java.nio.file.Files.walkFileTree(this.workingDir.toPath(), new SimpleFileVisitor<Path>() {
+			   @Override
+			   public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+				   java.nio.file.Files.delete(file);
+			       return FileVisitResult.CONTINUE;
+			   }
+
+			   @Override
+			   public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+				   java.nio.file.Files.delete(dir);
+			       return FileVisitResult.CONTINUE;
+			   }
+			});
 	}
 
 
