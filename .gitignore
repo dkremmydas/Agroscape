@@ -41,3 +41,4 @@ simulation_logs.txt
 # Locally stored "Eclipse launch configurations"
 /installer/
 /target/
+/bin-tests/
