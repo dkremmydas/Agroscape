@@ -12,6 +12,8 @@ public class ArableCropCultivation extends AgriculturalActivity {
 	 */
 	private String name;
 	
+	private String shortName;
+	
 
 	/**
 	 * Constructor
@@ -20,11 +22,23 @@ public class ArableCropCultivation extends AgriculturalActivity {
 	public ArableCropCultivation(String name,ArrayList<Product> o) {
 		super(o);
 		this.name = name;
+		this.shortName = name;
 	}
 	
 	public ArableCropCultivation(String name,Product o) {
 		super(o);
 		this.name = name;
+		this.shortName = name;
+	}
+	
+	public ArableCropCultivation(String name,String shortN,ArrayList<Product> o) {
+		this(name,o);
+		this.shortName = shortN;
+	}
+	
+	public ArableCropCultivation(String name,String shortN,Product o) {
+		this(name,o);
+		this.shortName = shortN;
 	}
 	
 	/**
@@ -45,7 +59,10 @@ public class ArableCropCultivation extends AgriculturalActivity {
 		return name;
 	}
 
-	
+
+	public String getShortName() {
+		return shortName;
+	}
 
 	@Override
 	public String toString() {
