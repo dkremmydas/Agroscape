@@ -16,5 +16,7 @@ public class FarmerProperties {
 	 * The variable costs for each {@link ArableCropCultivation}
 	 */
 	private HashMap<ArableCropCultivation,Float> varCosts = new HashMap<>();
+	
+	
 
 }
