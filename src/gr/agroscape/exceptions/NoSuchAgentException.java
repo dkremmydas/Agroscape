@@ -2,6 +2,11 @@ package gr.agroscape.exceptions;
 
 public class NoSuchAgentException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NoSuchAgentException() {
 		super();
 		// TODO Auto-generated constructor stub
